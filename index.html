@@ -1,4 +1,4 @@
-[14.11.2026 12:45] Pablo_war_絶対💠💠💠: <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
@@ -61,7 +61,7 @@
     .profile-name { font-size: 22px; font-weight: 700; margin-bottom: 10px; }
     .wood-medal-container { display: none; flex-direction: column; align-items: center; margin-bottom: 20px; }
     .wood-medal { width: 80px; height: 80px; margin-bottom: 5px; }
-[14.11.2026 12:45] Pablo_war_絶対💠💠💠: .wood-medal-text { font-size: 12px; color: #fbbf24; font-weight: 800; text-transform: uppercase; }
+    .wood-medal-text { font-size: 12px; color: #fbbf24; font-weight: 800; text-transform: uppercase; }
     .profile-bottom { width: 100%; margin-top: auto; }
     .progress-label { font-size: 13px; color: #c4b5fd; margin-bottom: 8px; display: flex; justify-content: space-between; }
     .progress-bar { height: 8px; background: rgba(255,255,255,0.15); border-radius: 10px; overflow: hidden; }
@@ -114,7 +114,7 @@
       <div class="auto-info" id="autoInfo" style="display:none;"></div>
     </div>
   </div>
-[14.11.2026 12:45] Pablo_war_絶対💠💠💠: <div class="screen" id="screen-upgrades">
+<div class="screen" id="screen-upgrades">
     <div class="tabs">
       <button class="tab-btn active" id="tabTap">Ул. тапа</button>
       <button class="tab-btn" id="tabAuto">Ул. автокликера</button>
@@ -193,7 +193,7 @@
       { name: "Улучшенный тап", desc: "Каждый тап даёт 0.002 ₽", cost: 2.5, value: 0.002 },
       { name: "Сильный тап", desc: "Каждый тап даёт 0.003 ₽", cost: 4, value: 0.003 },
       { name: "Мощный тап", desc: "Каждый тап даёт 0.004 ₽", cost: 8, value: 0.004 },
-[14.11.2026 12:45] Pablo_war_絶対💠💠💠: { name: "Супер тап", desc: "Каждый тап даёт 0.005 ₽", cost: 16, value: 0.005 },
+{ name: "Супер тап", desc: "Каждый тап даёт 0.005 ₽", cost: 16, value: 0.005 },
       { name: "Мега тап", desc: "Каждый тап даёт 0.010 ₽", cost: 50, value: 0.010 }
     ];
     var autoValueData = [
@@ -295,7 +295,7 @@
         clientX = e.clientX;
         clientY = e.clientY;
       }
-[14.11.2026 12:45] Pablo_war_絶対💠💠💠: float.style.left = clientX + 'px';
+float.style.left = clientX + 'px';
       float.style.top = clientY + 'px';
       float.style.animation = 'floatUp 0.8s ease-out forwards';
       
@@ -372,7 +372,7 @@
               })(av);
             }
             card.appendChild(btn); upgradesList.appendChild(card);
-[14.11.2026 12:45] Pablo_war_絶対💠💠💠: }
+          }
           var t2 = document.createElement('div'); t2.className = 'section-title'; t2.innerText = 'Скорость автокликера'; upgradesList.appendChild(t2);
           for (var s = 0; s < autoSpeedData.length; s++) {
             var as = autoSpeedData[s];
@@ -458,7 +458,7 @@
           else if (u.first_name) name = u.first_name;
         }
       } catch(e) {}
-[14.11.2026 12:45] Pablo_war_絶対💠💠💠: if (!photo) photo = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
+if (!photo) photo = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
       
       document.getElementById('topAvatar').src = photo;
       document.getElementById('profileAvatar').src = photo;
