@@ -30,9 +30,9 @@
 
     .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; }
     
-    /* ИСПРАВЛЕНО: Убрали черный фон. Прозрачность картинки теперь видна */
-    .potato-wrap { width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
-    .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; }
+    /* ЖЕСТКО УБИРАЕМ ФОН У КАРТИНКИ */
+    .potato-wrap { width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; background: transparent !important; border: none !important; box-shadow: none !important; }
+    .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; background: transparent !important; }
     .potato-wrap:active img { transform: scale(0.92); }
 
     .tap-power { margin-top: 16px; font-size: 15px; color: #c4b5fd; }
@@ -95,8 +95,9 @@
 
   <div class="screen active" id="screen-main">
     <div class="main-content">
+      <!-- Добавил ?v=2, чтобы браузер точно скачал новую картинку, а не взял старую из кэша -->
       <div class="potato-wrap" id="potatoBtn">
-        <img src="potato.png" draggable="false" alt="Картошка">
+        <img src="potato.png?v=2" draggable="false" alt="Картошка">
       </div>
       <div class="tap-power">Тап: <span id="tapPower">0.001</span> ₽</div>
       <div class="auto-info" id="autoInfo" style="display:none;"></div>
@@ -121,7 +122,7 @@
        <div class="rating-name">🏆 Вы — Лидер проекта!</div>
     </div>
   </div>
-  <div class="screen" id="screen-profile">
+<div class="screen" id="screen-profile">
     <div class="profile-content">
       <img class="profile-avatar" id="profileAvatar" src="" alt="">
       <div class="profile-name" id="profileName">Игрок</div>
@@ -290,7 +291,7 @@
       document.body.appendChild(float);
       setTimeout(function() { if (float.parentNode) float.parentNode.removeChild(float); }, 800);
     }
-    if (potatoBtn) {
+[14.11.2026 13:20] Pablo_war_絶対💠💠💠: if (potatoBtn) {
       potatoBtn.addEventListener('touchstart', handleTap, { passive: false });
       potatoBtn.addEventListener('mousedown', handleTap);
     }
@@ -363,7 +364,7 @@
           var t2 = document.createElement('div'); t2.className = 'section-title'; t2.innerText = 'Скорость автокликера'; upgradesList.appendChild(t2);
           for (var s = 0; s < autoSpeedData.length; s++) {
             var as = autoSpeedData[s];
-            var isB = autoSpeedLevel >= as.level; var isN = autoSpeedLevel + 1 === as.level;
+var isB = autoSpeedLevel >= as.level; var isN = autoSpeedLevel + 1 === as.level;
             var card = document.createElement('div'); card.className = 'card';
             card.innerHTML = '<div class="card-title">Скорость Lv.' + as.level + '</div><div class="card-desc">Интервал: ' + (as.interval/1000) + ' сек</div>';
             var btn = document.createElement('button'); btn.className = 'btn';
@@ -446,7 +447,7 @@
       document.getElementById('topAvatar').src = photo;
       document.getElementById('profileAvatar').src = photo;
       document.getElementById('profileName').innerText = userName;
-      if (claimed.indexOf(5) !== -1) {
+if (claimed.indexOf(5) !== -1) {
         woodMedalBox.style.display = 'flex';
       } else {
         woodMedalBox.style.display = 'none';
