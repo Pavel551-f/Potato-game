@@ -19,23 +19,11 @@
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; }
 
-    /* Верхняя панель с балансом */
     .top-balance { position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.45); border-radius: 50px; padding: 5px 14px 5px 5px; z-index: 60; cursor: pointer; }
     .top-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid #a855f7; background: #4c1d95; }
     .top-balance-text { display: flex; flex-direction: column; }
     .top-balance-label { font-size: 11px; color: #c4b5fd; }
     .top-balance-value { font-size: 16px; font-weight: 700; }
-
-    /* Кнопка языка в правом верхнем углу профиля */
-    .lang-btn-top {
-      position: absolute; top: 14px; right: 14px;
-      display: flex; align-items: center; gap: 6px;
-      background: rgba(255,255,255,0.1); border-radius: 20px;
-      padding: 8px 14px; cursor: pointer;
-      font-weight: 700; font-size: 15px; color: #e9d5ff;
-      border: 1px solid rgba(255,255,255,0.2); z-index: 60;
-    }
-    .lang-btn-top:active { background: rgba(255,255,255,0.2); }
 
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; }
     .screen.active { display: flex; }
@@ -53,25 +41,53 @@
     .tab-btn { flex: 1; padding: 11px 6px; border: none; border-radius: 12px; font-size: 13px; font-weight: 600; background: rgba(255,255,255,0.08); color: #c4b5fd; cursor: pointer; }
     .tab-btn.active { background: linear-gradient(135deg, #c084fc, #a855f7); color: white; }
     .list-content { padding: 0 16px 30px; }
-    #screen-quests .list-content { padding-top: 80px; }
-    .card { background: rgba(255,255,255,0.09); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
-    .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
-    .card-desc { font-size: 13px; color: #c4b5fd; margin-bottom: 12px; }
+    #screen-quests .list-content, #screen-achievements .list-content { padding-top: 80px; }
+    
+    .card { background: rgba(255,255,255,0.09); border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid transparent; transition: all 0.3s ease; }
+    .card-icon { font-size: 30px; flex-shrink: 0; width: 45px; text-align: center; }
+    .card-content { flex: 1; }
+    .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+    .card-desc { font-size: 13px; color: #c4b5fd; margin-bottom: 6px; }
+    .card-status { font-size: 12px; font-weight: 700; }
+    .status-locked { color: #6b7280; }
+    .status-unlocked { color: #10b981; }
+    
+    /* === RGB ПОДСВЕТКА ДЛЯ ВЫПОЛНЕННЫХ ДОСТИЖЕНИЙ === */
+    .rgb-glow {
+      animation: rgbGlowAnim 3s linear infinite;
+      background: rgba(255, 255, 255, 0.12); /* Делаем фон чуть светлее */
+    }
+    @keyframes rgbGlowAnim {
+      0% { box-shadow: 0 0 12px rgba(255, 0, 85, 0.6), inset 0 0 8px rgba(255, 0, 85, 0.4); border-color: #ff0055; }
+      25% { box-shadow: 0 0 12px rgba(0, 255, 170, 0.6), inset 0 0 8px rgba(0, 255, 170, 0.4); border-color: #00ffaa; }
+      50% { box-shadow: 0 0 12px rgba(0, 170, 255, 0.6), inset 0 0 8px rgba(0, 170, 255, 0.4); border-color: #00aaff; }
+      75% { box-shadow: 0 0 12px rgba(255, 170, 0, 0.6), inset 0 0 8px rgba(255, 170, 0, 0.4); border-color: #ffaa00; }
+      100% { box-shadow: 0 0 12px rgba(255, 0, 85, 0.6), inset 0 0 8px rgba(255, 0, 85, 0.4); border-color: #ff0055; }
+    }
+
     .section-title { font-size: 14px; color: #a78bfa; margin: 14px 0 10px; font-weight: 600; }
     .btn { background: linear-gradient(135deg, #c084fc, #a855f7); border: none; color: white; padding: 11px; border-radius: 12px; font-size: 14px; font-weight: 600; width: 100%; cursor: pointer; margin-bottom: 10px; }
     .btn:disabled { background: #4b5563; color: #9ca3af; }
 
     .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; }
     .profile-avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 3px solid #a855f7; margin-bottom: 18px; background: #4c1d95; }
-    .profile-name { font-size: 22px; font-weight: 700; margin-bottom: 10px; text-align: center; }
-    .wood-medal-container { display: none; flex-direction: column; align-items: center; margin-bottom: 20px; }
-    .wood-medal { width: 80px; height: 80px; margin-bottom: 5px; }
-    .wood-medal-text { font-size: 12px; color: #fbbf24; font-weight: 800; text-transform: uppercase; }
+    .profile-name { font-size: 22px; font-weight: 700; margin-bottom: 20px; text-align: center; }
+    
     .profile-bottom { width: 100%; margin-top: auto; }
     .progress-label { font-size: 13px; color: #c4b5fd; margin-bottom: 8px; display: flex; justify-content: space-between; }
     .progress-bar { height: 8px; background: rgba(255,255,255,0.15); border-radius: 10px; overflow: hidden; }
     .progress-fill { height: 100%; background: linear-gradient(90deg, #c084fc, #a855f7); width: 0%; transition: width 0.3s; }
     .progress-hint { font-size: 12px; color: #9ca3af; margin-top: 10px; text-align: center; }
+
+    .lang-btn-top {
+      position: absolute; top: 14px; right: 14px;
+      display: flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.1); border-radius: 20px;
+      padding: 8px 14px; cursor: pointer;
+      font-weight: 700; font-size: 15px; color: #e9d5ff;
+      border: 1px solid rgba(255,255,255,0.2); z-index: 60;
+    }
+    .lang-btn-top:active { background: rgba(255,255,255,0.2); }
 
     .rating-container { flex: 1; overflow-y: auto; padding: 80px 16px 100px; }
     .rating-row { display: flex; align-items: center; padding: 16px; border-radius: 16px; margin-bottom: 12px; background: linear-gradient(90deg, rgba(234, 179, 8, 0.15) 0%, rgba(26, 26, 33, 0.8) 100%); border: 1px solid rgba(234, 179, 8, 0.4); }
@@ -91,19 +107,20 @@
     .float-text { position: fixed; font-size: 24px; font-weight: 800; color: #f5d0fe; text-shadow: 0 2px 4px rgba(0,0,0,0.5); pointer-events: none; z-index: 100; animation: floatUp 0.8s ease-out forwards; }
     @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); } }
 
-    /* Модальное окно выбора языка */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
     .modal-content { background: #2e1065; padding: 20px; border-radius: 20px; width: 80%; max-width: 300px; text-align: center; border: 1px solid #a855f7; }
     .modal-content h3 { margin-bottom: 15px; font-size: 18px; }
     .modal-btn { background: rgba(255,255,255,0.1); border: 1px solid #a855f7; color: white; padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 10px; font-size: 16px; cursor: pointer; transition: 0.2s; }
     .modal-btn:hover { background: #a855f7; }
+
+    .wood-medal-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 50px; }
+    .wood-medal { width: 45px; height: 45px; }
   </style>
 </head>
 <body>
 
   <div id="error-screen"></div>
 
-  <!-- Модальное окно выбора языка -->
   <div class="modal-overlay" id="langModal">
     <div class="modal-content">
       <h3 data-i18n="lang_title">Выберите язык / Choose language</h3>
@@ -113,7 +130,6 @@
     </div>
   </div>
 
-  <!-- Баланс -->
   <div class="top-balance" id="openProfile">
     <img class="top-avatar" id="topAvatar" src="" alt="">
     <div class="top-balance-text">
@@ -122,7 +138,6 @@
     </div>
   </div>
 
-  <!-- ГЛАВНАЯ -->
   <div class="screen active" id="screen-main">
     <div class="main-content">
       <div class="potato-wrap" id="potatoBtn">
@@ -133,7 +148,6 @@
     </div>
   </div>
 
-  <!-- УЛУЧШЕНИЯ -->
   <div class="screen" id="screen-upgrades">
     <div class="tabs">
       <button class="tab-btn active" id="tabTap" data-i18n="tab_tap">Ул. тапа</button>
@@ -142,12 +156,14 @@
     <div class="list-content" id="upgradesList"></div>
   </div>
 
-  <!-- КВЕСТЫ -->
   <div class="screen" id="screen-quests">
     <div class="list-content" id="questsList"></div>
   </div>
 
-  <!-- РЕЙТИНГ -->
+  <div class="screen" id="screen-achievements">
+    <div class="list-content" id="achievementsList"></div>
+  </div>
+
   <div class="screen" id="screen-rating">
     <div class="rating-container" id="leaderboardList"></div>
     <div class="my-rating-box">
@@ -155,11 +171,9 @@
     </div>
   </div>
 
-  <!-- ПРОФИЛЬ -->
   <div class="screen" id="screen-profile">
     <div class="profile-content">
       
-      <!-- НОВАЯ КНОПКА ЯЗЫКА В ПРАВОМ ВЕРХНЕМ УГЛУ -->
       <div class="lang-btn-top" onclick="openLangMenu()">
         🌐 <span id="currentLangText">RU</span>
       </div>
@@ -167,31 +181,19 @@
       <img class="profile-avatar" id="profileAvatar" src="" alt="">
       <div class="profile-name" id="profileName" data-i18n="player">Игрок</div>
       
-      <div class="wood-medal-container" id="woodMedalBox">
-        <svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/>
-          <ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/>
-          <ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/>
-          <ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/>
-          <ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/>
-          <path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/>
-        </svg>
-        <div class="wood-medal-text" data-i18n="legend">Легенда</div>
-      </div>
-
       <div class="profile-bottom">
-        <div class="progress-label"><span data-i18n="total_taps">Всего тапов</span><span id="totalTapsText">0</span></div>
+        <button class="btn" style="background: rgba(255,255,255,0.1); border: 1px solid #a855f7;" onclick="showScreen('achievements')" data-i18n="achievements_btn">🏆 Достижения / Achievements</button>
+        <button class="btn" style="background: #10b981;" onclick="withdrawMoney()" data-i18n="withdraw">Вывести средства</button>
+
+        <div class="progress-label" style="margin-top: 20px;"><span data-i18n="total_taps">Всего тапов</span><span id="totalTapsText">0</span></div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         <div class="progress-hint" data-i18n="taps_hint">Число тапов, чтобы друзья могли посмотреть</div>
         
-        <button class="btn" style="margin-top: 20px; background: #10b981;" onclick="withdrawMoney()" data-i18n="withdraw">Вывести средства</button>
-        
-        <div id="devBtn" style="margin-top: 10px; font-size: 10px; color: #4b5563; text-align: center; cursor: pointer;" data-i18n="dev_btn">Нажми 5 раз для теста</div>
+        <div id="devBtn" style="margin-top: 20px; font-size: 10px; color: #4b5563; text-align: center; cursor: pointer;" data-i18n="dev_btn">Нажми 5 раз для теста</div>
       </div>
     </div>
   </div>
 
-  <!-- НИЖНЕЕ МЕНЮ -->
   <div class="bottom-menu">
     <div class="menu-item active" data-screen="main"><div class="menu-icon">☕</div><div data-i18n="menu_main">Главная</div></div>
     <div class="menu-item" data-screen="upgrades"><div class="menu-icon">⚡</div><div data-i18n="menu_upgrades">Улучшения</div></div>
@@ -209,7 +211,56 @@
       return false;
     };
 
-    // 1. СЛОВАРИ ПЕРЕВОДОВ
+    var audioCtx = null;
+    function initAudio() {
+      if (!audioCtx) {
+        try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+      }
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+    }
+    document.body.addEventListener('click', initAudio, { once: true });
+    document.body.addEventListener('touchstart', initAudio, { once: true });
+
+    function playSound(type) {
+      if (!audioCtx) return;
+      var osc = audioCtx.createOscillator();
+      var gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      var now = audioCtx.currentTime;
+      
+      if (type === 'upgrade') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        osc.start(now); osc.stop(now + 0.3);
+      } else if (type === 'quest_ready') {
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(600, now);
+        osc.frequency.setValueAtTime(800, now + 0.1);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+        osc.start(now); osc.stop(now + 0.4);
+      } else if (type === 'quest_claim') {
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(987.77, now);
+        osc.frequency.setValueAtTime(1318.51, now + 0.1);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
+        osc.start(now); osc.stop(now + 0.4);
+      } else if (type === 'achievement') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(440, now);
+        osc.frequency.setValueAtTime(554.37, now + 0.1);
+        osc.frequency.setValueAtTime(659.25, now + 0.2);
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
+        osc.start(now); osc.stop(now + 0.5);
+      }
+    }
+
     var translations = {
       ru: {
         balance_label: "Ваш баланс", tap_label: "Тап", tab_tap: "Ул. тапа", tab_auto: "Ул. автокликера",
@@ -223,7 +274,19 @@
         sec: "сек", balance: "Баланс", make_taps: "Сделай", taps_word: "тапов", progress: "Прогресс",
         claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено",
         upg_names: ["Улучшенный тап", "Сильный тап", "Мощный тап", "Супер тап", "Мега тап", "Гипер тап", "Ультра тап", "Турбо тап", "Космический тап", "Божественный тап"],
-        upg_desc: "Каждый тап даёт"
+        upg_desc: "Каждый тап даёт",
+        achievements_btn: "🏆 Достижения / Achievements",
+        ach_unlocked: "Получено ✨", ach_locked: "Заблокировано", ach_wood: "Деревянная легенда",
+        ach_list: [
+          { title: "Первый шаг", desc: "Натапать 100 раз", icon: "🌱" },
+          { title: "Картофельный фанат", desc: "Натапать 1 000 раз", icon: "🥔" },
+          { title: "Мастер клика", desc: "Натапать 10 000 раз", icon: "🔥" },
+          { title: "Деревянная легенда", desc: "Натапать 20 000 раз", icon: "wood" },
+          { title: "Богач", desc: "Накопить 100 ₽", icon: "💰" },
+          { title: "Автоматизация", desc: "Купить автокликер", icon: "⚙️" },
+          { title: "Прокачка", desc: "Купить 5-й уровень тапа", icon: "⚡" },
+          { title: "Максимальный тап", desc: "Купить Божественный тап", icon: "🌟" }
+        ]
       },
       en: {
         balance_label: "Your balance", tap_label: "Tap", tab_tap: "Tap Upg.", tab_auto: "Auto Upg.",
@@ -237,27 +300,34 @@
         sec: "sec", balance: "Balance", make_taps: "Make", taps_word: "taps", progress: "Progress",
         claim: "Claim", received: "Received", not_done: "Not completed yet",
         upg_names: ["Improved Tap", "Strong Tap", "Powerful Tap", "Super Tap", "Mega Tap", "Hyper Tap", "Ultra Tap", "Turbo Tap", "Cosmic Tap", "Divine Tap"],
-        upg_desc: "Each tap gives"
+        upg_desc: "Each tap gives",
+        achievements_btn: "🏆 Achievements / Достижения",
+        ach_unlocked: "Unlocked ✨", ach_locked: "Locked", ach_wood: "Wooden Legend",
+        ach_list: [
+          { title: "First Step", desc: "Tap 100 times", icon: "🌱" },
+          { title: "Potato Fan", desc: "Tap 1,000 times", icon: "🥔" },
+          { title: "Click Master", desc: "Tap 10,000 times", icon: "🔥" },
+          { title: "Wooden Legend", desc: "Tap 20,000 times", icon: "wood" },
+          { title: "Rich Man", desc: "Save up to 100 ₽", icon: "💰" },
+          { title: "Automation", desc: "Buy autoclicker", icon: "⚙️" },
+          { title: "Upgraded", desc: "Buy 5th tap level", icon: "⚡" },
+          { title: "Max Tap", desc: "Buy Divine Tap", icon: "🌟" }
+        ]
       }
     };
 
     var currentLang = localStorage.getItem('potatoLang') || 'ru';
     var t = translations[currentLang];
 
-    // Применяем переводы к HTML
     function applyTranslations() {
       var elements = document.querySelectorAll('[data-i18n]');
       for(var i = 0; i < elements.length; i++) {
         var key = elements[i].getAttribute('data-i18n');
-        if(t[key]) {
-          elements[i].innerText = t[key];
-        }
+        if(t[key]) elements[i].innerText = t[key];
       }
-      // Обновляем текст на кнопке языка (RU или EN)
       document.getElementById('currentLangText').innerText = currentLang.toUpperCase();
     }
 
-    // Функции меню языка
     function openLangMenu() { document.getElementById('langModal').style.display = 'flex'; }
     function closeLangMenu() { document.getElementById('langModal').style.display = 'none'; }
     function changeLang(lang) {
@@ -265,7 +335,6 @@
       location.reload(); 
     }
 
-    // Telegram
     var tg = null;
     try {
       if (window.Telegram && window.Telegram.WebApp) {
@@ -275,7 +344,6 @@
       }
     } catch(e) {}
 
-    // Данные (10 уровней тапа)
     var upgradesData = [
       { nameIdx: 0, desc: 0.002, cost: 2.5, value: 0.002 },
       { nameIdx: 1, desc: 0.003, cost: 4, value: 0.003 },
@@ -304,12 +372,12 @@
       { id: 5, need: 20000, reward: 10 }
     ];
 
-    // Сохранения
     var balance = parseFloat(localStorage.getItem('potatoBalance')) || 0;
     var tapValue = parseFloat(localStorage.getItem('tapValue')) || 0.001;
     var maxUpgrade = parseInt(localStorage.getItem('maxUpgrade')) || 0;
     var totalTaps = parseInt(localStorage.getItem('totalTaps')) || 0;
     var claimed = JSON.parse(localStorage.getItem('claimed') || '[]');
+    var unlockedAch = JSON.parse(localStorage.getItem('unlockedAch') || '[]');
     var hasAutoclicker = localStorage.getItem('hasAutoclicker') === 'true';
     var autoValue = parseFloat(localStorage.getItem('autoValue')) || 0.0001;
     var autoInterval = parseInt(localStorage.getItem('autoInterval')) || 50000;
@@ -321,17 +389,17 @@
     var lastTapTime = 0;
     var userPhoto = '';
     var userName = t.player;
+    var hasUnclaimedQuest = false;
 
-    // Элементы
     var balanceEl = document.getElementById('balance');
     var tapPowerEl = document.getElementById('tapPower');
     var potatoBtn = document.getElementById('potatoBtn');
     var upgradesList = document.getElementById('upgradesList');
     var questsList = document.getElementById('questsList');
+    var achievementsList = document.getElementById('achievementsList');
     var autoInfo = document.getElementById('autoInfo');
     var totalTapsText = document.getElementById('totalTapsText');
     var progressFill = document.getElementById('progressFill');
-    var woodMedalBox = document.getElementById('woodMedalBox');
 
     function save() {
       localStorage.setItem('potatoBalance', balance.toFixed(3));
@@ -339,6 +407,7 @@
       localStorage.setItem('maxUpgrade', maxUpgrade);
       localStorage.setItem('totalTaps', totalTaps);
       localStorage.setItem('claimed', JSON.stringify(claimed));
+      localStorage.setItem('unlockedAch', JSON.stringify(unlockedAch));
       localStorage.setItem('hasAutoclicker', hasAutoclicker);
       localStorage.setItem('autoValue', autoValue.toFixed(4));
       localStorage.setItem('autoInterval', autoInterval);
@@ -351,7 +420,38 @@
       tapPowerEl.innerText = tapValue.toFixed(3);
       totalTapsText.innerText = totalTaps;
       progressFill.style.width = Math.min(100, (totalTaps / 20000) * 100) + '%';
+      checkAchievements();
+      checkQuestReady();
       save();
+    }
+
+    function checkQuestReady() {
+      if (hasUnclaimedQuest) return;
+      for (var i = 0; i < questsData.length; i++) {
+        var q = questsData[i];
+        if (claimed.indexOf(q.id) === -1 && totalTaps >= q.need) {
+          playSound('quest_ready');
+          hasUnclaimedQuest = true;
+          break;
+        }
+      }
+    }
+
+    function checkAchievements() {
+      var newUnlock = false;
+      if (totalTaps >= 100 && unlockedAch.indexOf(0) === -1) { unlockedAch.push(0); newUnlock = true; }
+      if (totalTaps >= 1000 && unlockedAch.indexOf(1) === -1) { unlockedAch.push(1); newUnlock = true; }
+      if (totalTaps >= 10000 && unlockedAch.indexOf(2) === -1) { unlockedAch.push(2); newUnlock = true; }
+      if (totalTaps >= 20000 && unlockedAch.indexOf(3) === -1) { unlockedAch.push(3); newUnlock = true; }
+      if (balance >= 100 && unlockedAch.indexOf(4) === -1) { unlockedAch.push(4); newUnlock = true; }
+      if (hasAutoclicker && unlockedAch.indexOf(5) === -1) { unlockedAch.push(5); newUnlock = true; }
+      if (maxUpgrade >= 5 && unlockedAch.indexOf(6) === -1) { unlockedAch.push(6); newUnlock = true; }
+      if (maxUpgrade >= 10 && unlockedAch.indexOf(7) === -1) { unlockedAch.push(7); newUnlock = true; }
+
+      if (newUnlock) {
+        playSound('achievement');
+        save();
+      }
     }
 
     function updateAutoInfo() {
@@ -379,7 +479,6 @@
       var now = Date.now();
       if (now - lastTapTime < 50) return;
       lastTapTime = now;
-
       if (e.cancelable) e.preventDefault();
       if (tg && tg.HapticFeedback) {
         try { tg.HapticFeedback.impactOccurred('light'); } catch(err) {}
@@ -405,7 +504,6 @@
 
       float.style.left = clientX + 'px';
       float.style.top = clientY + 'px';
-      
       document.body.appendChild(float);
       setTimeout(function() { if (float.parentNode) float.parentNode.removeChild(float); }, 800);
     }
@@ -429,10 +527,11 @@
           var upgDesc = t.upg_desc + ' ' + upg.desc.toFixed(3) + ' ₽';
           
           var card = document.createElement('div'); card.className = 'card';
-          card.innerHTML = '<div class="card-title">' + upgName + '</div><div class="card-desc">' + upgDesc + '</div>';
+          card.innerHTML = '<div class="card-content"><div class="card-title">' + upgName + '</div><div class="card-desc">' + upgDesc + '</div></div>';
           
           var btn = document.createElement('button');
           btn.className = 'btn';
+          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '12px';
           btn.innerText = btnText;
           if (!isNext) btn.disabled = true;
 
@@ -441,6 +540,7 @@
               return function() {
                 if (balance >= u.cost) {
                   balance -= u.cost; tapValue = u.value; maxUpgrade = lvl;
+                  playSound('upgrade');
                   updateUI(); renderUpgrades();
                   if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
                 } else alert(t.buy_prev);
@@ -452,11 +552,14 @@
       } else {
         if (!hasAutoclicker) {
           var card = document.createElement('div'); card.className = 'card';
-          card.innerHTML = '<div class="card-title">' + t.auto_buy + '</div><div class="card-desc">' + t.auto_desc + '</div>';
-          var btn = document.createElement('button'); btn.className = 'btn'; btn.innerText = t.buy_for + ' 100 ₽';
+          card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_buy + '</div><div class="card-desc">' + t.auto_desc + '</div></div>';
+          var btn = document.createElement('button'); btn.className = 'btn'; 
+          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '12px';
+          btn.innerText = t.buy_for + ' 100 ₽';
           btn.onclick = function() {
             if (balance >= 100) {
               balance -= 100; hasAutoclicker = true;
+              playSound('upgrade');
               updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
             } else alert(t.buy_prev);
           };
@@ -467,8 +570,9 @@
             var av = autoValueData[v];
             var isB = autoValueLevel >= av.level; var isN = autoValueLevel + 1 === av.level;
             var card = document.createElement('div'); card.className = 'card';
-            card.innerHTML = '<div class="card-title">' + t.auto_power + ' Lv.' + av.level + '</div><div class="card-desc">' + t.gives + ' ' + av.value + ' ₽</div>';
+            card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_power + ' Lv.' + av.level + '</div><div class="card-desc">' + t.gives + ' ' + av.value + ' ₽</div></div>';
             var btn = document.createElement('button'); btn.className = 'btn';
+            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '12px';
             btn.innerText = isB ? t.bought : (isN ? t.buy_for + ' ' + av.cost + ' ₽' : t.buy_prev);
             if (!isN) btn.disabled = true;
             if (isN) {
@@ -476,6 +580,7 @@
                 return function() {
                   if (balance >= a.cost) {
                     balance -= a.cost; autoValue = a.value; autoValueLevel = a.level;
+                    playSound('upgrade');
                     updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
                   } else alert(t.buy_prev);
                 };
@@ -488,8 +593,9 @@
             var as = autoSpeedData[s];
             var isB = autoSpeedLevel >= as.level; var isN = autoSpeedLevel + 1 === as.level;
             var card = document.createElement('div'); card.className = 'card';
-            card.innerHTML = '<div class="card-title">' + t.auto_speed + ' Lv.' + as.level + '</div><div class="card-desc">' + t.interval + ': ' + (as.interval/1000) + ' ' + t.sec + '</div>';
+            card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_speed + ' Lv.' + as.level + '</div><div class="card-desc">' + t.interval + ': ' + (as.interval/1000) + ' ' + t.sec + '</div></div>';
             var btn = document.createElement('button'); btn.className = 'btn';
+            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '12px';
             btn.innerText = isB ? t.bought : (isN ? t.buy_for + ' ' + as.cost + ' ₽' : t.buy_prev);
             if (!isN) btn.disabled = true;
             if (isN) {
@@ -497,6 +603,7 @@
                 return function() {
                   if (balance >= a.cost) {
                     balance -= a.cost; autoInterval = a.interval; autoSpeedLevel = a.level;
+                    playSound('upgrade');
                     updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
                   } else alert(t.buy_prev);
                 };
@@ -520,21 +627,65 @@
         var progText = t.progress + ': ' + Math.min(totalTaps, q.need) + ' / ' + q.need;
         
         var card = document.createElement('div'); card.className = 'card';
-        card.innerHTML = '<div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-bottom: 10px; color: #e9d5ff;">' + progText + '</div>';
+        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-bottom: 0; color: #e9d5ff; font-size:12px;">' + progText + '</div></div>';
         
         var btn = document.createElement('button'); btn.className = 'btn';
+        btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '12px';
+        
         if (isClaimed) { btn.innerText = t.received; btn.disabled = true; }
         else if (canClaim) {
           btn.innerText = t.claim + ' (+' + q.reward + ' ₽)';
+          btn.style.background = '#10b981';
           btn.onclick = (function(quest) {
             return function() {
               balance += quest.reward; claimed.push(quest.id);
+              playSound('quest_claim');
+              hasUnclaimedQuest = false;
               updateUI(); renderQuests();
               if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
             };
           })(q);
         } else { btn.innerText = t.not_done; btn.disabled = true; }
         card.appendChild(btn); questsList.appendChild(card);
+      }
+    }
+
+    function renderAchievements() {
+      achievementsList.innerHTML = '';
+      var achData = t.ach_list;
+
+      for (var i = 0; i < achData.length; i++) {
+        var isUnlocked = unlockedAch.indexOf(i) !== -1;
+        var ach = achData[i];
+        
+        var card = document.createElement('div');
+        card.className = 'card';
+        
+        // Если разблокировано — добавляем RGB-класс, если нет — серый
+        if (isUnlocked) {
+          card.classList.add('rgb-glow');
+        } else {
+          card.style.opacity = '0.5';
+          card.style.filter = 'grayscale(100%)';
+        }
+
+        var iconHtml = ach.icon === 'wood' 
+          ? `<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/><ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/><ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/><ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/><ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/><path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>` 
+          : `<div class="card-icon">${ach.icon}</div>`;
+
+        var statusHtml = isUnlocked 
+          ? `<div class="card-status status-unlocked">${t.ach_unlocked}</div>` 
+          : `<div class="card-status status-locked">${t.ach_locked}</div>`;
+
+        card.innerHTML = `
+          ${iconHtml}
+          <div class="card-content">
+            <div class="card-title">${ach.title}</div>
+            <div class="card-desc">${ach.desc}</div>
+            ${statusHtml}
+          </div>
+        `;
+        achievementsList.appendChild(card);
       }
     }
 
@@ -566,12 +717,6 @@
       document.getElementById('topAvatar').src = photo;
       document.getElementById('profileAvatar').src = photo;
       document.getElementById('profileName').innerText = userName;
-
-      if (claimed.indexOf(5) !== -1) {
-        woodMedalBox.style.display = 'flex';
-      } else {
-        woodMedalBox.style.display = 'none';
-      }
     }
 
     function showScreen(name) {
@@ -585,11 +730,16 @@
         menuItems[m].classList.remove('active');
         if (menuItems[m].getAttribute('data-screen') === name) menuItems[m].classList.add('active');
       }
+      
+      if (name === 'achievements') {
+        for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active');
+      }
 
       if (name === 'upgrades') renderUpgrades();
       if (name === 'quests') renderQuests();
       if (name === 'profile') loadUser();
       if (name === 'rating') renderRating();
+      if (name === 'achievements') renderAchievements();
     }
 
     document.getElementById('openProfile').onclick = function() { showScreen('profile'); };
@@ -627,7 +777,6 @@
       }
     };
 
-    // ЗАПУСК
     applyTranslations(); 
     loadUser();
     updateUI();
