@@ -17,17 +17,9 @@
       overflow: hidden;
     }
 
-    #error-screen {
-      display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: #991b1b; z-index: 9999; padding: 20px; overflow-y: auto;
-      font-family: monospace; color: white; font-size: 12px;
-    }
+    #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; }
 
-    .top-balance {
-      position: absolute; top: 14px; left: 14px; display: flex; align-items: center;
-      gap: 10px; background: rgba(0,0,0,0.45); border-radius: 50px; padding: 5px 14px 5px 5px; z-index: 60;
-      cursor: pointer;
-    }
+    .top-balance { position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.45); border-radius: 50px; padding: 5px 14px 5px 5px; z-index: 60; cursor: pointer; }
     .top-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid #a855f7; background: #4c1d95; }
     .top-balance-text { display: flex; flex-direction: column; }
     .top-balance-label { font-size: 11px; color: #c4b5fd; }
@@ -37,8 +29,10 @@
     .screen.active { display: flex; }
 
     .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; }
+    
+    /* ИСПРАВЛЕНО: Убрали черный фон. Прозрачность картинки теперь видна */
     .potato-wrap { width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
-    .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; border-radius: 20px; }
+    .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; }
     .potato-wrap:active img { transform: scale(0.92); }
 
     .tap-power { margin-top: 16px; font-size: 15px; color: #c4b5fd; }
@@ -69,21 +63,14 @@
     .progress-hint { font-size: 12px; color: #9ca3af; margin-top: 10px; text-align: center; }
 
     .rating-container { flex: 1; overflow-y: auto; padding: 80px 16px 100px; }
-    .rating-row { display: flex; align-items: center; padding: 12px 16px; border-radius: 16px; margin-bottom: 8px; background: rgba(255,255,255,0.05); border: 1px solid transparent; }
-    .rating-top-1 { background: rgba(234, 179, 8, 0.15); border: 1px solid rgba(234, 179, 8, 0.4); }
-    .rating-top-2 { background: rgba(156, 163, 175, 0.15); border: 1px solid rgba(156, 163, 175, 0.4); }
-    .rating-top-3 { background: rgba(180, 83, 9, 0.15); border: 1px solid rgba(180, 83, 9, 0.4); }
-    .rating-rank { width: 32px; height: 32px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 14px; font-weight: 700; margin-right: 12px; background: rgba(255,255,255,0.1); color: #9ca3af; }
-    .rating-rank-1 { background: #eab308; color: #000; }
-    .rating-rank-2 { background: #9ca3af; color: #000; }
-    .rating-rank-3 { background: #b45309; color: #fff; }
-    .rating-avatar { width: 40px; height: 40px; border-radius: 50%; margin-right: 12px; object-fit: cover; background: #333; }
-    .rating-name { flex: 1; font-size: 15px; font-weight: 600; }
-    .rating-score { background: rgba(255,255,255,0.1); padding: 6px 10px; border-radius: 8px; font-size: 14px; font-weight: 700; color: #d8b4fe; min-width: 70px; text-align: center; }
-    .my-rating-box { position: fixed; bottom: 70px; left: 0; right: 0; background: #1a1625; border-top: 1px solid rgba(255,255,255,0.1); padding: 12px 16px; display: flex; align-items: center; z-index: 50; }
-    .my-rating-box .rating-rank { background: rgba(255,255,255,0.1); color: #9ca3af; width: 40px; height: 40px; font-size: 13px; }
-    .my-rating-box .rating-name { color: #a855f7; display: flex; align-items: center; gap: 8px; }
-    .badge-you { background: #8b5cf6; color: white; font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 700; }
+    .rating-row { display: flex; align-items: center; padding: 16px; border-radius: 16px; margin-bottom: 12px; background: linear-gradient(90deg, rgba(234, 179, 8, 0.15) 0%, rgba(26, 26, 33, 0.8) 100%); border: 1px solid rgba(234, 179, 8, 0.4); }
+    .rating-rank { width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; font-weight: 800; margin-right: 12px; background: #eab308; color: #000; flex-shrink: 0; }
+    .rating-avatar { width: 50px; height: 50px; border-radius: 50%; margin-right: 12px; object-fit: cover; background: #333; border: 2px solid #fff; flex-shrink: 0; }
+    .rating-info { flex: 1; display: flex; flex-direction: column; }
+    .rating-name { font-size: 18px; font-weight: 700; }
+    .rating-score { font-size: 14px; color: #fde047; font-weight: 600; margin-top: 4px; }
+    .my-rating-box { position: fixed; bottom: 70px; left: 0; right: 0; background: #1a1625; border-top: 1px solid rgba(255,255,255,0.1); padding: 12px 16px; display: flex; align-items: center; z-index: 50; justify-content: center; }
+    .my-rating-box .rating-name { color: #a855f7; font-size: 16px; }
 
     .bottom-menu { height: 70px; background: #1a1625; display: flex; border-top: 1px solid rgba(255,255,255,0.08); z-index: 100; }
     .menu-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; color: #9ca3af; cursor: pointer; }
@@ -91,6 +78,7 @@
     .menu-icon { font-size: 22px; }
 
     .float-text { position: fixed; font-size: 24px; font-weight: 800; color: #f5d0fe; text-shadow: 0 2px 4px rgba(0,0,0,0.5); pointer-events: none; z-index: 100; }
+    @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); } }
   </style>
 </head>
 <body>
@@ -108,13 +96,14 @@
   <div class="screen active" id="screen-main">
     <div class="main-content">
       <div class="potato-wrap" id="potatoBtn">
-        <img src="potato.png" draggable="false" alt="🥔" onerror="this.style.display='none'; this.parentNode.innerHTML='<div style=\'font-size:100px\'>🥔</div>';">
+        <img src="potato.png" draggable="false" alt="Картошка">
       </div>
       <div class="tap-power">Тап: <span id="tapPower">0.001</span> ₽</div>
       <div class="auto-info" id="autoInfo" style="display:none;"></div>
     </div>
   </div>
-<div class="screen" id="screen-upgrades">
+
+  <div class="screen" id="screen-upgrades">
     <div class="tabs">
       <button class="tab-btn active" id="tabTap">Ул. тапа</button>
       <button class="tab-btn" id="tabAuto">Ул. автокликера</button>
@@ -129,15 +118,9 @@
   <div class="screen" id="screen-rating">
     <div class="rating-container" id="leaderboardList"></div>
     <div class="my-rating-box">
-      <div class="rating-rank">999+</div>
-      <div class="rating-name">
-        <img class="rating-avatar" style="margin-right: 0; width:30px; height:30px;" id="myRatingAvatar" src="" alt="">
-        <span class="badge-you">ВЫ</span>
-      </div>
-      <div class="rating-score" id="myRatingScore">0</div>
+       <div class="rating-name">🏆 Вы — Лидер проекта!</div>
     </div>
   </div>
-
   <div class="screen" id="screen-profile">
     <div class="profile-content">
       <img class="profile-avatar" id="profileAvatar" src="" alt="">
@@ -172,13 +155,10 @@
   </div>
 
   <script>
-    // Очистка старых сохранений, чтобы игра запустилась с чистого листа
-    localStorage.clear();
-
     window.onerror = function(msg, url, line) {
       var err = document.getElementById('error-screen');
       err.style.display = 'block';
-      err.innerHTML = err.innerHTML + "<p><b>ОШИБКА:</b> " + msg + "<br>Строка: " + line + "</p>";
+      err.innerHTML += "<p><b>ОШИБКА:</b> " + msg + "<br>Строка: " + line + "</p>";
       return false;
     };
 
@@ -193,7 +173,7 @@
       { name: "Улучшенный тап", desc: "Каждый тап даёт 0.002 ₽", cost: 2.5, value: 0.002 },
       { name: "Сильный тап", desc: "Каждый тап даёт 0.003 ₽", cost: 4, value: 0.003 },
       { name: "Мощный тап", desc: "Каждый тап даёт 0.004 ₽", cost: 8, value: 0.004 },
-{ name: "Супер тап", desc: "Каждый тап даёт 0.005 ₽", cost: 16, value: 0.005 },
+      { name: "Супер тап", desc: "Каждый тап даёт 0.005 ₽", cost: 16, value: 0.005 },
       { name: "Мега тап", desc: "Каждый тап даёт 0.010 ₽", cost: 50, value: 0.010 }
     ];
     var autoValueData = [
@@ -210,27 +190,21 @@
       { id: 4, title: "Натапать 15000 раз", need: 15000, reward: 5 },
       { id: 5, title: "Натапать 20000 раз", need: 20000, reward: 10 }
     ];
-    var leaderboardData = [
-      { rank: 1, name: "zz***z0", score: "19.5M", avatar: "https://i.pravatar.cc/150?img=11" },
-      { rank: 2, name: "nn***z4", score: "17.1M", avatar: "https://i.pravatar.cc/150?img=12" },
-      { rank: 3, name: "Ma***li", score: "14.0M", avatar: "https://i.pravatar.cc/150?img=13" },
-      { rank: 4, name: "dr***on", score: "11.2M", avatar: "https://i.pravatar.cc/150?img=14" },
-      { rank: 5, name: "Spicy Peb...", score: "10.4M", avatar: "https://i.pravatar.cc/150?img=15" }
-    ];
-
-    var balance = 0;
-    var tapValue = 0.001;
-    var maxUpgrade = 0;
-    var totalTaps = 0;
-    var claimed = [];
-    var hasAutoclicker = false;
-    var autoValue = 0.0001;
-    var autoInterval = 50000;
-    var autoValueLevel = 0;
-    var autoSpeedLevel = 0;
+    var balance = parseFloat(localStorage.getItem('potatoBalance')) || 0;
+    var tapValue = parseFloat(localStorage.getItem('tapValue')) || 0.001;
+    var maxUpgrade = parseInt(localStorage.getItem('maxUpgrade')) || 0;
+    var totalTaps = parseInt(localStorage.getItem('totalTaps')) || 0;
+    var claimed = JSON.parse(localStorage.getItem('claimed') || '[]');
+    var hasAutoclicker = localStorage.getItem('hasAutoclicker') === 'true';
+    var autoValue = parseFloat(localStorage.getItem('autoValue')) || 0.0001;
+    var autoInterval = parseInt(localStorage.getItem('autoInterval')) || 50000;
+    var autoValueLevel = parseInt(localStorage.getItem('autoValueLevel')) || 0;
+    var autoSpeedLevel = parseInt(localStorage.getItem('autoSpeedLevel')) || 0;
     var currentTab = 'tap';
     var autoTimer = null;
     var lastTapTime = 0;
+    var userPhoto = '';
+    var userName = 'Игрок';
 
     var balanceEl = document.getElementById('balance');
     var tapPowerEl = document.getElementById('tapPower');
@@ -242,12 +216,25 @@
     var progressFill = document.getElementById('progressFill');
     var woodMedalBox = document.getElementById('woodMedalBox');
 
+    function save() {
+      localStorage.setItem('potatoBalance', balance.toFixed(3));
+      localStorage.setItem('tapValue', tapValue.toFixed(3));
+      localStorage.setItem('maxUpgrade', maxUpgrade);
+      localStorage.setItem('totalTaps', totalTaps);
+      localStorage.setItem('claimed', JSON.stringify(claimed));
+      localStorage.setItem('hasAutoclicker', hasAutoclicker);
+      localStorage.setItem('autoValue', autoValue.toFixed(4));
+      localStorage.setItem('autoInterval', autoInterval);
+      localStorage.setItem('autoValueLevel', autoValueLevel);
+      localStorage.setItem('autoSpeedLevel', autoSpeedLevel);
+    }
+
     function updateUI() {
       balanceEl.innerText = balance.toFixed(3);
       tapPowerEl.innerText = tapValue.toFixed(3);
       totalTapsText.innerText = totalTaps;
       progressFill.style.width = Math.min(100, (totalTaps / 20000) * 100) + '%';
-      document.getElementById('myRatingScore').innerText = balance.toFixed(1);
+      save();
     }
 
     function updateAutoInfo() {
@@ -295,14 +282,14 @@
         clientX = e.clientX;
         clientY = e.clientY;
       }
-float.style.left = clientX + 'px';
+
+      float.style.left = clientX + 'px';
       float.style.top = clientY + 'px';
       float.style.animation = 'floatUp 0.8s ease-out forwards';
       
       document.body.appendChild(float);
       setTimeout(function() { if (float.parentNode) float.parentNode.removeChild(float); }, 800);
     }
-
     if (potatoBtn) {
       potatoBtn.addEventListener('touchstart', handleTap, { passive: false });
       potatoBtn.addEventListener('mousedown', handleTap);
@@ -427,44 +414,38 @@ float.style.left = clientX + 'px';
     function renderRating() {
       var container = document.getElementById('leaderboardList');
       container.innerHTML = '';
-      for (var i = 0; i < leaderboardData.length; i++) {
-        var p = leaderboardData[i];
-        var row = document.createElement('div');
-        row.className = 'rating-row';
-        if (p.rank === 1) row.classList.add('rating-top-1');
-        if (p.rank === 2) row.classList.add('rating-top-2');
-        if (p.rank === 3) row.classList.add('rating-top-3');
-        
-        var rankClass = 'rating-rank';
-        if (p.rank === 1) rankClass += ' rating-rank-1';
-        if (p.rank === 2) rankClass += ' rating-rank-2';
-        if (p.rank === 3) rankClass += ' rating-rank-3';
-
-        row.innerHTML = '<div class="' + rankClass + '">' + p.rank + '</div>' +
-          '<img class="rating-avatar" src="' + p.avatar + '" alt="">' +
-          '<div class="rating-name">' + p.name + '</div>' +
-          '<div class="rating-score">' + p.score + '</div>';
-        container.appendChild(row);
-      }
+      var row = document.createElement('div');
+      row.className = 'rating-row';
+      var avatarSrc = userPhoto ? userPhoto : 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
+      
+      row.innerHTML = 
+        <div class="rating-rank">1</div>
+        <img class="rating-avatar" src="${avatarSrc}" alt="">
+        <div class="rating-info">
+          <div class="rating-name">${userName}</div>
+          <div class="rating-score">Баланс: ${balance.toFixed(3)} ₽</div>
+        </div>
+      ;
+      container.appendChild(row);
     }
 
     function loadUser() {
-      var photo = '', name = 'Игрок';
+      var photo = '';
       try {
         if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
           var u = tg.initDataUnsafe.user;
           if (u.photo_url) photo = u.photo_url;
-          if (u.username) name = '@' + u.username;
-          else if (u.first_name) name = u.first_name;
+          if (u.username) userName = '@' + u.username;
+          else if (u.first_name) userName = u.first_name;
         }
       } catch(e) {}
-if (!photo) photo = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
+
+      if (!photo) photo = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
       
+      userPhoto = photo;
       document.getElementById('topAvatar').src = photo;
       document.getElementById('profileAvatar').src = photo;
-      document.getElementById('myRatingAvatar').src = photo;
-      document.getElementById('profileName').innerText = name;
-
+      document.getElementById('profileName').innerText = userName;
       if (claimed.indexOf(5) !== -1) {
         woodMedalBox.style.display = 'flex';
       } else {
