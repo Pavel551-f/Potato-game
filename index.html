@@ -584,7 +584,7 @@
           { title: "Богач", desc: "100 ₽", icon: "💰" },
           { title: "Автоматизация", desc: "Купить авто", icon: "⚙️" },
           { title: "Прокачка", desc: "5-й уровень", icon: "⚡" },
-          { title: "Максимум", desc: "Божеств. тап", icon: "🌟" },
+          { title: "Божественная мощь", desc: "Божеств. тап", icon: "🌟" }, // Переименовано
           { title: "Протёртый палец", desc: "50 000 тапов", icon: "🩹" },
           { title: "Сила Творца", desc: "Тап Творца", icon: "👑" },
           { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" },
@@ -622,7 +622,7 @@
           { title: "Rich Man", desc: "100 ₽", icon: "💰" },
           { title: "Automation", desc: "Buy autoclicker", icon: "⚙️" },
           { title: "Upgraded", desc: "Buy 5th level", icon: "⚡" },
-          { title: "Max Tap", desc: "Buy Divine", icon: "🌟" },
+          { title: "Divine Might", desc: "Buy Divine Tap", icon: "🌟" }, // Переименовано
           { title: "Worn Finger", desc: "50,000 taps", icon: "🩹" },
           { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" },
           { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" },
@@ -1044,7 +1044,6 @@
             balance += winVal; 
             updateUI();
             
-            // Убрали фразу "теперь вы должны их натапать"
             if (winVal < 0) {
               playHaptic('error');
               alert((currentLang === 'ru' ? 'Вы проиграли: ' : 'You lost: ') + Math.abs(winVal) + ' ₽');
@@ -1091,7 +1090,6 @@
       if (ownedSkins.indexOf(1) !== -1 && unlockedAch.indexOf(11) === -1) { unlockedAch.push(11); newUnlock = true; }
       if (ownedSkins.indexOf(2) !== -1 && unlockedAch.indexOf(12) === -1) { unlockedAch.push(12); newUnlock = true; }
       
-      // Новое достижение за 15 уровень силы автокликера
       if (autoValueLevel >= 15 && unlockedAch.indexOf(15) === -1) { unlockedAch.push(15); newUnlock = true; }
 
       if (newUnlock) { playSound('achievement'); save(); }
