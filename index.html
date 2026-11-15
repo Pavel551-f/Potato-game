@@ -261,6 +261,15 @@
         osc.type = 'square'; osc.frequency.setValueAtTime(987.77, now); osc.frequency.setValueAtTime(1318.51, now + 0.1);
         gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
         osc.start(now); osc.stop(now + 0.4);
+      } else if (type === 'quest_claim_10') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(523.25, now); 
+        osc.frequency.setValueAtTime(659.25, now + 0.15); 
+        osc.frequency.setValueAtTime(783.99, now + 0.3); 
+        osc.frequency.setValueAtTime(1046.50, now + 0.45); 
+        gain.gain.setValueAtTime(0.15, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.8);
+        osc.start(now); osc.stop(now + 0.8);
       } else if (type === 'achievement') {
         osc.type = 'sawtooth'; osc.frequency.setValueAtTime(440, now); osc.frequency.setValueAtTime(554.37, now + 0.1); osc.frequency.setValueAtTime(659.25, now + 0.2);
         gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
@@ -292,7 +301,8 @@
           { title: "Богач", desc: "Накопить 100 ₽", icon: "💰" },
           { title: "Автоматизация", desc: "Купить автокликер", icon: "⚙️" },
           { title: "Прокачка", desc: "Купить 5-й уровень тапа", icon: "⚡" },
-          { title: "Максимальный тап", desc: "Купить Божественный тап", icon: "🌟" }
+          { title: "Максимальный тап", desc: "Купить Божественный тап", icon: "🌟" },
+          { title: "Протёртый палец", desc: "Натапать 50 000 раз", icon: "🩹" }
         ]
       },
       en: {
@@ -318,7 +328,8 @@
           { title: "Rich Man", desc: "Save up to 100 ₽", icon: "💰" },
           { title: "Automation", desc: "Buy autoclicker", icon: "⚙️" },
           { title: "Upgraded", desc: "Buy 5th tap level", icon: "⚡" },
-          { title: "Max Tap", desc: "Buy Divine Tap", icon: "🌟" }
+          { title: "Max Tap", desc: "Buy Divine Tap", icon: "🌟" },
+          { title: "Worn-out Finger", desc: "Tap 50,000 times", icon: "🩹" }
         ]
       }
     };
@@ -367,12 +378,20 @@
       { level: 9, cost: 375, interval: 5000 }, { level: 10, cost: 500, interval: 1000 }
     ];
     
+    // ОБНОВЛЕННЫЕ КВЕСТЫ (10-й квест теперь дает 50 ₽)
     var questsData = [
-      { id: 1, need: 1000, reward: 0.5 }, { id: 2, need: 5000, reward: 1 },
-      { id: 3, need: 10000, reward: 2 }, { id: 4, need: 15000, reward: 5 }, { id: 5, need: 20000, reward: 10 }
+      { id: 1, need: 1000, reward: 0.5 }, 
+      { id: 2, need: 5000, reward: 1 },
+      { id: 3, need: 10000, reward: 2 }, 
+      { id: 4, need: 15000, reward: 5 }, 
+      { id: 5, need: 20000, reward: 10 },
+      { id: 6, need: 25000, reward: 15 },
+      { id: 7, need: 30000, reward: 20 },
+      { id: 8, need: 35000, reward: 25 },
+      { id: 9, need: 40000, reward: 30 },
+      { id: 10, need: 50000, reward: 50 }
     ];
 
-    // В МАГАЗИНЕ ТОЛЬКО 3 СКИНА (Деревянная убрана)
     var skinsData = [
       { id: 0, name: "Обычная", en_name: "Default", price: 0, emoji: "🥔", image: "potato.png" },
       { id: 1, name: "Золотая", en_name: "Golden", price: 500, emoji: "🥇", image: "potato_gold.png" },
@@ -429,10 +448,8 @@
       localStorage.setItem('equippedSkin', equippedSkin);
     }
 
-    // === ЛОГИКА ЗАГРУЗКИ КАРТИНОК ДЛЯ СКИНОВ ===
     function updatePotatoSkin() {
       var skin = skinsData.find(s => s.id === equippedSkin);
-      // Пытаемся загрузить картинку. Если ее нет на GitHub, показываем эмодзи
       potatoDisplay.innerHTML = `<img src="${skin.image}" draggable="false" onerror="this.style.display='none'; this.parentNode.innerHTML='${skin.emoji}';">`;
     }
 
@@ -440,7 +457,7 @@
       balanceEl.innerText = balance.toFixed(3);
       tapPowerEl.innerText = tapValue.toFixed(3);
       totalTapsText.innerText = totalTaps;
-      progressFill.style.width = Math.min(100, (totalTaps / 20000) * 100) + '%';
+      progressFill.style.width = Math.min(100, (totalTaps / 50000) * 100) + '%';
       checkAchievements();
       checkQuestReady();
       save();
@@ -466,6 +483,7 @@
       if (hasAutoclicker && unlockedAch.indexOf(5) === -1) { unlockedAch.push(5); newUnlock = true; }
       if (maxUpgrade >= 5 && unlockedAch.indexOf(6) === -1) { unlockedAch.push(6); newUnlock = true; }
       if (maxUpgrade >= 10 && unlockedAch.indexOf(7) === -1) { unlockedAch.push(7); newUnlock = true; }
+      if (totalTaps >= 50000 && unlockedAch.indexOf(8) === -1) { unlockedAch.push(8); newUnlock = true; }
 
       if (newUnlock) { playSound('achievement'); save(); }
     }
@@ -539,7 +557,6 @@
           btnHtml = `<button class="btn btn-blue" onclick="buySkin(${skin.id})">${t.buy} (${skin.price} ₽)</button>`;
         }
 
-        // Пытаемся загрузить картинку для превью в магазине
         var previewHtml = `<img src="${skin.image}" style="${previewStyle}" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'${previewStyle}\\'>${skin.emoji}</span>';">`;
 
         card.innerHTML = `
@@ -698,7 +715,13 @@
           btn.onclick = (function(quest) {
             return function() {
               balance += quest.reward; claimed.push(quest.id);
-              playSound('quest_claim');
+              
+              if (quest.id === 10) {
+                playSound('quest_claim_10');
+              } else {
+                playSound('quest_claim');
+              }
+              
               hasUnclaimedQuest = false;
               updateUI(); renderQuests();
               if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
@@ -818,8 +841,8 @@
     document.getElementById('devBtn').onclick = function() {
       devClickCount++;
       if (devClickCount >= 5) {
-        balance += 1000; totalTaps += 20000; updateUI();
-        alert(currentLang === 'ru' ? '+1000 ₽ и +20000 тапов для тестов!' : '+1000 ₽ and +20000 taps for tests!');
+        balance += 1000; totalTaps += 50000; updateUI();
+        alert(currentLang === 'ru' ? '+1000 ₽ и +50000 тапов для тестов!' : '+1000 ₽ and +50000 taps for tests!');
         devClickCount = 0;
       }
     };
