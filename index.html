@@ -515,7 +515,6 @@
 
       for (var i = 0; i < tickCount; i++) {
         var progress = i / tickCount;
-        // Используем ту же кривую замедления, что и в CSS (easeOutQuart), чтобы тики совпадали с визуалом
         var easeProgress = 1 - Math.pow(1 - progress, 4);
         var timeOffset = durationSec * easeProgress;
         var tickTime = now + timeOffset;
@@ -526,7 +525,7 @@
         gain.connect(audioCtx.destination);
 
         osc.type = 'square';
-        osc.frequency.setValueAtTime(1500 - (progress * 500), tickTime); // Звук немного понижается к концу
+        osc.frequency.setValueAtTime(1500 - (progress * 500), tickTime); 
 
         gain.gain.setValueAtTime(0.05, tickTime);
         gain.gain.exponentialRampToValueAtTime(0.001, tickTime + 0.02);
@@ -906,10 +905,14 @@
     };
 
     // === ЛОГИКА КАЗИНО ===
+    // Теперь в массиве есть и положительные, и отрицательные числа!
     var casinoItems = [
       { type: 'money', value: 0.1 }, { type: 'money', value: 0.5 }, { type: 'money', value: 2 },
       { type: 'money', value: 5 }, { type: 'money', value: 10 }, { type: 'money', value: 50 },
-      { type: 'money', value: 100 }, { type: 'money', value: 500 }, { type: 'money', value: 1000 }
+      { type: 'money', value: 100 }, { type: 'money', value: 500 }, { type: 'money', value: 1000 },
+      { type: 'money', value: -0.1 }, { type: 'money', value: -0.5 }, { type: 'money', value: -2 },
+      { type: 'money', value: -5 }, { type: 'money', value: -10 }, { type: 'money', value: -50 },
+      { type: 'money', value: -100 }, { type: 'money', value: -500 }, { type: 'money', value: -1000 }
     ];
 
     function initCasino() {
@@ -958,18 +961,16 @@
       spinBtn.disabled = true;
       playHaptic('medium');
       
-      // Запускаем синхронизированный звук (10 секунд)
       playCasinoSpinSound(SPIN_DURATION); 
       
       var winItem = null;
       
-      // Генерация выигрыша (0.001 шанс на фри)
       if (forceMoai) {
         winItem = { type: 'moai' };
         forceMoai = false; 
       } else if (Math.random() < 0.000001) {
         winItem = { type: 'moai' };
-      } else if (Math.random() < 0.001) { // 0.1% шанс на джекпот
+      } else if (Math.random() < 0.001) {
         winItem = { type: 'fries' };
       } else {
         var isNegative = Math.random() < 0.5;
@@ -998,9 +999,7 @@
         addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
       }
 
-      // Анимация
       setTimeout(function() {
-        // CSS transition в стилях уже стоит на 10s
         casinoReel.style.transition = 'transform ' + (SPIN_DURATION/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
         
         var itemWidth = 90; 
@@ -1010,7 +1009,6 @@
         
         casinoReel.style.transform = 'translateX(-' + targetPosition + 'px)';
         
-        // Ждем окончания анимации и звука
         setTimeout(function() {
           isSpinning = false;
           spinBtn.disabled = false;
@@ -1060,7 +1058,7 @@
             }
           }
           
-        }, SPIN_DURATION + 100); // Небольшой буфер после окончания звука и анимации
+        }, SPIN_DURATION + 100); 
       }, 50);
     };
 
