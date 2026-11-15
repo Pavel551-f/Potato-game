@@ -71,7 +71,6 @@
       transform: translateY(2px);
     }
 
-    /* ВКЛАДКИ В МАГАЗИНЕ */
     .shop-tabs { display: flex; gap: 8px; margin-bottom: 20px; padding: 0 16px; }
     .shop-tab-btn { 
       flex: 1; padding: 10px 6px; border: none; font-size: 9px; 
@@ -130,7 +129,7 @@
     .gift-title { font-size: 12px; color: #fff; margin-bottom: 15px; text-shadow: 2px 2px 0 #000; }
     
     .gift-box-inner {
-      width: 100%; aspect-ratio: 1/1; background: #ff00ff; /* Ярко-розовый фон */
+      width: 100%; aspect-ratio: 1/1; background: #ff00ff;
       border: 4px solid #000;
       display: flex; justify-content: center; align-items: center; position: relative;
       background-image: 
@@ -252,25 +251,19 @@
   </div>
 
   <div class="screen" id="screen-shop">
-    
-    <!-- Вкладки магазина -->
     <div class="shop-tabs">
       <button class="shop-tab-btn active" onclick="switchShopTab('skins')" data-i18n="shop_tab_skins">Скины</button>
       <button class="shop-tab-btn" onclick="switchShopTab('gifts')" data-i18n="shop_tab_gifts">Подарки</button>
     </div>
 
-    <!-- Контент: Скины -->
     <div id="shopContentSkins" style="display: block;">
       <div class="list-content" id="shopList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 10px;"></div>
     </div>
 
-    <!-- Контент: Подарки -->
     <div id="shopContentGifts" style="display: none;">
       <div class="gift-wrapper">
-        
         <div class="gift-card">
           <div class="gift-title" data-i18n="daily_gift_title">Ежедневный подарок</div>
-          
           <div class="gift-box-inner">
             <div class="gift-timer" id="giftTimer">00:00</div>
             <div id="giftRewardDisplay" style="display: none; flex-direction: column; align-items: center;">
@@ -278,16 +271,12 @@
               <div id="jackpotText" style="display: none; color: #fde047; font-size: 10px; margin-top: 10px; text-shadow: 2px 2px 0 #000;">ДЖЕКПОТ!</div>
             </div>
             <div id="giftQuestion" style="font-size: 60px; text-shadow: 4px 4px 0 #000;">?</div>
-            
             <div class="gift-lock" id="giftLockIcon">🔒</div>
           </div>
-
           <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()" data-i18n="daily_gift_btn">ПОДАРОК</button>
         </div>
-
       </div>
     </div>
-
   </div>
 
   <div class="screen" id="screen-upgrades">
@@ -388,6 +377,28 @@
         osc.type = 'sawtooth'; osc.frequency.setValueAtTime(440, now); osc.frequency.setValueAtTime(554.37, now + 0.1); osc.frequency.setValueAtTime(659.25, now + 0.2);
         gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
         osc.start(now); osc.stop(now + 0.5);
+      }
+    }
+
+    // === УНИВЕРСАЛЬНАЯ ВИБРАЦИЯ ===
+    function playHaptic(type) {
+      if (tg && tg.HapticFeedback) {
+        try {
+          if (type === 'light') tg.HapticFeedback.impactOccurred('light');
+          else if (type === 'medium') tg.HapticFeedback.impactOccurred('medium');
+          else if (type === 'heavy') tg.HapticFeedback.impactOccurred('heavy');
+          else if (type === 'success') tg.HapticFeedback.notificationOccurred('success');
+          else if (type === 'error') tg.HapticFeedback.notificationOccurred('error');
+        } catch(e) {}
+      } else if (navigator.vibrate) {
+        // Запасной вариант для браузеров
+        try {
+          if (type === 'light') navigator.vibrate(15);
+          else if (type === 'medium') navigator.vibrate(30);
+          else if (type === 'heavy') navigator.vibrate(50);
+          else if (type === 'success') navigator.vibrate([30, 50, 30]);
+          else if (type === 'error') navigator.vibrate([50, 100, 50]);
+        } catch(e) {}
       }
     }
 
@@ -547,9 +558,8 @@
     var userName = t.player;
     var hasUnclaimedQuest = false;
 
-    // Логика ежедневного подарка
     var lastGiftTime = parseInt(localStorage.getItem('lastGiftTime')) || 0;
-    var giftCooldown = 24 * 60 * 60 * 1000; // 24 часа
+    var giftCooldown = 24 * 60 * 60 * 1000; 
     var giftTimerInterval = null;
 
     var balanceEl = document.getElementById('balance');
@@ -596,7 +606,6 @@
       save();
     }
 
-    // === ЛОГИКА ЕЖЕДНЕВНОГО ПОДАРКА ===
     function updateGiftUI() {
       var now = Date.now();
       var timePassed = now - lastGiftTime;
@@ -609,7 +618,6 @@
       var rewardDisplayEl = document.getElementById('giftRewardDisplay');
       
       if (timeLeft > 0) {
-        // Подарок заблокирован
         var hours = Math.floor(timeLeft / (1000 * 60 * 60));
         var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
         timerEl.innerText = hours + 'ч ' + minutes + 'м';
@@ -618,11 +626,9 @@
         btnEl.disabled = true;
         btnEl.innerText = t.gift_wait;
         
-        // Показываем приз, который выпал в прошлый раз (сохраняем в localStorage или просто скрываем)
         questionEl.style.display = 'flex';
         rewardDisplayEl.style.display = 'none';
       } else {
-        // Доступен
         timerEl.style.display = 'none';
         lockEl.style.display = 'none';
         btnEl.disabled = false;
@@ -635,22 +641,21 @@
 
     window.claimGift = function() {
       var now = Date.now();
-      if (now - lastGiftTime < giftCooldown) return; // Защита
+      if (now - lastGiftTime < giftCooldown) return;
 
-      // Рандом: от 0.001 до 300, но с шансами
       var roll = Math.random();
       var reward = 0;
       var isJackpot = false;
 
-      if (roll < 0.01) { // 1% шанс джекпота
+      if (roll < 0.01) { 
         reward = 300;
         isJackpot = true;
-      } else if (roll < 0.10) { // 9% шанс на крупную сумму
-        reward = Math.random() * (50 - 10) + 10; // 10 - 50
-      } else if (roll < 0.40) { // 30% на среднюю
-        reward = Math.random() * (10 - 1) + 1; // 1 - 10
-      } else { // 60% на мелкую
-        reward = Math.random() * (1 - 0.001) + 0.001; // 0.001 - 1
+      } else if (roll < 0.10) { 
+        reward = Math.random() * (50 - 10) + 10; 
+      } else if (roll < 0.40) { 
+        reward = Math.random() * (10 - 1) + 1; 
+      } else { 
+        reward = Math.random() * (1 - 0.001) + 0.001; 
       }
       
       reward = parseFloat(reward.toFixed(3));
@@ -659,7 +664,6 @@
       save();
       updateUI();
       
-      // Анимация вскрытия
       var questionEl = document.getElementById('giftQuestion');
       var rewardDisplayEl = document.getElementById('giftRewardDisplay');
       var rewardTextEl = document.getElementById('giftRewardText');
@@ -673,24 +677,23 @@
         rewardTextEl.classList.add('jackpot');
         jackpotEl.style.display = 'block';
         jackpotEl.innerText = t.jackpot;
-        playSound('quest_claim_10'); // Эпичный звук
+        playSound('quest_claim_10'); 
+        playHaptic('heavy'); // Сильная вибрация для джекпота
       } else {
         rewardTextEl.classList.remove('jackpot');
         jackpotEl.style.display = 'none';
-        playSound('quest_claim'); // Обычный звук
+        playSound('quest_claim'); 
+        playHaptic('success');
       }
       
-      // Блокируем кнопку
       updateGiftUI();
       
-      if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-      
-      // Таймер обратного отсчета
       if (giftTimerInterval) clearInterval(giftTimerInterval);
-      giftTimerInterval = setInterval(updateGiftUI, 60000); // Обновляем каждую минуту
+      giftTimerInterval = setInterval(updateGiftUI, 60000); 
     };
 
     window.switchShopTab = function(tab) {
+      playHaptic('medium'); // Вибрация при смене вкладки
       var skinsBtn = document.querySelectorAll('.shop-tab-btn')[0];
       var giftsBtn = document.querySelectorAll('.shop-tab-btn')[1];
       
@@ -711,8 +714,6 @@
         updateGiftUI();
       }
     };
-
-    // === ОСТАЛЬНЫЕ ФУНКЦИИ ===
 
     function checkQuestReady() {
       if (hasUnclaimedQuest) return;
@@ -761,7 +762,9 @@
       if (now - lastTapTime < 50) return;
       lastTapTime = now;
       if (e.cancelable) e.preventDefault();
-      if (tg && tg.HapticFeedback) { try { tg.HapticFeedback.impactOccurred('light'); } catch(err) {} }
+      
+      // === ВИБРАЦИЯ ПРИ ТАПЕ ===
+      playHaptic('light');
 
       balance += tapValue;
       totalTaps += 1;
@@ -826,9 +829,11 @@
         balance -= skin.price;
         ownedSkins.push(id);
         playSound('upgrade');
+        playHaptic('success'); // Вибрация при покупке
         updateUI();
         renderShop();
       } else {
+        playHaptic('error'); // Вибрация ошибки
         alert(currentLang === 'ru' ? 'Недостаточно средств!' : 'Not enough funds!');
       }
     }
@@ -838,7 +843,7 @@
       updatePotatoSkin();
       save();
       renderShop();
-      if (tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+      playHaptic('medium'); // Вибрация при смене скина
     }
 
     function renderUpgrades() {
@@ -869,9 +874,12 @@
                 if (balance >= u.cost) {
                   balance -= u.cost; tapValue = u.value; maxUpgrade = lvl;
                   playSound('upgrade');
+                  playHaptic('success'); // Вибрация при покупке
                   updateUI(); renderUpgrades();
-                  if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
-                } else alert(t.buy_prev);
+                } else {
+                  playHaptic('error');
+                  alert(t.buy_prev);
+                }
               };
             })(upg, level);
           }
@@ -888,8 +896,12 @@
             if (balance >= 100) {
               balance -= 100; hasAutoclicker = true;
               playSound('upgrade');
+              playHaptic('success');
               updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
-            } else alert(t.buy_prev);
+            } else {
+              playHaptic('error');
+              alert(t.buy_prev);
+            }
           };
           card.appendChild(btn); upgradesList.appendChild(card);
         } else {
@@ -909,8 +921,12 @@
                   if (balance >= a.cost) {
                     balance -= a.cost; autoValue = a.value; autoValueLevel = a.level;
                     playSound('upgrade');
+                    playHaptic('success');
                     updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
-                  } else alert(t.buy_prev);
+                  } else {
+                    playHaptic('error');
+                    alert(t.buy_prev);
+                  }
                 };
               })(av);
             }
@@ -932,8 +948,12 @@
                   if (balance >= a.cost) {
                     balance -= a.cost; autoInterval = a.interval; autoSpeedLevel = a.level;
                     playSound('upgrade');
+                    playHaptic('success');
                     updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
-                  } else alert(t.buy_prev);
+                  } else {
+                    playHaptic('error');
+                    alert(t.buy_prev);
+                  }
                 };
               })(as);
             }
@@ -973,10 +993,10 @@
               } else {
                 playSound('quest_claim');
               }
+              playHaptic('success');
               
               hasUnclaimedQuest = false;
               updateUI(); renderQuests();
-              if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
             };
           })(q);
         } else { btn.innerText = t.not_done; btn.disabled = true; }
@@ -1046,6 +1066,7 @@
     }
 
     function showScreen(name) {
+      playHaptic('medium'); // Вибрация при переходе между экранами
       var screens = document.querySelectorAll('.screen');
       for (var s = 0; s < screens.length; s++) screens[s].classList.remove('active');
       var target = document.getElementById('screen-' + name);
@@ -1066,7 +1087,7 @@
       if (name === 'profile') loadUser();
       if (name === 'rating') renderRating();
       if (name === 'achievements') renderAchievements();
-      if (name === 'shop') { switchShopTab('skins'); } // По умолчанию открываем скины
+      if (name === 'shop') { switchShopTab('skins'); } 
     }
 
     document.getElementById('openProfile').onclick = function() { showScreen('profile'); };
@@ -1077,14 +1098,21 @@
     }
 
     document.getElementById('tabTap').onclick = function() {
+      playHaptic('medium');
       currentTab = 'tap'; this.classList.add('active'); document.getElementById('tabAuto').classList.remove('active'); renderUpgrades();
     };
     document.getElementById('tabAuto').onclick = function() {
+      playHaptic('medium');
       currentTab = 'auto'; this.classList.add('active'); document.getElementById('tabTap').classList.remove('active'); renderUpgrades();
     };
 
     window.withdrawMoney = function() {
-      if (balance < 10) { alert(currentLang === 'ru' ? 'Минимум 10 ₽' : 'Minimum 10 ₽'); return; }
+      if (balance < 10) { 
+        playHaptic('error');
+        alert(currentLang === 'ru' ? 'Минимум 10 ₽' : 'Minimum 10 ₽'); 
+        return; 
+      }
+      playHaptic('success');
       alert((currentLang === 'ru' ? 'Вывод ' : 'Withdraw ') + balance.toFixed(2) + ' ₽ (test)');
       balance = 0; updateUI();
     };
@@ -1094,6 +1122,7 @@
       devClickCount++;
       if (devClickCount >= 5) {
         balance += 200000; totalTaps += 50000; updateUI();
+        playHaptic('heavy');
         alert(currentLang === 'ru' ? '+200 000 ₽ и +50 000 тапов!' : '+200,000 ₽ and +50,000 taps!');
         devClickCount = 0;
       }
@@ -1104,9 +1133,9 @@
     updateUI();
     updateAutoInfo();
     updatePotatoSkin(); 
-    updateGiftUI(); // Обновляем подарок при старте
+    updateGiftUI(); 
     if (giftTimerInterval) clearInterval(giftTimerInterval);
-    giftTimerInterval = setInterval(updateGiftUI, 60000); // Таймер обновления раз в минуту
+    giftTimerInterval = setInterval(updateGiftUI, 60000); 
     if (hasAutoclicker) startAutoclicker();
   </script>
 </body>
