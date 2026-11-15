@@ -203,7 +203,8 @@
     }
     .reel {
       display: flex; height: 100%; align-items: center; position: absolute; left: 0; top: 0;
-      transition: transform 10s cubic-bezier(0.1, 0.8, 0.1, 1);
+      /* 9 секунд анимации (синхронизировано со звуком) */
+      transition: transform 9s cubic-bezier(0.1, 0.8, 0.1, 1);
     }
     .reel-item {
       width: 80px; height: 80px; margin: 0 5px; flex-shrink: 0;
@@ -469,7 +470,7 @@
         osc.type = 'square'; osc.frequency.setValueAtTime(987.77, now); osc.frequency.setValueAtTime(1318.51, now + 0.1);
         gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
         osc.start(now); osc.stop(now + 0.4);
-      } else if (type === 'quest_claim_10') {
+      } else if (type === 'quest_claim_10') { // Звук для 10 квеста
         osc.type = 'sawtooth';
         osc.frequency.setValueAtTime(523.25, now); 
         osc.frequency.setValueAtTime(659.25, now + 0.15); 
@@ -478,6 +479,17 @@
         gain.gain.setValueAtTime(0.15, now);
         gain.gain.linearRampToValueAtTime(0.01, now + 0.8);
         osc.start(now); osc.stop(now + 0.8);
+      } else if (type === 'quest_claim_11') { // УНИКАЛЬНЫЙ ЗВУК ДЛЯ 11 КВЕСТА (100к)
+        osc.type = 'square';
+        // Драматичный восходящий звук
+        osc.frequency.setValueAtTime(400, now);
+        osc.frequency.linearRampToValueAtTime(800, now + 0.2);
+        osc.frequency.setValueAtTime(800, now + 0.3);
+        osc.frequency.linearRampToValueAtTime(1600, now + 0.6);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.linearRampToValueAtTime(0.2, now + 0.3);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 1.0);
+        osc.start(now); osc.stop(now + 1.0);
       } else if (type === 'achievement') {
         osc.type = 'sawtooth'; osc.frequency.setValueAtTime(440, now); osc.frequency.setValueAtTime(554.37, now + 0.1); osc.frequency.setValueAtTime(659.25, now + 0.2);
         gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
@@ -505,15 +517,17 @@
       }
     }
 
+    // === СИНТЕЗИРОВАННЫЙ 9-СЕКУНДНЫЙ ЗВУК РУЛЕТКИ (КАК В CS:GO) ===
     function playCasinoSpinSound(durationMs) {
       if (!audioCtx) return;
       var durationSec = durationMs / 1000;
       var now = audioCtx.currentTime;
-      var tickCount = 120; 
+      var tickCount = 150; // Количество тиков
 
       for (var i = 0; i < tickCount; i++) {
         var progress = i / tickCount;
-        var easeProgress = 1 - Math.pow(1 - progress, 4);
+        // Кривая замедления должна совпадать с cubic-bezier(0.1, 0.8, 0.1, 1)
+        var easeProgress = 1 - Math.pow(1 - progress, 4); 
         var timeOffset = durationSec * easeProgress;
         var tickTime = now + timeOffset;
 
@@ -523,14 +537,27 @@
         gain.connect(audioCtx.destination);
 
         osc.type = 'square';
-        osc.frequency.setValueAtTime(1500 - (progress * 500), tickTime); 
+        // Звук тика (немного понижается к концу для драматизма)
+        osc.frequency.setValueAtTime(1800 - (progress * 800), tickTime); 
 
-        gain.gain.setValueAtTime(0.05, tickTime);
+        gain.gain.setValueAtTime(0.08, tickTime);
         gain.gain.exponentialRampToValueAtTime(0.001, tickTime + 0.02);
 
         osc.start(tickTime);
         osc.stop(tickTime + 0.03);
       }
+      
+      // Финальный "глухой" удар в самом конце
+      var finalOsc = audioCtx.createOscillator();
+      var finalGain = audioCtx.createGain();
+      finalOsc.connect(finalGain); finalGain.connect(audioCtx.destination);
+      finalOsc.type = 'sine';
+      finalOsc.frequency.setValueAtTime(150, now + durationSec);
+      finalOsc.frequency.exponentialRampToValueAtTime(50, now + durationSec + 0.3);
+      finalGain.gain.setValueAtTime(0.5, now + durationSec);
+      finalGain.gain.exponentialRampToValueAtTime(0.01, now + durationSec + 0.3);
+      finalOsc.start(now + durationSec);
+      finalOsc.stop(now + durationSec + 0.3);
     }
 
     function playHaptic(type) {
@@ -568,7 +595,7 @@
         auto_power: "Сила авто", auto_speed: "Скорость авто", gives: "Даёт", interval: "Интервал",
         sec: "сек", balance: "Баланс", make_taps: "Сделай", taps_word: "тапов", progress: "Прогресс",
         claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено",
-        upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец"],
+        upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель"],
         upg_desc: "Тап даёт",
         achievements_btn: "🏆 Достижения", ach_unlocked: "Получено", ach_locked: "Заблокировано",
         shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить",
@@ -584,7 +611,7 @@
           { title: "Богач", desc: "100 ₽", icon: "💰" },
           { title: "Автоматизация", desc: "Купить авто", icon: "⚙️" },
           { title: "Прокачка", desc: "5-й уровень", icon: "⚡" },
-          { title: "Божественная мощь", desc: "Божеств. тап", icon: "🌟" }, // Переименовано
+          { title: "Божественная мощь", desc: "Божеств. тап", icon: "🌟" },
           { title: "Протёртый палец", desc: "50 000 тапов", icon: "🩹" },
           { title: "Сила Творца", desc: "Тап Творца", icon: "👑" },
           { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" },
@@ -592,7 +619,8 @@
           { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" },
           { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" },
           { title: "Всё про**бал", desc: "Выбить 🗿", icon: "🗿" },
-          { title: "Автоматизированный рай", desc: "Макс. сила авто", icon: "⚙️" }
+          { title: "Автоматизированный рай", desc: "Макс. сила авто", icon: "⚙️" },
+          { title: "Властелин Миров", desc: "20-й уровень тапа", icon: "💥" } // Новое достижение
         ]
       },
       en: {
@@ -606,7 +634,7 @@
         auto_power: "Auto Power", auto_speed: "Auto Speed", gives: "Gives", interval: "Interval",
         sec: "sec", balance: "Balance", make_taps: "Make", taps_word: "taps", progress: "Progress",
         claim: "Claim", received: "Received", not_done: "Not done",
-        upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator"],
+        upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer"],
         upg_desc: "Tap gives",
         achievements_btn: "🏆 Achievements", ach_unlocked: "Received", ach_locked: "Locked",
         shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy",
@@ -622,7 +650,7 @@
           { title: "Rich Man", desc: "100 ₽", icon: "💰" },
           { title: "Automation", desc: "Buy autoclicker", icon: "⚙️" },
           { title: "Upgraded", desc: "Buy 5th level", icon: "⚡" },
-          { title: "Divine Might", desc: "Buy Divine Tap", icon: "🌟" }, // Переименовано
+          { title: "Divine Might", desc: "Buy Divine Tap", icon: "🌟" },
           { title: "Worn Finger", desc: "50,000 taps", icon: "🩹" },
           { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" },
           { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" },
@@ -630,7 +658,8 @@
           { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" },
           { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" },
           { title: "Lost Everything", desc: "Hit the 🗿", icon: "🗿" },
-          { title: "Automated Paradise", desc: "Max auto power", icon: "⚙️" }
+          { title: "Automated Paradise", desc: "Max auto power", icon: "⚙️" },
+          { title: "Lord of Worlds", desc: "20th tap level", icon: "💥" }
         ]
       }
     };
@@ -662,6 +691,7 @@
       }
     } catch(e) {}
 
+    // РАСШИРЕННЫЙ ТАП (ДО 20 УРОВНЯ)
     var upgradesData = [
       { nameIdx: 0, desc: 0.002, cost: 2.5, value: 0.002 }, { nameIdx: 1, desc: 0.003, cost: 4, value: 0.003 },
       { nameIdx: 2, desc: 0.004, cost: 8, value: 0.004 }, { nameIdx: 3, desc: 0.005, cost: 16, value: 0.005 },
@@ -672,10 +702,14 @@
       { nameIdx: 11, desc: 0.3, cost: 700, value: 0.3 },
       { nameIdx: 12, desc: 0.4, cost: 800, value: 0.4 },
       { nameIdx: 13, desc: 0.5, cost: 900, value: 0.5 },
-      { nameIdx: 14, desc: 1.0, cost: 1000, value: 1.0 }
+      { nameIdx: 14, desc: 1.0, cost: 1000, value: 1.0 },
+      { nameIdx: 15, desc: 2.0, cost: 1500, value: 2.0 },
+      { nameIdx: 16, desc: 3.0, cost: 2000, value: 3.0 },
+      { nameIdx: 17, desc: 4.0, cost: 2500, value: 4.0 },
+      { nameIdx: 18, desc: 5.0, cost: 3000, value: 5.0 },
+      { nameIdx: 19, desc: 10.0, cost: 5000, value: 10.0 }
     ];
     
-    // РАСШИРЕННЫЙ АВТОКЛИКЕР (ДО 15 УРОВНЯ)
     var autoValueData = [
       { level: 1, cost: 50, value: 0.0002 }, { level: 2, cost: 60, value: 0.0003 }, { level: 3, cost: 70, value: 0.0004 }, { level: 4, cost: 80, value: 0.0005 },
       { level: 5, cost: 160, value: 0.001 }, { level: 6, cost: 180, value: 0.002 }, { level: 7, cost: 200, value: 0.003 }, { level: 8, cost: 225, value: 0.004 },
@@ -690,6 +724,7 @@
       { level: 9, cost: 375, interval: 5000 }, { level: 10, cost: 500, interval: 1000 }
     ];
     
+    // ДОБАВЛЕНЫ НОВЫЕ КВЕСТЫ (100к и 250к)
     var questsData = [
       { id: 1, need: 1000, reward: 0.5 }, 
       { id: 2, need: 5000, reward: 1 },
@@ -700,7 +735,9 @@
       { id: 7, need: 30000, reward: 20 },
       { id: 8, need: 35000, reward: 25 },
       { id: 9, need: 40000, reward: 30 },
-      { id: 10, need: 50000, reward: 50 }
+      { id: 10, need: 50000, reward: 50 },
+      { id: 11, need: 100000, reward: 100 },
+      { id: 12, need: 250000, reward: 500 }
     ];
 
     var skinsData = [
@@ -738,7 +775,7 @@
     var isSpinning = false;
     var spinCost = 5;
     var forceMoai = false; 
-    var SPIN_DURATION = 10000; 
+    var SPIN_DURATION = 9000; // Изменено на 9 секунд для синхронизации со звуком
 
     var balanceEl = document.getElementById('balance');
     var tapPowerEl = document.getElementById('tapPower');
@@ -787,7 +824,8 @@
 
       tapPowerEl.innerText = tapValue.toFixed(3);
       totalTapsText.innerText = totalTaps;
-      progressFill.style.width = Math.min(100, (totalTaps / 50000) * 100) + '%';
+      // Прогресс теперь до 250к
+      progressFill.style.width = Math.min(100, (totalTaps / 250000) * 100) + '%';
       checkAchievements();
       checkQuestReady();
       save();
@@ -963,6 +1001,7 @@
       spinBtn.disabled = true;
       playHaptic('medium');
       
+      // 9-секундный звук
       playCasinoSpinSound(SPIN_DURATION); 
       
       var winItem = null;
@@ -1002,6 +1041,7 @@
       }
 
       setTimeout(function() {
+        // Анимация 9 секунд
         casinoReel.style.transition = 'transform ' + (SPIN_DURATION/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
         
         var itemWidth = 90; 
@@ -1091,6 +1131,9 @@
       if (ownedSkins.indexOf(2) !== -1 && unlockedAch.indexOf(12) === -1) { unlockedAch.push(12); newUnlock = true; }
       
       if (autoValueLevel >= 15 && unlockedAch.indexOf(15) === -1) { unlockedAch.push(15); newUnlock = true; }
+      
+      // Новое достижение за 20 уровень тапа
+      if (maxUpgrade >= 20 && unlockedAch.indexOf(16) === -1) { unlockedAch.push(16); newUnlock = true; }
 
       if (newUnlock) { playSound('achievement'); save(); }
     }
@@ -1349,11 +1392,15 @@
             return function() {
               balance += quest.reward; claimed.push(quest.id);
               
+              // Уникальные звуки для разных квестов
               if (quest.id === 10) {
                 playSound('quest_claim_10');
+              } else if (quest.id === 11) {
+                playSound('quest_claim_11');
               } else {
                 playSound('quest_claim');
               }
+              
               playHaptic('success');
               
               hasUnclaimedQuest = false;
