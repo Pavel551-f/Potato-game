@@ -57,12 +57,20 @@
     .tap-power { margin-top: 16px; font-size: 11px; color: #c4b5fd; }
     .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; }
 
-    .tabs { display: flex; gap: 8px; padding: 80px 16px 12px; }
+    /* ОБНОВЛЕННЫЕ ВКЛАДКИ (УЛ. ТАПА / УЛ. АВТО) */
+    .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; }
     .tab-btn { 
-      flex: 1; padding: 10px 6px; border: none; font-size: 9px; background: rgba(255,255,255,0.08); color: #c4b5fd; cursor: pointer; 
-      border: 3px solid; border-color: #6b21a8 #2e1065 #2e1065 #6b21a8; text-shadow: 1px 1px 0 #000; 
+      flex: 1; padding: 12px 6px; border: none; font-size: 10px; 
+      background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer; 
+      border: 4px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; 
+      text-shadow: 2px 2px 0 #000; font-family: 'Press Start 2P', monospace;
+      text-transform: uppercase;
     }
-    .tab-btn.active { background: rgba(168, 85, 247, 0.3); color: white; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
+    .tab-btn.active { 
+      background: #8b5cf6; color: white; 
+      border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; 
+      transform: translateY(2px);
+    }
 
     .list-content { padding: 0 16px 30px; }
     #screen-quests .list-content, #screen-achievements .list-content, #screen-shop .list-content { padding-top: 80px; }
@@ -73,9 +81,9 @@
     }
     .card-icon { font-size: 24px; flex-shrink: 0; width: 35px; text-align: center; filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5)); }
     .card-content { flex: 1; }
-    .card-title { font-size: 10px; margin-bottom: 8px; color: #fff; line-height: 1.4; }
-    .card-desc { font-size: 8px; color: #c4b5fd; margin-bottom: 8px; line-height: 1.5; }
-    .card-status { font-size: 8px; font-weight: 700; }
+    .card-title { font-size: 11px; margin-bottom: 8px; color: #fff; line-height: 1.4; }
+    .card-desc { font-size: 9px; color: #c4b5fd; margin-bottom: 8px; line-height: 1.5; }
+    .card-status { font-size: 9px; font-weight: 700; }
     .status-locked { color: #6b7280; }
     .status-unlocked { color: #10b981; }
     
@@ -101,7 +109,7 @@
     .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 16px; gap: 8px; }
     .shop-preview { font-size: 60px; margin-bottom: 5px; height: 70px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
     .shop-preview img { width: 70px; height: 70px; object-fit: contain; image-rendering: pixelated; }
-    .shop-card .btn { width: 100%; margin-bottom: 0; }
+    .shop-card .btn { width: 100%; margin-bottom: 0; font-size: 8px; }
 
     .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; }
     .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 18px; image-rendering: pixelated; background: #4c1d95;}
@@ -181,7 +189,6 @@
   </div>
 
   <div class="screen active" id="screen-main">
-    <!-- ИСПРАВЛЕНО: добавил data-i18n="shop_btn" -->
     <div class="shop-btn-main" onclick="showScreen('shop')">
       🛒 <span data-i18n="shop_btn">Магазин</span>
     </div>
@@ -203,7 +210,7 @@
   <div class="screen" id="screen-upgrades">
     <div class="tabs">
       <button class="tab-btn active" id="tabTap" data-i18n="tab_tap">Ул. тапа</button>
-      <button class="tab-btn" id="tabAuto" data-i18n="tab_auto">Ул. автокликера</button>
+      <button class="tab-btn" id="tabAuto" data-i18n="tab_auto">Ул. авто</button>
     </div>
     <div class="list-content" id="upgradesList"></div>
   </div>
@@ -638,7 +645,7 @@
           
           var btn = document.createElement('button');
           btn.className = 'btn';
-          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '8px';
+          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
           btn.innerText = btnText;
           if (!isNext) btn.disabled = true;
 
@@ -661,7 +668,7 @@
           var card = document.createElement('div'); card.className = 'card';
           card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_buy + '</div><div class="card-desc">' + t.auto_desc + '</div></div>';
           var btn = document.createElement('button'); btn.className = 'btn'; 
-          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '8px';
+          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
           btn.innerText = t.buy_for + ' 100 ₽';
           btn.onclick = function() {
             if (balance >= 100) {
@@ -679,7 +686,7 @@
             var card = document.createElement('div'); card.className = 'card';
             card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_power + ' Lv.' + av.level + '</div><div class="card-desc">' + t.gives + ' ' + av.value + ' ₽</div></div>';
             var btn = document.createElement('button'); btn.className = 'btn';
-            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '8px';
+            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
             btn.innerText = isB ? t.bought : (isN ? t.buy_for + ' ' + av.cost + ' ₽' : t.buy_prev);
             if (!isN) btn.disabled = true;
             if (isN) {
@@ -702,7 +709,7 @@
             var card = document.createElement('div'); card.className = 'card';
             card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_speed + ' Lv.' + as.level + '</div><div class="card-desc">' + t.interval + ': ' + (as.interval/1000) + ' ' + t.sec + '</div></div>';
             var btn = document.createElement('button'); btn.className = 'btn';
-            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '8px';
+            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
             btn.innerText = isB ? t.bought : (isN ? t.buy_for + ' ' + as.cost + ' ₽' : t.buy_prev);
             if (!isN) btn.disabled = true;
             if (isN) {
@@ -734,10 +741,10 @@
         var progText = t.progress + ': ' + Math.min(totalTaps, q.need) + ' / ' + q.need;
         
         var card = document.createElement('div'); card.className = 'card';
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-bottom: 0; color: #a78bfa; font-size:8px;">' + progText + '</div></div>';
+        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-bottom: 0; color: #a78bfa; font-size:9px;">' + progText + '</div></div>';
         
         var btn = document.createElement('button'); btn.className = 'btn';
-        btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '8px';
+        btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
         
         if (isClaimed) { btn.innerText = t.received; btn.disabled = true; }
         else if (canClaim) {
