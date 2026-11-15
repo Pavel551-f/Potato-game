@@ -57,7 +57,6 @@
     .tap-power { margin-top: 16px; font-size: 11px; color: #c4b5fd; }
     .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; }
 
-    /* ОБНОВЛЕННЫЕ ВКЛАДКИ (УЛ. ТАПА / УЛ. АВТО) */
     .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; }
     .tab-btn { 
       flex: 1; padding: 12px 6px; border: none; font-size: 10px; 
@@ -72,8 +71,19 @@
       transform: translateY(2px);
     }
 
+    /* ВКЛАДКИ В МАГАЗИНЕ */
+    .shop-tabs { display: flex; gap: 8px; margin-bottom: 20px; padding: 0 16px; }
+    .shop-tab-btn { 
+      flex: 1; padding: 10px 6px; border: none; font-size: 9px; 
+      background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer; 
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; 
+      text-shadow: 1px 1px 0 #000; font-family: inherit;
+    }
+    .shop-tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; }
+
     .list-content { padding: 0 16px 30px; }
-    #screen-quests .list-content, #screen-achievements .list-content, #screen-shop .list-content { padding-top: 80px; }
+    #screen-quests .list-content, #screen-achievements .list-content, #screen-shop .list-content { padding-top: 0; }
+    #screen-shop .shop-tabs { padding-top: 80px; }
     
     .card { 
       background: rgba(255,255,255,0.09); padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; 
@@ -110,6 +120,45 @@
     .shop-preview { font-size: 60px; margin-bottom: 5px; height: 70px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
     .shop-preview img { width: 70px; height: 70px; object-fit: contain; image-rendering: pixelated; }
     .shop-card .btn { width: 100%; margin-bottom: 0; font-size: 8px; }
+
+    /* СТИЛЬ ЕЖЕДНЕВНОГО ПОДАРКА */
+    .gift-wrapper { display: flex; flex-direction: column; align-items: center; padding: 10px 16px 30px; }
+    .gift-card {
+      width: 100%; max-width: 280px; background: #1a1625; border: 4px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
+      padding: 10px; display: flex; flex-direction: column; align-items: center; position: relative;
+    }
+    .gift-title { font-size: 12px; color: #fff; margin-bottom: 15px; text-shadow: 2px 2px 0 #000; }
+    
+    .gift-box-inner {
+      width: 100%; aspect-ratio: 1/1; background: #ff00ff; /* Ярко-розовый фон */
+      border: 4px solid #000;
+      display: flex; justify-content: center; align-items: center; position: relative;
+      background-image: 
+        radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%),
+        radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%);
+      background-size: 30px 30px;
+      background-position: 0 0, 15px 15px;
+    }
+    .gift-reward-text { font-size: 24px; color: #fff; text-shadow: 3px 3px 0 #000; margin-top: 10px; }
+    .gift-reward-text.jackpot { color: #fde047; animation: pulse 1s infinite alternate; }
+    @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
+
+    .gift-btn-bottom {
+      width: 100%; background: #374151; padding: 15px 0; margin-top: -4px; 
+      border: 4px solid #000; font-size: 12px; color: #fff; text-align: center; cursor: pointer;
+    }
+    .gift-btn-bottom:active { background: #1f2937; }
+    .gift-btn-bottom:disabled { background: #4b5563; color: #9ca3af; cursor: not-allowed; }
+
+    .gift-lock {
+      position: absolute; bottom: -15px; left: -15px; width: 50px; height: 50px;
+      background: #fff; border: 3px solid #000; border-radius: 50%;
+      display: flex; justify-content: center; align-items: center; font-size: 24px; color: #000;
+    }
+
+    .gift-timer {
+      position: absolute; top: -30px; left: 0; background: rgba(0,0,0,0.8); color: #fff; padding: 4px 8px; font-size: 10px; border: 2px solid #fff;
+    }
 
     .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; }
     .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 18px; image-rendering: pixelated; background: #4c1d95;}
@@ -203,8 +252,42 @@
   </div>
 
   <div class="screen" id="screen-shop">
-    <div style="padding: 80px 16px 10px; font-size: 12px; text-align: center; color: #fff;" data-i18n="shop_title">🛒 Магазин скинов</div>
-    <div class="list-content" id="shopList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 10px;"></div>
+    
+    <!-- Вкладки магазина -->
+    <div class="shop-tabs">
+      <button class="shop-tab-btn active" onclick="switchShopTab('skins')" data-i18n="shop_tab_skins">Скины</button>
+      <button class="shop-tab-btn" onclick="switchShopTab('gifts')" data-i18n="shop_tab_gifts">Подарки</button>
+    </div>
+
+    <!-- Контент: Скины -->
+    <div id="shopContentSkins" style="display: block;">
+      <div class="list-content" id="shopList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 10px;"></div>
+    </div>
+
+    <!-- Контент: Подарки -->
+    <div id="shopContentGifts" style="display: none;">
+      <div class="gift-wrapper">
+        
+        <div class="gift-card">
+          <div class="gift-title" data-i18n="daily_gift_title">Ежедневный подарок</div>
+          
+          <div class="gift-box-inner">
+            <div class="gift-timer" id="giftTimer">00:00</div>
+            <div id="giftRewardDisplay" style="display: none; flex-direction: column; align-items: center;">
+              <div class="gift-reward-text" id="giftRewardText">₽ 10</div>
+              <div id="jackpotText" style="display: none; color: #fde047; font-size: 10px; margin-top: 10px; text-shadow: 2px 2px 0 #000;">ДЖЕКПОТ!</div>
+            </div>
+            <div id="giftQuestion" style="font-size: 60px; text-shadow: 4px 4px 0 #000;">?</div>
+            
+            <div class="gift-lock" id="giftLockIcon">🔒</div>
+          </div>
+
+          <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()" data-i18n="daily_gift_btn">ПОДАРОК</button>
+        </div>
+
+      </div>
+    </div>
+
   </div>
 
   <div class="screen" id="screen-upgrades">
@@ -323,7 +406,10 @@
         upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец"],
         upg_desc: "Тап даёт",
         achievements_btn: "🏆 Достижения", ach_unlocked: "Получено ✨", ach_locked: "Заблокировано",
-        shop_title: "🛒 Магазин скинов", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить",
+        shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить",
+        shop_tab_skins: "Скины", shop_tab_gifts: "Подарки",
+        daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!",
+        gift_wait: "Доступно через", gift_ready: "Забрать!",
         ach_list: [
           { title: "Первый шаг", desc: "100 тапов", icon: "🌱" },
           { title: "Фанат", desc: "1 000 тапов", icon: "🥔" },
@@ -351,7 +437,10 @@
         upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator"],
         upg_desc: "Tap gives",
         achievements_btn: "🏆 Achievements", ach_unlocked: "Unlocked ✨", ach_locked: "Locked",
-        shop_title: "🛒 Skin Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy",
+        shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy",
+        shop_tab_skins: "Skins", shop_tab_gifts: "Gifts",
+        daily_gift_title: "DAILY GIFT", daily_gift_btn: "GIFT", jackpot: "JACKPOT!",
+        gift_wait: "Available in", gift_ready: "Claim!",
         ach_list: [
           { title: "First Step", desc: "100 taps", icon: "🌱" },
           { title: "Fan", desc: "1,000 taps", icon: "🥔" },
@@ -378,6 +467,7 @@
       }
       document.getElementById('currentLangText').innerText = currentLang.toUpperCase();
       renderShop(); 
+      updateGiftUI();
     }
 
     function openLangMenu() { document.getElementById('langModal').style.display = 'flex'; }
@@ -457,6 +547,11 @@
     var userName = t.player;
     var hasUnclaimedQuest = false;
 
+    // Логика ежедневного подарка
+    var lastGiftTime = parseInt(localStorage.getItem('lastGiftTime')) || 0;
+    var giftCooldown = 24 * 60 * 60 * 1000; // 24 часа
+    var giftTimerInterval = null;
+
     var balanceEl = document.getElementById('balance');
     var tapPowerEl = document.getElementById('tapPower');
     var potatoBtn = document.getElementById('potatoBtn');
@@ -483,6 +578,7 @@
       localStorage.setItem('autoSpeedLevel', autoSpeedLevel);
       localStorage.setItem('ownedSkins', JSON.stringify(ownedSkins));
       localStorage.setItem('equippedSkin', equippedSkin);
+      localStorage.setItem('lastGiftTime', lastGiftTime);
     }
 
     function updatePotatoSkin() {
@@ -499,6 +595,124 @@
       checkQuestReady();
       save();
     }
+
+    // === ЛОГИКА ЕЖЕДНЕВНОГО ПОДАРКА ===
+    function updateGiftUI() {
+      var now = Date.now();
+      var timePassed = now - lastGiftTime;
+      var timeLeft = giftCooldown - timePassed;
+      
+      var timerEl = document.getElementById('giftTimer');
+      var lockEl = document.getElementById('giftLockIcon');
+      var btnEl = document.getElementById('giftBtn');
+      var questionEl = document.getElementById('giftQuestion');
+      var rewardDisplayEl = document.getElementById('giftRewardDisplay');
+      
+      if (timeLeft > 0) {
+        // Подарок заблокирован
+        var hours = Math.floor(timeLeft / (1000 * 60 * 60));
+        var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        timerEl.innerText = hours + 'ч ' + minutes + 'м';
+        timerEl.style.display = 'block';
+        lockEl.style.display = 'flex';
+        btnEl.disabled = true;
+        btnEl.innerText = t.gift_wait;
+        
+        // Показываем приз, который выпал в прошлый раз (сохраняем в localStorage или просто скрываем)
+        questionEl.style.display = 'flex';
+        rewardDisplayEl.style.display = 'none';
+      } else {
+        // Доступен
+        timerEl.style.display = 'none';
+        lockEl.style.display = 'none';
+        btnEl.disabled = false;
+        btnEl.innerText = t.daily_gift_btn;
+        
+        questionEl.style.display = 'flex';
+        rewardDisplayEl.style.display = 'none';
+      }
+    }
+
+    window.claimGift = function() {
+      var now = Date.now();
+      if (now - lastGiftTime < giftCooldown) return; // Защита
+
+      // Рандом: от 0.001 до 300, но с шансами
+      var roll = Math.random();
+      var reward = 0;
+      var isJackpot = false;
+
+      if (roll < 0.01) { // 1% шанс джекпота
+        reward = 300;
+        isJackpot = true;
+      } else if (roll < 0.10) { // 9% шанс на крупную сумму
+        reward = Math.random() * (50 - 10) + 10; // 10 - 50
+      } else if (roll < 0.40) { // 30% на среднюю
+        reward = Math.random() * (10 - 1) + 1; // 1 - 10
+      } else { // 60% на мелкую
+        reward = Math.random() * (1 - 0.001) + 0.001; // 0.001 - 1
+      }
+      
+      reward = parseFloat(reward.toFixed(3));
+      balance += reward;
+      lastGiftTime = now;
+      save();
+      updateUI();
+      
+      // Анимация вскрытия
+      var questionEl = document.getElementById('giftQuestion');
+      var rewardDisplayEl = document.getElementById('giftRewardDisplay');
+      var rewardTextEl = document.getElementById('giftRewardText');
+      var jackpotEl = document.getElementById('jackpotText');
+      
+      questionEl.style.display = 'none';
+      rewardDisplayEl.style.display = 'flex';
+      rewardTextEl.innerText = '₽ ' + reward.toFixed(3);
+      
+      if (isJackpot) {
+        rewardTextEl.classList.add('jackpot');
+        jackpotEl.style.display = 'block';
+        jackpotEl.innerText = t.jackpot;
+        playSound('quest_claim_10'); // Эпичный звук
+      } else {
+        rewardTextEl.classList.remove('jackpot');
+        jackpotEl.style.display = 'none';
+        playSound('quest_claim'); // Обычный звук
+      }
+      
+      // Блокируем кнопку
+      updateGiftUI();
+      
+      if (tg && tg.HapticFeedback) tg.HapticFeedback.notificationOccurred('success');
+      
+      // Таймер обратного отсчета
+      if (giftTimerInterval) clearInterval(giftTimerInterval);
+      giftTimerInterval = setInterval(updateGiftUI, 60000); // Обновляем каждую минуту
+    };
+
+    window.switchShopTab = function(tab) {
+      var skinsBtn = document.querySelectorAll('.shop-tab-btn')[0];
+      var giftsBtn = document.querySelectorAll('.shop-tab-btn')[1];
+      
+      var skinsContent = document.getElementById('shopContentSkins');
+      var giftsContent = document.getElementById('shopContentGifts');
+      
+      if (tab === 'skins') {
+        skinsBtn.classList.add('active');
+        giftsBtn.classList.remove('active');
+        skinsContent.style.display = 'block';
+        giftsContent.style.display = 'none';
+        renderShop();
+      } else {
+        giftsBtn.classList.add('active');
+        skinsBtn.classList.remove('active');
+        skinsContent.style.display = 'none';
+        giftsContent.style.display = 'block';
+        updateGiftUI();
+      }
+    };
+
+    // === ОСТАЛЬНЫЕ ФУНКЦИИ ===
 
     function checkQuestReady() {
       if (hasUnclaimedQuest) return;
@@ -852,7 +1066,7 @@
       if (name === 'profile') loadUser();
       if (name === 'rating') renderRating();
       if (name === 'achievements') renderAchievements();
-      if (name === 'shop') renderShop();
+      if (name === 'shop') { switchShopTab('skins'); } // По умолчанию открываем скины
     }
 
     document.getElementById('openProfile').onclick = function() { showScreen('profile'); };
@@ -890,6 +1104,9 @@
     updateUI();
     updateAutoInfo();
     updatePotatoSkin(); 
+    updateGiftUI(); // Обновляем подарок при старте
+    if (giftTimerInterval) clearInterval(giftTimerInterval);
+    giftTimerInterval = setInterval(updateGiftUI, 60000); // Таймер обновления раз в минуту
     if (hasAutoclicker) startAutoclicker();
   </script>
 </body>
