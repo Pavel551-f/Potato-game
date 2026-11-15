@@ -34,14 +34,25 @@
     .top-balance-label { font-size: 8px; color: #c4b5fd; margin-bottom: 4px; }
     .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; }
 
+    /* КНОПКИ НА ГЛАВНОМ */
+    .main-btns-container {
+      position: absolute; top: 70px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
+    }
     .shop-btn-main {
-      position: absolute; top: 70px; left: 14px;
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      background: rgba(168, 85, 247, 0.15); padding: 6px 10px; cursor: pointer; z-index: 60;
+      background: rgba(168, 85, 247, 0.15); padding: 6px 10px; cursor: pointer;
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
     }
     .shop-btn-main:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
     .shop-btn-main span { font-size: 9px; color: #fff; text-transform: uppercase; }
+
+    .casino-btn-main {
+      display: flex; align-items: center; justify-content: center; gap: 6px;
+      background: rgba(234, 179, 8, 0.15); padding: 6px 10px; cursor: pointer;
+      border: 3px solid; border-color: #fde047 #a16207 #a16207 #fde047;
+    }
+    .casino-btn-main:active { border-color: #a16207 #fde047 #fde047 #a16207; }
+    .casino-btn-main span { font-size: 9px; color: #fff; text-transform: uppercase; }
 
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; }
     .screen.active { display: flex; }
@@ -88,11 +99,8 @@
 
     .list-content { padding: 0 16px 30px; }
     
-    /* Отступы для экранов, где баланс СКРЫТ */
     #screen-quests .list-content, #screen-achievements .list-content { padding-top: 20px; }
     #screen-rating .rating-container { padding-top: 20px; }
-
-    /* Отступы для экранов, где баланс ВИДЕН */
     #screen-upgrades .list-content { padding-top: 0; }
     #screen-shop .list-content { padding-top: 10px; }
     
@@ -109,11 +117,18 @@
     .status-locked { color: #6b7280; }
     .status-unlocked { color: #10b981; }
     
+    /* === ОБНОВЛЕННАЯ RGB ПОДСВЕТКА (ТОЛЬКО КОНТУР) === */
     .rgb-glow {
-      animation: hueRotate 3s linear infinite !important;
-      border: 3px solid #ff0055 !important;
+      background-color: rgba(255, 255, 255, 0.09) !important;
+      animation: borderRGB 3s linear infinite !important;
     }
-    @keyframes hueRotate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+    @keyframes borderRGB {
+      0% { border-color: #ff0055 !important; box-shadow: 0 0 10px rgba(255, 0, 85, 0.5); }
+      25% { border-color: #00ffaa !important; box-shadow: 0 0 10px rgba(0, 255, 170, 0.5); }
+      50% { border-color: #00aaff !important; box-shadow: 0 0 10px rgba(0, 170, 255, 0.5); }
+      75% { border-color: #ffaa00 !important; box-shadow: 0 0 10px rgba(255, 170, 0, 0.5); }
+      100% { border-color: #ff0055 !important; box-shadow: 0 0 10px rgba(255, 0, 85, 0.5); }
+    }
 
     .section-title { font-size: 10px; color: #a78bfa; margin: 14px 0 10px; }
     
@@ -128,6 +143,7 @@
     .btn-green { background: #10b981; border-color: #6ee7b7 #065f46 #065f46 #6ee7b7; }
     .btn-blue { background: #3b82f6; border-color: #93c5fd #1e40af #1e40af #93c5fd; }
     .btn-grey { background: rgba(255,255,255,0.1); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
+    .btn-gold { background: #eab308; border-color: #fde047 #854d0e #854d0e #fde047; color: #000; text-shadow: none; }
 
     .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 16px; gap: 8px; }
     .shop-preview { font-size: 60px; margin-bottom: 5px; height: 70px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
@@ -175,6 +191,35 @@
     .gift-timer {
       position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 8px; font-size: 10px; border: 2px solid #fff; z-index: 10;
     }
+
+    /* КАЗИНО */
+    .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; }
+    .reel-window {
+      width: 100%; max-width: 320px; height: 90px; overflow: hidden; position: relative;
+      background: rgba(0,0,0,0.5); border: 4px solid #a855f7;
+      margin-bottom: 30px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+    }
+    .reel {
+      display: flex; height: 100%; align-items: center; position: absolute; left: 0; top: 0;
+      transition: transform 3s cubic-bezier(0.1, 0.7, 0.1, 1);
+    }
+    .reel-item {
+      width: 80px; height: 80px; margin: 0 5px; flex-shrink: 0;
+      display: flex; justify-content: center; align-items: center;
+      font-size: 16px; font-weight: bold; background: #eab308; color: #000; text-shadow: none;
+      border: 3px solid #fde047; border-radius: 10px;
+    }
+    .reel-item.fries { background: #ff0055; border-color: #ff88aa; font-size: 30px; }
+    .pointer {
+      position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 4px; background: #a855f7; z-index: 10; pointer-events: none;
+    }
+    .pointer::before, .pointer::after {
+      content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+      width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent;
+    }
+    .pointer::before { top: 0; border-top: 15px solid #a855f7; }
+    .pointer::after { bottom: 0; border-bottom: 15px solid #a855f7; }
 
     /* ПРОФИЛЬ */
     .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; }
@@ -256,8 +301,13 @@
   </div>
 
   <div class="screen active" id="screen-main">
-    <div class="shop-btn-main" onclick="showScreen('shop')">
-      🛒 <span data-i18n="shop_btn">Магазин</span>
+    <div class="main-btns-container">
+      <div class="shop-btn-main" onclick="showScreen('shop')">
+        🛒 <span data-i18n="shop_btn">Магазин</span>
+      </div>
+      <div class="casino-btn-main" onclick="showScreen('casino')">
+        🎮 <span data-i18n="casino_btn">Казино</span>
+      </div>
     </div>
 
     <div class="main-content">
@@ -269,6 +319,7 @@
     </div>
   </div>
 
+  <!-- МАГАЗИН -->
   <div class="screen" id="screen-shop">
     <div class="shop-tabs">
       <button class="shop-tab-btn active" onclick="switchShopTab('skins')" data-i18n="shop_tab_skins">Скины</button>
@@ -309,6 +360,19 @@
           <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()" data-i18n="daily_gift_btn">ПОДАРОК</button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- КАЗИНО -->
+  <div class="screen" id="screen-casino">
+    <div class="casino-container">
+      <div class="reel-window">
+        <div class="reel" id="casinoReel">
+          <!-- Заполняется через JS -->
+        </div>
+        <div class="pointer"></div>
+      </div>
+      <button class="btn btn-gold" id="spinBtn" onclick="spinCasino()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_btn">КРУТИТЬ (5 ₽)</button>
     </div>
   </div>
 
@@ -411,7 +475,6 @@
         gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
         osc.start(now); osc.stop(now + 0.5);
       } else if (type === 'buy_gold') {
-        // Звук падающих монет (высокие частоты)
         osc.type = 'square';
         osc.frequency.setValueAtTime(1200, now);
         osc.frequency.setValueAtTime(1600, now + 0.1);
@@ -421,13 +484,24 @@
         gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
         osc.start(now); osc.stop(now + 0.6);
       } else if (type === 'buy_ghost') {
-        // Призрачный звук (Boo) - спуск вниз
         osc.type = 'sine';
         osc.frequency.setValueAtTime(800, now);
         osc.frequency.linearRampToValueAtTime(300, now + 0.4);
         gain.gain.setValueAtTime(0.3, now);
         gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
         osc.start(now); osc.stop(now + 0.5);
+      } else if (type === 'casino_spin') {
+        // Звук прокрутки казино
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(200, now);
+        osc.frequency.linearRampToValueAtTime(400, now + 2.5);
+        gain.gain.setValueAtTime(0.05, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 2.8);
+        osc.start(now); osc.stop(now + 2.8);
+      } else if (type === 'casino_win') {
+        osc.type = 'sine'; osc.frequency.setValueAtTime(440, now); osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
+        gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
+        osc.start(now); osc.stop(now + 0.3);
       }
     }
 
@@ -468,11 +542,12 @@
         claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено",
         upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец"],
         upg_desc: "Тап даёт",
-        achievements_btn: "🏆 Достижения", ach_unlocked: "Получено ✨", ach_locked: "Заблокировано",
+        achievements_btn: "🏆 Достижения", ach_unlocked: "Получено", ach_locked: "Заблокировано",
         shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить",
         shop_tab_skins: "Скины", shop_tab_gifts: "Подарки",
         daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!",
         gift_wait: "Доступно через", gift_ready: "Забрать!",
+        casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)", not_enough_money: "Недостаточно денег!",
         ach_list: [
           { title: "Первый шаг", desc: "100 тапов", icon: "🌱" },
           { title: "Фанат", desc: "1 000 тапов", icon: "🥔" },
@@ -486,7 +561,8 @@
           { title: "Сила Творца", desc: "Тап Творца", icon: "👑" },
           { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" },
           { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" },
-          { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" }
+          { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" },
+          { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" }
         ]
       },
       en: {
@@ -502,11 +578,12 @@
         claim: "Claim", received: "Received", not_done: "Not done",
         upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator"],
         upg_desc: "Tap gives",
-        achievements_btn: "🏆 Achievements", ach_unlocked: "Unlocked ✨", ach_locked: "Locked",
+        achievements_btn: "🏆 Achievements", ach_unlocked: "Received", ach_locked: "Locked",
         shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy",
         shop_tab_skins: "Skins", shop_tab_gifts: "Gifts",
         daily_gift_title: "DAILY GIFT", daily_gift_btn: "GIFT", jackpot: "JACKPOT!",
         gift_wait: "Available in", gift_ready: "Claim!",
+        casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", not_enough_money: "Not enough money!",
         ach_list: [
           { title: "First Step", desc: "100 taps", icon: "🌱" },
           { title: "Fan", desc: "1,000 taps", icon: "🥔" },
@@ -520,7 +597,8 @@
           { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" },
           { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" },
           { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" },
-          { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" }
+          { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" },
+          { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" }
         ]
       }
     };
@@ -622,6 +700,9 @@
     var giftCooldown = 24 * 60 * 60 * 1000; 
     var giftTimerInterval = null;
 
+    var isSpinning = false;
+    var spinCost = 5;
+
     var balanceEl = document.getElementById('balance');
     var tapPowerEl = document.getElementById('tapPower');
     var potatoBtn = document.getElementById('potatoBtn');
@@ -634,6 +715,8 @@
     var totalTapsText = document.getElementById('totalTapsText');
     var progressFill = document.getElementById('progressFill');
     var topBalanceBar = document.querySelector('.top-balance');
+    var casinoReel = document.getElementById('casinoReel');
+    var spinBtn = document.getElementById('spinBtn');
 
     function save() {
       localStorage.setItem('potatoBalance', balance.toFixed(3));
@@ -781,6 +864,134 @@
       }
     };
 
+    // === ЛОГИКА КАЗИНО ===
+    var casinoItems = [
+      { type: 'money', value: 0.1 }, { type: 'money', value: 0.5 }, { type: 'money', value: 2 },
+      { type: 'money', value: 5 }, { type: 'money', value: 10 }, { type: 'money', value: 50 },
+      { type: 'money', value: 100 }, { type: 'money', value: 500 }, { type: 'money', value: 1000 }
+    ];
+
+    function initCasino() {
+      casinoReel.innerHTML = '';
+      // Заполняем ленту случайными элементами для визуала
+      for (var i = 0; i < 50; i++) {
+        addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
+      }
+    }
+
+    function addReelItem(item) {
+      var div = document.createElement('div');
+      div.className = 'reel-item';
+      if (item.type === 'fries') {
+        div.classList.add('fries');
+        div.innerText = '🍟';
+      } else {
+        div.innerText = '₽ ' + item.value;
+      }
+      casinoReel.appendChild(div);
+    }
+
+    window.spinCasino = function() {
+      if (isSpinning) return;
+      if (balance < spinCost) {
+        playHaptic('error');
+        alert(t.not_enough_money);
+        return;
+      }
+      
+      isSpinning = true;
+      balance -= spinCost;
+      updateUI();
+      
+      spinBtn.disabled = true;
+      playHaptic('medium');
+      playSound('casino_spin');
+      
+      // Определяем приз
+      var roll = Math.random();
+      var winItem = null;
+      
+      if (roll < 0.05) { // 5% шанс на джекпот (фри)
+        winItem = { type: 'fries' };
+      } else {
+        // Рандомный рублик (от 0.1 до 1000)
+        // Сделаем так, чтобы крупные суммы падали реже
+        var r2 = Math.random();
+        if (r2 < 0.6) winItem = { type: 'money', value: (Math.random() * 5 + 0.1).toFixed(1) };
+        else if (r2 < 0.9) winItem = { type: 'money', value: (Math.random() * 45 + 5).toFixed(1) };
+        else winItem = { type: 'money', value: (Math.random() * 900 + 100).toFixed(0) };
+      }
+
+      // Генерируем ленту (много элементов, победный вставляем на позицию 40)
+      casinoReel.style.transition = 'none';
+      casinoReel.style.transform = 'translateX(0px)';
+      casinoReel.innerHTML = '';
+      
+      for (var i = 0; i < 40; i++) {
+        addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
+      }
+      
+      // Добавляем выигрышный
+      addReelItem(winItem);
+      
+      // Добавляем еще немного после выигрыша
+      for (var i = 0; i < 10; i++) {
+        addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
+      }
+
+      // Анимация
+      setTimeout(function() {
+        casinoReel.style.transition = 'transform 3s cubic-bezier(0.1, 0.7, 0.1, 1)';
+        
+        // Вычисляем позицию для остановки
+        // Ширина элемента 80px + margin 5px*2 = 90px
+        var itemWidth = 90; 
+        var containerWidth = document.querySelector('.reel-window').offsetWidth;
+        var centerOffset = (containerWidth / 2) - (itemWidth / 2);
+        
+        // Позиция победного элемента (индекс 40)
+        var targetPosition = (40 * itemWidth) - centerOffset;
+        
+        casinoReel.style.transform = 'translateX(-' + targetPosition + 'px)';
+        
+        // Ждем окончания анимации
+        setTimeout(function() {
+          isSpinning = false;
+          spinBtn.disabled = false;
+          
+          if (winItem.type === 'fries') {
+            balance += 5000;
+            updateUI();
+            playSound('quest_claim_10');
+            playHaptic('heavy');
+            alert(currentLang === 'ru' ? '🍟 ДЖЕКПОТ! Вы выиграли 5000 ₽ и выполнили квест "Игроман"!' : '🍟 JACKPOT! You won 5000 ₽ and completed the "Gambler" quest!');
+            
+            // Ачивка за игру в казино (если еще нет)
+            if (unlockedAch.indexOf(13) === -1) {
+              unlockedAch.push(13);
+              playSound('achievement');
+              save();
+            }
+          } else {
+            var winVal = parseFloat(winItem.value);
+            balance += winVal;
+            updateUI();
+            playSound('casino_win');
+            playHaptic('success');
+            alert((currentLang === 'ru' ? 'Вы выиграли: ' : 'You won: ') + winVal + ' ₽!');
+            
+            // Ачивка за игру в казино (если еще нет)
+            if (unlockedAch.indexOf(13) === -1) {
+              unlockedAch.push(13);
+              playSound('achievement');
+              save();
+            }
+          }
+          
+        }, 3100);
+      }, 50);
+    };
+
     function checkQuestReady() {
       if (hasUnclaimedQuest) return;
       for (var i = 0; i < questsData.length; i++) {
@@ -803,9 +1014,7 @@
       if (maxUpgrade >= 10 && unlockedAch.indexOf(7) === -1) { unlockedAch.push(7); newUnlock = true; }
       if (totalTaps >= 50000 && unlockedAch.indexOf(8) === -1) { unlockedAch.push(8); newUnlock = true; }
       if (maxUpgrade >= 15 && unlockedAch.indexOf(9) === -1) { unlockedAch.push(9); newUnlock = true; }
-      // 10 - Везунчик (выдается в claimGift)
       
-      // Достижения за покупку скинов
       if (ownedSkins.indexOf(1) !== -1 && unlockedAch.indexOf(11) === -1) { unlockedAch.push(11); newUnlock = true; }
       if (ownedSkins.indexOf(2) !== -1 && unlockedAch.indexOf(12) === -1) { unlockedAch.push(12); newUnlock = true; }
 
@@ -899,7 +1108,6 @@
         balance -= skin.price;
         ownedSkins.push(id);
         
-        // Специфические звуки при покупке
         if (id === 1) {
           playSound('buy_gold');
         } else if (id === 2) {
@@ -1157,11 +1365,10 @@
         if (menuItems[m].getAttribute('data-screen') === name) menuItems[m].classList.add('active');
       }
       
-      if (name === 'achievements' || name === 'shop') {
+      if (name === 'achievements' || name === 'shop' || name === 'casino') {
         for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active');
       }
 
-      // Скрываем баланс в Квестах, Рейтинге и Достижениях
       if (name === 'quests' || name === 'rating' || name === 'achievements') {
         topBalanceBar.style.display = 'none';
       } else {
@@ -1174,6 +1381,7 @@
       if (name === 'rating') renderRating();
       if (name === 'achievements') renderAchievements();
       if (name === 'shop') { switchShopTab('skins'); } 
+      if (name === 'casino') { initCasino(); }
     }
 
     document.getElementById('openProfile').onclick = function() { showScreen('profile'); };
