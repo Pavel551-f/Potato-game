@@ -23,6 +23,7 @@
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; }
 
+    /* ВЕРХНИЙ БАЛАНС */
     .top-balance { 
       position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px; 
       background: rgba(0,0,0,0.45); padding: 4px 10px 4px 4px; z-index: 60; cursor: pointer; 
@@ -50,7 +51,7 @@
     .potato-wrap { width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
     .potato-emoji { font-size: 120px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
     
-    /* Визуальная вибрация, если телефон не поддерживает физическую */
+    /* Визуальная вибрация */
     .potato-wrap:active .potato-emoji { animation: shake 0.1s; }
     @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
     
@@ -60,6 +61,7 @@
     .tap-power { margin-top: 16px; font-size: 11px; color: #c4b5fd; }
     .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; }
 
+    /* ВКЛАДКИ УЛУЧШЕНИЙ */
     .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; }
     .tab-btn { 
       flex: 1; padding: 12px 6px; border: none; font-size: 10px; 
@@ -74,7 +76,8 @@
       transform: translateY(2px);
     }
 
-    .shop-tabs { display: flex; gap: 8px; margin-bottom: 20px; padding: 0 16px; }
+    /* ВКЛАДКИ МАГАЗИНА */
+    .shop-tabs { display: flex; gap: 8px; margin-bottom: 20px; padding: 80px 16px 0; }
     .shop-tab-btn { 
       flex: 1; padding: 10px 6px; border: none; font-size: 9px; 
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer; 
@@ -84,8 +87,14 @@
     .shop-tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; }
 
     .list-content { padding: 0 16px 30px; }
-    #screen-quests .list-content, #screen-achievements .list-content, #screen-shop .list-content { padding-top: 0; }
-    #screen-shop .shop-tabs { padding-top: 80px; }
+    
+    /* Отступы для экранов, где баланс СКРЫТ */
+    #screen-quests .list-content, #screen-achievements .list-content { padding-top: 20px; }
+    #screen-rating .rating-container { padding-top: 20px; }
+
+    /* Отступы для экранов, где баланс ВИДЕН */
+    #screen-upgrades .list-content { padding-top: 0; }
+    #screen-shop .list-content { padding-top: 10px; }
     
     .card { 
       background: rgba(255,255,255,0.09); padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; 
@@ -123,7 +132,7 @@
     .shop-preview img { width: 70px; height: 70px; object-fit: contain; image-rendering: pixelated; }
     .shop-card .btn { width: 100%; margin-bottom: 0; font-size: 8px; }
 
-    /* СТИЛЬ ЕЖЕДНЕВНОГО ПОДАРКА */
+    /* ЕЖЕДНЕВНЫЙ ПОДАРОК */
     .gift-wrapper { display: flex; flex-direction: column; align-items: center; padding: 10px 16px 30px; }
     .gift-card {
       width: 100%; max-width: 280px; background: #1a1625; border: 4px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
@@ -142,14 +151,7 @@
       background-position: 0 0, 15px 15px;
     }
 
-    /* Разбросанные картошки на фоне */
-    .bg-potato {
-      position: absolute;
-      font-size: 35px;
-      opacity: 0.15; /* Очень прозрачные, чтобы не мешать */
-      z-index: 1;
-      pointer-events: none;
-    }
+    .bg-potato { position: absolute; font-size: 35px; opacity: 0.15; z-index: 1; pointer-events: none; }
 
     .gift-reward-text { font-size: 24px; color: #fff; text-shadow: 3px 3px 0 #000; margin-top: 10px; z-index: 2; position: relative;}
     .gift-reward-text.jackpot { color: #fde047; animation: pulse 1s infinite alternate; }
@@ -172,6 +174,7 @@
       position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 8px; font-size: 10px; border: 2px solid #fff; z-index: 10;
     }
 
+    /* ПРОФИЛЬ */
     .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; }
     .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 18px; image-rendering: pixelated; background: #4c1d95;}
     .profile-name { font-size: 12px; margin-bottom: 20px; text-align: center; color: #fff; }
@@ -189,7 +192,8 @@
     }
     .lang-btn-top:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
 
-    .rating-container { flex: 1; overflow-y: auto; padding: 80px 16px 100px; }
+    /* РЕЙТИНГ */
+    .rating-container { flex: 1; overflow-y: auto; padding: 20px 16px 100px; }
     .rating-row { 
       display: flex; align-items: center; padding: 12px; margin-bottom: 12px; background: rgba(255,255,255,0.09); 
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
@@ -270,7 +274,7 @@
     </div>
 
     <div id="shopContentSkins" style="display: block;">
-      <div class="list-content" id="shopList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 10px;"></div>
+      <div class="list-content" id="shopList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;"></div>
     </div>
 
     <div id="shopContentGifts" style="display: none;">
@@ -281,7 +285,6 @@
           <div class="gift-box-inner">
             <div class="gift-timer" id="giftTimer">00:00</div>
             
-            <!-- Разбросанные картошки на фоне -->
             <div class="bg-potato" style="top: 10%; left: 15%; transform: rotate(15deg);">🥔</div>
             <div class="bg-potato" style="top: 20%; right: 10%; transform: rotate(-25deg);">🥔</div>
             <div class="bg-potato" style="bottom: 15%; left: 20%; transform: rotate(45deg);">🥔</div>
@@ -408,7 +411,6 @@
       }
     }
 
-    // === УНИВЕРСАЛЬНАЯ ВИБРАЦИЯ ===
     function playHaptic(type) {
       if (tg && tg.HapticFeedback && typeof tg.HapticFeedback.impactOccurred === 'function') {
         try {
@@ -461,7 +463,8 @@
           { title: "Прокачка", desc: "5-й уровень", icon: "⚡" },
           { title: "Максимум", desc: "Божеств. тап", icon: "🌟" },
           { title: "Протёртый палец", desc: "50 000 тапов", icon: "🩹" },
-          { title: "Сила Творца", desc: "Тап Творца", icon: "👑" }
+          { title: "Сила Творца", desc: "Тап Творца", icon: "👑" },
+          { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" }
         ]
       },
       en: {
@@ -492,7 +495,8 @@
           { title: "Upgraded", desc: "Buy 5th level", icon: "⚡" },
           { title: "Max Tap", desc: "Buy Divine", icon: "🌟" },
           { title: "Worn Finger", desc: "50,000 taps", icon: "🩹" },
-          { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" }
+          { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" },
+          { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" }
         ]
       }
     };
@@ -605,6 +609,7 @@
     var autoInfo = document.getElementById('autoInfo');
     var totalTapsText = document.getElementById('totalTapsText');
     var progressFill = document.getElementById('progressFill');
+    var topBalanceBar = document.querySelector('.top-balance');
 
     function save() {
       localStorage.setItem('potatoBalance', balance.toFixed(3));
@@ -711,6 +716,12 @@
         jackpotEl.innerText = t.jackpot;
         playSound('quest_claim_10'); 
         playHaptic('heavy'); 
+        
+        // Проверка на достижение "Везунчик"
+        if (unlockedAch.indexOf(10) === -1) {
+          unlockedAch.push(10);
+          setTimeout(function() { playSound('achievement'); }, 500); // Звук достижения чуть позже
+        }
       } else {
         rewardTextEl.classList.remove('jackpot');
         jackpotEl.style.display = 'none';
@@ -769,6 +780,7 @@
       if (maxUpgrade >= 10 && unlockedAch.indexOf(7) === -1) { unlockedAch.push(7); newUnlock = true; }
       if (totalTaps >= 50000 && unlockedAch.indexOf(8) === -1) { unlockedAch.push(8); newUnlock = true; }
       if (maxUpgrade >= 15 && unlockedAch.indexOf(9) === -1) { unlockedAch.push(9); newUnlock = true; }
+      // 10 - это Везунчик, он выдается в функции claimGift
 
       if (newUnlock) { playSound('achievement'); save(); }
     }
@@ -1111,6 +1123,14 @@
       
       if (name === 'achievements' || name === 'shop') {
         for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active');
+      }
+
+      // === ЛОГИКА СКРЫТИЯ БАЛАНСА ===
+      // Скрываем баланс только в Квестах, Рейтинге и Достижениях
+      if (name === 'quests' || name === 'rating' || name === 'achievements') {
+        topBalanceBar.style.display = 'none';
+      } else {
+        topBalanceBar.style.display = 'flex';
       }
 
       if (name === 'upgrades') renderUpgrades();
