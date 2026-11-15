@@ -203,7 +203,6 @@
     }
     .reel {
       display: flex; height: 100%; align-items: center; position: absolute; left: 0; top: 0;
-      /* 10 секунд анимации (синхронизировано со звуком) */
       transition: transform 10s cubic-bezier(0.1, 0.8, 0.1, 1);
     }
     .reel-item {
@@ -506,12 +505,11 @@
       }
     }
 
-    // СИНХРОНИЗИРОВАННЫЙ ЗВУК РУЛЕТКИ
     function playCasinoSpinSound(durationMs) {
       if (!audioCtx) return;
       var durationSec = durationMs / 1000;
       var now = audioCtx.currentTime;
-      var tickCount = 120; // Количество тиков
+      var tickCount = 120; 
 
       for (var i = 0; i < tickCount; i++) {
         var progress = i / tickCount;
@@ -593,7 +591,8 @@
           { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" },
           { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" },
           { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" },
-          { title: "Всё про**бал", desc: "Выбить 🗿", icon: "🗿" }
+          { title: "Всё про**бал", desc: "Выбить 🗿", icon: "🗿" },
+          { title: "Автоматизированный рай", desc: "Макс. сила авто", icon: "⚙️" }
         ]
       },
       en: {
@@ -630,7 +629,8 @@
           { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" },
           { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" },
           { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" },
-          { title: "Lost Everything", desc: "Hit the 🗿", icon: "🗿" }
+          { title: "Lost Everything", desc: "Hit the 🗿", icon: "🗿" },
+          { title: "Automated Paradise", desc: "Max auto power", icon: "⚙️" }
         ]
       }
     };
@@ -675,10 +675,13 @@
       { nameIdx: 14, desc: 1.0, cost: 1000, value: 1.0 }
     ];
     
+    // РАСШИРЕННЫЙ АВТОКЛИКЕР (ДО 15 УРОВНЯ)
     var autoValueData = [
       { level: 1, cost: 50, value: 0.0002 }, { level: 2, cost: 60, value: 0.0003 }, { level: 3, cost: 70, value: 0.0004 }, { level: 4, cost: 80, value: 0.0005 },
       { level: 5, cost: 160, value: 0.001 }, { level: 6, cost: 180, value: 0.002 }, { level: 7, cost: 200, value: 0.003 }, { level: 8, cost: 225, value: 0.004 },
-      { level: 9, cost: 250, value: 0.005 }, { level: 10, cost: 500, value: 0.01 }
+      { level: 9, cost: 250, value: 0.005 }, { level: 10, cost: 500, value: 0.01 },
+      { level: 11, cost: 600, value: 0.02 }, { level: 12, cost: 700, value: 0.03 }, { level: 13, cost: 800, value: 0.04 },
+      { level: 14, cost: 900, value: 0.05 }, { level: 15, cost: 1000, value: 0.1 }
     ];
     
     var autoSpeedData = [
@@ -735,7 +738,7 @@
     var isSpinning = false;
     var spinCost = 5;
     var forceMoai = false; 
-    var SPIN_DURATION = 10000; // 10 секунд
+    var SPIN_DURATION = 10000; 
 
     var balanceEl = document.getElementById('balance');
     var tapPowerEl = document.getElementById('tapPower');
@@ -905,7 +908,6 @@
     };
 
     // === ЛОГИКА КАЗИНО ===
-    // Теперь в массиве есть и положительные, и отрицательные числа!
     var casinoItems = [
       { type: 'money', value: 0.1 }, { type: 'money', value: 0.5 }, { type: 'money', value: 2 },
       { type: 'money', value: 5 }, { type: 'money', value: 10 }, { type: 'money', value: 50 },
@@ -1042,13 +1044,14 @@
             balance += winVal; 
             updateUI();
             
+            // Убрали фразу "теперь вы должны их натапать"
             if (winVal < 0) {
               playHaptic('error');
-              alert((currentLang === 'ru' ? 'Вы проиграли: ' : 'You lost: ') + Math.abs(winVal) + ' ₽! Теперь вы должны их натапать!');
+              alert((currentLang === 'ru' ? 'Вы проиграли: ' : 'You lost: ') + Math.abs(winVal) + ' ₽');
             } else {
               playSound('casino_win');
               playHaptic('success');
-              alert((currentLang === 'ru' ? 'Вы выиграли: ' : 'You won: ') + winVal + ' ₽!');
+              alert((currentLang === 'ru' ? 'Вы выиграли: ' : 'You won: ') + winVal + ' ₽');
             }
             
             if (unlockedAch.indexOf(13) === -1) {
@@ -1087,6 +1090,9 @@
       
       if (ownedSkins.indexOf(1) !== -1 && unlockedAch.indexOf(11) === -1) { unlockedAch.push(11); newUnlock = true; }
       if (ownedSkins.indexOf(2) !== -1 && unlockedAch.indexOf(12) === -1) { unlockedAch.push(12); newUnlock = true; }
+      
+      // Новое достижение за 15 уровень силы автокликера
+      if (autoValueLevel >= 15 && unlockedAch.indexOf(15) === -1) { unlockedAch.push(15); newUnlock = true; }
 
       if (newUnlock) { playSound('achievement'); save(); }
     }
