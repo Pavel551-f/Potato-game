@@ -4,44 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Картоха</title>
+  <!-- Подключаем пиксельный шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
     body {
+      /* Возвращаем твой фиолетовый градиент */
       background: linear-gradient(180deg, #2e1065, #1e1b4b);
       color: white;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      font-size: 10px; /* Пиксельный шрифт крупный, поэтому база мелкая */
       height: 100vh;
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      text-shadow: 2px 2px 0px rgba(0,0,0,0.8);
     }
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; }
 
-    .top-balance { position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px; background: rgba(0,0,0,0.45); border-radius: 50px; padding: 5px 14px 5px 5px; z-index: 60; cursor: pointer; }
-    .top-avatar { width: 34px; height: 34px; border-radius: 50%; object-fit: cover; border: 2px solid #a855f7; background: #4c1d95; }
+    /* БАЛАНС (3D-рамка) */
+    .top-balance { 
+      position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px; 
+      background: rgba(0,0,0,0.45); padding: 4px 10px 4px 4px; z-index: 60; cursor: pointer; 
+      border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
+    }
+    .top-avatar { width: 30px; height: 30px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; }
     .top-balance-text { display: flex; flex-direction: column; }
-    .top-balance-label { font-size: 11px; color: #c4b5fd; }
-    .top-balance-value { font-size: 16px; font-weight: 700; }
+    .top-balance-label { font-size: 8px; color: #c4b5fd; margin-bottom: 4px; }
+    .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; }
 
-    /* ОБНОВЛЕННАЯ КНОПКА МАГАЗИНА (эмодзи вернулся) */
+    /* КНОПКА МАГАЗИНА (3D-рамка) */
     .shop-btn-main {
       position: absolute; top: 70px; left: 14px;
       display: flex; align-items: center; justify-content: center; gap: 6px;
-      background: rgba(168, 85, 247, 0.15); 
-      border: 1px solid rgba(168, 85, 247, 0.5);
-      border-radius: 10px; padding: 6px 14px;
-      cursor: pointer; z-index: 60;
-      transition: background 0.2s;
+      background: rgba(168, 85, 247, 0.15); padding: 6px 10px; cursor: pointer; z-index: 60;
+      border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
     }
-    .shop-btn-main:active { background: rgba(168, 85, 247, 0.4); }
-    .shop-btn-main span {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-weight: 600; letter-spacing: 0.5px; font-size: 13px;
-      color: #e9d5ff; 
-      text-transform: uppercase;
-    }
+    .shop-btn-main:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
+    .shop-btn-main span { font-size: 9px; color: #fff; text-transform: uppercase; }
 
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; }
     .screen.active { display: flex; }
@@ -49,93 +51,120 @@
     .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; }
     
     .potato-wrap { width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
-    .potato-emoji { font-size: 140px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
+    .potato-emoji { font-size: 120px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
     .potato-wrap:active .potato-emoji { transform: scale(0.92); }
     
-    .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; }
+    .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; image-rendering: pixelated; }
     .potato-wrap:active img { transform: scale(0.92); }
 
-    .tap-power { margin-top: 16px; font-size: 15px; color: #c4b5fd; }
-    .auto-info { margin-top: 10px; font-size: 13px; color: #a78bfa; }
+    .tap-power { margin-top: 16px; font-size: 11px; color: #c4b5fd; }
+    .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; }
 
     .tabs { display: flex; gap: 8px; padding: 80px 16px 12px; }
-    .tab-btn { flex: 1; padding: 11px 6px; border: none; border-radius: 12px; font-size: 13px; font-weight: 600; background: rgba(255,255,255,0.08); color: #c4b5fd; cursor: pointer; }
-    .tab-btn.active { background: linear-gradient(135deg, #c084fc, #a855f7); color: white; }
+    .tab-btn { 
+      flex: 1; padding: 10px 6px; border: none; font-size: 9px; background: rgba(255,255,255,0.08); color: #c4b5fd; cursor: pointer; 
+      border: 3px solid; border-color: #6b21a8 #2e1065 #2e1065 #6b21a8; text-shadow: 1px 1px 0 #000; 
+    }
+    .tab-btn.active { background: rgba(168, 85, 247, 0.3); color: white; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
+
     .list-content { padding: 0 16px 30px; }
     #screen-quests .list-content, #screen-achievements .list-content, #screen-shop .list-content { padding-top: 80px; }
     
-    .card { background: rgba(255,255,255,0.09); border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid transparent; transition: all 0.3s ease; }
-    .card-icon { font-size: 30px; flex-shrink: 0; width: 45px; text-align: center; }
+    /* КАРТОЧКИ (3D-рамки) */
+    .card { 
+      background: rgba(255,255,255,0.09); padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; 
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
+    }
+    .card-icon { font-size: 24px; flex-shrink: 0; width: 35px; text-align: center; filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5)); }
     .card-content { flex: 1; }
-    .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-    .card-desc { font-size: 13px; color: #c4b5fd; margin-bottom: 6px; }
-    .card-status { font-size: 12px; font-weight: 700; }
+    .card-title { font-size: 10px; margin-bottom: 8px; color: #fff; line-height: 1.4; }
+    .card-desc { font-size: 8px; color: #c4b5fd; margin-bottom: 8px; line-height: 1.5; }
+    .card-status { font-size: 8px; font-weight: 700; }
     .status-locked { color: #6b7280; }
     .status-unlocked { color: #10b981; }
     
-    /* === 100% РАБОЧАЯ RGB ПОДСВЕТКА === */
+    /* RGB ПОДСВЕТКА */
     .rgb-glow {
-      border: 2px solid #ff0055 !important;
-      background-color: rgba(255, 255, 255, 0.15) !important;
-      box-shadow: 0 0 15px rgba(255, 0, 85, 0.8), inset 0 0 10px rgba(255, 0, 85, 0.5) !important;
       animation: hueRotate 3s linear infinite !important;
+      border: 3px solid #ff0055 !important;
     }
-    @keyframes hueRotate {
-      0% { filter: hue-rotate(0deg); }
-      100% { filter: hue-rotate(360deg); }
-    }
+    @keyframes hueRotate { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
 
-    .section-title { font-size: 14px; color: #a78bfa; margin: 14px 0 10px; font-weight: 600; }
-    .btn { background: linear-gradient(135deg, #c084fc, #a855f7); border: none; color: white; padding: 11px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
-    .btn:disabled { background: #4b5563; color: #9ca3af; }
+    .section-title { font-size: 10px; color: #a78bfa; margin: 14px 0 10px; }
     
-    .btn-green { background: #10b981; }
-    .btn-blue { background: #3b82f6; }
-    .btn-grey { background: rgba(255,255,255,0.1); border: 1px solid #a855f7; }
+    /* КНОПКИ (3D-рамки) */
+    .btn { 
+      background: #8b5cf6; border: none; color: white; padding: 10px; font-size: 9px; cursor: pointer; margin-bottom: 10px; 
+      border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-family: inherit;
+    }
+    .btn:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
+    .btn:disabled { background: #4b5563; color: #9ca3af; border-color: #6b7280 #1f2937 #1f2937 #6b7280; text-shadow: none; }
+    
+    .btn-green { background: #10b981; border-color: #6ee7b7 #065f46 #065f46 #6ee7b7; }
+    .btn-blue { background: #3b82f6; border-color: #93c5fd #1e40af #1e40af #93c5fd; }
+    .btn-grey { background: rgba(255,255,255,0.1); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
 
-    .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 20px; gap: 10px; }
-    .shop-preview { font-size: 80px; margin-bottom: 5px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); height: 80px; display: flex; align-items: center; justify-content: center; }
-    .shop-preview img { width: 80px; height: 80px; object-fit: contain; }
+    .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 16px; gap: 8px; }
+    .shop-preview { font-size: 60px; margin-bottom: 5px; height: 70px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
+    .shop-preview img { width: 70px; height: 70px; object-fit: contain; image-rendering: pixelated; }
     .shop-card .btn { width: 100%; margin-bottom: 0; }
 
     .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; }
-    .profile-avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 3px solid #a855f7; margin-bottom: 18px; background: #4c1d95; }
-    .profile-name { font-size: 22px; font-weight: 700; margin-bottom: 20px; text-align: center; }
+    .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 18px; image-rendering: pixelated; background: #4c1d95;}
+    .profile-name { font-size: 12px; margin-bottom: 20px; text-align: center; color: #fff; }
     
     .profile-bottom { width: 100%; margin-top: auto; }
-    .progress-label { font-size: 13px; color: #c4b5fd; margin-bottom: 8px; display: flex; justify-content: space-between; }
-    .progress-bar { height: 8px; background: rgba(255,255,255,0.15); border-radius: 10px; overflow: hidden; }
-    .progress-fill { height: 100%; background: linear-gradient(90deg, #c084fc, #a855f7); width: 0%; transition: width 0.3s; }
-    .progress-hint { font-size: 12px; color: #9ca3af; margin-top: 10px; text-align: center; }
+    .progress-label { font-size: 9px; color: #c4b5fd; margin-bottom: 8px; display: flex; justify-content: space-between; }
+    .progress-bar { height: 16px; background: rgba(0,0,0,0.5); border: 2px solid #a855f7; overflow: hidden; }
+    .progress-fill { height: 100%; background: #10b981; width: 0%; transition: width 0.3s; }
+    .progress-hint { font-size: 8px; color: #9ca3af; margin-top: 10px; text-align: center; line-height: 1.5; }
 
-    .lang-btn-top { position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.1); border-radius: 20px; padding: 8px 14px; cursor: pointer; font-weight: 700; font-size: 15px; color: #e9d5ff; border: 1px solid rgba(255,255,255,0.2); z-index: 60; }
+    .lang-btn-top { 
+      position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 6px; 
+      background: rgba(255,255,255,0.1); padding: 6px 10px; cursor: pointer; font-size: 10px; color: #fff; z-index: 60; 
+      border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
+    }
+    .lang-btn-top:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
 
     .rating-container { flex: 1; overflow-y: auto; padding: 80px 16px 100px; }
-    .rating-row { display: flex; align-items: center; padding: 16px; border-radius: 16px; margin-bottom: 12px; background: linear-gradient(90deg, rgba(234, 179, 8, 0.15) 0%, rgba(26, 26, 33, 0.8) 100%); border: 1px solid rgba(234, 179, 8, 0.4); }
-    .rating-rank { width: 40px; height: 40px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 18px; font-weight: 800; margin-right: 12px; background: #eab308; color: #000; flex-shrink: 0; }
-    .rating-avatar { width: 50px; height: 50px; border-radius: 50%; margin-right: 12px; object-fit: cover; background: #333; border: 2px solid #fff; flex-shrink: 0; }
+    .rating-row { 
+      display: flex; align-items: center; padding: 12px; margin-bottom: 12px; background: rgba(255,255,255,0.09); 
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
+    }
+    .rating-rank { width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; font-size: 10px; margin-right: 12px; background: #eab308; color: #000; flex-shrink: 0; border: 2px solid #000; }
+    .rating-avatar { width: 40px; height: 40px; margin-right: 12px; object-fit: cover; background: #333; border: 2px solid #a855f7; flex-shrink: 0; image-rendering: pixelated; }
     .rating-info { flex: 1; display: flex; flex-direction: column; }
-    .rating-name { font-size: 18px; font-weight: 700; }
-    .rating-score { font-size: 14px; color: #fde047; font-weight: 600; margin-top: 4px; }
-    .my-rating-box { position: fixed; bottom: 70px; left: 0; right: 0; background: #1a1625; border-top: 1px solid rgba(255,255,255,0.1); padding: 12px 16px; display: flex; align-items: center; z-index: 50; justify-content: center; }
-    .my-rating-box .rating-name { color: #a855f7; font-size: 16px; }
+    .rating-name { font-size: 10px; }
+    .rating-score { font-size: 9px; color: #fde047; margin-top: 6px; }
+    .my-rating-box { 
+      position: fixed; bottom: 70px; left: 0; right: 0; background: #1a1625; padding: 12px 16px; display: flex; align-items: center; z-index: 50; justify-content: center; font-size: 10px; font-weight: bold;
+      border-top: 3px solid #c084fc;
+    }
 
-    .bottom-menu { height: 70px; background: #1a1625; display: flex; border-top: 1px solid rgba(255,255,255,0.08); z-index: 100; }
-    .menu-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; font-size: 11px; color: #9ca3af; cursor: pointer; }
-    .menu-item.active { color: #e9d5ff; }
-    .menu-icon { font-size: 22px; }
+    /* НИЖНЕЕ МЕНЮ */
+    .bottom-menu { height: 70px; background: #1a1625; display: flex; border-top: 3px solid #c084fc; z-index: 100; }
+    .menu-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; font-size: 8px; color: #9ca3af; cursor: pointer; }
+    .menu-item.active { color: #e9d5ff; text-shadow: 0 0 5px #e9d5ff; }
+    .menu-icon { font-size: 24px; filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5)); }
 
-    .float-text { position: fixed; font-size: 24px; font-weight: 800; color: #f5d0fe; text-shadow: 0 2px 4px rgba(0,0,0,0.5); pointer-events: none; z-index: 100; animation: floatUp 0.8s ease-out forwards; }
+    .float-text { position: fixed; font-size: 14px; color: #f5d0fe; text-shadow: 2px 2px 0 #000; pointer-events: none; z-index: 100; animation: floatUp 0.8s ease-out forwards; }
     @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); } }
 
+    /* МОДАЛЬНОЕ ОКНО */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
-    .modal-content { background: #2e1065; padding: 20px; border-radius: 20px; width: 80%; max-width: 300px; text-align: center; border: 1px solid #a855f7; }
-    .modal-content h3 { margin-bottom: 15px; font-size: 18px; }
-    .modal-btn { background: rgba(255,255,255,0.1); border: 1px solid #a855f7; color: white; padding: 12px; border-radius: 12px; width: 100%; margin-bottom: 10px; font-size: 16px; cursor: pointer; transition: 0.2s; }
-    .modal-btn:hover { background: #a855f7; }
+    .modal-content { 
+      background: #2e1065; padding: 20px; width: 80%; max-width: 300px; text-align: center; 
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
+    }
+    .modal-content h3 { margin-bottom: 15px; font-size: 11px; color: #fff; line-height: 1.5; }
+    .modal-btn { 
+      background: #8b5cf6; border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; color: white; padding: 10px; width: 100%; margin-bottom: 10px; font-size: 9px; cursor: pointer; 
+      text-shadow: 2px 2px 0 #000; font-family: 'Press Start 2P', monospace;
+    }
+    .modal-btn:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
 
-    .wood-medal-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 50px; }
-    .wood-medal { width: 45px; height: 45px; }
+    .wood-medal-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40px; }
+    .wood-medal { width: 35px; height: 35px; image-rendering: pixelated; }
   </style>
 </head>
 <body>
@@ -147,7 +176,7 @@
       <h3 data-i18n="lang_title">Выберите язык / Choose language</h3>
       <button class="modal-btn" onclick="changeLang('ru')">🇷🇺 Русский</button>
       <button class="modal-btn" onclick="changeLang('en')">🇬🇧 English</button>
-      <button class="modal-btn" style="border-color: #ef4444; color: #ef4444;" onclick="closeLangMenu()" data-i18n="cancel">Отмена / Cancel</button>
+      <button class="modal-btn" style="border-color: #ef4444 #7f1d1d #7f1d1d #ef4444; background: #7f1d1d;" onclick="closeLangMenu()" data-i18n="cancel">Отмена / Cancel</button>
     </div>
   </div>
 
@@ -160,7 +189,6 @@
   </div>
 
   <div class="screen active" id="screen-main">
-    <!-- Кнопка магазина с эмодзи -->
     <div class="shop-btn-main" onclick="showScreen('shop')">
       🛒 <span>Магазин</span>
     </div>
@@ -175,7 +203,7 @@
   </div>
 
   <div class="screen" id="screen-shop">
-    <div style="padding: 80px 16px 10px; font-size: 24px; font-weight: 800; text-align: center;" data-i18n="shop_title">🛒 Магазин скинов</div>
+    <div style="padding: 80px 16px 10px; font-size: 12px; text-align: center; color: #fff;" data-i18n="shop_title">🛒 Магазин скинов</div>
     <div class="list-content" id="shopList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 10px;"></div>
   </div>
 
@@ -211,14 +239,14 @@
       <div class="profile-name" id="profileName" data-i18n="player">Игрок</div>
       
       <div class="profile-bottom">
-        <button class="btn btn-grey" onclick="showScreen('achievements')" data-i18n="achievements_btn">🏆 Достижения / Achievements</button>
+        <button class="btn btn-grey" onclick="showScreen('achievements')" data-i18n="achievements_btn">🏆 Достижения</button>
         <button class="btn btn-green" onclick="withdrawMoney()" data-i18n="withdraw">Вывести средства</button>
 
         <div class="progress-label" style="margin-top: 20px;"><span data-i18n="total_taps">Всего тапов</span><span id="totalTapsText">0</span></div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         <div class="progress-hint" data-i18n="taps_hint">Число тапов, чтобы друзья могли посмотреть</div>
         
-        <div id="devBtn" style="margin-top: 20px; font-size: 10px; color: #4b5563; text-align: center; cursor: pointer;" data-i18n="dev_btn">Нажми 5 раз для теста</div>
+        <div id="devBtn" style="margin-top: 20px; font-size: 8px; color: #6b7280; text-align: center; cursor: pointer;" data-i18n="dev_btn">Нажми 5 раз для теста</div>
       </div>
     </div>
   </div>
@@ -282,59 +310,59 @@
 
     var translations = {
       ru: {
-        balance_label: "Ваш баланс", tap_label: "Тап", tab_tap: "Ул. тапа", tab_auto: "Ул. автокликера",
-        rating_leader: "🏆 Вы — Лидер проекта!", player: "Игрок", legend: "Легенда",
+        balance_label: "Баланс", tap_label: "Тап", tab_tap: "Ул. тапа", tab_auto: "Ул. авто",
+        rating_leader: "🏆 Лидер проекта!", player: "Игрок", legend: "Легенда",
         total_taps: "Всего тапов", taps_hint: "Число тапов, чтобы друзья могли посмотреть",
         withdraw: "Вывести средства", dev_btn: "Нажми 5 раз для теста",
         menu_main: "Главная", menu_upgrades: "Улучшения", menu_rating: "Рейтинг", menu_quests: "Квесты",
         lang_title: "Выберите язык", cancel: "Отмена", bought: "Куплено", buy_for: "Купить за", 
-        buy_prev: "Сначала купи предыдущее", auto_buy: "Купить автокликер", auto_desc: "Даёт +0.0001 ₽ каждые 50 секунд",
-        auto_power: "Сила автокликера", auto_speed: "Скорость автокликера", gives: "Даёт", interval: "Интервал",
+        buy_prev: "Сначала купи предыдущее", auto_buy: "Купить автокликер", auto_desc: "Даёт +0.0001 ₽ каждые 50 сек",
+        auto_power: "Сила авто", auto_speed: "Скорость авто", gives: "Даёт", interval: "Интервал",
         sec: "сек", balance: "Баланс", make_taps: "Сделай", taps_word: "тапов", progress: "Прогресс",
         claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено",
-        upg_names: ["Улучшенный тап", "Сильный тап", "Мощный тап", "Супер тап", "Мега тап", "Гипер тап", "Ультра тап", "Турбо тап", "Космический тап", "Божественный тап", "Абсолютный тап", "Квантовый тап", "Тап Пустоты", "Галактический тап", "Тап Творца"],
-        upg_desc: "Каждый тап даёт",
-        achievements_btn: "🏆 Достижения / Achievements", ach_unlocked: "Получено ✨", ach_locked: "Заблокировано",
+        upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец"],
+        upg_desc: "Тап даёт",
+        achievements_btn: "🏆 Достижения", ach_unlocked: "Получено ✨", ach_locked: "Заблокировано",
         shop_title: "🛒 Магазин скинов", equip: "Надеть", equipped: "Надето", buy: "Купить",
         ach_list: [
-          { title: "Первый шаг", desc: "Натапать 100 раз", icon: "🌱" },
-          { title: "Картофельный фанат", desc: "Натапать 1 000 раз", icon: "🥔" },
-          { title: "Мастер клика", desc: "Натапать 10 000 раз", icon: "🔥" },
-          { title: "Деревянная легенда", desc: "Натапать 20 000 раз", icon: "wood" },
-          { title: "Богач", desc: "Накопить 100 ₽", icon: "💰" },
-          { title: "Автоматизация", desc: "Купить автокликер", icon: "⚙️" },
-          { title: "Прокачка", desc: "Купить 5-й уровень тапа", icon: "⚡" },
-          { title: "Максимальный тап", desc: "Купить Божественный тап", icon: "🌟" },
-          { title: "Протёртый палец", desc: "Натапать 50 000 раз", icon: "🩹" },
-          { title: "Сила Творца", desc: "Купить Тап Творца (15 ур.)", icon: "👑" }
+          { title: "Первый шаг", desc: "100 тапов", icon: "🌱" },
+          { title: "Фанат", desc: "1 000 тапов", icon: "🥔" },
+          { title: "Мастер клика", desc: "10 000 тапов", icon: "🔥" },
+          { title: "Деревянная легенда", desc: "20 000 тапов", icon: "wood" },
+          { title: "Богач", desc: "100 ₽", icon: "💰" },
+          { title: "Автоматизация", desc: "Купить авто", icon: "⚙️" },
+          { title: "Прокачка", desc: "5-й уровень", icon: "⚡" },
+          { title: "Максимум", desc: "Божеств. тап", icon: "🌟" },
+          { title: "Протёртый палец", desc: "50 000 тапов", icon: "🩹" },
+          { title: "Сила Творца", desc: "Тап Творца", icon: "👑" }
         ]
       },
       en: {
-        balance_label: "Your balance", tap_label: "Tap", tab_tap: "Tap Upg.", tab_auto: "Auto Upg.",
-        rating_leader: "🏆 You are the Project Leader!", player: "Player", legend: "Legend",
-        total_taps: "Total taps", taps_hint: "Number of taps for friends to see",
+        balance_label: "Balance", tap_label: "Tap", tab_tap: "Tap Upg.", tab_auto: "Auto Upg.",
+        rating_leader: "🏆 Leader!", player: "Player", legend: "Legend",
+        total_taps: "Total taps", taps_hint: "Total taps for friends to see",
         withdraw: "Withdraw funds", dev_btn: "Press 5 times to test",
         menu_main: "Main", menu_upgrades: "Upgrades", menu_rating: "Rating", menu_quests: "Quests",
         lang_title: "Choose language", cancel: "Cancel", bought: "Bought", buy_for: "Buy for", 
-        buy_prev: "Buy previous first", auto_buy: "Buy Autoclicker", auto_desc: "Gives +0.0001 ₽ every 50 seconds",
-        auto_power: "Autoclicker Power", auto_speed: "Autoclicker Speed", gives: "Gives", interval: "Interval",
+        buy_prev: "Buy prev first", auto_buy: "Buy Autoclicker", auto_desc: "Gives +0.0001 ₽ every 50s",
+        auto_power: "Auto Power", auto_speed: "Auto Speed", gives: "Gives", interval: "Interval",
         sec: "sec", balance: "Balance", make_taps: "Make", taps_word: "taps", progress: "Progress",
-        claim: "Claim", received: "Received", not_done: "Not completed yet",
-        upg_names: ["Improved Tap", "Strong Tap", "Powerful Tap", "Super Tap", "Mega Tap", "Hyper Tap", "Ultra Tap", "Turbo Tap", "Cosmic Tap", "Divine Tap", "Absolute Tap", "Quantum Tap", "Void Tap", "Galactic Tap", "Creator's Tap"],
-        upg_desc: "Each tap gives",
-        achievements_btn: "🏆 Achievements / Достижения", ach_unlocked: "Unlocked ✨", ach_locked: "Locked",
+        claim: "Claim", received: "Received", not_done: "Not done",
+        upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator"],
+        upg_desc: "Tap gives",
+        achievements_btn: "🏆 Achievements", ach_unlocked: "Unlocked ✨", ach_locked: "Locked",
         shop_title: "🛒 Skin Shop", equip: "Equip", equipped: "Equipped", buy: "Buy",
         ach_list: [
-          { title: "First Step", desc: "Tap 100 times", icon: "🌱" },
-          { title: "Potato Fan", desc: "Tap 1,000 times", icon: "🥔" },
-          { title: "Click Master", desc: "Tap 10,000 times", icon: "🔥" },
-          { title: "Wooden Legend", desc: "Tap 20,000 times", icon: "wood" },
-          { title: "Rich Man", desc: "Save up to 100 ₽", icon: "💰" },
+          { title: "First Step", desc: "100 taps", icon: "🌱" },
+          { title: "Fan", desc: "1,000 taps", icon: "🥔" },
+          { title: "Click Master", desc: "10,000 taps", icon: "🔥" },
+          { title: "Wooden Legend", desc: "20,000 taps", icon: "wood" },
+          { title: "Rich Man", desc: "100 ₽", icon: "💰" },
           { title: "Automation", desc: "Buy autoclicker", icon: "⚙️" },
-          { title: "Upgraded", desc: "Buy 5th tap level", icon: "⚡" },
-          { title: "Max Tap", desc: "Buy Divine Tap", icon: "🌟" },
-          { title: "Worn-out Finger", desc: "Tap 50,000 times", icon: "🩹" },
-          { title: "Creator's Power", desc: "Buy Creator's Tap (Lv. 15)", icon: "👑" }
+          { title: "Upgraded", desc: "Buy 5th level", icon: "⚡" },
+          { title: "Max Tap", desc: "Buy Divine", icon: "🌟" },
+          { title: "Worn Finger", desc: "50,000 taps", icon: "🩹" },
+          { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" }
         ]
       }
     };
@@ -502,8 +530,8 @@
       if (hasAutoclicker) {
         autoInfo.style.display = 'block';
         var text = currentLang === 'ru' 
-          ? 'Автокликер: +' + autoValue.toFixed(4) + ' ₽ каждые ' + (autoInterval / 1000) + ' сек'
-          : 'Autoclicker: +' + autoValue.toFixed(4) + ' ₽ every ' + (autoInterval / 1000) + ' sec';
+          ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' сек'
+          : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' sec';
         autoInfo.innerText = text;
       } else { autoInfo.style.display = 'none'; }
     }
@@ -617,7 +645,7 @@
           
           var btn = document.createElement('button');
           btn.className = 'btn';
-          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '12px';
+          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '8px';
           btn.innerText = btnText;
           if (!isNext) btn.disabled = true;
 
@@ -640,7 +668,7 @@
           var card = document.createElement('div'); card.className = 'card';
           card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_buy + '</div><div class="card-desc">' + t.auto_desc + '</div></div>';
           var btn = document.createElement('button'); btn.className = 'btn'; 
-          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '12px';
+          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '8px';
           btn.innerText = t.buy_for + ' 100 ₽';
           btn.onclick = function() {
             if (balance >= 100) {
@@ -658,7 +686,7 @@
             var card = document.createElement('div'); card.className = 'card';
             card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_power + ' Lv.' + av.level + '</div><div class="card-desc">' + t.gives + ' ' + av.value + ' ₽</div></div>';
             var btn = document.createElement('button'); btn.className = 'btn';
-            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '12px';
+            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '8px';
             btn.innerText = isB ? t.bought : (isN ? t.buy_for + ' ' + av.cost + ' ₽' : t.buy_prev);
             if (!isN) btn.disabled = true;
             if (isN) {
@@ -681,7 +709,7 @@
             var card = document.createElement('div'); card.className = 'card';
             card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_speed + ' Lv.' + as.level + '</div><div class="card-desc">' + t.interval + ': ' + (as.interval/1000) + ' ' + t.sec + '</div></div>';
             var btn = document.createElement('button'); btn.className = 'btn';
-            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '12px';
+            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '8px';
             btn.innerText = isB ? t.bought : (isN ? t.buy_for + ' ' + as.cost + ' ₽' : t.buy_prev);
             if (!isN) btn.disabled = true;
             if (isN) {
@@ -713,10 +741,10 @@
         var progText = t.progress + ': ' + Math.min(totalTaps, q.need) + ' / ' + q.need;
         
         var card = document.createElement('div'); card.className = 'card';
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-bottom: 0; color: #e9d5ff; font-size:12px;">' + progText + '</div></div>';
+        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-bottom: 0; color: #a78bfa; font-size:8px;">' + progText + '</div></div>';
         
         var btn = document.createElement('button'); btn.className = 'btn';
-        btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '12px';
+        btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '8px';
         
         if (isClaimed) { btn.innerText = t.received; btn.disabled = true; }
         else if (canClaim) {
@@ -852,7 +880,7 @@
       devClickCount++;
       if (devClickCount >= 5) {
         balance += 200000; totalTaps += 50000; updateUI();
-        alert(currentLang === 'ru' ? '+200 000 ₽ и +50 000 тапов для тестов!' : '+200,000 ₽ and +50,000 taps for tests!');
+        alert(currentLang === 'ru' ? '+200 000 ₽ и +50 000 тапов!' : '+200,000 ₽ and +50,000 taps!');
         devClickCount = 0;
       }
     };
