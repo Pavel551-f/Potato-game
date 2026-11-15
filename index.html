@@ -32,7 +32,9 @@
     .top-avatar { width: 30px; height: 30px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; }
     .top-balance-text { display: flex; flex-direction: column; }
     .top-balance-label { font-size: 8px; color: #c4b5fd; margin-bottom: 4px; }
-    .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; }
+    /* Если баланс отрицательный, текст будет красным */
+    .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; transition: color 0.3s; }
+    .top-balance-value.negative { color: #ef4444; } 
 
     /* КНОПКИ НА ГЛАВНОМ */
     .main-btns-container {
@@ -201,7 +203,8 @@
     }
     .reel {
       display: flex; height: 100%; align-items: center; position: absolute; left: 0; top: 0;
-      transition: transform 3s cubic-bezier(0.1, 0.7, 0.1, 1);
+      /* 9 секунд анимации */
+      transition: transform 9s cubic-bezier(0.1, 0.8, 0.1, 1);
     }
     .reel-item {
       width: 80px; height: 80px; margin: 0 5px; flex-shrink: 0;
@@ -210,6 +213,9 @@
       border: 3px solid #fde047; border-radius: 10px;
     }
     .reel-item.fries { background: #ff0055; border-color: #ff88aa; font-size: 30px; }
+    .reel-item.moai { background: #4b5563; border-color: #9ca3af; font-size: 30px; }
+    .reel-item.negative { background: #dc2626; border-color: #fca5a5; color: #fff; }
+    
     .pointer {
       position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
       width: 4px; background: #a855f7; z-index: 10; pointer-events: none;
@@ -373,6 +379,9 @@
         <div class="pointer"></div>
       </div>
       <button class="btn btn-gold" id="spinBtn" onclick="spinCasino()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_btn">КРУТИТЬ (5 ₽)</button>
+      
+      <!-- Кнопка для теста муаи -->
+      <div onclick="activateMoaiTest()" style="margin-top: 50px; font-size: 8px; color: #6b7280; cursor: pointer; text-align: center;">[ Для теста: Выбить 🗿 ]</div>
     </div>
   </div>
 
@@ -490,18 +499,33 @@
         gain.gain.setValueAtTime(0.3, now);
         gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
         osc.start(now); osc.stop(now + 0.5);
-      } else if (type === 'casino_spin') {
-        // Звук прокрутки казино
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(200, now);
-        osc.frequency.linearRampToValueAtTime(400, now + 2.5);
-        gain.gain.setValueAtTime(0.05, now);
-        gain.gain.linearRampToValueAtTime(0.01, now + 2.8);
-        osc.start(now); osc.stop(now + 2.8);
       } else if (type === 'casino_win') {
         osc.type = 'sine'; osc.frequency.setValueAtTime(440, now); osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
         gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
         osc.start(now); osc.stop(now + 0.3);
+      } else if (type === 'casino_spin_9s') {
+        var tickCount = 80;
+        var startTime = now;
+        var time = startTime;
+        
+        for (var i = 0; i < tickCount; i++) {
+          var tickOsc = audioCtx.createOscillator();
+          var tickGain = audioCtx.createGain();
+          tickOsc.connect(tickGain); tickGain.connect(audioCtx.destination);
+          
+          tickOsc.type = 'square';
+          tickOsc.frequency.setValueAtTime(1500, time);
+          
+          tickGain.gain.setValueAtTime(0.05, time);
+          tickGain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
+          
+          tickOsc.start(time);
+          tickOsc.stop(time + 0.03);
+          
+          var progress = i / tickCount;
+          var gap = 0.05 + (Math.pow(progress, 4) * 0.6);
+          time += gap;
+        }
       }
     }
 
@@ -562,7 +586,8 @@
           { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" },
           { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" },
           { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" },
-          { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" }
+          { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" },
+          { title: "Потеря потерь", desc: "Выбить 🗿", icon: "🗿" }
         ]
       },
       en: {
@@ -598,7 +623,8 @@
           { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" },
           { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" },
           { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" },
-          { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" }
+          { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" },
+          { title: "Loss of Losses", desc: "Hit the 🗿", icon: "🗿" }
         ]
       }
     };
@@ -702,6 +728,7 @@
 
     var isSpinning = false;
     var spinCost = 5;
+    var forceMoai = false; // Флаг для теста
 
     var balanceEl = document.getElementById('balance');
     var tapPowerEl = document.getElementById('tapPower');
@@ -742,6 +769,12 @@
 
     function updateUI() {
       balanceEl.innerText = balance.toFixed(3);
+      if (balance < 0) {
+        balanceEl.classList.add('negative');
+      } else {
+        balanceEl.classList.remove('negative');
+      }
+
       tapPowerEl.innerText = tapValue.toFixed(3);
       totalTapsText.innerText = totalTaps;
       progressFill.style.width = Math.min(100, (totalTaps / 50000) * 100) + '%';
@@ -873,7 +906,6 @@
 
     function initCasino() {
       casinoReel.innerHTML = '';
-      // Заполняем ленту случайными элементами для визуала
       for (var i = 0; i < 50; i++) {
         addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
       }
@@ -885,10 +917,23 @@
       if (item.type === 'fries') {
         div.classList.add('fries');
         div.innerText = '🍟';
+      } else if (item.type === 'moai') {
+        div.classList.add('moai');
+        div.innerText = '🗿';
+      } else if (item.type === 'money' && item.value < 0) {
+        div.classList.add('negative');
+        div.innerText = '₽ ' + item.value;
       } else {
         div.innerText = '₽ ' + item.value;
       }
       casinoReel.appendChild(div);
+    }
+
+    // Функция для активации теста
+    window.activateMoaiTest = function() {
+      forceMoai = true;
+      playHaptic('medium');
+      alert('Следующая прокрутка 100% выдаст 🗿! (Для теста)');
     }
 
     window.spinCasino = function() {
@@ -905,24 +950,31 @@
       
       spinBtn.disabled = true;
       playHaptic('medium');
-      playSound('casino_spin');
+      playSound('casino_spin_9s'); 
       
-      // Определяем приз
-      var roll = Math.random();
       var winItem = null;
       
-      if (roll < 0.05) { // 5% шанс на джекпот (фри)
+      // Проверка на тестовый режим
+      if (forceMoai) {
+        winItem = { type: 'moai' };
+        forceMoai = false; // Сбрасываем флаг
+      } else if (Math.random() < 0.000001) {
+        winItem = { type: 'moai' };
+      } else if (Math.random() < 0.05) { 
         winItem = { type: 'fries' };
       } else {
-        // Рандомный рублик (от 0.1 до 1000)
-        // Сделаем так, чтобы крупные суммы падали реже
+        var isNegative = Math.random() < 0.5;
+        var val = 0;
         var r2 = Math.random();
-        if (r2 < 0.6) winItem = { type: 'money', value: (Math.random() * 5 + 0.1).toFixed(1) };
-        else if (r2 < 0.9) winItem = { type: 'money', value: (Math.random() * 45 + 5).toFixed(1) };
-        else winItem = { type: 'money', value: (Math.random() * 900 + 100).toFixed(0) };
+        
+        if (r2 < 0.6) val = (Math.random() * 5 + 0.1).toFixed(1);
+        else if (r2 < 0.9) val = (Math.random() * 45 + 5).toFixed(1);
+        else val = (Math.random() * 900 + 100).toFixed(0);
+
+        if (isNegative) val = -val;
+        winItem = { type: 'money', value: parseFloat(val) };
       }
 
-      // Генерируем ленту (много элементов, победный вставляем на позицию 40)
       casinoReel.style.transition = 'none';
       casinoReel.style.transform = 'translateX(0px)';
       casinoReel.innerHTML = '';
@@ -931,56 +983,64 @@
         addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
       }
       
-      // Добавляем выигрышный
       addReelItem(winItem);
       
-      // Добавляем еще немного после выигрыша
       for (var i = 0; i < 10; i++) {
         addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
       }
 
-      // Анимация
       setTimeout(function() {
-        casinoReel.style.transition = 'transform 3s cubic-bezier(0.1, 0.7, 0.1, 1)';
+        casinoReel.style.transition = 'transform 9s cubic-bezier(0.1, 0.8, 0.1, 1)';
         
-        // Вычисляем позицию для остановки
-        // Ширина элемента 80px + margin 5px*2 = 90px
         var itemWidth = 90; 
         var containerWidth = document.querySelector('.reel-window').offsetWidth;
         var centerOffset = (containerWidth / 2) - (itemWidth / 2);
-        
-        // Позиция победного элемента (индекс 40)
         var targetPosition = (40 * itemWidth) - centerOffset;
         
         casinoReel.style.transform = 'translateX(-' + targetPosition + 'px)';
         
-        // Ждем окончания анимации
         setTimeout(function() {
           isSpinning = false;
           spinBtn.disabled = false;
           
-          if (winItem.type === 'fries') {
+          if (winItem.type === 'moai') {
+            balance = 0; // Обнуляем баланс!
+            updateUI();
+            playSound('quest_claim_10');
+            playHaptic('heavy');
+            alert(currentLang === 'ru' ? '🗿 ТЫ ВЫБИЛ МУАИ! Баланс обнулен...' : '🗿 YOU HIT THE MOAI! Balance zeroed...');
+            
+            if (unlockedAch.indexOf(14) === -1) {
+              unlockedAch.push(14);
+              playSound('achievement');
+              save();
+            }
+          } else if (winItem.type === 'fries') {
             balance += 5000;
             updateUI();
             playSound('quest_claim_10');
             playHaptic('heavy');
             alert(currentLang === 'ru' ? '🍟 ДЖЕКПОТ! Вы выиграли 5000 ₽ и выполнили квест "Игроман"!' : '🍟 JACKPOT! You won 5000 ₽ and completed the "Gambler" quest!');
             
-            // Ачивка за игру в казино (если еще нет)
-            if (unlockedAch.indexOf(13) === -1) {
-              unlockedAch.push(13);
+            if (unlockedAch.indexOf(10) === -1) {
+              unlockedAch.push(10);
               playSound('achievement');
               save();
             }
           } else {
             var winVal = parseFloat(winItem.value);
-            balance += winVal;
+            balance += winVal; 
             updateUI();
-            playSound('casino_win');
-            playHaptic('success');
-            alert((currentLang === 'ru' ? 'Вы выиграли: ' : 'You won: ') + winVal + ' ₽!');
             
-            // Ачивка за игру в казино (если еще нет)
+            if (winVal < 0) {
+              playHaptic('error');
+              alert((currentLang === 'ru' ? 'Вы проиграли: ' : 'You lost: ') + Math.abs(winVal) + ' ₽! Теперь вы должны их натапать!');
+            } else {
+              playSound('casino_win');
+              playHaptic('success');
+              alert((currentLang === 'ru' ? 'Вы выиграли: ' : 'You won: ') + winVal + ' ₽!');
+            }
+            
             if (unlockedAch.indexOf(13) === -1) {
               unlockedAch.push(13);
               playSound('achievement');
@@ -988,7 +1048,7 @@
             }
           }
           
-        }, 3100);
+        }, 9100); 
       }, 50);
     };
 
