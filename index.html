@@ -203,8 +203,8 @@
     }
     .reel {
       display: flex; height: 100%; align-items: center; position: absolute; left: 0; top: 0;
-      /* 9 секунд анимации */
-      transition: transform 9s cubic-bezier(0.1, 0.8, 0.1, 1);
+      /* 10 секунд анимации (синхронизировано со звуком) */
+      transition: transform 10s cubic-bezier(0.1, 0.8, 0.1, 1);
     }
     .reel-item {
       width: 80px; height: 80px; margin: 0 5px; flex-shrink: 0;
@@ -503,29 +503,36 @@
         osc.type = 'sine'; osc.frequency.setValueAtTime(440, now); osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
         gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
         osc.start(now); osc.stop(now + 0.3);
-      } else if (type === 'casino_spin_9s') {
-        var tickCount = 80;
-        var startTime = now;
-        var time = startTime;
-        
-        for (var i = 0; i < tickCount; i++) {
-          var tickOsc = audioCtx.createOscillator();
-          var tickGain = audioCtx.createGain();
-          tickOsc.connect(tickGain); tickGain.connect(audioCtx.destination);
-          
-          tickOsc.type = 'square';
-          tickOsc.frequency.setValueAtTime(1500, time);
-          
-          tickGain.gain.setValueAtTime(0.05, time);
-          tickGain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
-          
-          tickOsc.start(time);
-          tickOsc.stop(time + 0.03);
-          
-          var progress = i / tickCount;
-          var gap = 0.05 + (Math.pow(progress, 4) * 0.6);
-          time += gap;
-        }
+      }
+    }
+
+    // СИНХРОНИЗИРОВАННЫЙ ЗВУК РУЛЕТКИ
+    function playCasinoSpinSound(durationMs) {
+      if (!audioCtx) return;
+      var durationSec = durationMs / 1000;
+      var now = audioCtx.currentTime;
+      var tickCount = 120; // Количество тиков
+
+      for (var i = 0; i < tickCount; i++) {
+        var progress = i / tickCount;
+        // Используем ту же кривую замедления, что и в CSS (easeOutQuart), чтобы тики совпадали с визуалом
+        var easeProgress = 1 - Math.pow(1 - progress, 4);
+        var timeOffset = durationSec * easeProgress;
+        var tickTime = now + timeOffset;
+
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(1500 - (progress * 500), tickTime); // Звук немного понижается к концу
+
+        gain.gain.setValueAtTime(0.05, tickTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, tickTime + 0.02);
+
+        osc.start(tickTime);
+        osc.stop(tickTime + 0.03);
       }
     }
 
@@ -587,7 +594,7 @@
           { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" },
           { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" },
           { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" },
-          { title: "Потеря потерь", desc: "Выбить 🗿", icon: "🗿" }
+          { title: "Всё про**бал", desc: "Выбить 🗿", icon: "🗿" }
         ]
       },
       en: {
@@ -624,7 +631,7 @@
           { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" },
           { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" },
           { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" },
-          { title: "Loss of Losses", desc: "Hit the 🗿", icon: "🗿" }
+          { title: "Lost Everything", desc: "Hit the 🗿", icon: "🗿" }
         ]
       }
     };
@@ -728,7 +735,8 @@
 
     var isSpinning = false;
     var spinCost = 5;
-    var forceMoai = false; // Флаг для теста
+    var forceMoai = false; 
+    var SPIN_DURATION = 10000; // 10 секунд
 
     var balanceEl = document.getElementById('balance');
     var tapPowerEl = document.getElementById('tapPower');
@@ -929,7 +937,6 @@
       casinoReel.appendChild(div);
     }
 
-    // Функция для активации теста
     window.activateMoaiTest = function() {
       forceMoai = true;
       playHaptic('medium');
@@ -950,17 +957,19 @@
       
       spinBtn.disabled = true;
       playHaptic('medium');
-      playSound('casino_spin_9s'); 
+      
+      // Запускаем синхронизированный звук (10 секунд)
+      playCasinoSpinSound(SPIN_DURATION); 
       
       var winItem = null;
       
-      // Проверка на тестовый режим
+      // Генерация выигрыша (0.001 шанс на фри)
       if (forceMoai) {
         winItem = { type: 'moai' };
-        forceMoai = false; // Сбрасываем флаг
+        forceMoai = false; 
       } else if (Math.random() < 0.000001) {
         winItem = { type: 'moai' };
-      } else if (Math.random() < 0.05) { 
+      } else if (Math.random() < 0.001) { // 0.1% шанс на джекпот
         winItem = { type: 'fries' };
       } else {
         var isNegative = Math.random() < 0.5;
@@ -989,8 +998,10 @@
         addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
       }
 
+      // Анимация
       setTimeout(function() {
-        casinoReel.style.transition = 'transform 9s cubic-bezier(0.1, 0.8, 0.1, 1)';
+        // CSS transition в стилях уже стоит на 10s
+        casinoReel.style.transition = 'transform ' + (SPIN_DURATION/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
         
         var itemWidth = 90; 
         var containerWidth = document.querySelector('.reel-window').offsetWidth;
@@ -999,12 +1010,13 @@
         
         casinoReel.style.transform = 'translateX(-' + targetPosition + 'px)';
         
+        // Ждем окончания анимации и звука
         setTimeout(function() {
           isSpinning = false;
           spinBtn.disabled = false;
           
           if (winItem.type === 'moai') {
-            balance = 0; // Обнуляем баланс!
+            balance = 0; 
             updateUI();
             playSound('quest_claim_10');
             playHaptic('heavy');
@@ -1048,7 +1060,7 @@
             }
           }
           
-        }, 9100); 
+        }, SPIN_DURATION + 100); // Небольшой буфер после окончания звука и анимации
       }, 50);
     };
 
