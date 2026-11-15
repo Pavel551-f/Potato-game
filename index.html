@@ -101,9 +101,8 @@
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
     }
     .card-icon { font-size: 24px; flex-shrink: 0; width: 35px; text-align: center; filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5)); }
-    .card-content { flex: 1; min-width: 0; } /* min-width: 0 чтобы текст мог сжиматься */
+    .card-content { flex: 1; min-width: 0; }
     
-    /* ИСПРАВЛЕННЫЙ ТЕКСТ В КАРТОЧКАХ (line-height и word-break) */
     .card-title { font-size: 11px; margin-bottom: 8px; color: #fff; line-height: 1.5; word-break: break-word; }
     .card-desc { font-size: 9px; color: #c4b5fd; margin-bottom: 8px; line-height: 1.6; word-break: break-word; }
     .card-status { font-size: 9px; font-weight: 700; }
@@ -121,7 +120,7 @@
     .btn { 
       background: #8b5cf6; border: none; color: white; padding: 10px; font-size: 9px; cursor: pointer; margin-bottom: 10px; 
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-family: inherit;
-      flex-shrink: 0; /* Кнопка не должна сжиматься */
+      flex-shrink: 0;
     }
     .btn:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
     .btn:disabled { background: #4b5563; color: #9ca3af; border-color: #6b7280 #1f2937 #1f2937 #6b7280; text-shadow: none; }
@@ -411,6 +410,24 @@
         osc.type = 'sawtooth'; osc.frequency.setValueAtTime(440, now); osc.frequency.setValueAtTime(554.37, now + 0.1); osc.frequency.setValueAtTime(659.25, now + 0.2);
         gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
         osc.start(now); osc.stop(now + 0.5);
+      } else if (type === 'buy_gold') {
+        // Звук падающих монет (высокие частоты)
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(1200, now);
+        osc.frequency.setValueAtTime(1600, now + 0.1);
+        osc.frequency.setValueAtTime(2000, now + 0.2);
+        osc.frequency.setValueAtTime(2400, now + 0.3);
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+        osc.start(now); osc.stop(now + 0.6);
+      } else if (type === 'buy_ghost') {
+        // Призрачный звук (Boo) - спуск вниз
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(800, now);
+        osc.frequency.linearRampToValueAtTime(300, now + 0.4);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
+        osc.start(now); osc.stop(now + 0.5);
       }
     }
 
@@ -467,7 +484,9 @@
           { title: "Максимум", desc: "Божеств. тап", icon: "🌟" },
           { title: "Протёртый палец", desc: "50 000 тапов", icon: "🩹" },
           { title: "Сила Творца", desc: "Тап Творца", icon: "👑" },
-          { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" }
+          { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" },
+          { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" },
+          { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" }
         ]
       },
       en: {
@@ -499,7 +518,9 @@
           { title: "Max Tap", desc: "Buy Divine", icon: "🌟" },
           { title: "Worn Finger", desc: "50,000 taps", icon: "🩹" },
           { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" },
-          { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" }
+          { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" },
+          { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" },
+          { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" }
         ]
       }
     };
@@ -782,6 +803,11 @@
       if (maxUpgrade >= 10 && unlockedAch.indexOf(7) === -1) { unlockedAch.push(7); newUnlock = true; }
       if (totalTaps >= 50000 && unlockedAch.indexOf(8) === -1) { unlockedAch.push(8); newUnlock = true; }
       if (maxUpgrade >= 15 && unlockedAch.indexOf(9) === -1) { unlockedAch.push(9); newUnlock = true; }
+      // 10 - Везунчик (выдается в claimGift)
+      
+      // Достижения за покупку скинов
+      if (ownedSkins.indexOf(1) !== -1 && unlockedAch.indexOf(11) === -1) { unlockedAch.push(11); newUnlock = true; }
+      if (ownedSkins.indexOf(2) !== -1 && unlockedAch.indexOf(12) === -1) { unlockedAch.push(12); newUnlock = true; }
 
       if (newUnlock) { playSound('achievement'); save(); }
     }
@@ -872,7 +898,16 @@
       if (balance >= skin.price) {
         balance -= skin.price;
         ownedSkins.push(id);
-        playSound('upgrade');
+        
+        // Специфические звуки при покупке
+        if (id === 1) {
+          playSound('buy_gold');
+        } else if (id === 2) {
+          playSound('buy_ghost');
+        } else {
+          playSound('upgrade');
+        }
+        
         playHaptic('success');
         updateUI();
         renderShop();
@@ -1019,7 +1054,6 @@
         var progText = t.progress + ': ' + Math.min(totalTaps, q.need) + ' / ' + q.need;
         
         var card = document.createElement('div'); card.className = 'card';
-        // Добавил margin-top: 8px и line-height: 1.6 для блока прогресса
         card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-top: 8px; margin-bottom: 0; color: #a78bfa; font-size:9px; line-height: 1.6; word-break: break-word;">' + progText + '</div></div>';
         
         var btn = document.createElement('button'); btn.className = 'btn';
