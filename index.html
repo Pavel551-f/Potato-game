@@ -49,10 +49,13 @@
     
     .potato-wrap { width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
     .potato-emoji { font-size: 120px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
-    .potato-wrap:active .potato-emoji { transform: scale(0.92); }
+    
+    /* Визуальная вибрация, если телефон не поддерживает физическую */
+    .potato-wrap:active .potato-emoji { animation: shake 0.1s; }
+    @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
     
     .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; image-rendering: pixelated; }
-    .potato-wrap:active img { transform: scale(0.92); }
+    .potato-wrap:active img { animation: shake 0.1s; }
 
     .tap-power { margin-top: 16px; font-size: 11px; color: #c4b5fd; }
     .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; }
@@ -131,14 +134,24 @@
     .gift-box-inner {
       width: 100%; aspect-ratio: 1/1; background: #ff00ff;
       border: 4px solid #000;
-      display: flex; justify-content: center; align-items: center; position: relative;
+      display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden;
       background-image: 
         radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%),
         radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%);
       background-size: 30px 30px;
       background-position: 0 0, 15px 15px;
     }
-    .gift-reward-text { font-size: 24px; color: #fff; text-shadow: 3px 3px 0 #000; margin-top: 10px; }
+
+    /* Разбросанные картошки на фоне */
+    .bg-potato {
+      position: absolute;
+      font-size: 35px;
+      opacity: 0.15; /* Очень прозрачные, чтобы не мешать */
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .gift-reward-text { font-size: 24px; color: #fff; text-shadow: 3px 3px 0 #000; margin-top: 10px; z-index: 2; position: relative;}
     .gift-reward-text.jackpot { color: #fde047; animation: pulse 1s infinite alternate; }
     @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
@@ -152,11 +165,11 @@
     .gift-lock {
       position: absolute; bottom: -15px; left: -15px; width: 50px; height: 50px;
       background: #fff; border: 3px solid #000; border-radius: 50%;
-      display: flex; justify-content: center; align-items: center; font-size: 24px; color: #000;
+      display: flex; justify-content: center; align-items: center; font-size: 24px; color: #000; z-index: 10;
     }
 
     .gift-timer {
-      position: absolute; top: -30px; left: 0; background: rgba(0,0,0,0.8); color: #fff; padding: 4px 8px; font-size: 10px; border: 2px solid #fff;
+      position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 8px; font-size: 10px; border: 2px solid #fff; z-index: 10;
     }
 
     .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; }
@@ -264,15 +277,30 @@
       <div class="gift-wrapper">
         <div class="gift-card">
           <div class="gift-title" data-i18n="daily_gift_title">Ежедневный подарок</div>
+          
           <div class="gift-box-inner">
             <div class="gift-timer" id="giftTimer">00:00</div>
-            <div id="giftRewardDisplay" style="display: none; flex-direction: column; align-items: center;">
+            
+            <!-- Разбросанные картошки на фоне -->
+            <div class="bg-potato" style="top: 10%; left: 15%; transform: rotate(15deg);">🥔</div>
+            <div class="bg-potato" style="top: 20%; right: 10%; transform: rotate(-25deg);">🥔</div>
+            <div class="bg-potato" style="bottom: 15%; left: 20%; transform: rotate(45deg);">🥔</div>
+            <div class="bg-potato" style="bottom: 25%; right: 15%; transform: rotate(-10deg);">🥔</div>
+            <div class="bg-potato" style="top: 45%; left: 5%; transform: rotate(80deg);">🥔</div>
+            <div class="bg-potato" style="top: 60%; right: 5%; transform: rotate(-60deg);">🥔</div>
+            <div class="bg-potato" style="top: 5%; left: 45%; transform: rotate(30deg);">🥔</div>
+            <div class="bg-potato" style="bottom: 5%; right: 45%; transform: rotate(-45deg);">🥔</div>
+
+            <div id="giftRewardDisplay" style="display: none; flex-direction: column; align-items: center; z-index: 2; position: relative;">
               <div class="gift-reward-text" id="giftRewardText">₽ 10</div>
               <div id="jackpotText" style="display: none; color: #fde047; font-size: 10px; margin-top: 10px; text-shadow: 2px 2px 0 #000;">ДЖЕКПОТ!</div>
             </div>
-            <div id="giftQuestion" style="font-size: 60px; text-shadow: 4px 4px 0 #000;">?</div>
+            
+            <div id="giftQuestion" style="font-size: 60px; text-shadow: 4px 4px 0 #000; z-index: 2; position: relative;">?</div>
+            
             <div class="gift-lock" id="giftLockIcon">🔒</div>
           </div>
+          
           <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()" data-i18n="daily_gift_btn">ПОДАРОК</button>
         </div>
       </div>
@@ -382,16 +410,18 @@
 
     // === УНИВЕРСАЛЬНАЯ ВИБРАЦИЯ ===
     function playHaptic(type) {
-      if (tg && tg.HapticFeedback) {
+      if (tg && tg.HapticFeedback && typeof tg.HapticFeedback.impactOccurred === 'function') {
         try {
           if (type === 'light') tg.HapticFeedback.impactOccurred('light');
           else if (type === 'medium') tg.HapticFeedback.impactOccurred('medium');
           else if (type === 'heavy') tg.HapticFeedback.impactOccurred('heavy');
           else if (type === 'success') tg.HapticFeedback.notificationOccurred('success');
           else if (type === 'error') tg.HapticFeedback.notificationOccurred('error');
+          return; 
         } catch(e) {}
-      } else if (navigator.vibrate) {
-        // Запасной вариант для браузеров
+      } 
+      
+      if (navigator.vibrate) {
         try {
           if (type === 'light') navigator.vibrate(15);
           else if (type === 'medium') navigator.vibrate(30);
@@ -488,7 +518,9 @@
     var tg = null;
     try {
       if (window.Telegram && window.Telegram.WebApp) {
-        tg = window.Telegram.WebApp; tg.ready(); tg.expand();
+        tg = window.Telegram.WebApp; 
+        tg.ready(); 
+        tg.expand();
       }
     } catch(e) {}
 
@@ -678,7 +710,7 @@
         jackpotEl.style.display = 'block';
         jackpotEl.innerText = t.jackpot;
         playSound('quest_claim_10'); 
-        playHaptic('heavy'); // Сильная вибрация для джекпота
+        playHaptic('heavy'); 
       } else {
         rewardTextEl.classList.remove('jackpot');
         jackpotEl.style.display = 'none';
@@ -693,7 +725,7 @@
     };
 
     window.switchShopTab = function(tab) {
-      playHaptic('medium'); // Вибрация при смене вкладки
+      playHaptic('medium'); 
       var skinsBtn = document.querySelectorAll('.shop-tab-btn')[0];
       var giftsBtn = document.querySelectorAll('.shop-tab-btn')[1];
       
@@ -763,7 +795,6 @@
       lastTapTime = now;
       if (e.cancelable) e.preventDefault();
       
-      // === ВИБРАЦИЯ ПРИ ТАПЕ ===
       playHaptic('light');
 
       balance += tapValue;
@@ -829,11 +860,11 @@
         balance -= skin.price;
         ownedSkins.push(id);
         playSound('upgrade');
-        playHaptic('success'); // Вибрация при покупке
+        playHaptic('success');
         updateUI();
         renderShop();
       } else {
-        playHaptic('error'); // Вибрация ошибки
+        playHaptic('error');
         alert(currentLang === 'ru' ? 'Недостаточно средств!' : 'Not enough funds!');
       }
     }
@@ -843,7 +874,7 @@
       updatePotatoSkin();
       save();
       renderShop();
-      playHaptic('medium'); // Вибрация при смене скина
+      playHaptic('medium');
     }
 
     function renderUpgrades() {
@@ -874,7 +905,7 @@
                 if (balance >= u.cost) {
                   balance -= u.cost; tapValue = u.value; maxUpgrade = lvl;
                   playSound('upgrade');
-                  playHaptic('success'); // Вибрация при покупке
+                  playHaptic('success');
                   updateUI(); renderUpgrades();
                 } else {
                   playHaptic('error');
@@ -1066,7 +1097,7 @@
     }
 
     function showScreen(name) {
-      playHaptic('medium'); // Вибрация при переходе между экранами
+      playHaptic('medium'); 
       var screens = document.querySelectorAll('.screen');
       for (var s = 0; s < screens.length; s++) screens[s].classList.remove('active');
       var target = document.getElementById('screen-' + name);
