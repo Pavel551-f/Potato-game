@@ -10,11 +10,10 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
     body {
-      /* Возвращаем твой фиолетовый градиент */
       background: linear-gradient(180deg, #2e1065, #1e1b4b);
       color: white;
       font-family: 'Press Start 2P', 'Courier New', monospace;
-      font-size: 10px; /* Пиксельный шрифт крупный, поэтому база мелкая */
+      font-size: 10px;
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -24,7 +23,6 @@
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; }
 
-    /* БАЛАНС (3D-рамка) */
     .top-balance { 
       position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px; 
       background: rgba(0,0,0,0.45); padding: 4px 10px 4px 4px; z-index: 60; cursor: pointer; 
@@ -35,7 +33,6 @@
     .top-balance-label { font-size: 8px; color: #c4b5fd; margin-bottom: 4px; }
     .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; }
 
-    /* КНОПКА МАГАЗИНА (3D-рамка) */
     .shop-btn-main {
       position: absolute; top: 70px; left: 14px;
       display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -70,7 +67,6 @@
     .list-content { padding: 0 16px 30px; }
     #screen-quests .list-content, #screen-achievements .list-content, #screen-shop .list-content { padding-top: 80px; }
     
-    /* КАРТОЧКИ (3D-рамки) */
     .card { 
       background: rgba(255,255,255,0.09); padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; 
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
@@ -83,7 +79,6 @@
     .status-locked { color: #6b7280; }
     .status-unlocked { color: #10b981; }
     
-    /* RGB ПОДСВЕТКА */
     .rgb-glow {
       animation: hueRotate 3s linear infinite !important;
       border: 3px solid #ff0055 !important;
@@ -92,7 +87,6 @@
 
     .section-title { font-size: 10px; color: #a78bfa; margin: 14px 0 10px; }
     
-    /* КНОПКИ (3D-рамки) */
     .btn { 
       background: #8b5cf6; border: none; color: white; padding: 10px; font-size: 9px; cursor: pointer; margin-bottom: 10px; 
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-family: inherit;
@@ -141,7 +135,6 @@
       border-top: 3px solid #c084fc;
     }
 
-    /* НИЖНЕЕ МЕНЮ */
     .bottom-menu { height: 70px; background: #1a1625; display: flex; border-top: 3px solid #c084fc; z-index: 100; }
     .menu-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; font-size: 8px; color: #9ca3af; cursor: pointer; }
     .menu-item.active { color: #e9d5ff; text-shadow: 0 0 5px #e9d5ff; }
@@ -150,7 +143,6 @@
     .float-text { position: fixed; font-size: 14px; color: #f5d0fe; text-shadow: 2px 2px 0 #000; pointer-events: none; z-index: 100; animation: floatUp 0.8s ease-out forwards; }
     @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); } }
 
-    /* МОДАЛЬНОЕ ОКНО */
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
     .modal-content { 
       background: #2e1065; padding: 20px; width: 80%; max-width: 300px; text-align: center; 
@@ -189,8 +181,9 @@
   </div>
 
   <div class="screen active" id="screen-main">
+    <!-- ИСПРАВЛЕНО: добавил data-i18n="shop_btn" -->
     <div class="shop-btn-main" onclick="showScreen('shop')">
-      🛒 <span>Магазин</span>
+      🛒 <span data-i18n="shop_btn">Магазин</span>
     </div>
 
     <div class="main-content">
@@ -323,7 +316,7 @@
         upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец"],
         upg_desc: "Тап даёт",
         achievements_btn: "🏆 Достижения", ach_unlocked: "Получено ✨", ach_locked: "Заблокировано",
-        shop_title: "🛒 Магазин скинов", equip: "Надеть", equipped: "Надето", buy: "Купить",
+        shop_title: "🛒 Магазин скинов", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить",
         ach_list: [
           { title: "Первый шаг", desc: "100 тапов", icon: "🌱" },
           { title: "Фанат", desc: "1 000 тапов", icon: "🥔" },
@@ -351,7 +344,7 @@
         upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator"],
         upg_desc: "Tap gives",
         achievements_btn: "🏆 Achievements", ach_unlocked: "Unlocked ✨", ach_locked: "Locked",
-        shop_title: "🛒 Skin Shop", equip: "Equip", equipped: "Equipped", buy: "Buy",
+        shop_title: "🛒 Skin Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy",
         ach_list: [
           { title: "First Step", desc: "100 taps", icon: "🌱" },
           { title: "Fan", desc: "1,000 taps", icon: "🥔" },
