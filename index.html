@@ -101,9 +101,11 @@
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
     }
     .card-icon { font-size: 24px; flex-shrink: 0; width: 35px; text-align: center; filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5)); }
-    .card-content { flex: 1; }
-    .card-title { font-size: 11px; margin-bottom: 8px; color: #fff; line-height: 1.4; }
-    .card-desc { font-size: 9px; color: #c4b5fd; margin-bottom: 8px; line-height: 1.5; }
+    .card-content { flex: 1; min-width: 0; } /* min-width: 0 чтобы текст мог сжиматься */
+    
+    /* ИСПРАВЛЕННЫЙ ТЕКСТ В КАРТОЧКАХ (line-height и word-break) */
+    .card-title { font-size: 11px; margin-bottom: 8px; color: #fff; line-height: 1.5; word-break: break-word; }
+    .card-desc { font-size: 9px; color: #c4b5fd; margin-bottom: 8px; line-height: 1.6; word-break: break-word; }
     .card-status { font-size: 9px; font-weight: 700; }
     .status-locked { color: #6b7280; }
     .status-unlocked { color: #10b981; }
@@ -119,6 +121,7 @@
     .btn { 
       background: #8b5cf6; border: none; color: white; padding: 10px; font-size: 9px; cursor: pointer; margin-bottom: 10px; 
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-family: inherit;
+      flex-shrink: 0; /* Кнопка не должна сжиматься */
     }
     .btn:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
     .btn:disabled { background: #4b5563; color: #9ca3af; border-color: #6b7280 #1f2937 #1f2937 #6b7280; text-shadow: none; }
@@ -717,10 +720,9 @@
         playSound('quest_claim_10'); 
         playHaptic('heavy'); 
         
-        // Проверка на достижение "Везунчик"
         if (unlockedAch.indexOf(10) === -1) {
           unlockedAch.push(10);
-          setTimeout(function() { playSound('achievement'); }, 500); // Звук достижения чуть позже
+          setTimeout(function() { playSound('achievement'); }, 500);
         }
       } else {
         rewardTextEl.classList.remove('jackpot');
@@ -780,7 +782,6 @@
       if (maxUpgrade >= 10 && unlockedAch.indexOf(7) === -1) { unlockedAch.push(7); newUnlock = true; }
       if (totalTaps >= 50000 && unlockedAch.indexOf(8) === -1) { unlockedAch.push(8); newUnlock = true; }
       if (maxUpgrade >= 15 && unlockedAch.indexOf(9) === -1) { unlockedAch.push(9); newUnlock = true; }
-      // 10 - это Везунчик, он выдается в функции claimGift
 
       if (newUnlock) { playSound('achievement'); save(); }
     }
@@ -1018,7 +1019,8 @@
         var progText = t.progress + ': ' + Math.min(totalTaps, q.need) + ' / ' + q.need;
         
         var card = document.createElement('div'); card.className = 'card';
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-bottom: 0; color: #a78bfa; font-size:9px;">' + progText + '</div></div>';
+        // Добавил margin-top: 8px и line-height: 1.6 для блока прогресса
+        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-top: 8px; margin-bottom: 0; color: #a78bfa; font-size:9px; line-height: 1.6; word-break: break-word;">' + progText + '</div></div>';
         
         var btn = document.createElement('button'); btn.className = 'btn';
         btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
@@ -1125,8 +1127,7 @@
         for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active');
       }
 
-      // === ЛОГИКА СКРЫТИЯ БАЛАНСА ===
-      // Скрываем баланс только в Квестах, Рейтинге и Достижениях
+      // Скрываем баланс в Квестах, Рейтинге и Достижениях
       if (name === 'quests' || name === 'rating' || name === 'achievements') {
         topBalanceBar.style.display = 'none';
       } else {
