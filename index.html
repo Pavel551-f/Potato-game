@@ -25,7 +25,6 @@
     .top-balance-label { font-size: 11px; color: #c4b5fd; }
     .top-balance-value { font-size: 16px; font-weight: 700; }
 
-    /* СТИЛЬНАЯ КНОПКА МАГАЗИНА */
     .shop-btn-main {
       position: absolute; top: 70px; left: 14px;
       display: flex; align-items: center; gap: 8px;
@@ -36,7 +35,7 @@
     }
     .shop-btn-main:active { background: rgba(0,0,0,0.8); }
     .shop-btn-main span {
-      font-family: 'Impact', 'Arial Black', sans-serif; /* Шрифт как ты просил */
+      font-family: 'Impact', 'Arial Black', sans-serif;
       font-style: italic; letter-spacing: 1px; font-size: 18px;
       color: #fff; text-shadow: 0 0 5px #a855f7;
       text-transform: uppercase;
@@ -48,7 +47,6 @@
     .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; }
     
     .potato-wrap { width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
-    /* Для скинов-эмодзи */
     .potato-emoji { font-size: 140px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
     .potato-wrap:active .potato-emoji { transform: scale(0.92); }
     
@@ -64,24 +62,60 @@
     .list-content { padding: 0 16px 30px; }
     #screen-quests .list-content, #screen-achievements .list-content, #screen-shop .list-content { padding-top: 80px; }
     
-    .card { background: rgba(255,255,255,0.09); border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid transparent; transition: all 0.3s ease; }
+    .card { background: rgba(255,255,255,0.09); border-radius: 16px; padding: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; border: 1px solid transparent; }
     .card-icon { font-size: 30px; flex-shrink: 0; width: 45px; text-align: center; }
     .card-content { flex: 1; }
     .card-title { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
     .card-desc { font-size: 13px; color: #c4b5fd; margin-bottom: 6px; }
+    .card-status { font-size: 12px; font-weight: 700; }
+    .status-locked { color: #6b7280; }
+    .status-unlocked { color: #10b981; }
     
-    /* ДЛЯ МАГАЗИНА */
-    .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 20px; gap: 10px; }
-    .shop-preview { font-size: 80px; margin-bottom: 5px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
-    .shop-preview img { width: 80px; height: 80px; object-fit: contain; }
-    .shop-card .btn { width: 100%; margin-bottom: 0; }
+    /* === НОВАЯ, МОЩНАЯ RGB ПОДСВЕТКА === */
+    .rgb-glow {
+      animation: rgbGlowAnim 2.5s linear infinite !important;
+      border-width: 2px !important;
+    }
+    @keyframes rgbGlowAnim {
+      0% { 
+        background-color: rgba(255, 0, 85, 0.15) !important; 
+        border-color: #ff0055 !important; 
+        box-shadow: 0 0 20px rgba(255, 0, 85, 0.8), inset 0 0 10px rgba(255, 0, 85, 0.5) !important; 
+      }
+      25% { 
+        background-color: rgba(0, 255, 170, 0.15) !important; 
+        border-color: #00ffaa !important; 
+        box-shadow: 0 0 20px rgba(0, 255, 170, 0.8), inset 0 0 10px rgba(0, 255, 170, 0.5) !important; 
+      }
+      50% { 
+        background-color: rgba(0, 170, 255, 0.15) !important; 
+        border-color: #00aaff !important; 
+        box-shadow: 0 0 20px rgba(0, 170, 255, 0.8), inset 0 0 10px rgba(0, 170, 255, 0.5) !important; 
+      }
+      75% { 
+        background-color: rgba(255, 170, 0, 0.15) !important; 
+        border-color: #ffaa00 !important; 
+        box-shadow: 0 0 20px rgba(255, 170, 0, 0.8), inset 0 0 10px rgba(255, 170, 0, 0.5) !important; 
+      }
+      100% { 
+        background-color: rgba(255, 0, 85, 0.15) !important; 
+        border-color: #ff0055 !important; 
+        box-shadow: 0 0 20px rgba(255, 0, 85, 0.8), inset 0 0 10px rgba(255, 0, 85, 0.5) !important; 
+      }
+    }
 
+    .section-title { font-size: 14px; color: #a78bfa; margin: 14px 0 10px; font-weight: 600; }
     .btn { background: linear-gradient(135deg, #c084fc, #a855f7); border: none; color: white; padding: 11px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; margin-bottom: 10px; }
     .btn:disabled { background: #4b5563; color: #9ca3af; }
     
     .btn-green { background: #10b981; }
     .btn-blue { background: #3b82f6; }
     .btn-grey { background: rgba(255,255,255,0.1); border: 1px solid #a855f7; }
+
+    .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 20px; gap: 10px; }
+    .shop-preview { font-size: 80px; margin-bottom: 5px; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
+    .shop-preview img { width: 80px; height: 80px; object-fit: contain; }
+    .shop-card .btn { width: 100%; margin-bottom: 0; }
 
     .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; }
     .profile-avatar { width: 110px; height: 110px; border-radius: 50%; object-fit: cover; border: 3px solid #a855f7; margin-bottom: 18px; background: #4c1d95; }
@@ -144,17 +178,14 @@
     </div>
   </div>
 
-  <!-- ГЛАВНЫЙ ЭКРАН -->
   <div class="screen active" id="screen-main">
     
-    <!-- Кнопка Магазина (только на главной) -->
     <div class="shop-btn-main" onclick="showScreen('shop')">
       🛒 <span>Магазин</span>
     </div>
 
     <div class="main-content">
       <div class="potato-wrap" id="potatoBtn">
-        <!-- Картинка или эмодзи будет подставляться через JS -->
         <div id="potatoDisplay" class="potato-emoji">🥔</div>
       </div>
       <div class="tap-power"><span data-i18n="tap_label">Тап</span>: <span id="tapPower">0.001</span> ₽</div>
@@ -162,7 +193,6 @@
     </div>
   </div>
 
-  <!-- ЭКРАН МАГАЗИНА -->
   <div class="screen" id="screen-shop">
     <div style="padding: 80px 16px 10px; font-size: 24px; font-weight: 800; text-align: center;" data-i18n="shop_title">🛒 Магазин скинов</div>
     <div class="list-content" id="shopList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-top: 10px;"></div>
@@ -193,11 +223,9 @@
 
   <div class="screen" id="screen-profile">
     <div class="profile-content">
-      
       <div class="lang-btn-top" onclick="openLangMenu()">
         🌐 <span id="currentLangText">RU</span>
       </div>
-
       <img class="profile-avatar" id="profileAvatar" src="" alt="">
       <div class="profile-name" id="profileName" data-i18n="player">Игрок</div>
       
@@ -327,7 +355,7 @@
         if(t[key]) elements[i].innerText = t[key];
       }
       document.getElementById('currentLangText').innerText = currentLang.toUpperCase();
-      renderShop(); // Обновляем магазин при смене языка
+      renderShop(); 
     }
 
     function openLangMenu() { document.getElementById('langModal').style.display = 'flex'; }
@@ -366,7 +394,6 @@
       { id: 3, need: 10000, reward: 2 }, { id: 4, need: 15000, reward: 5 }, { id: 5, need: 20000, reward: 10 }
     ];
 
-    // ДАННЫЕ СКИНОВ
     var skinsData = [
       { id: 0, name: "Обычная", en_name: "Default", price: 0, emoji: "🥔", image: "potato.png" },
       { id: 1, name: "Золотая", en_name: "Golden", price: 500, emoji: "🥇", image: "potato_gold.png" },
@@ -386,8 +413,7 @@
     var autoValueLevel = parseInt(localStorage.getItem('autoValueLevel')) || 0;
     var autoSpeedLevel = parseInt(localStorage.getItem('autoSpeedLevel')) || 0;
     
-    // Скины: какие куплены и какой надет
-    var ownedSkins = JSON.parse(localStorage.getItem('ownedSkins') || '[0]'); // 0 (обычный) есть по умолчанию
+    var ownedSkins = JSON.parse(localStorage.getItem('ownedSkins') || '[0]');
     var equippedSkin = parseInt(localStorage.getItem('equippedSkin')) || 0;
     
     var currentTab = 'tap';
@@ -425,13 +451,8 @@
       localStorage.setItem('equippedSkin', equippedSkin);
     }
 
-    // ОТОБРАЖЕНИЕ ВЫБРАННОГО СКИНА
     function updatePotatoSkin() {
       var skin = skinsData.find(s => s.id === equippedSkin);
-      // Если у тебя загружены картинки (potato_gold.png и т.д.), раскомментируй код ниже, а эмодзи удали.
-      // potatoDisplay.innerHTML = '<img src="' + skin.image + '" draggable="false">';
-      
-      // А пока используем эмодзи для теста (чтобы не было битых картинок)
       potatoDisplay.innerHTML = skin.emoji;
     }
 
@@ -514,8 +535,8 @@
       potatoBtn.addEventListener('mousedown', handleTap);
     }
 
-    // РЕНДЕР МАГАЗИНА
     function renderShop() {
+      if (!shopList) return;
       shopList.innerHTML = '';
       for (var i = 0; i < skinsData.length; i++) {
         var skin = skinsData[i];
@@ -527,7 +548,6 @@
         var card = document.createElement('div');
         card.className = 'card shop-card';
         
-        // Если это не обычная картошка и она не куплена - делаем превью серым
         var previewStyle = (!isOwned && skin.id !== 0) ? 'filter: grayscale(100%) opacity(0.5);' : '';
         
         var btnHtml = '';
@@ -717,8 +737,12 @@
         var card = document.createElement('div');
         card.className = 'card';
         
-        if (isUnlocked) { card.classList.add('rgb-glow'); } 
-        else { card.style.opacity = '0.5'; card.style.filter = 'grayscale(100%)'; }
+        if (isUnlocked) { 
+          card.classList.add('rgb-glow'); 
+        } else { 
+          card.style.opacity = '0.5'; 
+          card.style.filter = 'grayscale(100%)'; 
+        }
 
         var iconHtml = ach.icon === 'wood' 
           ? `<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/><ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/><ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/><ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/><ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/><path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>` 
@@ -775,7 +799,6 @@
         if (menuItems[m].getAttribute('data-screen') === name) menuItems[m].classList.add('active');
       }
       
-      // Убираем подсветку нижнего меню, если мы в магазине или достижениях (так как их нет в нижнем баре)
       if (name === 'achievements' || name === 'shop') {
         for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active');
       }
@@ -822,7 +845,7 @@
     loadUser();
     updateUI();
     updateAutoInfo();
-    updatePotatoSkin(); // Применяем надетый скин при запуске
+    updatePotatoSkin(); 
     if (hasAutoclicker) startAutoclicker();
   </script>
 </body>
