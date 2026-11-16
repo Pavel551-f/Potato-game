@@ -44,7 +44,7 @@
     }
     .btn-top-back:active { border-color: #4c1d95 #a855f7 #a855f7 #4c1d95; }
 
-    /* КНОПКИ НА ГЛАВНОМ (Подняты повыше) */
+    /* КНОПКИ НА ГЛАВНОМ */
     .main-btns-container {
       position: absolute; top: 60px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
     }
@@ -98,7 +98,10 @@
     .shop-tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; }
 
     .list-content { padding: 0 16px 30px; }
-    #screen-quests .list-content, #screen-achievements .list-content { padding-top: 20px; }
+    
+    /* ИСПРАВЛЕНИЕ: Отступ для достижений, чтобы не было наложения на кнопку "Х" */
+    #screen-achievements .list-content { padding-top: 75px; } 
+    #screen-quests .list-content { padding-top: 20px; }
     #screen-rating .rating-container { padding-top: 20px; }
     #screen-upgrades .list-content { padding-top: 0; }
     #screen-shop .list-content { padding-top: 10px; }
@@ -171,10 +174,19 @@
     .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; }
     .reel-window { width: 100%; max-width: 320px; height: 90px; overflow: hidden; position: relative; background: rgba(0,0,0,0.5); border: 4px solid #a855f7; margin-bottom: 30px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
     .reel { display: flex; height: 100%; align-items: center; position: absolute; left: 0; top: 0; transition: transform 9s cubic-bezier(0.1, 0.8, 0.1, 1); }
-    .reel-item { width: 80px; height: 80px; margin: 0 5px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: bold; background: #eab308; color: #000; text-shadow: none; border: 3px solid #fde047; border-radius: 10px; }
+    
+    /* ИСПРАВЛЕНИЕ: Уменьшен шрифт в казино с 16px до 11px */
+    .reel-item { 
+      width: 80px; height: 80px; margin: 0 5px; flex-shrink: 0; 
+      display: flex; justify-content: center; align-items: center; 
+      font-size: 11px; /* <--- УМЕНЬШЕНО */
+      font-weight: bold; background: #eab308; color: #000; text-shadow: none; 
+      border: 3px solid #fde047; border-radius: 10px; 
+    }
     .reel-item.fries { background: #ff0055; border-color: #ff88aa; font-size: 30px; }
     .reel-item.moai { background: #4b5563; border-color: #9ca3af; font-size: 30px; }
-    .reel-item.negative { background: #dc2626; border-color: #fca5a5; color: #fff; }
+    .reel-item.negative { background: #dc2626; border-color: #fca5a5; color: #fff; font-size: 11px; }
+    
     .pointer { position: absolute; top: 0; bottom: 0; left: 50%; transform: translateX(-50%); width: 4px; background: #a855f7; z-index: 10; pointer-events: none; }
     .pointer::before, .pointer::after { content: ''; position: absolute; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 10px solid transparent; border-right: 10px solid transparent; }
     .pointer::before { top: 0; border-top: 15px solid #a855f7; }
