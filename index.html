@@ -1283,14 +1283,15 @@
       playHaptic('medium');
 
       var wheel = getEl('fortuneWheel');
-      var spinDuration = 5000;
+      var spinDuration = 5000; // 5 секунд
       
       playWheelSpinSound(spinDuration / 1000);
 
+      // Определяем результат
       var roll = Math.random();
       var winType = 'none';
       var winAmount = 0;
-      var targetSectorIndex = 0;
+      var targetSectorIndex = 0; // 0 to 15
 
       if (roll < 0.65) { 
         // 65% Проигрыш (Красные: 0, 1, 3, 4, 6, 7, 9, 11, 14)
@@ -1316,12 +1317,22 @@
         winType = 'jackpot'; winAmount = 25000; targetSectorIndex = 15;
       }
 
+      // ИСПРАВЛЕННАЯ МАТЕМАТИКА ВРАЩЕНИЯ
       var sectorAngle = 22.5;
-      var targetCenterAngle = (targetSectorIndex * sectorAngle) + (sectorAngle / 2);
-      var fullRotations = 360 * 5;
-      var targetRotationAngle = fullRotations + (360 - targetCenterAngle);
+      var targetCenterAngle = (targetSectorIndex * sectorAngle) + (sectorAngle / 2); // Центр нужного сектора
+      var absoluteTargetAngle = (360 - targetCenterAngle) % 360; // Угол, на который нужно повернуть колесо, чтобы центр встал наверх
       
-      currentWheelRotation += targetRotationAngle;
+      // Вычисляем текущее положение (модуль 360)
+      var currentRotationMod = currentWheelRotation % 360;
+      if (currentRotationMod < 0) currentRotationMod += 360;
+      
+      // Вычисляем, сколько градусов нужно ДОБАВИТЬ к текущему положению
+      var rotationToAdd = (absoluteTargetAngle - currentRotationMod + 360) % 360;
+      
+      var fullRotations = 360 * 5; // 5 полных оборотов для красоты
+      var totalRotationToAdd = fullRotations + rotationToAdd;
+      
+      currentWheelRotation += totalRotationToAdd;
       
       wheel.style.transition = 'transform ' + (spinDuration/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
       wheel.style.transform = 'rotate(' + currentWheelRotation + 'deg)';
