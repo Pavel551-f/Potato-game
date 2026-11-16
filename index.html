@@ -44,6 +44,16 @@
     }
     .btn-top-back:active { border-color: #4c1d95 #a855f7 #a855f7 #4c1d95; }
 
+    /* КНОПКА ИНФО (❓) */
+    .btn-info {
+      position: absolute; top: 14px; left: 60px; z-index: 70;
+      background: rgba(59, 130, 246, 0.8);
+      border: 3px solid; border-color: #93c5fd #1e40af #1e40af #93c5fd; 
+      color: white; width: 36px; height: 36px; border-radius: 50%;
+      font-family: inherit; font-size: 14px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .btn-info:active { border-color: #1e40af #93c5fd #93c5fd #1e40af; }
+
     /* КНОПКИ НА ГЛАВНОМ */
     .main-btns-container {
       position: absolute; top: 60px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
@@ -206,25 +216,24 @@
       box-shadow: 0 0 20px rgba(0,0,0,0.8), inset 0 0 10px rgba(0,0,0,0.5);
       position: absolute; top: 0; left: 0;
       transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
-      /* Рисуем 16 секторов через conic-gradient. 
-         360 / 16 = 22.5 градусов на сектор */
+      /* 16 секторов по 22.5 градуса */
       background: conic-gradient(
-        #dc2626 0deg 22.5deg, 
-        #dc2626 22.5deg 45deg, 
-        #10b981 45deg 67.5deg, 
-        #dc2626 67.5deg 90deg, 
-        #dc2626 90deg 112.5deg, 
-        #3b82f6 112.5deg 135deg, 
-        #dc2626 135deg 157.5deg, 
-        #dc2626 157.5deg 180deg, 
-        #10b981 180deg 202.5deg, 
-        #dc2626 202.5deg 225deg, 
-        #a855f7 225deg 247.5deg, 
-        #dc2626 247.5deg 270deg, 
-        #10b981 270deg 292.5deg, 
-        #eab308 292.5deg 315deg, 
-        #dc2626 315deg 337.5deg, 
-        #fbbf24 337.5deg 360deg
+        #dc2626 0deg 22.5deg,      /* 0: Loss */
+        #dc2626 22.5deg 45deg,     /* 1: Loss */
+        #10b981 45deg 67.5deg,     /* 2: Win x1.5 (Green) */
+        #dc2626 67.5deg 90deg,     /* 3: Loss */
+        #dc2626 90deg 112.5deg,    /* 4: Loss */
+        #3b82f6 112.5deg 135deg,   /* 5: Win x2 (Blue) */
+        #dc2626 135deg 157.5deg,   /* 6: Loss */
+        #dc2626 157.5deg 180deg,   /* 7: Loss */
+        #10b981 180deg 202.5deg,   /* 8: Win x1.5 (Green) */
+        #dc2626 202.5deg 225deg,   /* 9: Loss */
+        #a855f7 225deg 247.5deg,   /* 10: Win x5 (Purple) */
+        #dc2626 247.5deg 270deg,   /* 11: Loss */
+        #10b981 270deg 292.5deg,   /* 12: Win x1.5 (Green) */
+        #ec4899 292.5deg 315deg,   /* 13: Win x10 (Pink) */
+        #dc2626 315deg 337.5deg,   /* 14: Loss */
+        #00e5ff 337.5deg 360deg    /* 15: Jackpot x50 (Cyan) */
       );
     }
 
@@ -285,9 +294,17 @@
     @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); } }
 
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
-    .modal-content { background: #2e1065; padding: 20px; width: 80%; max-width: 300px; text-align: center; border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
-    .modal-content h3 { margin-bottom: 15px; font-size: 11px; color: #fff; line-height: 1.5; }
-    .modal-btn { background: #8b5cf6; border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; color: white; padding: 10px; width: 100%; margin-bottom: 10px; font-size: 9px; cursor: pointer; text-shadow: 2px 2px 0 #000; font-family: 'Press Start 2P', monospace; }
+    .modal-content { 
+      background: #2e1065; padding: 20px; width: 90%; max-width: 340px; text-align: left; 
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; max-height: 80vh; overflow-y: auto; 
+    }
+    .modal-content h3 { margin-bottom: 15px; font-size: 12px; color: #fde047; line-height: 1.5; text-align: center;}
+    .modal-content p { font-size: 9px; margin-bottom: 10px; line-height: 1.6; color: #e9d5ff; }
+    .modal-content hr { border-color: #4c1d95; margin: 15px 0; }
+    .modal-btn { 
+      background: #8b5cf6; border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; color: white; padding: 10px; width: 100%; margin-top: 15px; font-size: 9px; cursor: pointer; 
+      text-shadow: 2px 2px 0 #000; font-family: 'Press Start 2P', monospace; text-align: center;
+    }
     .modal-btn:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
 
     .wood-medal-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40px; }
@@ -299,11 +316,20 @@
   <div id="error-screen"></div>
 
   <div class="modal-overlay" id="langModal">
-    <div class="modal-content">
+    <div class="modal-content" style="text-align: center;">
       <h3 data-i18n="lang_title">Выберите язык / Choose language</h3>
       <button class="modal-btn" onclick="changeLang('ru')">🇷🇺 Русский</button>
       <button class="modal-btn" onclick="changeLang('en')">🇬🇧 English</button>
       <button class="modal-btn" style="border-color: #ef4444 #7f1d1d #7f1d1d #ef4444; background: #7f1d1d;" onclick="closeLangMenu()" data-i18n="cancel">Отмена / Cancel</button>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА ИНСТРУКЦИИ -->
+  <div class="modal-overlay" id="infoModal">
+    <div class="modal-content">
+      <h3 id="infoTitle">ИНСТРУКЦИЯ</h3>
+      <div id="infoText"></div>
+      <button class="modal-btn" onclick="closeInfoMenu()">ПОНЯТНО</button>
     </div>
   </div>
 
@@ -416,6 +442,7 @@
   <!-- РУЛЕТКА (ЯЩИК КАРТОШКИ) -->
   <div class="screen" id="screen-casino-box">
     <button class="btn-top-back" onclick="showScreen('casino')">◀</button>
+    <button class="btn-info" onclick="openInfo('box')">❓</button>
     <div class="casino-container">
       <div class="reel-window">
         <div class="reel" id="casinoReel"></div>
@@ -429,6 +456,7 @@
   <!-- СЛОТЫ (ГРУЗОВИК КАРТОШКИ) -->
   <div class="screen" id="screen-casino-slots">
     <button class="btn-top-back" onclick="showScreen('casino')">◀</button>
+    <button class="btn-info" onclick="openInfo('slots')">❓</button>
     <div class="slots-container">
       <div class="slots-window">
         <div class="slot-reel">
@@ -448,6 +476,7 @@
   <!-- ПОЛЕ КАРТОШКИ (КОЛЕСО) -->
   <div class="screen" id="screen-casino-wheel">
     <button class="btn-top-back" onclick="showScreen('casino')">◀</button>
+    <button class="btn-info" onclick="openInfo('wheel')">❓</button>
     <div class="wheel-container">
       
       <div class="wheel-wrapper">
@@ -674,7 +703,6 @@
       }
     }
 
-    // ЗВУК ДЛЯ КОЛЕСА ФОРТУНЫ
     function playWheelSpinSound(totalDuration) {
       if (!isSoundEnabled || !audioCtx) return;
       var now = audioCtx.currentTime;
@@ -735,6 +763,62 @@
     }
 
     window.openSupport = function() { playHaptic('medium'); alert(currentLang === 'ru' ? 'Если у вас возникли проблемы, напишите нам в Telegram: @negaduushchiyXD' : 'If you have any problems, write to us on Telegram: @negaduushchiyXD'); }
+
+    // === ИНСТРУКЦИИ (МОДАЛКИ) ===
+    window.openInfo = function(game) {
+      var modal = getEl('infoModal');
+      var title = getEl('infoTitle');
+      var text = getEl('infoText');
+      
+      if (game === 'box') {
+        title.innerText = "📦 ЯЩИК КАРТОШКИ";
+        text.innerHTML = `
+          <p><b>Стоимость:</b> 5 ₽ за прокрутку.</p>
+          <p><b>Как играть:</b> Стрелка указывает на выигрыш. Если выпадают отрицательные числа (красные), вы теряете эти деньги. Если положительные (желтые), получаете.</p>
+          <hr>
+          <p><b>Шансы:</b></p>
+          <p>🍟 Фри (Джекпот 5000 ₽): <b>0.1%</b></p>
+          <p>🗿 Муаи (Баланс в 0): <b>0.0001%</b></p>
+          <p>💵 Обычные числа: <b>~99.9%</b></p>
+        `;
+      } else if (game === 'slots') {
+        title.innerText = "🚛 ГРУЗОВИК КАРТОШКИ";
+        text.innerHTML = `
+          <p><b>Стоимость:</b> 100 ₽ за прокрутку.</p>
+          <p><b>Как играть:</b> Соберите 3 одинаковых символа на линии.</p>
+          <hr>
+          <p><b>Таблица выплат:</b></p>
+          <p>🍟 🍟 🍟 — <b>10 000 ₽</b> (0.01%)</p>
+          <p>👻 👻 👻 — <b>5 000 ₽</b> (0.5%)</p>
+          <p>🥔 🥔 🥔 — <b>3 000 ₽</b> (2%)</p>
+          <p>🍟 🍟 + любой — <b>1 000 ₽</b> (1%)</p>
+          <p>👻 👻 + любой — <b>500 ₽</b> (3%)</p>
+          <p>🥔 🥔 + любой — <b>100 ₽</b> (15%)</p>
+        `;
+      } else if (game === 'wheel') {
+        title.innerText = "🎡 ПОЛЕ КАРТОШКИ";
+        text.innerHTML = `
+          <p><b>Стоимость:</b> 500 ₽ за прокрутку.</p>
+          <p><b>Как играть:</b> Крутите колесо. Стрелка покажет ваш приз.</p>
+          <p style="color:#ef4444;"><b>Красный</b> — Проигрыш</p>
+          <p style="color:#10b981;"><b>Зеленый</b> — x1.5 (750 ₽)</p>
+          <p style="color:#3b82f6;"><b>Синий</b> — x2 (1 000 ₽)</p>
+          <p style="color:#a855f7;"><b>Фиолетовый</b> — x5 (2 500 ₽)</p>
+          <p style="color:#ec4899;"><b>Розовый</b> — x10 (5 000 ₽)</p>
+          <p style="color:#00e5ff;"><b>Бирюзовый</b> — ДЖЕКПОТ x50 (25 000 ₽)</p>
+          <hr>
+          <p><b>Шансы:</b> Проигрыш — 65%. Выигрыш — 35% (Джекпот — всего 0.5%).</p>
+        `;
+      }
+      
+      modal.style.display = 'flex';
+      playHaptic('medium');
+    }
+
+    window.closeInfoMenu = function() {
+      getEl('infoModal').style.display = 'none';
+      playHaptic('light');
+    }
 
     function initRockets() {
       var bg = getEl('rocket-bg'); if (!bg) return; bg.innerHTML = ''; var rockets = [];
@@ -1199,65 +1283,49 @@
       playHaptic('medium');
 
       var wheel = getEl('fortuneWheel');
-      var spinDuration = 5000; // 5 секунд
+      var spinDuration = 5000;
       
       playWheelSpinSound(spinDuration / 1000);
 
-      // Определяем результат на основе математики
       var roll = Math.random();
       var winType = 'none';
       var winAmount = 0;
-      var targetSectorIndex = 0; // 0 to 15
+      var targetSectorIndex = 0;
 
       if (roll < 0.65) { 
-        // 65% Проигрыш (Красные)
+        // 65% Проигрыш (Красные: 0, 1, 3, 4, 6, 7, 9, 11, 14)
         winType = 'loss'; winAmount = 0;
         var lossSectors = [0, 1, 3, 4, 6, 7, 9, 11, 14];
         targetSectorIndex = lossSectors[Math.floor(Math.random() * lossSectors.length)];
       } else if (roll < 0.85) { 
-        // 20% Малый куш x1.5 (Зеленые)
-        winType = 'win'; winAmount = 750; // 500 * 1.5
+        // 20% Малый куш x1.5 (Зеленые: 2, 8, 12)
+        winType = 'win'; winAmount = 750;
         var greenSectors = [2, 8, 12];
         targetSectorIndex = greenSectors[Math.floor(Math.random() * greenSectors.length)];
       } else if (roll < 0.95) { 
-        // 10% Средний куш x2 (Синие)
-        winType = 'win'; winAmount = 1000; // 500 * 2
-        targetSectorIndex = 5; // Один синий сектор
+        // 10% Средний куш x2 (Синий: 5)
+        winType = 'win'; winAmount = 1000; targetSectorIndex = 5;
       } else if (roll < 0.98) { 
-        // 3% Большой куш x5 (Фиолетовый)
-        winType = 'win'; winAmount = 2500; // 500 * 5
-        targetSectorIndex = 10; // Один фиолетовый сектор
+        // 3% Большой куш x5 (Фиолетовый: 10)
+        winType = 'win'; winAmount = 2500; targetSectorIndex = 10;
       } else if (roll < 0.995) { 
-        // 1.5% Супер куш x10 (Желтый)
-        winType = 'win'; winAmount = 5000; // 500 * 10
-        targetSectorIndex = 13; // Один желтый сектор
+        // 1.5% Супер куш x10 (Розовый: 13)
+        winType = 'win'; winAmount = 5000; targetSectorIndex = 13;
       } else { 
-        // 0.5% ДЖЕКПОТ x50 (Золотой)
-        winType = 'jackpot'; winAmount = 25000; // 500 * 50
-        targetSectorIndex = 15; // Один золотой сектор
+        // 0.5% ДЖЕКПОТ x50 (Бирюзовый: 15)
+        winType = 'jackpot'; winAmount = 25000; targetSectorIndex = 15;
       }
 
-      // Расчет угла поворота
-      // Каждый сектор 22.5 градуса (360 / 16)
       var sectorAngle = 22.5;
-      // Находим центр нужного сектора. 
-      // В CSS conic-gradient 0 градусов - это 12 часов. Сектор 0 идет от 0 до 22.5.
-      // Центр сектора = index * 22.5 + 11.25
       var targetCenterAngle = (targetSectorIndex * sectorAngle) + (sectorAngle / 2);
-      
-      // Колесо крутится по часовой стрелке. Стрелка сверху.
-      // Чтобы сектор попал под стрелку, нам нужно повернуть колесо на 360 - targetCenterAngle.
-      // Добавляем 5 полных оборотов (360 * 5) для красоты.
       var fullRotations = 360 * 5;
       var targetRotationAngle = fullRotations + (360 - targetCenterAngle);
       
-      // Учитываем текущий угол, чтобы не сбрасывать колесо в 0 каждый раз
       currentWheelRotation += targetRotationAngle;
       
       wheel.style.transition = 'transform ' + (spinDuration/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
       wheel.style.transform = 'rotate(' + currentWheelRotation + 'deg)';
 
-      // Останавливаем вращение
       setTimeout(function() {
         isWheelSpinning = false;
         spinBtn.disabled = false;
