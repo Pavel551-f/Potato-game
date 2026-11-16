@@ -191,21 +191,57 @@
 
     /* СЛОТ-МАШИНА (ГРУЗОВИК КАРТОШКИ) */
     .slots-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; }
+    .slots-window { display: flex; gap: 10px; margin-bottom: 30px; background: #1a1625; padding: 15px; border: 4px solid #a855f7; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); border-radius: 10px; }
+    .slot-reel { width: 70px; height: 100px; background: #2e1065; border: 3px solid #4c1d95; border-radius: 8px; overflow: hidden; position: relative; }
+    .reel-strip { display: flex; flex-direction: column; align-items: center; position: absolute; top: 0; left: 0; width: 100%; }
+    .slot-item-symbol { width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 40px; flex-shrink: 0; }
+
+    /* ПОЛЕ КАРТОШКИ (КОЛЕСО) */
+    .wheel-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; }
+    .wheel-wrapper { position: relative; width: 280px; height: 280px; margin-bottom: 30px; }
     
-    /* Обновленный дизайн слотов для прокрутки */
-    .slots-window { 
-      display: flex; gap: 10px; margin-bottom: 30px; background: #1a1625; padding: 15px; 
-      border: 4px solid #a855f7; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); border-radius: 10px; 
+    .wheel {
+      width: 100%; height: 100%; border-radius: 50%;
+      border: 8px solid #1a1625;
+      box-shadow: 0 0 20px rgba(0,0,0,0.8), inset 0 0 10px rgba(0,0,0,0.5);
+      position: absolute; top: 0; left: 0;
+      transition: transform 5s cubic-bezier(0.1, 0.8, 0.1, 1);
+      /* Рисуем 16 секторов через conic-gradient. 
+         360 / 16 = 22.5 градусов на сектор */
+      background: conic-gradient(
+        #dc2626 0deg 22.5deg, 
+        #dc2626 22.5deg 45deg, 
+        #10b981 45deg 67.5deg, 
+        #dc2626 67.5deg 90deg, 
+        #dc2626 90deg 112.5deg, 
+        #3b82f6 112.5deg 135deg, 
+        #dc2626 135deg 157.5deg, 
+        #dc2626 157.5deg 180deg, 
+        #10b981 180deg 202.5deg, 
+        #dc2626 202.5deg 225deg, 
+        #a855f7 225deg 247.5deg, 
+        #dc2626 247.5deg 270deg, 
+        #10b981 270deg 292.5deg, 
+        #eab308 292.5deg 315deg, 
+        #dc2626 315deg 337.5deg, 
+        #fbbf24 337.5deg 360deg
+      );
     }
-    .slot-reel { 
-      width: 70px; height: 100px; background: #2e1065; border: 3px solid #4c1d95; border-radius: 8px; 
-      overflow: hidden; position: relative; 
+
+    .wheel-pointer {
+      position: absolute; top: -10px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent;
+      border-top: 30px solid #ef4444; z-index: 10;
+      filter: drop-shadow(0 4px 2px rgba(0,0,0,0.5));
     }
-    .reel-strip { 
-      display: flex; flex-direction: column; align-items: center; position: absolute; top: 0; left: 0; width: 100%; 
+
+    /* Текст на колесе */
+    .wheel-text {
+      position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none;
     }
-    .slot-item-symbol { 
-      width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 40px; flex-shrink: 0;
+    .wheel-text span {
+      position: absolute; font-size: 10px; font-weight: bold; color: white; text-shadow: 1px 1px 2px black;
+      left: 50%; top: 50%; transform-origin: 0 0;
     }
 
     /* ПРОФИЛЬ */
@@ -365,6 +401,15 @@
           <div class="card-desc" data-i18n="potato_truck_desc">Слот-машина (100 ₽)</div>
         </div>
       </div>
+
+      <!-- Поле картошки (Колесо Фортуны) -->
+      <div class="casino-game-card" onclick="showScreen('casino-wheel')" style="border-color: #10b981 #065f46 #065f46 #10b981;">
+        <div class="card-icon">🎡</div>
+        <div class="card-content">
+          <div class="card-title" data-i18n="potato_field">Поле картошки</div>
+          <div class="card-desc" data-i18n="potato_field_desc">Колесо Фортуны (500 ₽)</div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -385,8 +430,6 @@
   <div class="screen" id="screen-casino-slots">
     <button class="btn-top-back" onclick="showScreen('casino')">◀</button>
     <div class="slots-container">
-      
-      <!-- Окно слотов -->
       <div class="slots-window">
         <div class="slot-reel">
           <div class="reel-strip" id="strip1"><div class="slot-item-symbol">🥔</div></div>
@@ -398,8 +441,21 @@
           <div class="reel-strip" id="strip3"><div class="slot-item-symbol">🥔</div></div>
         </div>
       </div>
-
       <button class="btn btn-gold" id="spinSlotsBtn" onclick="spinSlots()" style="font-size: 12px; padding: 15px 30px;">КРУТИТЬ (100 ₽)</button>
+    </div>
+  </div>
+
+  <!-- ПОЛЕ КАРТОШКИ (КОЛЕСО) -->
+  <div class="screen" id="screen-casino-wheel">
+    <button class="btn-top-back" onclick="showScreen('casino')">◀</button>
+    <div class="wheel-container">
+      
+      <div class="wheel-wrapper">
+        <div class="wheel-pointer"></div>
+        <div class="wheel" id="fortuneWheel"></div>
+      </div>
+
+      <button class="btn btn-gold" id="spinWheelBtn" onclick="spinWheel()" style="font-size: 12px; padding: 15px 30px;">КРУТИТЬ (500 ₽)</button>
     </div>
   </div>
 
@@ -588,30 +644,24 @@
       finalOsc.start(now + durationSec); finalOsc.stop(now + durationSec + 0.3);
     }
 
-    // === НОВЫЙ ЗВУК ДЛЯ СЛОТОВ ===
     function playSlotSpinSound(totalDuration) {
       if (!isSoundEnabled || !audioCtx) return;
       var now = audioCtx.currentTime;
       var time = now;
-      var interval = 0.05; // Начальный интервал между тиками
-      
-      // Генерируем тики, которые замедляются со временем
+      var interval = 0.05; 
       while (time < now + totalDuration) {
         var osc = audioCtx.createOscillator();
         var gain = audioCtx.createGain();
         osc.connect(gain); gain.connect(audioCtx.destination);
         osc.type = 'square';
-        osc.frequency.setValueAtTime(800, time); // Частота тика
+        osc.frequency.setValueAtTime(800, time);
         gain.gain.setValueAtTime(0.03, time);
         gain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
         osc.start(time); osc.stop(time + 0.03);
-        
         time += interval;
-        interval *= 1.03; // Каждый тик чуть медленнее предыдущего (эффект замедления)
+        interval *= 1.03; 
       }
-
-      // Звуки "глухого удара" при остановке каждого барабана
-      var stopTimes = [1.5, 2.2, 3.0]; // Время остановки барабанов в секундах
+      var stopTimes = [1.5, 2.2, 3.0]; 
       for(var i=0; i<stopTimes.length; i++) {
         var stopOsc = audioCtx.createOscillator(); var stopGain = audioCtx.createGain();
         stopOsc.connect(stopGain); stopGain.connect(audioCtx.destination);
@@ -622,6 +672,31 @@
         stopGain.gain.exponentialRampToValueAtTime(0.01, now + stopTimes[i] + 0.1);
         stopOsc.start(now + stopTimes[i]); stopOsc.stop(now + stopTimes[i] + 0.1);
       }
+    }
+
+    // ЗВУК ДЛЯ КОЛЕСА ФОРТУНЫ
+    function playWheelSpinSound(totalDuration) {
+      if (!isSoundEnabled || !audioCtx) return;
+      var now = audioCtx.currentTime;
+      var time = now;
+      var interval = 0.04; 
+      while (time < now + totalDuration) {
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.connect(gain); gain.connect(audioCtx.destination);
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(1200, time);
+        gain.gain.setValueAtTime(0.05, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
+        osc.start(time); osc.stop(time + 0.03);
+        time += interval;
+        interval *= 1.02; 
+      }
+      var finalOsc = audioCtx.createOscillator(); var finalGain = audioCtx.createGain();
+      finalOsc.connect(finalGain); finalGain.connect(audioCtx.destination);
+      finalOsc.type = 'sine'; finalOsc.frequency.setValueAtTime(300, now + totalDuration); finalOsc.frequency.exponentialRampToValueAtTime(100, now + totalDuration + 0.3);
+      finalGain.gain.setValueAtTime(0.4, now + totalDuration); finalGain.gain.exponentialRampToValueAtTime(0.01, now + totalDuration + 0.3);
+      finalOsc.start(now + totalDuration); finalOsc.stop(now + totalDuration + 0.3);
     }
 
     function playHaptic(type) {
@@ -711,7 +786,7 @@
         daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!",
         gift_wait: "Доступно через", gift_ready: "Забрать!",
         casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)",
-        casino_title: "🎰 КАЗИНО 🎰", potato_box: "Ящик картошки", potato_box_desc: "Классическая рулетка (5 ₽)", potato_truck: "Грузовик картошки", potato_truck_desc: "Слот-машина (100 ₽)",
+        casino_title: "🎰 КАЗИНО 🎰", potato_box: "Ящик картошки", potato_box_desc: "Классическая рулетка (5 ₽)", potato_truck: "Грузовик картошки", potato_truck_desc: "Слот-машина (100 ₽)", potato_field: "Поле картошки", potato_field_desc: "Колесо Фортуны (500 ₽)",
         settings_btn: "⚙️ Настройки", settings_title: "Настройки", sound_effects: "Звуковые эффекты", vibration: "Вибрация", on: "ВКЛ", off: "ВЫКЛ", lang_btn: "🌐 Язык / Language", support_btn: "📢 Помощь и поддержка",
         ach_list: [
           { title: "Первый шаг", desc: "100 тапов", icon: "🌱" }, { title: "Фанат", desc: "1 000 тапов", icon: "🥔" },
@@ -739,7 +814,7 @@
         upg_desc: "Tap gives", achievements_btn: "🏆 Achievements", ach_unlocked: "Received", ach_locked: "Locked",
         shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy", shop_tab_skins: "Skins", shop_tab_gifts: "Gifts",
         daily_gift_title: "DAILY GIFT", daily_gift_btn: "GIFT", jackpot: "JACKPOT!", gift_wait: "Available in", gift_ready: "Claim!",
-        casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", casino_title: "🎰 CASINO 🎰", potato_box: "Potato Box", potato_box_desc: "Classic roulette (5 ₽)", potato_truck: "Potato Truck", potato_truck_desc: "Slot machine (100 ₽)",
+        casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", casino_title: "🎰 CASINO 🎰", potato_box: "Potato Box", potato_box_desc: "Classic roulette (5 ₽)", potato_truck: "Potato Truck", potato_truck_desc: "Slot machine (100 ₽)", potato_field: "Potato Field", potato_field_desc: "Wheel of Fortune (500 ₽)",
         settings_btn: "⚙️ Settings", settings_title: "Settings", sound_effects: "Sound Effects", vibration: "Vibration", on: "ON", off: "OFF", lang_btn: "🌐 Language / Язык", support_btn: "📢 Help & Support",
         ach_list: [
           { title: "First Step", desc: "100 taps", icon: "🌱" }, { title: "Fan", desc: "1,000 taps", icon: "🥔" },
@@ -834,6 +909,9 @@
 
     var isSpinning = false; var spinCost = 5; var forceMoai = false; var SPIN_DURATION = 9000; 
     var isSlotsSpinning = false; var slotsCost = 100;
+    
+    var isWheelSpinning = false; var wheelCost = 500;
+    var currentWheelRotation = 0;
 
     var rankMultipliers = [1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5];
     var currentMultiplier = 1.05;
@@ -1019,7 +1097,6 @@
     // === СЛОТ-МАШИНА (ГРУЗОВИК КАРТОШКИ) ===
     var slotSymbols = ['🥔', '🍟', '👻'];
     
-    // Функция для создания прокручиваемой ленты
     function buildStrip(stripId, targetSymbol, durationMs) {
         var strip = getEl(stripId);
         if(!strip) return;
@@ -1028,7 +1105,6 @@
         strip.style.transform = 'translateY(0)';
         strip.innerHTML = '';
         
-        // Добавляем 30 случайных символов
         for (var i = 0; i < 30; i++) {
             var sym = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
             var div = document.createElement('div');
@@ -1037,18 +1113,14 @@
             strip.appendChild(div);
         }
         
-        // Добавляем целевой символ в конец
         var targetDiv = document.createElement('div');
         targetDiv.className = 'slot-item-symbol';
         targetDiv.innerText = targetSymbol;
         strip.appendChild(targetDiv);
 
-        // Принудительно вызываем перерасчет, чтобы анимация сработала
         void strip.offsetWidth;
 
-        // Запускаем прокрутку вверх
         strip.style.transition = 'transform ' + durationMs + 'ms cubic-bezier(0.15, 0.8, 0.3, 1)';
-        // Высота одного символа 100px, прокручиваем на 30 символов
         strip.style.transform = 'translateY(-' + (30 * 100) + 'px)';
     }
 
@@ -1064,12 +1136,7 @@
       spinBtn.disabled = true;
       playHaptic('medium');
       
-      // Длительность прокрутки для каждого барабана (в мс)
-      var dur1 = 1500;
-      var dur2 = 2200;
-      var dur3 = 3000;
-
-      // Запускаем звук, который длится до остановки последнего барабана (3000 мс)
+      var dur1 = 1500; var dur2 = 2200; var dur3 = 3000;
       playSlotSpinSound(dur3 / 1000);
 
       var roll = Math.random();
@@ -1077,53 +1144,33 @@
       var winAmount = 0;
       var finalSymbols = ['🥔', '🥔', '🥔'];
 
-      if (roll < 0.0001) { // 0.01% - 3x 🍟
-        finalSymbols = ['🍟', '🍟', '🍟'];
-        winAmount = 10000; winType = 'jackpot';
-      } else if (roll < 0.0101) { // 1% - 2x 🍟
-        finalSymbols = ['🍟', '🍟', Math.random() < 0.5 ? '🥔' : '👻'];
-        winAmount = 1000; winType = 'win';
-      } else if (roll < 0.0151) { // 0.5% - 3x 👻
-        finalSymbols = ['👻', '👻', '👻'];
-        winAmount = 5000; winType = 'win';
-      } else if (roll < 0.0351) { // 2% - 3x 🥔
-        finalSymbols = ['🥔', '🥔', '🥔'];
-        winAmount = 3000; winType = 'win';
-      } else if (roll < 0.0651) { // 3% - 2x 👻
-        finalSymbols = ['👻', '👻', Math.random() < 0.5 ? '🥔' : '🍟'];
-        winAmount = 500; winType = 'win';
-      } else if (roll < 0.2151) { // 15% - 2x 🥔
-        finalSymbols = ['🥔', '🥔', Math.random() < 0.5 ? '🍟' : '👻'];
-        winAmount = 100; winType = 'win';
-      } else {
-        // Проигрыш
+      if (roll < 0.0001) { finalSymbols = ['🍟', '🍟', '🍟']; winAmount = 10000; winType = 'jackpot'; } 
+      else if (roll < 0.0101) { finalSymbols = ['🍟', '🍟', Math.random() < 0.5 ? '🥔' : '👻']; winAmount = 1000; winType = 'win'; } 
+      else if (roll < 0.0151) { finalSymbols = ['👻', '👻', '👻']; winAmount = 5000; winType = 'win'; } 
+      else if (roll < 0.0351) { finalSymbols = ['🥔', '🥔', '🥔']; winAmount = 3000; winType = 'win'; } 
+      else if (roll < 0.0651) { finalSymbols = ['👻', '👻', Math.random() < 0.5 ? '🥔' : '🍟']; winAmount = 500; winType = 'win'; } 
+      else if (roll < 0.2151) { finalSymbols = ['🥔', '🥔', Math.random() < 0.5 ? '🍟' : '👻']; winAmount = 100; winType = 'win'; } 
+      else {
         var arr = ['🥔', '🍟', '👻'];
         arr.sort(() => Math.random() - 0.5);
         finalSymbols = arr;
         winAmount = 0; winType = 'none';
       }
 
-      // Запускаем анимацию для каждого барабана
       buildStrip('strip1', finalSymbols[0], dur1);
       buildStrip('strip2', finalSymbols[1], dur2);
       buildStrip('strip3', finalSymbols[2], dur3);
 
-      // Вибрация при остановке каждого барабана
       setTimeout(function() { playHaptic('light'); }, dur1);
       setTimeout(function() { playHaptic('light'); }, dur2);
       setTimeout(function() { playHaptic('heavy'); }, dur3);
 
-      // Показываем результат после остановки последнего барабана
       setTimeout(function() {
         isSlotsSpinning = false;
         spinBtn.disabled = false;
 
         if (winAmount > 0) {
-          balance += winAmount;
-          updateUI();
-          playSound('quest_claim_10');
-          playHaptic('heavy');
-          
+          balance += winAmount; updateUI(); playSound('quest_claim_10'); playHaptic('heavy');
           if (winType === 'jackpot') {
             alert(currentLang === 'ru' ? `ДЖЕКПОТ! Вы выиграли ${formatMoney(winAmount, 0)} ₽!` : `JACKPOT! You won ${formatMoney(winAmount, 0)} ₽!`);
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
@@ -1135,9 +1182,105 @@
           playHaptic('error');
           alert(currentLang === 'ru' ? 'Вы ничего не выиграли. Попробуйте еще раз!' : 'You won nothing. Try again!');
         }
-      }, dur3 + 100); // Ждем чуть дольше, чем длится последняя анимация
+      }, dur3 + 100); 
     };
 
+    // === КОЛЕСО ФОРТУНЫ (ПОЛЕ КАРТОШКИ) ===
+    window.spinWheel = function() {
+      if (isWheelSpinning) return;
+      var spinBtn = getEl('spinWheelBtn');
+      if (balance < wheelCost) { playHaptic('error'); alert(t.not_enough_money); return; }
+      
+      isWheelSpinning = true;
+      balance -= wheelCost;
+      updateUI();
+      
+      spinBtn.disabled = true;
+      playHaptic('medium');
+
+      var wheel = getEl('fortuneWheel');
+      var spinDuration = 5000; // 5 секунд
+      
+      playWheelSpinSound(spinDuration / 1000);
+
+      // Определяем результат на основе математики
+      var roll = Math.random();
+      var winType = 'none';
+      var winAmount = 0;
+      var targetSectorIndex = 0; // 0 to 15
+
+      if (roll < 0.65) { 
+        // 65% Проигрыш (Красные)
+        winType = 'loss'; winAmount = 0;
+        var lossSectors = [0, 1, 3, 4, 6, 7, 9, 11, 14];
+        targetSectorIndex = lossSectors[Math.floor(Math.random() * lossSectors.length)];
+      } else if (roll < 0.85) { 
+        // 20% Малый куш x1.5 (Зеленые)
+        winType = 'win'; winAmount = 750; // 500 * 1.5
+        var greenSectors = [2, 8, 12];
+        targetSectorIndex = greenSectors[Math.floor(Math.random() * greenSectors.length)];
+      } else if (roll < 0.95) { 
+        // 10% Средний куш x2 (Синие)
+        winType = 'win'; winAmount = 1000; // 500 * 2
+        targetSectorIndex = 5; // Один синий сектор
+      } else if (roll < 0.98) { 
+        // 3% Большой куш x5 (Фиолетовый)
+        winType = 'win'; winAmount = 2500; // 500 * 5
+        targetSectorIndex = 10; // Один фиолетовый сектор
+      } else if (roll < 0.995) { 
+        // 1.5% Супер куш x10 (Желтый)
+        winType = 'win'; winAmount = 5000; // 500 * 10
+        targetSectorIndex = 13; // Один желтый сектор
+      } else { 
+        // 0.5% ДЖЕКПОТ x50 (Золотой)
+        winType = 'jackpot'; winAmount = 25000; // 500 * 50
+        targetSectorIndex = 15; // Один золотой сектор
+      }
+
+      // Расчет угла поворота
+      // Каждый сектор 22.5 градуса (360 / 16)
+      var sectorAngle = 22.5;
+      // Находим центр нужного сектора. 
+      // В CSS conic-gradient 0 градусов - это 12 часов. Сектор 0 идет от 0 до 22.5.
+      // Центр сектора = index * 22.5 + 11.25
+      var targetCenterAngle = (targetSectorIndex * sectorAngle) + (sectorAngle / 2);
+      
+      // Колесо крутится по часовой стрелке. Стрелка сверху.
+      // Чтобы сектор попал под стрелку, нам нужно повернуть колесо на 360 - targetCenterAngle.
+      // Добавляем 5 полных оборотов (360 * 5) для красоты.
+      var fullRotations = 360 * 5;
+      var targetRotationAngle = fullRotations + (360 - targetCenterAngle);
+      
+      // Учитываем текущий угол, чтобы не сбрасывать колесо в 0 каждый раз
+      currentWheelRotation += targetRotationAngle;
+      
+      wheel.style.transition = 'transform ' + (spinDuration/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
+      wheel.style.transform = 'rotate(' + currentWheelRotation + 'deg)';
+
+      // Останавливаем вращение
+      setTimeout(function() {
+        isWheelSpinning = false;
+        spinBtn.disabled = false;
+        playHaptic('heavy');
+
+        if (winAmount > 0) {
+          balance += winAmount;
+          updateUI();
+          playSound('quest_claim_10');
+          
+          if (winType === 'jackpot') {
+            alert(currentLang === 'ru' ? `🎉 ДЖЕКПОТ! Вы сорвали куш и выиграли ${formatMoney(winAmount, 0)} ₽!` : `🎉 JACKPOT! You hit the jackpot and won ${formatMoney(winAmount, 0)} ₽!`);
+            if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
+          } else {
+            alert((currentLang === 'ru' ? 'Вы выиграли: ' : 'You won: ') + formatMoney(winAmount, 0) + ' ₽');
+          }
+          if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
+        } else {
+          playHaptic('error');
+          alert(currentLang === 'ru' ? 'Увы, вы проиграли. Попробуйте еще раз!' : 'Alas, you lost. Try again!');
+        }
+      }, spinDuration + 100);
+    };
 
     function checkQuestReady() {
       if (hasUnclaimedQuest) return;
@@ -1406,7 +1549,7 @@
         if (menuItems[m].getAttribute('data-screen') === name) menuItems[m].classList.add('active');
       }
       
-      if (name === 'achievements' || name === 'shop' || name === 'casino' || name === 'casino-box' || name === 'casino-slots' || name === 'settings') { 
+      if (name === 'achievements' || name === 'shop' || name === 'casino' || name === 'casino-box' || name === 'casino-slots' || name === 'casino-wheel' || name === 'settings') { 
         for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active'); 
       }
 
