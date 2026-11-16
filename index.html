@@ -504,11 +504,32 @@
   </div>
 
   <script>
+    // Стандартный обработчик критических ошибок
     window.onerror = function(msg, url, line) {
       var err = document.getElementById('error-screen');
       if(err) { err.style.display = 'block'; err.innerHTML += "<p><b>ОШИБКА:</b> " + msg + "<br>Строка: " + line + "</p>"; }
       return false;
     };
+
+    // ==========================================
+    // УМНАЯ ФУНКЦИЯ ДЛЯ ТЕСТА НА ТЕЛЕФОНЕ
+    // ==========================================
+    function getEl(id) {
+      var el = document.getElementById(id);
+      if (!el) {
+        // Если элемента нет, показываем красную плашку на экране
+        var errorDiv = document.createElement('div');
+        errorDiv.style.cssText = 'position:fixed; top:10px; left:10px; right:10px; background:rgba(220,38,38,0.95); color:white; padding:10px; font-size:12px; z-index:999999; text-align:center; border:3px solid white; border-radius:8px; font-family:monospace; box-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events:none;';
+        errorDiv.innerText = '⚠️ БАГ: Элемент #' + id + ' не найден!';
+        document.body.appendChild(errorDiv);
+        
+        // Плашка исчезнет через 4 секунды
+        setTimeout(function() { 
+            if (errorDiv.parentNode) errorDiv.parentNode.removeChild(errorDiv); 
+        }, 4000);
+      }
+      return el;
+    }
 
     // === НАСТРОЙКИ ЗВУКА И ВИБРАЦИИ ===
     var isSoundEnabled = localStorage.getItem('soundEnabled') !== 'false';
@@ -523,7 +544,7 @@
     document.body.addEventListener('touchstart', initAudio, { once: true });
 
     function playSound(type) {
-      if (!isSoundEnabled) return; // Проверка настроек
+      if (!isSoundEnabled) return; 
       if (!audioCtx) return;
       var osc = audioCtx.createOscillator();
       var gain = audioCtx.createGain();
@@ -636,7 +657,7 @@
     }
 
     function playHaptic(type) {
-      if (!isVibrationEnabled) return; // Проверка настроек
+      if (!isVibrationEnabled) return; 
       if (tg && tg.HapticFeedback && typeof tg.HapticFeedback.impactOccurred === 'function') {
         try {
           if (type === 'light') tg.HapticFeedback.impactOccurred('light');
@@ -661,23 +682,27 @@
 
     // === УПРАВЛЕНИЕ НАСТРОЙКАМИ ===
     function updateSettingsUI() {
-      var soundBtn = document.getElementById('soundToggle');
-      var vibBtn = document.getElementById('vibrationToggle');
+      var soundBtn = getEl('soundToggle');
+      var vibBtn = getEl('vibrationToggle');
       
-      if (isSoundEnabled) {
-        soundBtn.classList.add('active');
-        soundBtn.innerText = t.on;
-      } else {
-        soundBtn.classList.remove('active');
-        soundBtn.innerText = t.off;
+      if (soundBtn) {
+        if (isSoundEnabled) {
+          soundBtn.classList.add('active');
+          soundBtn.innerText = t.on;
+        } else {
+          soundBtn.classList.remove('active');
+          soundBtn.innerText = t.off;
+        }
       }
 
-      if (isVibrationEnabled) {
-        vibBtn.classList.add('active');
-        vibBtn.innerText = t.on;
-      } else {
-        vibBtn.classList.remove('active');
-        vibBtn.innerText = t.off;
+      if (vibBtn) {
+        if (isVibrationEnabled) {
+          vibBtn.classList.add('active');
+          vibBtn.innerText = t.on;
+        } else {
+          vibBtn.classList.remove('active');
+          vibBtn.innerText = t.off;
+        }
       }
     }
 
@@ -692,7 +717,6 @@
       isVibrationEnabled = !isVibrationEnabled;
       localStorage.setItem('vibrationEnabled', isVibrationEnabled);
       updateSettingsUI();
-      // Принудительно вибрируем для проверки
       if (isVibrationEnabled && navigator.vibrate) navigator.vibrate(30);
       else if (isVibrationEnabled && tg) tg.HapticFeedback.impactOccurred('medium');
     }
@@ -704,7 +728,8 @@
 
     // === АНИМАЦИЯ РАКЕТ ===
     function initRockets() {
-      var bg = document.getElementById('rocket-bg');
+      var bg = getEl('rocket-bg');
+      if (!bg) return;
       bg.innerHTML = '';
       var rockets = [];
       
@@ -713,22 +738,18 @@
         r.className = 'rocket';
         r.innerText = '🚀';
         
-        // Случайные начальные позиции
         var x = Math.random() * (window.innerWidth - 40);
         var y = Math.random() * (window.innerHeight - 40);
         
-        // Случайные скорости
-        var vx = (Math.random() - 0.5) * 2; // от -1 до 1
+        var vx = (Math.random() - 0.5) * 2; 
         var vy = (Math.random() - 0.5) * 2;
         
-        // Чтобы не было слишком медленно
         if (Math.abs(vx) < 0.5) vx = vx > 0 ? 0.5 : -0.5;
         if (Math.abs(vy) < 0.5) vy = vy > 0 ? 0.5 : -0.5;
 
         r.style.left = x + 'px';
         r.style.top = y + 'px';
         
-        // Поворот ракеты по направлению движения
         var angle = Math.atan2(vy, vx) * 180 / Math.PI;
         r.style.transform = 'rotate(' + angle + 'deg)';
         
@@ -746,7 +767,6 @@
           rk.x += rk.vx;
           rk.y += rk.vy;
           
-          // Отскок от стенок (учитываем размер ракеты ~30px)
           if (rk.x <= 0) { rk.x = 0; rk.vx *= -1; }
           if (rk.x >= bgRect.width - 30) { rk.x = bgRect.width - 30; rk.vx *= -1; }
           
@@ -760,20 +780,20 @@
           rk.el.style.transform = 'rotate(' + angle + 'deg)';
         }
         
-        if (document.getElementById('screen-settings').classList.contains('active')) {
+        var settingsScreen = getEl('screen-settings');
+        if (settingsScreen && settingsScreen.classList.contains('active')) {
             animId = requestAnimationFrame(animate);
         } else {
             cancelAnimationFrame(animId);
         }
       }
       
-      // Запускаем анимацию, только когда открыт экран настроек
-      if (document.getElementById('screen-settings').classList.contains('active')) {
+      var settingsScreen = getEl('screen-settings');
+      if (settingsScreen && settingsScreen.classList.contains('active')) {
           animate();
       }
     }
 
-    // Следим за открытием экрана настроек, чтобы запустить ракеты
     var originalShowScreen = showScreen;
     showScreen = function(name) {
       originalShowScreen(name);
@@ -886,14 +906,20 @@
         var key = elements[i].getAttribute('data-i18n');
         if(t[key]) elements[i].innerText = t[key];
       }
-      document.getElementById('currentLangText').innerText = currentLang.toUpperCase();
-      updateSettingsUI(); // Обновляем кнопки ВКЛ/ВЫКЛ после перевода
+      
+      // Используем умную функцию
+      var currentLangEl = getEl('currentLangText');
+      if (currentLangEl) {
+          currentLangEl.innerText = currentLang.toUpperCase();
+      }
+
+      updateSettingsUI(); 
       renderShop(); 
       updateGiftUI();
     }
 
-    function openLangMenu() { document.getElementById('langModal').style.display = 'flex'; }
-    function closeLangMenu() { document.getElementById('langModal').style.display = 'none'; }
+    function openLangMenu() { getEl('langModal')?.style.setProperty('display', 'flex'); }
+    function closeLangMenu() { getEl('langModal')?.style.setProperty('display', 'none'); }
     function changeLang(lang) { localStorage.setItem('potatoLang', lang); location.reload(); }
 
     var tg = null;
@@ -1009,22 +1035,23 @@
     var rankMultipliers = [1.1, 1.2, 1.3, 1.4, 1.5, 1.6];
     var currentMultiplier = 1.1;
 
-    var balanceEl = document.getElementById('balance');
-    var tapPowerEl = document.getElementById('tapPower');
-    var tapBoostDisplay = document.getElementById('tapBoostDisplay');
-    var potatoBtn = document.getElementById('potatoBtn');
-    var potatoDisplay = document.getElementById('potatoDisplay');
-    var upgradesList = document.getElementById('upgradesList');
-    var questsList = document.getElementById('questsList');
-    var achievementsList = document.getElementById('achievementsList');
-    var shopList = document.getElementById('shopList');
-    var autoInfo = document.getElementById('autoInfo');
-    var totalTapsText = document.getElementById('totalTapsText');
-    var progressFill = document.getElementById('progressFill');
-    var topBalanceBar = document.querySelector('.top-balance');
-    var casinoReel = document.getElementById('casinoReel');
-    var spinBtn = document.getElementById('spinBtn');
-    var profileRankEl = document.getElementById('profileRank');
+    // Инициализация элементов через умную функцию
+    var balanceEl = getEl('balance');
+    var tapPowerEl = getEl('tapPower');
+    var tapBoostDisplay = getEl('tapBoostDisplay');
+    var potatoBtn = getEl('potatoBtn');
+    var potatoDisplay = getEl('potatoDisplay');
+    var upgradesList = getEl('upgradesList');
+    var questsList = getEl('questsList');
+    var achievementsList = getEl('achievementsList');
+    var shopList = getEl('shopList');
+    var autoInfo = getEl('autoInfo');
+    var totalTapsText = getEl('totalTapsText');
+    var progressFill = getEl('progressFill');
+    var topBalanceBar = document.querySelector('.top-balance'); // Это класс, тут getEl не подойдет
+    var casinoReel = getEl('casinoReel');
+    var spinBtn = getEl('spinBtn');
+    var profileRankEl = getEl('profileRank');
 
     function save() {
       localStorage.setItem('potatoBalance', balance.toFixed(3));
@@ -1045,7 +1072,9 @@
 
     function updatePotatoSkin() {
       var skin = skinsData.find(s => s.id === equippedSkin);
-      potatoDisplay.innerHTML = `<img src="${skin.image}" draggable="false" onerror="this.style.display='none'; this.parentNode.innerHTML='${skin.emoji}';">`;
+      if(potatoDisplay) {
+          potatoDisplay.innerHTML = `<img src="${skin.image}" draggable="false" onerror="this.style.display='none'; this.parentNode.innerHTML='${skin.emoji}';">`;
+      }
     }
 
     function updateRank() {
@@ -1058,25 +1087,31 @@
 
       currentMultiplier = rankMultipliers[rankIndex];
 
-      profileRankEl.innerText = t.title_rank + t.ranks[rankIndex] + " (x" + currentMultiplier + ")";
-      tapBoostDisplay.innerText = "(x" + currentMultiplier + ")";
+      if (profileRankEl) {
+        profileRankEl.innerText = t.title_rank + t.ranks[rankIndex] + " (x" + currentMultiplier + ")";
+      }
+      if (tapBoostDisplay) {
+        tapBoostDisplay.innerText = "(x" + currentMultiplier + ")";
+      }
     }
 
     function updateUI() {
-      balanceEl.innerText = balance.toFixed(3);
-      if (balance < 0) {
-        balanceEl.classList.add('negative');
-      } else {
-        balanceEl.classList.remove('negative');
+      if (balanceEl) {
+        balanceEl.innerText = balance.toFixed(3);
+        if (balance < 0) {
+          balanceEl.classList.add('negative');
+        } else {
+          balanceEl.classList.remove('negative');
+        }
       }
 
       updateRank(); 
 
       var effectiveTapValue = tapValue * currentMultiplier;
-      tapPowerEl.innerText = effectiveTapValue.toFixed(3); 
+      if (tapPowerEl) tapPowerEl.innerText = effectiveTapValue.toFixed(3); 
 
-      totalTapsText.innerText = totalTaps;
-      progressFill.style.width = Math.min(100, (totalTaps / 1000000) * 100) + '%';
+      if (totalTapsText) totalTapsText.innerText = totalTaps;
+      if (progressFill) progressFill.style.width = Math.min(100, (totalTaps / 1000000) * 100) + '%';
       
       checkAchievements();
       checkQuestReady();
@@ -1088,12 +1123,14 @@
       var timePassed = now - lastGiftTime;
       var timeLeft = giftCooldown - timePassed;
       
-      var timerEl = document.getElementById('giftTimer');
-      var lockEl = document.getElementById('giftLockIcon');
-      var btnEl = document.getElementById('giftBtn');
-      var questionEl = document.getElementById('giftQuestion');
-      var rewardDisplayEl = document.getElementById('giftRewardDisplay');
+      var timerEl = getEl('giftTimer');
+      var lockEl = getEl('giftLockIcon');
+      var btnEl = getEl('giftBtn');
+      var questionEl = getEl('giftQuestion');
+      var rewardDisplayEl = getEl('giftRewardDisplay');
       
+      if (!timerEl || !lockEl || !btnEl || !questionEl || !rewardDisplayEl) return;
+
       if (timeLeft > 0) {
         var hours = Math.floor(timeLeft / (1000 * 60 * 60));
         var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
@@ -1141,19 +1178,21 @@
       save();
       updateUI();
       
-      var questionEl = document.getElementById('giftQuestion');
-      var rewardDisplayEl = document.getElementById('giftRewardDisplay');
-      var rewardTextEl = document.getElementById('giftRewardText');
-      var jackpotEl = document.getElementById('jackpotText');
+      var questionEl = getEl('giftQuestion');
+      var rewardDisplayEl = getEl('giftRewardDisplay');
+      var rewardTextEl = getEl('giftRewardText');
+      var jackpotEl = getEl('jackpotText');
       
-      questionEl.style.display = 'none';
-      rewardDisplayEl.style.display = 'flex';
-      rewardTextEl.innerText = '₽ ' + reward.toFixed(3);
+      if (questionEl) questionEl.style.display = 'none';
+      if (rewardDisplayEl) rewardDisplayEl.style.display = 'flex';
+      if (rewardTextEl) rewardTextEl.innerText = '₽ ' + reward.toFixed(3);
       
       if (isJackpot) {
-        rewardTextEl.classList.add('jackpot');
-        jackpotEl.style.display = 'block';
-        jackpotEl.innerText = t.jackpot;
+        if (rewardTextEl) rewardTextEl.classList.add('jackpot');
+        if (jackpotEl) {
+          jackpotEl.style.display = 'block';
+          jackpotEl.innerText = t.jackpot;
+        }
         playSound('quest_claim_10'); 
         playHaptic('heavy'); 
         
@@ -1162,8 +1201,8 @@
           setTimeout(function() { playSound('achievement'); }, 500);
         }
       } else {
-        rewardTextEl.classList.remove('jackpot');
-        jackpotEl.style.display = 'none';
+        if (rewardTextEl) rewardTextEl.classList.remove('jackpot');
+        if (jackpotEl) jackpotEl.style.display = 'none';
         playSound('quest_claim'); 
         playHaptic('success');
       }
@@ -1176,12 +1215,16 @@
 
     window.switchShopTab = function(tab) {
       playHaptic('medium'); 
-      var skinsBtn = document.querySelectorAll('.shop-tab-btn')[0];
-      var giftsBtn = document.querySelectorAll('.shop-tab-btn')[1];
+      var tabs = document.querySelectorAll('.shop-tab-btn');
+      if(tabs.length < 2) return;
+      var skinsBtn = tabs[0];
+      var giftsBtn = tabs[1];
       
-      var skinsContent = document.getElementById('shopContentSkins');
-      var giftsContent = document.getElementById('shopContentGifts');
+      var skinsContent = getEl('shopContentSkins');
+      var giftsContent = getEl('shopContentGifts');
       
+      if (!skinsContent || !giftsContent) return;
+
       if (tab === 'skins') {
         skinsBtn.classList.add('active');
         giftsBtn.classList.remove('active');
@@ -1207,6 +1250,7 @@
     ];
 
     function initCasino() {
+      if (!casinoReel) return;
       casinoReel.innerHTML = '';
       for (var i = 0; i < 50; i++) {
         addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
@@ -1214,6 +1258,7 @@
     }
 
     function addReelItem(item) {
+      if (!casinoReel) return;
       var div = document.createElement('div');
       div.className = 'reel-item';
       if (item.type === 'fries') {
@@ -1238,7 +1283,7 @@
     }
 
     window.spinCasino = function() {
-      if (isSpinning) return;
+      if (isSpinning || !casinoReel || !spinBtn) return;
       if (balance < spinCost) {
         playHaptic('error');
         alert(t.not_enough_money);
@@ -1293,8 +1338,9 @@
       setTimeout(function() {
         casinoReel.style.transition = 'transform ' + (SPIN_DURATION/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
         
+        var reelWindow = document.querySelector('.reel-window');
+        var containerWidth = reelWindow ? reelWindow.offsetWidth : 320; // Фоллбек
         var itemWidth = 90; 
-        var containerWidth = document.querySelector('.reel-window').offsetWidth;
         var centerOffset = (containerWidth / 2) - (itemWidth / 2);
         var targetPosition = (40 * itemWidth) - centerOffset;
         
@@ -1392,12 +1438,16 @@
 
     function updateAutoInfo() {
       if (hasAutoclicker) {
-        autoInfo.style.display = 'block';
-        var text = currentLang === 'ru' 
-          ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' сек'
-          : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' sec';
-        autoInfo.innerText = text;
-      } else { autoInfo.style.display = 'none'; }
+        if (autoInfo) {
+          autoInfo.style.display = 'block';
+          var text = currentLang === 'ru' 
+            ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' сек'
+            : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' sec';
+          autoInfo.innerText = text;
+        }
+      } else { 
+        if (autoInfo) autoInfo.style.display = 'none'; 
+      }
     }
 
     function startAutoclicker() {
@@ -1505,6 +1555,7 @@
     }
 
     function renderUpgrades() {
+      if (!upgradesList) return;
       upgradesList.innerHTML = '';
       if (currentTab === 'tap') {
         for (var i = 0; i < upgradesData.length; i++) {
@@ -1622,6 +1673,7 @@
     }
 
     function renderQuests() {
+      if (!questsList) return;
       questsList.innerHTML = '';
       for (var i = 0; i < questsData.length; i++) {
         var q = questsData[i];
@@ -1668,6 +1720,7 @@
     }
 
     function renderAchievements() {
+      if (!achievementsList) return;
       achievementsList.innerHTML = '';
       var achData = t.ach_list;
 
@@ -1699,7 +1752,8 @@
     }
 
     function renderRating() {
-      var container = document.getElementById('leaderboardList');
+      var container = getEl('leaderboardList');
+      if (!container) return;
       container.innerHTML = '';
       var row = document.createElement('div');
       row.className = 'rating-row';
@@ -1723,16 +1777,21 @@
       if (!photo) photo = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
       
       userPhoto = photo;
-      document.getElementById('topAvatar').src = photo;
-      document.getElementById('profileAvatar').src = photo;
-      document.getElementById('profileName').innerText = userName;
+      
+      var topAvatar = getEl('topAvatar');
+      var profileAvatar = getEl('profileAvatar');
+      var profileName = getEl('profileName');
+
+      if (topAvatar) topAvatar.src = photo;
+      if (profileAvatar) profileAvatar.src = photo;
+      if (profileName) profileName.innerText = userName;
     }
 
     function showScreen(name) {
       playHaptic('medium'); 
       var screens = document.querySelectorAll('.screen');
       for (var s = 0; s < screens.length; s++) screens[s].classList.remove('active');
-      var target = document.getElementById('screen-' + name);
+      var target = getEl('screen-' + name);
       if (target) target.classList.add('active');
 
       var menuItems = document.querySelectorAll('.menu-item');
@@ -1745,10 +1804,12 @@
         for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active');
       }
 
-      if (name === 'quests' || name === 'rating' || name === 'achievements' || name === 'settings') {
-        topBalanceBar.style.display = 'none';
-      } else {
-        topBalanceBar.style.display = 'flex';
+      if (topBalanceBar) {
+        if (name === 'quests' || name === 'rating' || name === 'achievements' || name === 'settings') {
+          topBalanceBar.style.display = 'none';
+        } else {
+          topBalanceBar.style.display = 'flex';
+        }
       }
 
       if (name === 'upgrades') renderUpgrades();
@@ -1761,21 +1822,36 @@
       if (name === 'settings') { initRockets(); }
     }
 
-    document.getElementById('openProfile').onclick = function() { showScreen('profile'); };
+    var openProfileBtn = getEl('openProfile');
+    if (openProfileBtn) {
+      openProfileBtn.onclick = function() { showScreen('profile'); };
+    }
     
     var menuItems = document.querySelectorAll('.menu-item');
     for (var i = 0; i < menuItems.length; i++) {
       menuItems[i].onclick = function() { showScreen(this.getAttribute('data-screen')); };
     }
 
-    document.getElementById('tabTap').onclick = function() {
-      playHaptic('medium');
-      currentTab = 'tap'; this.classList.add('active'); document.getElementById('tabAuto').classList.remove('active'); renderUpgrades();
-    };
-    document.getElementById('tabAuto').onclick = function() {
-      playHaptic('medium');
-      currentTab = 'auto'; this.classList.add('active'); document.getElementById('tabTap').classList.remove('active'); renderUpgrades();
-    };
+    var tabTapBtn = getEl('tabTap');
+    var tabAutoBtn = getEl('tabAuto');
+
+    if (tabTapBtn) {
+      tabTapBtn.onclick = function() {
+        playHaptic('medium');
+        currentTab = 'tap'; this.classList.add('active'); 
+        if (tabAutoBtn) tabAutoBtn.classList.remove('active'); 
+        renderUpgrades();
+      };
+    }
+    
+    if (tabAutoBtn) {
+      tabAutoBtn.onclick = function() {
+        playHaptic('medium');
+        currentTab = 'auto'; this.classList.add('active'); 
+        if (tabTapBtn) tabTapBtn.classList.remove('active'); 
+        renderUpgrades();
+      };
+    }
 
     window.withdrawMoney = function() {
       if (balance < 10) { 
@@ -1789,16 +1865,20 @@
     };
 
     var devClickCount = 0;
-    document.getElementById('devBtn').onclick = function() {
-      devClickCount++;
-      if (devClickCount >= 5) {
-        balance += 200000; totalTaps += 50000; updateUI();
-        playHaptic('heavy');
-        alert(currentLang === 'ru' ? '+200 000 ₽ и +50 000 тапов!' : '+200,000 ₽ and +50,000 taps!');
-        devClickCount = 0;
-      }
-    };
+    var devBtn = getEl('devBtn');
+    if (devBtn) {
+      devBtn.onclick = function() {
+        devClickCount++;
+        if (devClickCount >= 5) {
+          balance += 200000; totalTaps += 50000; updateUI();
+          playHaptic('heavy');
+          alert(currentLang === 'ru' ? '+200 000 ₽ и +50 000 тапов!' : '+200,000 ₽ and +50,000 taps!');
+          devClickCount = 0;
+        }
+      };
+    }
 
+    // Запуск игры
     applyTranslations(); 
     loadUser();
     updateUI();
