@@ -70,7 +70,7 @@
     .potato-wrap:active img { animation: shake 0.1s; }
 
     .tap-power { margin-top: 16px; font-size: 11px; color: #c4b5fd; }
-    .tap-boost { font-size: 10px; color: #fde047; margin-left: 5px; } /* Новый стиль для буста */
+    .tap-boost { font-size: 10px; color: #fde047; margin-left: 5px; }
     .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; }
 
     /* ВКЛАДКИ УЛУЧШЕНИЙ */
@@ -321,7 +321,7 @@
       </div>
       <div class="tap-power">
         <span data-i18n="tap_label">Тап</span>: <span id="tapPower">0.001</span> ₽ 
-        <span id="tapBoostDisplay" class="tap-boost"></span> <!-- Множитель ранга -->
+        <span id="tapBoostDisplay" class="tap-boost"></span>
       </div>
       <div class="auto-info" id="autoInfo" style="display:none;"></div>
     </div>
@@ -602,7 +602,7 @@
         claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено",
         title_rank: "Ранг: ",
         ranks: ["Новичок", "Тапатель", "Мастер", "Гуру", "Легенда", "Бог тапов"],
-        upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель"],
+        upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель", "Архитектор", "Сингулярность", "Бесконечный", "Запредельный", "Трансцендентный", "Всемогущий", "Изначальный", "Апофеоз", "Вечный", "Тап Богов"],
         upg_desc: "Тап даёт",
         achievements_btn: "🏆 Достижения", ach_unlocked: "Получено", ach_locked: "Заблокировано",
         shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить",
@@ -626,10 +626,12 @@
           { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" },
           { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" },
           { title: "Всё про**бал", desc: "Выбить 🗿", icon: "🗿" },
-          { title: "Автоматизированный рай", desc: "Макс. сила авто", icon: "⚙️" },
+          { title: "Автоматизированный рай", desc: "15-й сила авто", icon: "⚙️" },
           { title: "Властелин Миров", desc: "20-й уровень тапа", icon: "💥" },
           { title: "Верхушка айсберга", desc: "500 000 тапов", icon: "🧊" },
-          { title: "Ошибка вселенной", desc: "1 000 000 тапов", icon: "🌌" }
+          { title: "Ошибка вселенной", desc: "1 000 000 тапов", icon: "🌌" },
+          { title: "Апофеоз", desc: "30-й уровень тапа", icon: "🌠" }, // НОВОЕ
+          { title: "Сингулярность", desc: "25-й сила авто", icon: "🤖" } // НОВОЕ
         ]
       },
       en: {
@@ -645,7 +647,7 @@
         claim: "Claim", received: "Received", not_done: "Not done",
         title_rank: "Rank: ",
         ranks: ["Novice", "Tapper", "Master", "Guru", "Legend", "Tap God"],
-        upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer"],
+        upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer", "Architect", "Singularity", "Infinite", "Transcendent", "Omnipotent", "Primordial", "Apotheosis", "Eternal", "God of Taps"],
         upg_desc: "Tap gives",
         achievements_btn: "🏆 Achievements", ach_unlocked: "Received", ach_locked: "Locked",
         shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy",
@@ -669,10 +671,12 @@
           { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" },
           { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" },
           { title: "Lost Everything", desc: "Hit the 🗿", icon: "🗿" },
-          { title: "Automated Paradise", desc: "Max auto power", icon: "⚙️" },
+          { title: "Automated Paradise", desc: "15th auto power", icon: "⚙️" },
           { title: "Lord of Worlds", desc: "20th tap level", icon: "💥" },
           { title: "Tip of the Iceberg", desc: "500,000 taps", icon: "🧊" },
-          { title: "Universe Error", desc: "1,000,000 taps", icon: "🌌" }
+          { title: "Universe Error", desc: "1,000,000 taps", icon: "🌌" },
+          { title: "Apotheosis", desc: "30th tap level", icon: "🌠" },
+          { title: "Singularity", desc: "25th auto power", icon: "🤖" }
         ]
       }
     };
@@ -704,6 +708,7 @@
       }
     } catch(e) {}
 
+    // ТАП ДО 30 УРОВНЯ
     var upgradesData = [
       { nameIdx: 0, desc: 0.002, cost: 2.5, value: 0.002 }, { nameIdx: 1, desc: 0.003, cost: 4, value: 0.003 },
       { nameIdx: 2, desc: 0.004, cost: 8, value: 0.004 }, { nameIdx: 3, desc: 0.005, cost: 16, value: 0.005 },
@@ -719,15 +724,30 @@
       { nameIdx: 16, desc: 3.0, cost: 2000, value: 3.0 },
       { nameIdx: 17, desc: 4.0, cost: 2500, value: 4.0 },
       { nameIdx: 18, desc: 5.0, cost: 3000, value: 5.0 },
-      { nameIdx: 19, desc: 10.0, cost: 5000, value: 10.0 }
+      { nameIdx: 19, desc: 10.0, cost: 5000, value: 10.0 },
+      { nameIdx: 20, desc: 15.0, cost: 6000, value: 15.0 },
+      { nameIdx: 21, desc: 20.0, cost: 7000, value: 20.0 },
+      { nameIdx: 22, desc: 25.0, cost: 8000, value: 25.0 },
+      { nameIdx: 23, desc: 30.0, cost: 9000, value: 30.0 },
+      { nameIdx: 24, desc: 40.0, cost: 10000, value: 40.0 },
+      { nameIdx: 25, desc: 50.0, cost: 12000, value: 50.0 },
+      { nameIdx: 26, desc: 60.0, cost: 15000, value: 60.0 },
+      { nameIdx: 27, desc: 75.0, cost: 18000, value: 75.0 },
+      { nameIdx: 28, desc: 85.0, cost: 20000, value: 85.0 },
+      { nameIdx: 29, desc: 100.0, cost: 25000, value: 100.0 }
     ];
     
+    // СИЛА АВТОКЛИКЕРА ДО 25 УРОВНЯ
     var autoValueData = [
       { level: 1, cost: 50, value: 0.0002 }, { level: 2, cost: 60, value: 0.0003 }, { level: 3, cost: 70, value: 0.0004 }, { level: 4, cost: 80, value: 0.0005 },
       { level: 5, cost: 160, value: 0.001 }, { level: 6, cost: 180, value: 0.002 }, { level: 7, cost: 200, value: 0.003 }, { level: 8, cost: 225, value: 0.004 },
       { level: 9, cost: 250, value: 0.005 }, { level: 10, cost: 500, value: 0.01 },
       { level: 11, cost: 600, value: 0.02 }, { level: 12, cost: 700, value: 0.03 }, { level: 13, cost: 800, value: 0.04 },
-      { level: 14, cost: 900, value: 0.05 }, { level: 15, cost: 1000, value: 0.1 }
+      { level: 14, cost: 900, value: 0.05 }, { level: 15, cost: 1000, value: 0.1 },
+      { level: 16, cost: 1500, value: 0.2 }, { level: 17, cost: 2000, value: 0.3 }, { level: 18, cost: 2500, value: 0.4 },
+      { level: 19, cost: 3000, value: 0.5 }, { level: 20, cost: 4000, value: 1.0 },
+      { level: 21, cost: 5000, value: 2.0 }, { level: 22, cost: 6000, value: 3.0 }, { level: 23, cost: 8000, value: 5.0 },
+      { level: 24, cost: 10000, value: 10.0 }, { level: 25, cost: 15000, value: 25.0 }
     ];
     
     var autoSpeedData = [
@@ -791,7 +811,6 @@
     var forceMoai = false; 
     var SPIN_DURATION = 9000; 
 
-    // === БУСТЫ ЗА РАНГИ ===
     var rankMultipliers = [1.1, 1.2, 1.3, 1.4, 1.5, 1.6];
     var currentMultiplier = 1.1;
 
@@ -844,10 +863,7 @@
 
       currentMultiplier = rankMultipliers[rankIndex];
 
-      // Обновляем ранг в профиле
       profileRankEl.innerText = t.title_rank + t.ranks[rankIndex] + " (x" + currentMultiplier + ")";
-
-      // Обновляем текст буста на главном экране
       tapBoostDisplay.innerText = "(x" + currentMultiplier + ")";
     }
 
@@ -859,11 +875,10 @@
         balanceEl.classList.remove('negative');
       }
 
-      updateRank(); // Обновляем ранг и множитель
+      updateRank(); 
 
-      // Отображаем реальную стоимость тапа с учетом множителя
       var effectiveTapValue = tapValue * currentMultiplier;
-      tapPowerEl.innerText = effectiveTapValue.toFixed(3); // 3 знака после запятой
+      tapPowerEl.innerText = effectiveTapValue.toFixed(3); 
 
       totalTapsText.innerText = totalTaps;
       progressFill.style.width = Math.min(100, (totalTaps / 1000000) * 100) + '%';
@@ -987,7 +1002,6 @@
       }
     };
 
-    // === ЛОГИКА КАЗИНО ===
     var casinoItems = [
       { type: 'money', value: 0.1 }, { type: 'money', value: 0.5 }, { type: 'money', value: 2 },
       { type: 'money', value: 5 }, { type: 'money', value: 10 }, { type: 'money', value: 50 },
@@ -1174,6 +1188,10 @@
       if (maxUpgrade >= 20 && unlockedAch.indexOf(16) === -1) { unlockedAch.push(16); newUnlock = true; }
       if (totalTaps >= 500000 && unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); newUnlock = true; }
       if (totalTaps >= 1000000 && unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); newUnlock = true; }
+      
+      // Новые достижения за максимальные прокачки
+      if (maxUpgrade >= 30 && unlockedAch.indexOf(19) === -1) { unlockedAch.push(19); newUnlock = true; }
+      if (autoValueLevel >= 25 && unlockedAch.indexOf(20) === -1) { unlockedAch.push(20); newUnlock = true; }
 
       if (newUnlock) { playSound('achievement'); save(); }
     }
@@ -1202,7 +1220,6 @@
       
       playHaptic('light');
 
-      // Учитываем множитель ранга при клике
       var effectiveTapValue = tapValue * currentMultiplier;
       
       balance += effectiveTapValue;
@@ -1211,7 +1228,7 @@
 
       var float = document.createElement('div');
       float.className = 'float-text';
-      float.innerText = '+' + effectiveTapValue.toFixed(3); // Показываем выигрыш с учетом буста
+      float.innerText = '+' + effectiveTapValue.toFixed(3); 
       
       var clientX = window.innerWidth / 2; var clientY = window.innerHeight / 2;
       if (e.touches && e.touches[0]) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; } 
