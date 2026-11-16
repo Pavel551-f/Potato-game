@@ -23,17 +23,27 @@
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; }
 
-    /* ВЕРХНИЙ БАЛАНС */
+    /* ВЕРХНИЙ БАЛАНС (Перенесен ВПРАВО) */
     .top-balance { 
-      position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px; 
-      background: rgba(0,0,0,0.45); padding: 4px 10px 4px 4px; z-index: 60; cursor: pointer; 
+      position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 10px; 
+      background: rgba(0,0,0,0.45); padding: 4px 4px 4px 10px; z-index: 60; cursor: pointer; 
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
     }
-    .top-avatar { width: 30px; height: 30px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; }
-    .top-balance-text { display: flex; flex-direction: column; }
+    .top-avatar { width: 30px; height: 30px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; order: 2; }
+    .top-balance-text { display: flex; flex-direction: column; align-items: flex-end; order: 1; }
     .top-balance-label { font-size: 8px; color: #c4b5fd; margin-bottom: 4px; }
     .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; transition: color 0.3s; }
     .top-balance-value.negative { color: #ef4444; } 
+
+    /* НОВАЯ КНОПКА НАЗАД (ВЛЕВО) */
+    .btn-top-back {
+      position: absolute; top: 14px; left: 14px; z-index: 70;
+      background: rgba(76, 29, 149, 0.7);
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; 
+      color: white; padding: 8px 12px;
+      font-family: inherit; font-size: 12px; cursor: pointer;
+    }
+    .btn-top-back:active { border-color: #4c1d95 #a855f7 #a855f7 #4c1d95; }
 
     /* КНОПКИ НА ГЛАВНОМ */
     .main-btns-container {
@@ -55,7 +65,7 @@
     .casino-btn-main:active { border-color: #a16207 #fde047 #fde047 #a16207; }
     .casino-btn-main span { font-size: 9px; color: #fff; text-transform: uppercase; }
 
-    .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; }
+    .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; position: relative; }
     .screen.active { display: flex; }
 
     .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; }
@@ -239,7 +249,6 @@
 
     /* НАСТРОЙКИ */
     #screen-settings {
-      position: relative;
       background: linear-gradient(180deg, #2e1065, #1e1b4b);
       overflow: hidden;
     }
@@ -247,43 +256,22 @@
       position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       pointer-events: none; z-index: 1; overflow: hidden;
     }
-    .rocket {
-      position: absolute; font-size: 30px; opacity: 0.3;
-    }
+    .rocket { position: absolute; font-size: 30px; opacity: 0.3; }
     .settings-content {
       position: relative; z-index: 10; padding: 80px 20px 20px; display: flex; flex-direction: column; align-items: center; width: 100%;
     }
-    .settings-title {
-      font-size: 16px; color: white; margin-bottom: 30px; text-transform: uppercase;
-      text-shadow: 2px 2px 0 #000;
-    }
+    .settings-title { font-size: 16px; color: white; margin-bottom: 30px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; }
     .setting-row {
       width: 100%; display: flex; justify-content: space-between; align-items: center;
       margin-bottom: 20px; background: rgba(255,255,255,0.1); padding: 15px;
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
     }
-    .setting-label {
-      font-size: 10px; color: #fff;
-    }
+    .setting-label { font-size: 10px; color: #fff; }
     .toggle-btn {
       background: #4b5563; color: #fff; border: 3px solid #374151; padding: 8px 12px;
       font-size: 10px; font-family: inherit; cursor: pointer; border-radius: 8px; width: 80px; text-align: center;
     }
-    .toggle-btn.active {
-      background: #10b981; border-color: #6ee7b7;
-    }
-    .btn-back {
-      position: absolute; top: 20px; left: 20px; z-index: 20;
-      background: #4b5563; border: 3px solid #374151; color: white; padding: 10px 15px;
-      font-family: inherit; font-size: 12px; cursor: pointer; border-radius: 8px;
-    }
-
-    .lang-btn-top { 
-      position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 6px; 
-      background: rgba(255,255,255,0.1); padding: 6px 10px; cursor: pointer; font-size: 10px; color: #fff; z-index: 60; 
-      border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
-    }
-    .lang-btn-top:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
+    .toggle-btn.active { background: #10b981; border-color: #6ee7b7; }
 
     /* РЕЙТИНГ */
     .rating-container { flex: 1; overflow-y: auto; padding: 20px 16px 100px; }
@@ -338,6 +326,7 @@
     </div>
   </div>
 
+  <!-- БАЛАНС ТЕПЕРЬ СПРАВА -->
   <div class="top-balance" id="openProfile">
     <img class="top-avatar" id="topAvatar" src="" alt="">
     <div class="top-balance-text">
@@ -370,6 +359,7 @@
 
   <!-- МАГАЗИН -->
   <div class="screen" id="screen-shop">
+    <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="shop-tabs">
       <button class="shop-tab-btn active" onclick="switchShopTab('skins')" data-i18n="shop_tab_skins">Скины</button>
       <button class="shop-tab-btn" onclick="switchShopTab('gifts')" data-i18n="shop_tab_gifts">Подарки</button>
@@ -414,6 +404,7 @@
 
   <!-- КАЗИНО -->
   <div class="screen" id="screen-casino">
+    <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="casino-container">
       <div class="reel-window">
         <div class="reel" id="casinoReel">
@@ -440,7 +431,9 @@
     <div class="list-content" id="questsList"></div>
   </div>
 
+  <!-- ДОСТИЖЕНИЯ -->
   <div class="screen" id="screen-achievements">
+    <button class="btn-top-back" onclick="showScreen('profile')">✖</button>
     <div class="list-content" id="achievementsList"></div>
   </div>
 
@@ -451,11 +444,11 @@
     </div>
   </div>
 
-  <!-- НОВЫЙ ЭКРАН: НАСТРОЙКИ -->
+  <!-- НАСТРОЙКИ -->
   <div class="screen" id="screen-settings">
     <div id="rocket-bg"></div>
     <div class="settings-content">
-      <button class="btn-back" onclick="showScreen('profile')">◀</button>
+      <button class="btn-top-back" onclick="showScreen('profile')">◀</button>
       <div class="settings-title" data-i18n="settings_title">Настройки</div>
       
       <div class="setting-row">
@@ -483,8 +476,6 @@
       <div class="profile-bottom">
         <button class="btn btn-grey" onclick="showScreen('achievements')" data-i18n="achievements_btn">🏆 Достижения</button>
         <button class="btn btn-green" onclick="withdrawMoney()" data-i18n="withdraw">Вывести средства</button>
-        
-        <!-- Кнопка Настроек -->
         <button class="btn btn-blue" style="margin-top: 10px;" onclick="showScreen('settings')" data-i18n="settings_btn">⚙️ Настройки</button>
 
         <div class="progress-label" style="margin-top: 20px;"><span data-i18n="total_taps">Всего тапов</span><span id="totalTapsText">0</span></div>
@@ -517,18 +508,23 @@
     function getEl(id) {
       var el = document.getElementById(id);
       if (!el) {
-        // Если элемента нет, показываем красную плашку на экране
         var errorDiv = document.createElement('div');
         errorDiv.style.cssText = 'position:fixed; top:10px; left:10px; right:10px; background:rgba(220,38,38,0.95); color:white; padding:10px; font-size:12px; z-index:999999; text-align:center; border:3px solid white; border-radius:8px; font-family:monospace; box-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events:none;';
         errorDiv.innerText = '⚠️ БАГ: Элемент #' + id + ' не найден!';
         document.body.appendChild(errorDiv);
-        
-        // Плашка исчезнет через 4 секунды
-        setTimeout(function() { 
-            if (errorDiv.parentNode) errorDiv.parentNode.removeChild(errorDiv); 
-        }, 4000);
+        setTimeout(function() { if (errorDiv.parentNode) errorDiv.parentNode.removeChild(errorDiv); }, 4000);
       }
       return el;
+    }
+
+    // ==========================================
+    // НОВАЯ ФУНКЦИЯ ДЛЯ ФОРМАТИРОВАНИЯ ЧИСЕЛ
+    // ==========================================
+    function formatMoney(amount, decimals = 3) {
+      if (isNaN(amount) || amount === null) return (0).toFixed(decimals);
+      let parts = amount.toFixed(decimals).split('.');
+      parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+      return parts.join('.');
     }
 
     // === НАСТРОЙКИ ЗВУКА И ВИБРАЦИИ ===
@@ -565,49 +561,28 @@
         osc.start(now); osc.stop(now + 0.4);
       } else if (type === 'quest_claim_10') { 
         osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(523.25, now); 
-        osc.frequency.setValueAtTime(659.25, now + 0.15); 
-        osc.frequency.setValueAtTime(783.99, now + 0.3); 
-        osc.frequency.setValueAtTime(1046.50, now + 0.45); 
-        gain.gain.setValueAtTime(0.15, now);
-        gain.gain.linearRampToValueAtTime(0.01, now + 0.8);
+        osc.frequency.setValueAtTime(523.25, now); osc.frequency.setValueAtTime(659.25, now + 0.15); osc.frequency.setValueAtTime(783.99, now + 0.3); osc.frequency.setValueAtTime(1046.50, now + 0.45); 
+        gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.8);
         osc.start(now); osc.stop(now + 0.8);
       } else if (type === 'quest_claim_11') { 
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(400, now);
-        osc.frequency.linearRampToValueAtTime(800, now + 0.2);
-        osc.frequency.setValueAtTime(800, now + 0.3);
-        osc.frequency.linearRampToValueAtTime(1600, now + 0.6);
-        gain.gain.setValueAtTime(0.1, now);
-        gain.gain.linearRampToValueAtTime(0.2, now + 0.3);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 1.0);
+        osc.type = 'square'; osc.frequency.setValueAtTime(400, now); osc.frequency.linearRampToValueAtTime(800, now + 0.2); osc.frequency.setValueAtTime(800, now + 0.3); osc.frequency.linearRampToValueAtTime(1600, now + 0.6);
+        gain.gain.setValueAtTime(0.1, now); gain.gain.linearRampToValueAtTime(0.2, now + 0.3); gain.gain.exponentialRampToValueAtTime(0.01, now + 1.0);
         osc.start(now); osc.stop(now + 1.0);
       } else if (type === 'quest_claim_15') { 
-        osc.type = 'sawtooth';
-        osc.frequency.setValueAtTime(300, now);
-        osc.frequency.linearRampToValueAtTime(1500, now + 0.5);
-        gain.gain.setValueAtTime(0.2, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
+        osc.type = 'sawtooth'; osc.frequency.setValueAtTime(300, now); osc.frequency.linearRampToValueAtTime(1500, now + 0.5);
+        gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
         osc.start(now); osc.stop(now + 1.2);
       } else if (type === 'achievement') {
         osc.type = 'sawtooth'; osc.frequency.setValueAtTime(440, now); osc.frequency.setValueAtTime(554.37, now + 0.1); osc.frequency.setValueAtTime(659.25, now + 0.2);
         gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
         osc.start(now); osc.stop(now + 0.5);
       } else if (type === 'buy_gold') {
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(1200, now);
-        osc.frequency.setValueAtTime(1600, now + 0.1);
-        osc.frequency.setValueAtTime(2000, now + 0.2);
-        osc.frequency.setValueAtTime(2400, now + 0.3);
-        gain.gain.setValueAtTime(0.1, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
+        osc.type = 'square'; osc.frequency.setValueAtTime(1200, now); osc.frequency.setValueAtTime(1600, now + 0.1); osc.frequency.setValueAtTime(2000, now + 0.2); osc.frequency.setValueAtTime(2400, now + 0.3);
+        gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.6);
         osc.start(now); osc.stop(now + 0.6);
       } else if (type === 'buy_ghost') {
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(800, now);
-        osc.frequency.linearRampToValueAtTime(300, now + 0.4);
-        gain.gain.setValueAtTime(0.3, now);
-        gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
+        osc.type = 'sine'; osc.frequency.setValueAtTime(800, now); osc.frequency.linearRampToValueAtTime(300, now + 0.4);
+        gain.gain.setValueAtTime(0.3, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
         osc.start(now); osc.stop(now + 0.5);
       } else if (type === 'casino_win') {
         osc.type = 'sine'; osc.frequency.setValueAtTime(440, now); osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
@@ -631,17 +606,12 @@
 
         var osc = audioCtx.createOscillator();
         var gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-
+        osc.connect(gain); gain.connect(audioCtx.destination);
         osc.type = 'square';
         osc.frequency.setValueAtTime(1800 - (progress * 800), tickTime); 
-
         gain.gain.setValueAtTime(0.08, tickTime);
         gain.gain.exponentialRampToValueAtTime(0.001, tickTime + 0.02);
-
-        osc.start(tickTime);
-        osc.stop(tickTime + 0.03);
+        osc.start(tickTime); osc.stop(tickTime + 0.03);
       }
       
       var finalOsc = audioCtx.createOscillator();
@@ -652,8 +622,7 @@
       finalOsc.frequency.exponentialRampToValueAtTime(50, now + durationSec + 0.3);
       finalGain.gain.setValueAtTime(0.5, now + durationSec);
       finalGain.gain.exponentialRampToValueAtTime(0.01, now + durationSec + 0.3);
-      finalOsc.start(now + durationSec);
-      finalOsc.stop(now + durationSec + 0.3);
+      finalOsc.start(now + durationSec); finalOsc.stop(now + durationSec + 0.3);
     }
 
     function playHaptic(type) {
@@ -668,7 +637,6 @@
           return; 
         } catch(e) {}
       } 
-      
       if (navigator.vibrate) {
         try {
           if (type === 'light') navigator.vibrate(15);
@@ -684,39 +652,20 @@
     function updateSettingsUI() {
       var soundBtn = getEl('soundToggle');
       var vibBtn = getEl('vibrationToggle');
-      
       if (soundBtn) {
-        if (isSoundEnabled) {
-          soundBtn.classList.add('active');
-          soundBtn.innerText = t.on;
-        } else {
-          soundBtn.classList.remove('active');
-          soundBtn.innerText = t.off;
-        }
+        if (isSoundEnabled) { soundBtn.classList.add('active'); soundBtn.innerText = t.on; } else { soundBtn.classList.remove('active'); soundBtn.innerText = t.off; }
       }
-
       if (vibBtn) {
-        if (isVibrationEnabled) {
-          vibBtn.classList.add('active');
-          vibBtn.innerText = t.on;
-        } else {
-          vibBtn.classList.remove('active');
-          vibBtn.innerText = t.off;
-        }
+        if (isVibrationEnabled) { vibBtn.classList.add('active'); vibBtn.innerText = t.on; } else { vibBtn.classList.remove('active'); vibBtn.innerText = t.off; }
       }
     }
 
     window.toggleSound = function() {
-      isSoundEnabled = !isSoundEnabled;
-      localStorage.setItem('soundEnabled', isSoundEnabled);
-      updateSettingsUI();
-      playHaptic('light');
+      isSoundEnabled = !isSoundEnabled; localStorage.setItem('soundEnabled', isSoundEnabled); updateSettingsUI(); playHaptic('light');
     }
 
     window.toggleVibration = function() {
-      isVibrationEnabled = !isVibrationEnabled;
-      localStorage.setItem('vibrationEnabled', isVibrationEnabled);
-      updateSettingsUI();
+      isVibrationEnabled = !isVibrationEnabled; localStorage.setItem('vibrationEnabled', isVibrationEnabled); updateSettingsUI();
       if (isVibrationEnabled && navigator.vibrate) navigator.vibrate(30);
       else if (isVibrationEnabled && tg) tg.HapticFeedback.impactOccurred('medium');
     }
@@ -734,72 +683,40 @@
       var rockets = [];
       
       for (var i = 0; i < 10; i++) {
-        var r = document.createElement('div');
-        r.className = 'rocket';
-        r.innerText = '🚀';
-        
+        var r = document.createElement('div'); r.className = 'rocket'; r.innerText = '🚀';
         var x = Math.random() * (window.innerWidth - 40);
         var y = Math.random() * (window.innerHeight - 40);
-        
-        var vx = (Math.random() - 0.5) * 2; 
-        var vy = (Math.random() - 0.5) * 2;
-        
-        if (Math.abs(vx) < 0.5) vx = vx > 0 ? 0.5 : -0.5;
-        if (Math.abs(vy) < 0.5) vy = vy > 0 ? 0.5 : -0.5;
-
-        r.style.left = x + 'px';
-        r.style.top = y + 'px';
-        
-        var angle = Math.atan2(vy, vx) * 180 / Math.PI;
-        r.style.transform = 'rotate(' + angle + 'deg)';
-        
-        bg.appendChild(r);
-        rockets.push({ el: r, x: x, y: y, vx: vx, vy: vy });
+        var vx = (Math.random() - 0.5) * 2; var vy = (Math.random() - 0.5) * 2;
+        if (Math.abs(vx) < 0.5) vx = vx > 0 ? 0.5 : -0.5; if (Math.abs(vy) < 0.5) vy = vy > 0 ? 0.5 : -0.5;
+        r.style.left = x + 'px'; r.style.top = y + 'px';
+        var angle = Math.atan2(vy, vx) * 180 / Math.PI; r.style.transform = 'rotate(' + angle + 'deg)';
+        bg.appendChild(r); rockets.push({ el: r, x: x, y: y, vx: vx, vy: vy });
       }
       
       var animId = null;
       function animate() {
         var bgRect = bg.getBoundingClientRect();
-        
         for (var i = 0; i < rockets.length; i++) {
           var rk = rockets[i];
-          
-          rk.x += rk.vx;
-          rk.y += rk.vy;
-          
+          rk.x += rk.vx; rk.y += rk.vy;
           if (rk.x <= 0) { rk.x = 0; rk.vx *= -1; }
           if (rk.x >= bgRect.width - 30) { rk.x = bgRect.width - 30; rk.vx *= -1; }
-          
           if (rk.y <= 0) { rk.y = 0; rk.vy *= -1; }
           if (rk.y >= bgRect.height - 30) { rk.y = bgRect.height - 30; rk.vy *= -1; }
-          
           var angle = Math.atan2(rk.vy, rk.vx) * 180 / Math.PI;
-          
-          rk.el.style.left = rk.x + 'px';
-          rk.el.style.top = rk.y + 'px';
-          rk.el.style.transform = 'rotate(' + angle + 'deg)';
+          rk.el.style.left = rk.x + 'px'; rk.el.style.top = rk.y + 'px'; rk.el.style.transform = 'rotate(' + angle + 'deg)';
         }
-        
         var settingsScreen = getEl('screen-settings');
-        if (settingsScreen && settingsScreen.classList.contains('active')) {
-            animId = requestAnimationFrame(animate);
-        } else {
-            cancelAnimationFrame(animId);
-        }
+        if (settingsScreen && settingsScreen.classList.contains('active')) { animId = requestAnimationFrame(animate); } else { cancelAnimationFrame(animId); }
       }
-      
       var settingsScreen = getEl('screen-settings');
-      if (settingsScreen && settingsScreen.classList.contains('active')) {
-          animate();
-      }
+      if (settingsScreen && settingsScreen.classList.contains('active')) { animate(); }
     }
 
     var originalShowScreen = showScreen;
     showScreen = function(name) {
       originalShowScreen(name);
-      if (name === 'settings') {
-        initRockets();
-      }
+      if (name === 'settings') { initRockets(); }
     };
 
     var translations = {
@@ -815,7 +732,6 @@
         sec: "сек", balance: "Баланс", make_taps: "Сделай", taps_word: "тапов", progress: "Прогресс",
         claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено",
         title_rank: "Ранг: ",
-        // === НОВЫЕ РАНГИ (10 штук) ===
         ranks: ["Новичок", "Тапатель", "Фермер", "Агроном", "Мастер клика", "Гуру тапов", "Магнат", "Повелитель", "Легенда", "Бог Картофеля"],
         upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель", "Архитектор", "Сингулярность", "Бесконечный", "Запредельный", "Трансцендентный", "Всемогущий", "Изначальный", "Апофеоз", "Вечный", "Тап Богов"],
         upg_desc: "Тап даёт",
@@ -826,29 +742,30 @@
         gift_wait: "Доступно через", gift_ready: "Забрать!",
         casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)",
         settings_btn: "⚙️ Настройки", settings_title: "Настройки", sound_effects: "Звуковые эффекты", vibration: "Вибрация", on: "ВКЛ", off: "ВЫКЛ", lang_btn: "🌐 Язык / Language", support_btn: "📢 Помощь и поддержка",
+        // === ОТСОРТИРОВАННЫЙ СПИСОК ДОСТИЖЕНИЙ ===
         ach_list: [
-          { title: "Первый шаг", desc: "100 тапов", icon: "🌱" },
-          { title: "Фанат", desc: "1 000 тапов", icon: "🥔" },
-          { title: "Мастер клика", desc: "10 000 тапов", icon: "🔥" },
-          { title: "Деревянная легенда", desc: "20 000 тапов", icon: "wood" },
-          { title: "Богач", desc: "100 ₽", icon: "💰" },
-          { title: "Автоматизация", desc: "Купить авто", icon: "⚙️" },
-          { title: "Прокачка", desc: "5-й уровень", icon: "⚡" },
-          { title: "Божественная мощь", desc: "Божеств. тап", icon: "🌟" },
-          { title: "Протёртый палец", desc: "50 000 тапов", icon: "🩹" },
-          { title: "Сила Творца", desc: "Тап Творца", icon: "👑" },
-          { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" },
-          { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" },
-          { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" },
-          { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" },
-          { title: "Всё про**бал", desc: "Выбить 🗿", icon: "🗿" },
-          { title: "Автоматизированный рай", desc: "15-й сила авто", icon: "⚙️" },
-          { title: "Властелин Миров", desc: "20-й уровень тапа", icon: "💥" },
-          { title: "Верхушка айсберга", desc: "500 000 тапов", icon: "🧊" },
-          { title: "Ошибка вселенной", desc: "1 000 000 тапов", icon: "🌌" },
-          { title: "Апофеоз", desc: "30-й уровень тапа", icon: "🌠" },
-          { title: "Сингулярность", desc: "25-й сила авто", icon: "🤖" },
-          { title: "Затянуло", desc: "100 000 тапов", icon: "🌀" }
+          { title: "Первый шаг", desc: "100 тапов", icon: "🌱" }, // 0
+          { title: "Фанат", desc: "1 000 тапов", icon: "🥔" }, // 1
+          { title: "Мастер клика", desc: "10 000 тапов", icon: "🔥" }, // 2
+          { title: "Деревянная легенда", desc: "20 000 тапов", icon: "wood" }, // 3
+          { title: "Протёртый палец", desc: "50 000 тапов", icon: "🩹" }, // 4
+          { title: "Затянуло", desc: "100 000 тапов", icon: "🌀" }, // 5
+          { title: "Верхушка айсберга", desc: "500 000 тапов", icon: "🧊" }, // 6
+          { title: "Ошибка вселенной", desc: "1 000 000 тапов", icon: "🌌" }, // 7
+          { title: "Богач", desc: "100 ₽", icon: "💰" }, // 8
+          { title: "Автоматизация", desc: "Купить авто", icon: "⚙️" }, // 9
+          { title: "Прокачка", desc: "5-й уровень", icon: "⚡" }, // 10
+          { title: "Божественная мощь", desc: "Божеств. тап", icon: "🌟" }, // 11
+          { title: "Сила Творца", desc: "Тап Творца", icon: "👑" }, // 12
+          { title: "Властелин Миров", desc: "20-й уровень тапа", icon: "💥" }, // 13
+          { title: "Апофеоз", desc: "30-й уровень тапа", icon: "🌠" }, // 14
+          { title: "Автоматизированный рай", desc: "15-й сила авто", icon: "⚙️" }, // 15
+          { title: "Сингулярность", desc: "25-й сила авто", icon: "🤖" }, // 16
+          { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" }, // 17
+          { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" }, // 18
+          { title: "Всё про**бал", desc: "Выбить 🗿", icon: "🗿" }, // 19
+          { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" }, // 20
+          { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" } // 21
         ]
       },
       en: {
@@ -863,7 +780,6 @@
         sec: "sec", balance: "Balance", make_taps: "Make", taps_word: "taps", progress: "Progress",
         claim: "Claim", received: "Received", not_done: "Not done",
         title_rank: "Rank: ",
-        // === НОВЫЕ РАНГИ (10 штук) ===
         ranks: ["Novice", "Tapper", "Farmer", "Agronomist", "Click Master", "Tap Guru", "Tycoon", "Lord", "Legend", "Potato God"],
         upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer", "Architect", "Singularity", "Infinite", "Transcendent", "Omnipotent", "Primordial", "Apotheosis", "Eternal", "God of Taps"],
         upg_desc: "Tap gives",
@@ -879,24 +795,24 @@
           { title: "Fan", desc: "1,000 taps", icon: "🥔" },
           { title: "Click Master", desc: "10,000 taps", icon: "🔥" },
           { title: "Wooden Legend", desc: "20,000 taps", icon: "wood" },
-          { title: "Rich Man", desc: "100 ₽", icon: "💰" },
-          { title: "Automation", desc: "Buy autoclicker", icon: "⚙️" },
-          { title: "Upgraded", desc: "Buy 5th level", icon: "⚡" },
-          { title: "Divine Might", desc: "Buy Divine Tap", icon: "🌟" },
           { title: "Worn Finger", desc: "50,000 taps", icon: "🩹" },
-          { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" },
-          { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" },
-          { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" },
-          { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" },
-          { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" },
-          { title: "Lost Everything", desc: "Hit the 🗿", icon: "🗿" },
-          { title: "Automated Paradise", desc: "15th auto power", icon: "⚙️" },
-          { title: "Lord of Worlds", desc: "20th tap level", icon: "💥" },
+          { title: "Sucked In", desc: "100,000 taps", icon: "🌀" },
           { title: "Tip of the Iceberg", desc: "500,000 taps", icon: "🧊" },
           { title: "Universe Error", desc: "1,000,000 taps", icon: "🌌" },
+          { title: "Rich Man", desc: "100 ₽", icon: "💰" },
+          { title: "Automation", desc: "Buy autoclicker", icon: "⚙️" },
+          { title: "Upgraded", desc: "5th level", icon: "⚡" },
+          { title: "Divine Might", desc: "Buy Divine Tap", icon: "🌟" },
+          { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" },
+          { title: "Lord of Worlds", desc: "20th tap level", icon: "💥" },
           { title: "Apotheosis", desc: "30th tap level", icon: "🌠" },
+          { title: "Automated Paradise", desc: "15th auto power", icon: "⚙️" },
           { title: "Singularity", desc: "25th auto power", icon: "🤖" },
-          { title: "Sucked In", desc: "100,000 taps", icon: "🌀" }
+          { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" },
+          { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" },
+          { title: "Lost Everything", desc: "Hit the 🗿", icon: "🗿" },
+          { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" },
+          { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" }
         ]
       }
     };
@@ -934,38 +850,26 @@
       { nameIdx: 4, desc: 0.010, cost: 50, value: 0.010 }, { nameIdx: 5, desc: 0.020, cost: 100, value: 0.020 },
       { nameIdx: 6, desc: 0.030, cost: 150, value: 0.030 }, { nameIdx: 7, desc: 0.040, cost: 200, value: 0.040 },
       { nameIdx: 8, desc: 0.050, cost: 250, value: 0.050 }, { nameIdx: 9, desc: 0.100, cost: 500, value: 0.100 },
-      { nameIdx: 10, desc: 0.2, cost: 600, value: 0.2 },
-      { nameIdx: 11, desc: 0.3, cost: 700, value: 0.3 },
-      { nameIdx: 12, desc: 0.4, cost: 800, value: 0.4 },
-      { nameIdx: 13, desc: 0.5, cost: 900, value: 0.5 },
-      { nameIdx: 14, desc: 1.0, cost: 1000, value: 1.0 },
-      { nameIdx: 15, desc: 2.0, cost: 1500, value: 2.0 },
-      { nameIdx: 16, desc: 3.0, cost: 2000, value: 3.0 },
-      { nameIdx: 17, desc: 4.0, cost: 2500, value: 4.0 },
-      { nameIdx: 18, desc: 5.0, cost: 3000, value: 5.0 },
-      { nameIdx: 19, desc: 10.0, cost: 5000, value: 10.0 },
-      { nameIdx: 20, desc: 15.0, cost: 6000, value: 15.0 },
-      { nameIdx: 21, desc: 20.0, cost: 7000, value: 20.0 },
-      { nameIdx: 22, desc: 25.0, cost: 8000, value: 25.0 },
-      { nameIdx: 23, desc: 30.0, cost: 9000, value: 30.0 },
-      { nameIdx: 24, desc: 40.0, cost: 10000, value: 40.0 },
-      { nameIdx: 25, desc: 50.0, cost: 12000, value: 50.0 },
-      { nameIdx: 26, desc: 60.0, cost: 15000, value: 60.0 },
-      { nameIdx: 27, desc: 75.0, cost: 18000, value: 75.0 },
-      { nameIdx: 28, desc: 85.0, cost: 20000, value: 85.0 },
-      { nameIdx: 29, desc: 100.0, cost: 25000, value: 100.0 }
+      { nameIdx: 10, desc: 0.2, cost: 600, value: 0.2 }, { nameIdx: 11, desc: 0.3, cost: 700, value: 0.3 },
+      { nameIdx: 12, desc: 0.4, cost: 800, value: 0.4 }, { nameIdx: 13, desc: 0.5, cost: 900, value: 0.5 },
+      { nameIdx: 14, desc: 1.0, cost: 1000, value: 1.0 }, { nameIdx: 15, desc: 2.0, cost: 1500, value: 2.0 },
+      { nameIdx: 16, desc: 3.0, cost: 2000, value: 3.0 }, { nameIdx: 17, desc: 4.0, cost: 2500, value: 4.0 },
+      { nameIdx: 18, desc: 5.0, cost: 3000, value: 5.0 }, { nameIdx: 19, desc: 10.0, cost: 5000, value: 10.0 },
+      { nameIdx: 20, desc: 15.0, cost: 6000, value: 15.0 }, { nameIdx: 21, desc: 20.0, cost: 7000, value: 20.0 },
+      { nameIdx: 22, desc: 25.0, cost: 8000, value: 25.0 }, { nameIdx: 23, desc: 30.0, cost: 9000, value: 30.0 },
+      { nameIdx: 24, desc: 40.0, cost: 10000, value: 40.0 }, { nameIdx: 25, desc: 50.0, cost: 12000, value: 50.0 },
+      { nameIdx: 26, desc: 60.0, cost: 15000, value: 60.0 }, { nameIdx: 27, desc: 75.0, cost: 18000, value: 75.0 },
+      { nameIdx: 28, desc: 85.0, cost: 20000, value: 85.0 }, { nameIdx: 29, desc: 100.0, cost: 25000, value: 100.0 }
     ];
     
     var autoValueData = [
       { level: 1, cost: 50, value: 0.0002 }, { level: 2, cost: 60, value: 0.0003 }, { level: 3, cost: 70, value: 0.0004 }, { level: 4, cost: 80, value: 0.0005 },
       { level: 5, cost: 160, value: 0.001 }, { level: 6, cost: 180, value: 0.002 }, { level: 7, cost: 200, value: 0.003 }, { level: 8, cost: 225, value: 0.004 },
-      { level: 9, cost: 250, value: 0.005 }, { level: 10, cost: 500, value: 0.01 },
-      { level: 11, cost: 600, value: 0.02 }, { level: 12, cost: 700, value: 0.03 }, { level: 13, cost: 800, value: 0.04 },
-      { level: 14, cost: 900, value: 0.05 }, { level: 15, cost: 1000, value: 0.1 },
-      { level: 16, cost: 1500, value: 0.2 }, { level: 17, cost: 2000, value: 0.3 }, { level: 18, cost: 2500, value: 0.4 },
-      { level: 19, cost: 3000, value: 0.5 }, { level: 20, cost: 4000, value: 1.0 },
-      { level: 21, cost: 5000, value: 2.0 }, { level: 22, cost: 6000, value: 3.0 }, { level: 23, cost: 8000, value: 5.0 },
-      { level: 24, cost: 10000, value: 10.0 }, { level: 25, cost: 15000, value: 25.0 }
+      { level: 9, cost: 250, value: 0.005 }, { level: 10, cost: 500, value: 0.01 }, { level: 11, cost: 600, value: 0.02 }, { level: 12, cost: 700, value: 0.03 }, 
+      { level: 13, cost: 800, value: 0.04 }, { level: 14, cost: 900, value: 0.05 }, { level: 15, cost: 1000, value: 0.1 }, { level: 16, cost: 1500, value: 0.2 }, 
+      { level: 17, cost: 2000, value: 0.3 }, { level: 18, cost: 2500, value: 0.4 }, { level: 19, cost: 3000, value: 0.5 }, { level: 20, cost: 4000, value: 1.0 },
+      { level: 21, cost: 5000, value: 2.0 }, { level: 22, cost: 6000, value: 3.0 }, { level: 23, cost: 8000, value: 5.0 }, { level: 24, cost: 10000, value: 10.0 }, 
+      { level: 25, cost: 15000, value: 25.0 }
     ];
     
     var autoSpeedData = [
@@ -974,28 +878,14 @@
       { level: 9, cost: 375, interval: 5000 }, { level: 10, cost: 500, interval: 1000 }
     ];
     
-    // === ОБНОВЛЕННЫЕ КВЕСТЫ (добавлены 5 новых) ===
     var questsData = [
-      { id: 1, need: 1000, reward: 0.5 }, 
-      { id: 2, need: 5000, reward: 1 },
-      { id: 3, need: 10000, reward: 2 }, 
-      { id: 4, need: 15000, reward: 5 }, 
-      { id: 5, need: 20000, reward: 10 },
-      { id: 6, need: 25000, reward: 15 },
-      { id: 7, need: 30000, reward: 20 },
-      { id: 8, need: 35000, reward: 25 },
-      { id: 9, need: 40000, reward: 30 },
-      { id: 10, need: 50000, reward: 50 },
-      { id: 11, need: 100000, reward: 100 },
-      { id: 12, need: 250000, reward: 500 },
-      { id: 13, need: 500000, reward: 500 },
-      { id: 14, need: 750000, reward: 750 },
-      { id: 15, need: 1000000, reward: 1000 },
-      { id: 16, need: 2500000, reward: 2500 },  // Новый
-      { id: 17, need: 5000000, reward: 5000 },  // Новый
-      { id: 18, need: 10000000, reward: 10000 },// Новый
-      { id: 19, need: 25000000, reward: 25000 },// Новый
-      { id: 20, need: 50000000, reward: 50000 } // Новый
+      { id: 1, need: 1000, reward: 0.5 }, { id: 2, need: 5000, reward: 1 }, { id: 3, need: 10000, reward: 2 }, 
+      { id: 4, need: 15000, reward: 5 }, { id: 5, need: 20000, reward: 10 }, { id: 6, need: 25000, reward: 15 },
+      { id: 7, need: 30000, reward: 20 }, { id: 8, need: 35000, reward: 25 }, { id: 9, need: 40000, reward: 30 },
+      { id: 10, need: 50000, reward: 50 }, { id: 11, need: 100000, reward: 100 }, { id: 12, need: 250000, reward: 500 },
+      { id: 13, need: 500000, reward: 500 }, { id: 14, need: 750000, reward: 750 }, { id: 15, need: 1000000, reward: 1000 },
+      { id: 16, need: 2500000, reward: 2500 }, { id: 17, need: 5000000, reward: 5000 }, { id: 18, need: 10000000, reward: 10000 },
+      { id: 19, need: 25000000, reward: 25000 }, { id: 20, need: 50000000, reward: 50000 }
     ];
 
     var skinsData = [
@@ -1035,7 +925,6 @@
     var forceMoai = false; 
     var SPIN_DURATION = 9000; 
 
-    // === НОВЫЕ МНОЖИТЕЛИ ===
     var rankMultipliers = [1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5];
     var currentMultiplier = 1.05;
 
@@ -1075,51 +964,40 @@
 
     function updatePotatoSkin() {
       var skin = skinsData.find(s => s.id === equippedSkin);
-      if(potatoDisplay) {
-          potatoDisplay.innerHTML = `<img src="${skin.image}" draggable="false" onerror="this.style.display='none'; this.parentNode.innerHTML='${skin.emoji}';">`;
-      }
+      if(potatoDisplay) { potatoDisplay.innerHTML = `<img src="${skin.image}" draggable="false" onerror="this.style.display='none'; this.parentNode.innerHTML='${skin.emoji}';">`; }
     }
 
     function updateRank() {
       var rankIndex = 0;
-      // Пороги распределены так, чтобы последний ранг (50 млн) совпадал с последним квестом
-      if (totalTaps >= 50000000) rankIndex = 9;      // 50M+ (Бог Картофеля)
-      else if (totalTaps >= 25000000) rankIndex = 8; // 25M+ (Легенда)
-      else if (totalTaps >= 10000000) rankIndex = 7; // 10M+ (Повелитель)
-      else if (totalTaps >= 5000000) rankIndex = 6;  // 5M+ (Магнат)
-      else if (totalTaps >= 1000000) rankIndex = 5;  // 1M+ (Гуру тапов)
-      else if (totalTaps >= 250000) rankIndex = 4;   // 250K+ (Мастер клика)
-      else if (totalTaps >= 100000) rankIndex = 3;   // 100K+ (Агроном)
-      else if (totalTaps >= 25000) rankIndex = 2;    // 25K+ (Фермер)
-      else if (totalTaps >= 5000) rankIndex = 1;     // 5K+ (Тапатель)
+      if (totalTaps >= 50000000) rankIndex = 9;
+      else if (totalTaps >= 25000000) rankIndex = 8;
+      else if (totalTaps >= 10000000) rankIndex = 7;
+      else if (totalTaps >= 5000000) rankIndex = 6;
+      else if (totalTaps >= 1000000) rankIndex = 5;
+      else if (totalTaps >= 250000) rankIndex = 4;
+      else if (totalTaps >= 100000) rankIndex = 3;
+      else if (totalTaps >= 25000) rankIndex = 2;
+      else if (totalTaps >= 5000) rankIndex = 1;
 
       currentMultiplier = rankMultipliers[rankIndex];
 
-      if (profileRankEl) {
-        profileRankEl.innerText = t.title_rank + t.ranks[rankIndex] + " (x" + currentMultiplier + ")";
-      }
-      if (tapBoostDisplay) {
-        tapBoostDisplay.innerText = "(x" + currentMultiplier + ")";
-      }
+      if (profileRankEl) profileRankEl.innerText = t.title_rank + t.ranks[rankIndex] + " (x" + currentMultiplier + ")";
+      if (tapBoostDisplay) tapBoostDisplay.innerText = "(x" + currentMultiplier + ")";
     }
 
     function updateUI() {
       if (balanceEl) {
-        balanceEl.innerText = balance.toFixed(3);
-        if (balance < 0) {
-          balanceEl.classList.add('negative');
-        } else {
-          balanceEl.classList.remove('negative');
-        }
+        balanceEl.innerText = formatMoney(balance); // Применяем форматирование
+        if (balance < 0) { balanceEl.classList.add('negative'); } else { balanceEl.classList.remove('negative'); }
       }
 
       updateRank(); 
 
       var effectiveTapValue = tapValue * currentMultiplier;
-      if (tapPowerEl) tapPowerEl.innerText = effectiveTapValue.toFixed(3); 
-
-      if (totalTapsText) totalTapsText.innerText = totalTaps;
-      if (progressFill) progressFill.style.width = Math.min(100, (totalTaps / 50000000) * 100) + '%'; // Обновлен прогресс-бар под 50М
+      if (tapPowerEl) tapPowerEl.innerText = formatMoney(effectiveTapValue); // Применяем форматирование
+      
+      if (totalTapsText) totalTapsText.innerText = formatMoney(totalTaps, 0); // Тапы без копеек
+      if (progressFill) progressFill.style.width = Math.min(100, (totalTaps / 50000000) * 100) + '%';
       
       checkAchievements();
       checkQuestReady();
@@ -1143,21 +1021,11 @@
         var hours = Math.floor(timeLeft / (1000 * 60 * 60));
         var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
         timerEl.innerText = hours + 'ч ' + minutes + 'м';
-        timerEl.style.display = 'block';
-        lockEl.style.display = 'flex';
-        btnEl.disabled = true;
-        btnEl.innerText = t.gift_wait;
-        
-        questionEl.style.display = 'flex';
-        rewardDisplayEl.style.display = 'none';
+        timerEl.style.display = 'block'; lockEl.style.display = 'flex'; btnEl.disabled = true; btnEl.innerText = t.gift_wait;
+        questionEl.style.display = 'flex'; rewardDisplayEl.style.display = 'none';
       } else {
-        timerEl.style.display = 'none';
-        lockEl.style.display = 'none';
-        btnEl.disabled = false;
-        btnEl.innerText = t.daily_gift_btn;
-        
-        questionEl.style.display = 'flex';
-        rewardDisplayEl.style.display = 'none';
+        timerEl.style.display = 'none'; lockEl.style.display = 'none'; btnEl.disabled = false; btnEl.innerText = t.daily_gift_btn;
+        questionEl.style.display = 'flex'; rewardDisplayEl.style.display = 'none';
       }
     }
 
@@ -1169,737 +1037,87 @@
       var reward = 0;
       var isJackpot = false;
 
-      if (roll < 0.01) { 
-        reward = 300;
-        isJackpot = true;
-      } else if (roll < 0.10) { 
-        reward = Math.random() * (50 - 10) + 10; 
-      } else if (roll < 0.40) { 
-        reward = Math.random() * (10 - 1) + 1; 
-      } else { 
-        reward = Math.random() * (1 - 0.001) + 0.001; 
-      }
+      if (roll < 0.01) { reward = 300; isJackpot = true; } 
+      else if (roll < 0.10) { reward = Math.random() * (50 - 10) + 10; } 
+      else if (roll < 0.40) { reward = Math.random() * (10 - 1) + 1; } 
+      else { reward = Math.random() * (1 - 0.001) + 0.001; }
       
       reward = parseFloat(reward.toFixed(3));
-      balance += reward;
-      lastGiftTime = now;
-      save();
-      updateUI();
+      balance += reward; lastGiftTime = now; save(); updateUI();
       
-      var questionEl = getEl('giftQuestion');
-      var rewardDisplayEl = getEl('giftRewardDisplay');
-      var rewardTextEl = getEl('giftRewardText');
-      var jackpotEl = getEl('jackpotText');
+      var questionEl = getEl('giftQuestion'); var rewardDisplayEl = getEl('giftRewardDisplay'); var rewardTextEl = getEl('giftRewardText'); var jackpotEl = getEl('jackpotText');
       
       if (questionEl) questionEl.style.display = 'none';
       if (rewardDisplayEl) rewardDisplayEl.style.display = 'flex';
-      if (rewardTextEl) rewardTextEl.innerText = '₽ ' + reward.toFixed(3);
+      if (rewardTextEl) rewardTextEl.innerText = '₽ ' + formatMoney(reward); // Форматирование награды
       
       if (isJackpot) {
         if (rewardTextEl) rewardTextEl.classList.add('jackpot');
-        if (jackpotEl) {
-          jackpotEl.style.display = 'block';
-          jackpotEl.innerText = t.jackpot;
-        }
-        playSound('quest_claim_10'); 
-        playHaptic('heavy'); 
+        if (jackpotEl) { jackpotEl.style.display = 'block'; jackpotEl.innerText = t.jackpot; }
+        playSound('quest_claim_10'); playHaptic('heavy'); 
         
-        if (unlockedAch.indexOf(10) === -1) {
-          unlockedAch.push(10);
-          setTimeout(function() { playSound('achievement'); }, 500);
-        }
+        if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); setTimeout(function() { playSound('achievement'); }, 500); }
       } else {
         if (rewardTextEl) rewardTextEl.classList.remove('jackpot');
         if (jackpotEl) jackpotEl.style.display = 'none';
-        playSound('quest_claim'); 
-        playHaptic('success');
+        playSound('quest_claim'); playHaptic('success');
       }
       
       updateGiftUI();
-      
       if (giftTimerInterval) clearInterval(giftTimerInterval);
       giftTimerInterval = setInterval(updateGiftUI, 60000); 
     };
 
     window.switchShopTab = function(tab) {
       playHaptic('medium'); 
-      var tabs = document.querySelectorAll('.shop-tab-btn');
-      if(tabs.length < 2) return;
-      var skinsBtn = tabs[0];
-      var giftsBtn = tabs[1];
-      
-      var skinsContent = getEl('shopContentSkins');
-      var giftsContent = getEl('shopContentGifts');
-      
+      var tabs = document.querySelectorAll('.shop-tab-btn'); if(tabs.length < 2) return;
+      var skinsBtn = tabs[0]; var giftsBtn = tabs[1];
+      var skinsContent = getEl('shopContentSkins'); var giftsContent = getEl('shopContentGifts');
       if (!skinsContent || !giftsContent) return;
 
       if (tab === 'skins') {
-        skinsBtn.classList.add('active');
-        giftsBtn.classList.remove('active');
-        skinsContent.style.display = 'block';
-        giftsContent.style.display = 'none';
-        renderShop();
+        skinsBtn.classList.add('active'); giftsBtn.classList.remove('active');
+        skinsContent.style.display = 'block'; giftsContent.style.display = 'none'; renderShop();
       } else {
-        giftsBtn.classList.add('active');
-        skinsBtn.classList.remove('active');
-        skinsContent.style.display = 'none';
-        giftsContent.style.display = 'block';
-        updateGiftUI();
+        giftsBtn.classList.add('active'); skinsBtn.classList.remove('active');
+        skinsContent.style.display = 'none'; giftsContent.style.display = 'block'; updateGiftUI();
       }
     };
 
     var casinoItems = [
-      { type: 'money', value: 0.1 }, { type: 'money', value: 0.5 }, { type: 'money', value: 2 },
-      { type: 'money', value: 5 }, { type: 'money', value: 10 }, { type: 'money', value: 50 },
-      { type: 'money', value: 100 }, { type: 'money', value: 500 }, { type: 'money', value: 1000 },
-      { type: 'money', value: -0.1 }, { type: 'money', value: -0.5 }, { type: 'money', value: -2 },
-      { type: 'money', value: -5 }, { type: 'money', value: -10 }, { type: 'money', value: -50 },
-      { type: 'money', value: -100 }, { type: 'money', value: -500 }, { type: 'money', value: -1000 }
+      { type: 'money', value: 0.1 }, { type: 'money', value: 0.5 }, { type: 'money', value: 2 }, { type: 'money', value: 5 }, { type: 'money', value: 10 }, { type: 'money', value: 50 }, { type: 'money', value: 100 }, { type: 'money', value: 500 }, { type: 'money', value: 1000 },
+      { type: 'money', value: -0.1 }, { type: 'money', value: -0.5 }, { type: 'money', value: -2 }, { type: 'money', value: -5 }, { type: 'money', value: -10 }, { type: 'money', value: -50 }, { type: 'money', value: -100 }, { type: 'money', value: -500 }, { type: 'money', value: -1000 }
     ];
 
     function initCasino() {
       if (!casinoReel) return;
       casinoReel.innerHTML = '';
-      for (var i = 0; i < 50; i++) {
-        addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
-      }
+      for (var i = 0; i < 50; i++) { addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]); }
     }
 
     function addReelItem(item) {
       if (!casinoReel) return;
-      var div = document.createElement('div');
-      div.className = 'reel-item';
-      if (item.type === 'fries') {
-        div.classList.add('fries');
-        div.innerText = '🍟';
-      } else if (item.type === 'moai') {
-        div.classList.add('moai');
-        div.innerText = '🗿';
-      } else if (item.type === 'money' && item.value < 0) {
-        div.classList.add('negative');
-        div.innerText = '₽ ' + item.value;
-      } else {
-        div.innerText = '₽ ' + item.value;
-      }
+      var div = document.createElement('div'); div.className = 'reel-item';
+      if (item.type === 'fries') { div.classList.add('fries'); div.innerText = '🍟'; } 
+      else if (item.type === 'moai') { div.classList.add('moai'); div.innerText = '🗿'; } 
+      else if (item.type === 'money' && item.value < 0) { div.classList.add('negative'); div.innerText = '₽ ' + formatMoney(item.value); } // Форматирование казино
+      else { div.innerText = '₽ ' + formatMoney(item.value); }
       casinoReel.appendChild(div);
     }
 
-    window.activateMoaiTest = function() {
-      forceMoai = true;
-      playHaptic('medium');
-      alert('Следующая прокрутка 100% выдаст 🗿! (Для теста)');
-    }
+    window.activateMoaiTest = function() { forceMoai = true; playHaptic('medium'); alert('Следующая прокрутка 100% выдаст 🗿! (Для теста)'); }
 
     window.spinCasino = function() {
       if (isSpinning || !casinoReel || !spinBtn) return;
-      if (balance < spinCost) {
-        playHaptic('error');
-        alert(t.not_enough_money);
-        return;
-      }
+      if (balance < spinCost) { playHaptic('error'); alert(t.not_enough_money); return; }
       
-      isSpinning = true;
-      balance -= spinCost;
-      updateUI();
-      
-      spinBtn.disabled = true;
-      playHaptic('medium');
-      
-      playCasinoSpinSound(SPIN_DURATION); 
+      isSpinning = true; balance -= spinCost; updateUI();
+      spinBtn.disabled = true; playHaptic('medium'); playCasinoSpinSound(SPIN_DURATION); 
       
       var winItem = null;
-      
-      if (forceMoai) {
-        winItem = { type: 'moai' };
-        forceMoai = false; 
-      } else if (Math.random() < 0.000001) {
-        winItem = { type: 'moai' };
-      } else if (Math.random() < 0.001) {
-        winItem = { type: 'fries' };
-      } else {
-        var isNegative = Math.random() < 0.5;
-        var val = 0;
-        var r2 = Math.random();
-        
-        if (r2 < 0.6) val = (Math.random() * 5 + 0.1).toFixed(1);
-        else if (r2 < 0.9) val = (Math.random() * 45 + 5).toFixed(1);
-        else val = (Math.random() * 900 + 100).toFixed(0);
-
-        if (isNegative) val = -val;
-        winItem = { type: 'money', value: parseFloat(val) };
-      }
-
-      casinoReel.style.transition = 'none';
-      casinoReel.style.transform = 'translateX(0px)';
-      casinoReel.innerHTML = '';
-      
-      for (var i = 0; i < 40; i++) {
-        addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
-      }
-      
-      addReelItem(winItem);
-      
-      for (var i = 0; i < 10; i++) {
-        addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
-      }
-
-      setTimeout(function() {
-        casinoReel.style.transition = 'transform ' + (SPIN_DURATION/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
-        
-        var reelWindow = document.querySelector('.reel-window');
-        var containerWidth = reelWindow ? reelWindow.offsetWidth : 320; // Фоллбек
-        var itemWidth = 90; 
-        var centerOffset = (containerWidth / 2) - (itemWidth / 2);
-        var targetPosition = (40 * itemWidth) - centerOffset;
-        
-        casinoReel.style.transform = 'translateX(-' + targetPosition + 'px)';
-        
-        setTimeout(function() {
-          isSpinning = false;
-          spinBtn.disabled = false;
-          
-          if (winItem.type === 'moai') {
-            balance = 0; 
-            updateUI();
-            playSound('quest_claim_10');
-            playHaptic('heavy');
-            alert(currentLang === 'ru' ? '🗿 ТЫ ВЫБИЛ МУАИ! Баланс обнулен...' : '🗿 YOU HIT THE MOAI! Balance zeroed...');
-            
-            if (unlockedAch.indexOf(14) === -1) {
-              unlockedAch.push(14);
-              playSound('achievement');
-              save();
-            }
-          } else if (winItem.type === 'fries') {
-            balance += 5000;
-            updateUI();
-            playSound('quest_claim_10');
-            playHaptic('heavy');
-            alert(currentLang === 'ru' ? '🍟 ДЖЕКПОТ! Вы выиграли 5000 ₽ и выполнили квест "Игроман"!' : '🍟 JACKPOT! You won 5000 ₽ and completed the "Gambler" quest!');
-            
-            if (unlockedAch.indexOf(10) === -1) {
-              unlockedAch.push(10);
-              playSound('achievement');
-              save();
-            }
-          } else {
-            var winVal = parseFloat(winItem.value);
-            balance += winVal; 
-            updateUI();
-            
-            if (winVal < 0) {
-              playHaptic('error');
-              alert((currentLang === 'ru' ? 'Вы проиграли: ' : 'You lost: ') + Math.abs(winVal) + ' ₽');
-            } else {
-              playSound('casino_win');
-              playHaptic('success');
-              alert((currentLang === 'ru' ? 'Вы выиграли: ' : 'You won: ') + winVal + ' ₽');
-            }
-            
-            if (unlockedAch.indexOf(13) === -1) {
-              unlockedAch.push(13);
-              playSound('achievement');
-              save();
-            }
-          }
-          
-        }, SPIN_DURATION + 100); 
-      }, 50);
-    };
-
-    function checkQuestReady() {
-      if (hasUnclaimedQuest) return;
-      for (var i = 0; i < questsData.length; i++) {
-        var q = questsData[i];
-        if (claimed.indexOf(q.id) === -1 && totalTaps >= q.need) {
-          playSound('quest_ready'); hasUnclaimedQuest = true; break;
-        }
-      }
-    }
-
-    function checkAchievements() {
-      var newUnlock = false;
-      if (totalTaps >= 100 && unlockedAch.indexOf(0) === -1) { unlockedAch.push(0); newUnlock = true; }
-      if (totalTaps >= 1000 && unlockedAch.indexOf(1) === -1) { unlockedAch.push(1); newUnlock = true; }
-      if (totalTaps >= 10000 && unlockedAch.indexOf(2) === -1) { unlockedAch.push(2); newUnlock = true; }
-      if (totalTaps >= 20000 && unlockedAch.indexOf(3) === -1) { unlockedAch.push(3); newUnlock = true; }
-      if (balance >= 100 && unlockedAch.indexOf(4) === -1) { unlockedAch.push(4); newUnlock = true; }
-      if (hasAutoclicker && unlockedAch.indexOf(5) === -1) { unlockedAch.push(5); newUnlock = true; }
-      if (maxUpgrade >= 5 && unlockedAch.indexOf(6) === -1) { unlockedAch.push(6); newUnlock = true; }
-      if (maxUpgrade >= 10 && unlockedAch.indexOf(7) === -1) { unlockedAch.push(7); newUnlock = true; }
-      if (totalTaps >= 50000 && unlockedAch.indexOf(8) === -1) { unlockedAch.push(8); newUnlock = true; }
-      if (maxUpgrade >= 15 && unlockedAch.indexOf(9) === -1) { unlockedAch.push(9); newUnlock = true; }
-      
-      if (ownedSkins.indexOf(1) !== -1 && unlockedAch.indexOf(11) === -1) { unlockedAch.push(11); newUnlock = true; }
-      if (ownedSkins.indexOf(2) !== -1 && unlockedAch.indexOf(12) === -1) { unlockedAch.push(12); newUnlock = true; }
-      
-      if (autoValueLevel >= 15 && unlockedAch.indexOf(15) === -1) { unlockedAch.push(15); newUnlock = true; }
-      if (maxUpgrade >= 20 && unlockedAch.indexOf(16) === -1) { unlockedAch.push(16); newUnlock = true; }
-      if (totalTaps >= 500000 && unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); newUnlock = true; }
-      if (totalTaps >= 1000000 && unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); newUnlock = true; }
-      
-      if (maxUpgrade >= 30 && unlockedAch.indexOf(19) === -1) { unlockedAch.push(19); newUnlock = true; }
-      if (autoValueLevel >= 25 && unlockedAch.indexOf(20) === -1) { unlockedAch.push(20); newUnlock = true; }
-      
-      // Достижение "Затянуло" (100 000 тапов)
-      if (totalTaps >= 100000 && unlockedAch.indexOf(21) === -1) { unlockedAch.push(21); newUnlock = true; }
-
-      if (newUnlock) { playSound('achievement'); save(); }
-    }
-
-    function updateAutoInfo() {
-      if (hasAutoclicker) {
-        if (autoInfo) {
-          autoInfo.style.display = 'block';
-          var text = currentLang === 'ru' 
-            ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' сек'
-            : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' sec';
-          autoInfo.innerText = text;
-        }
-      } else { 
-        if (autoInfo) autoInfo.style.display = 'none'; 
-      }
-    }
-
-    function startAutoclicker() {
-      if (autoTimer) clearInterval(autoTimer);
-      if (!hasAutoclicker) return;
-      autoTimer = setInterval(function() { balance += autoValue; updateUI(); }, autoInterval);
-    }
-
-    function handleTap(e) {
-      var now = Date.now();
-      if (now - lastTapTime < 50) return;
-      lastTapTime = now;
-      if (e.cancelable) e.preventDefault();
-      
-      playHaptic('light');
-
-      var effectiveTapValue = tapValue * currentMultiplier;
-      
-      balance += effectiveTapValue;
-      totalTaps += 1;
-      updateUI();
-
-      var float = document.createElement('div');
-      float.className = 'float-text';
-      float.innerText = '+' + effectiveTapValue.toFixed(3); 
-      
-      var clientX = window.innerWidth / 2; var clientY = window.innerHeight / 2;
-      if (e.touches && e.touches[0]) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; } 
-      else if (e.clientX) { clientX = e.clientX; clientY = e.clientY; }
-
-      float.style.left = clientX + 'px'; float.style.top = clientY + 'px';
-      document.body.appendChild(float);
-      setTimeout(function() { if (float.parentNode) float.parentNode.removeChild(float); }, 800);
-    }
-
-    if (potatoBtn) {
-      potatoBtn.addEventListener('touchstart', handleTap, { passive: false });
-      potatoBtn.addEventListener('mousedown', handleTap);
-    }
-
-    function renderShop() {
-      if (!shopList) return;
-      shopList.innerHTML = '';
-      for (var i = 0; i < skinsData.length; i++) {
-        var skin = skinsData[i];
-        var isOwned = ownedSkins.indexOf(skin.id) !== -1;
-        var isEquipped = equippedSkin === skin.id;
-        
-        var skinName = currentLang === 'en' ? skin.en_name : skin.name;
-
-        var card = document.createElement('div');
-        card.className = 'card shop-card';
-        
-        var previewStyle = (!isOwned && skin.id !== 0) ? 'filter: grayscale(100%) opacity(0.5);' : '';
-        
-        var btnHtml = '';
-        if (isEquipped) {
-          btnHtml = `<button class="btn btn-green" disabled>${t.equipped}</button>`;
-        } else if (isOwned) {
-          btnHtml = `<button class="btn" onclick="equipSkin(${skin.id})">${t.equip}</button>`;
-        } else {
-          btnHtml = `<button class="btn btn-blue" onclick="buySkin(${skin.id})">${t.buy} (${skin.price} ₽)</button>`;
-        }
-
-        var previewHtml = `<img src="${skin.image}" style="${previewStyle}" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'${previewStyle}\\'>${skin.emoji}</span>';">`;
-
-        card.innerHTML = `
-          <div class="shop-preview">${previewHtml}</div>
-          <div class="card-title" style="margin-bottom: 8px;">${skinName}</div>
-          ${btnHtml}
-        `;
-        shopList.appendChild(card);
-      }
-    }
-
-    window.buySkin = function(id) {
-      var skin = skinsData.find(s => s.id === id);
-      if (balance >= skin.price) {
-        balance -= skin.price;
-        ownedSkins.push(id);
-        
-        if (id === 1) {
-          playSound('buy_gold');
-        } else if (id === 2) {
-          playSound('buy_ghost');
-        } else {
-          playSound('upgrade');
-        }
-        
-        playHaptic('success');
-        updateUI();
-        renderShop();
-      } else {
-        playHaptic('error');
-        alert(t.not_enough_money);
-      }
-    }
-
-    window.equipSkin = function(id) {
-      equippedSkin = id;
-      updatePotatoSkin();
-      save();
-      renderShop();
-      playHaptic('medium');
-    }
-
-    function renderUpgrades() {
-      if (!upgradesList) return;
-      upgradesList.innerHTML = '';
-      if (currentTab === 'tap') {
-        for (var i = 0; i < upgradesData.length; i++) {
-          var upg = upgradesData[i];
-          var level = i + 1;
-          var isBought = level <= maxUpgrade;
-          var isNext = level === maxUpgrade + 1;
-          
-          var btnText = isBought ? t.bought : (isNext ? t.buy_for + ' ' + upg.cost + ' ₽' : t.buy_prev);
-          var upgName = t.upg_names[i];
-          var upgDesc = t.upg_desc + ' ' + upg.desc.toFixed(3) + ' ₽';
-          
-          var card = document.createElement('div'); card.className = 'card';
-          card.innerHTML = '<div class="card-content"><div class="card-title">' + upgName + '</div><div class="card-desc">' + upgDesc + '</div></div>';
-          
-          var btn = document.createElement('button');
-          btn.className = 'btn';
-          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
-          btn.innerText = btnText;
-          if (!isNext) btn.disabled = true;
-
-          if (isNext) {
-            btn.onclick = (function(u, lvl) {
-              return function() {
-                if (balance >= u.cost) {
-                  balance -= u.cost; tapValue = u.value; maxUpgrade = lvl;
-                  playSound('upgrade');
-                  playHaptic('success');
-                  updateUI(); renderUpgrades();
-                } else {
-                  playHaptic('error');
-                  alert(t.not_enough_money);
-                }
-              };
-            })(upg, level);
-          }
-          card.appendChild(btn); upgradesList.appendChild(card);
-        }
-      } else {
-        if (!hasAutoclicker) {
-          var card = document.createElement('div'); card.className = 'card';
-          card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_buy + '</div><div class="card-desc">' + t.auto_desc + '</div></div>';
-          var btn = document.createElement('button'); btn.className = 'btn'; 
-          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
-          btn.innerText = t.buy_for + ' 100 ₽';
-          btn.onclick = function() {
-            if (balance >= 100) {
-              balance -= 100; hasAutoclicker = true;
-              playSound('upgrade');
-              playHaptic('success');
-              updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
-            } else {
-              playHaptic('error');
-              alert(t.not_enough_money); 
-            }
-          };
-          card.appendChild(btn); upgradesList.appendChild(card);
-        } else {
-          var t1 = document.createElement('div'); t1.className = 'section-title'; t1.innerText = t.auto_power; upgradesList.appendChild(t1);
-          for (var v = 0; v < autoValueData.length; v++) {
-            var av = autoValueData[v];
-            var isB = autoValueLevel >= av.level; var isN = autoValueLevel + 1 === av.level;
-            var card = document.createElement('div'); card.className = 'card';
-            card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_power + ' Lv.' + av.level + '</div><div class="card-desc">' + t.gives + ' ' + av.value + ' ₽</div></div>';
-            var btn = document.createElement('button'); btn.className = 'btn';
-            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
-            btn.innerText = isB ? t.bought : (isN ? t.buy_for + ' ' + av.cost + ' ₽' : t.buy_prev);
-            if (!isN) btn.disabled = true;
-            if (isN) {
-              btn.onclick = (function(a) {
-                return function() {
-                  if (balance >= a.cost) {
-                    balance -= a.cost; autoValue = a.value; autoValueLevel = a.level;
-                    playSound('upgrade');
-                    playHaptic('success');
-                    updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
-                  } else {
-                    playHaptic('error');
-                    alert(t.not_enough_money); 
-                  }
-                };
-              })(av);
-            }
-            card.appendChild(btn); upgradesList.appendChild(card);
-          }
-          var t2 = document.createElement('div'); t2.className = 'section-title'; t2.innerText = t.auto_speed; upgradesList.appendChild(t2);
-          for (var s = 0; s < autoSpeedData.length; s++) {
-            var as = autoSpeedData[s];
-            var isB = autoSpeedLevel >= as.level; var isN = autoSpeedLevel + 1 === as.level;
-            var card = document.createElement('div'); card.className = 'card';
-            card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_speed + ' Lv.' + as.level + '</div><div class="card-desc">' + t.interval + ': ' + (as.interval/1000) + ' ' + t.sec + '</div></div>';
-            var btn = document.createElement('button'); btn.className = 'btn';
-            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
-            btn.innerText = isB ? t.bought : (isN ? t.buy_for + ' ' + as.cost + ' ₽' : t.buy_prev);
-            if (!isN) btn.disabled = true;
-            if (isN) {
-              btn.onclick = (function(a) {
-                return function() {
-                  if (balance >= a.cost) {
-                    balance -= a.cost; autoInterval = a.interval; autoSpeedLevel = a.level;
-                    playSound('upgrade');
-                    playHaptic('success');
-                    updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
-                  } else {
-                    playHaptic('error');
-                    alert(t.not_enough_money); 
-                  }
-                };
-              })(as);
-            }
-            card.appendChild(btn); upgradesList.appendChild(card);
-          }
-        }
-      }
-    }
-
-    function renderQuests() {
-      if (!questsList) return;
-      questsList.innerHTML = '';
-      for (var i = 0; i < questsData.length; i++) {
-        var q = questsData[i];
-        var isClaimed = claimed.indexOf(q.id) !== -1;
-        var canClaim = !isClaimed && totalTaps >= q.need;
-        
-        var titleText = currentLang === 'ru' ? 'Натапать ' + q.need + ' раз' : 'Tap ' + q.need + ' times';
-        var descText = t.make_taps + ' ' + q.need + ' ' + t.taps_word;
-        var progText = t.progress + ': ' + Math.min(totalTaps, q.need) + ' / ' + q.need;
-        
-        var card = document.createElement('div'); card.className = 'card';
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-top: 8px; margin-bottom: 0; color: #a78bfa; font-size:9px; line-height: 1.6; word-break: break-word;">' + progText + '</div></div>';
-        
-        var btn = document.createElement('button'); btn.className = 'btn';
-        btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
-        
-        if (isClaimed) { btn.innerText = t.received; btn.disabled = true; }
-        else if (canClaim) {
-          btn.innerText = t.claim + ' (+' + q.reward + ' ₽)';
-          btn.style.background = '#10b981';
-          btn.onclick = (function(quest) {
-            return function() {
-              balance += quest.reward; claimed.push(quest.id);
-              
-              // Добавлены звуки для новых квестов (16-20)
-              if (quest.id === 10 || quest.id === 16 || quest.id === 18 || quest.id === 19 || quest.id === 20) {
-                playSound('quest_claim_10');
-              } else if (quest.id === 11) {
-                playSound('quest_claim_11');
-              } else if (quest.id === 15 || quest.id === 17) {
-                playSound('quest_claim_15');
-              } else {
-                playSound('quest_claim');
-              }
-              
-              playHaptic('success');
-              
-              hasUnclaimedQuest = false;
-              updateUI(); renderQuests();
-            };
-          })(q);
-        } else { btn.innerText = t.not_done; btn.disabled = true; }
-        card.appendChild(btn); questsList.appendChild(card);
-      }
-    }
-
-    function renderAchievements() {
-      if (!achievementsList) return;
-      achievementsList.innerHTML = '';
-      var achData = t.ach_list;
-
-      for (var i = 0; i < achData.length; i++) {
-        var isUnlocked = unlockedAch.indexOf(i) !== -1;
-        var ach = achData[i];
-        
-        var card = document.createElement('div');
-        card.className = 'card';
-        
-        if (isUnlocked) { 
-          card.classList.add('rgb-glow'); 
-        } else { 
-          card.style.opacity = '0.5'; 
-          card.style.filter = 'grayscale(100%)'; 
-        }
-
-        var iconHtml = ach.icon === 'wood' 
-          ? `<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/><ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/><ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/><ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/><ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/><path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>` 
-          : `<div class="card-icon">${ach.icon}</div>`;
-
-        var statusHtml = isUnlocked 
-          ? `<div class="card-status status-unlocked">${t.ach_unlocked}</div>` 
-          : `<div class="card-status status-locked">${t.ach_locked}</div>`;
-
-        card.innerHTML = `${iconHtml}<div class="card-content"><div class="card-title">${ach.title}</div><div class="card-desc">${ach.desc}</div>${statusHtml}</div>`;
-        achievementsList.appendChild(card);
-      }
-    }
-
-    function renderRating() {
-      var container = getEl('leaderboardList');
-      if (!container) return;
-      container.innerHTML = '';
-      var row = document.createElement('div');
-      row.className = 'rating-row';
-      var avatarSrc = userPhoto ? userPhoto : 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
-      
-      row.innerHTML = '<div class="rating-rank">1</div><img class="rating-avatar" src="' + avatarSrc + '" alt=""><div class="rating-info"><div class="rating-name">' + userName + '</div><div class="rating-score">' + t.balance + ': ' + balance.toFixed(3) + ' ₽</div></div>';
-      container.appendChild(row);
-    }
-
-    function loadUser() {
-      var photo = '';
-      try {
-        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-          var u = tg.initDataUnsafe.user;
-          if (u.photo_url) photo = u.photo_url;
-          if (u.username) userName = '@' + u.username;
-          else if (u.first_name) userName = u.first_name;
-        }
-      } catch(e) {}
-
-      if (!photo) photo = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
-      
-      userPhoto = photo;
-      
-      var topAvatar = getEl('topAvatar');
-      var profileAvatar = getEl('profileAvatar');
-      var profileName = getEl('profileName');
-
-      if (topAvatar) topAvatar.src = photo;
-      if (profileAvatar) profileAvatar.src = photo;
-      if (profileName) profileName.innerText = userName;
-    }
-
-    function showScreen(name) {
-      playHaptic('medium'); 
-      var screens = document.querySelectorAll('.screen');
-      for (var s = 0; s < screens.length; s++) screens[s].classList.remove('active');
-      var target = getEl('screen-' + name);
-      if (target) target.classList.add('active');
-
-      var menuItems = document.querySelectorAll('.menu-item');
-      for (var m = 0; m < menuItems.length; m++) {
-        menuItems[m].classList.remove('active');
-        if (menuItems[m].getAttribute('data-screen') === name) menuItems[m].classList.add('active');
-      }
-      
-      if (name === 'achievements' || name === 'shop' || name === 'casino' || name === 'settings') {
-        for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active');
-      }
-
-      if (topBalanceBar) {
-        if (name === 'quests' || name === 'rating' || name === 'achievements' || name === 'settings') {
-          topBalanceBar.style.display = 'none';
-        } else {
-          topBalanceBar.style.display = 'flex';
-        }
-      }
-
-      if (name === 'upgrades') renderUpgrades();
-      if (name === 'quests') renderQuests();
-      if (name === 'profile') { loadUser(); updateRank(); } 
-      if (name === 'rating') renderRating();
-      if (name === 'achievements') renderAchievements();
-      if (name === 'shop') { switchShopTab('skins'); } 
-      if (name === 'casino') { initCasino(); }
-      if (name === 'settings') { initRockets(); }
-    }
-
-    var openProfileBtn = getEl('openProfile');
-    if (openProfileBtn) {
-      openProfileBtn.onclick = function() { showScreen('profile'); };
-    }
-    
-    var menuItems = document.querySelectorAll('.menu-item');
-    for (var i = 0; i < menuItems.length; i++) {
-      menuItems[i].onclick = function() { showScreen(this.getAttribute('data-screen')); };
-    }
-
-    var tabTapBtn = getEl('tabTap');
-    var tabAutoBtn = getEl('tabAuto');
-
-    if (tabTapBtn) {
-      tabTapBtn.onclick = function() {
-        playHaptic('medium');
-        currentTab = 'tap'; this.classList.add('active'); 
-        if (tabAutoBtn) tabAutoBtn.classList.remove('active'); 
-        renderUpgrades();
-      };
-    }
-    
-    if (tabAutoBtn) {
-      tabAutoBtn.onclick = function() {
-        playHaptic('medium');
-        currentTab = 'auto'; this.classList.add('active'); 
-        if (tabTapBtn) tabTapBtn.classList.remove('active'); 
-        renderUpgrades();
-      };
-    }
-
-    window.withdrawMoney = function() {
-      if (balance < 10) { 
-        playHaptic('error');
-        alert(currentLang === 'ru' ? 'Минимум 10 ₽' : 'Minimum 10 ₽'); 
-        return; 
-      }
-      playHaptic('success');
-      alert((currentLang === 'ru' ? 'Вывод ' : 'Withdraw ') + balance.toFixed(2) + ' ₽ (test)');
-      balance = 0; updateUI();
-    };
-
-    var devClickCount = 0;
-    var devBtn = getEl('devBtn');
-    if (devBtn) {
-      devBtn.onclick = function() {
-        devClickCount++;
-        if (devClickCount >= 5) {
-          balance += 200000; totalTaps += 50000; updateUI();
-          playHaptic('heavy');
-          alert(currentLang === 'ru' ? '+200 000 ₽ и +50 000 тапов!' : '+200,000 ₽ and +50,000 taps!');
-          devClickCount = 0;
-        }
-      };
-    }
-
-    // Запуск игры
-    applyTranslations(); 
-    loadUser();
-    updateUI();
-    updateAutoInfo();
-    updatePotatoSkin(); 
-    updateGiftUI(); 
-    if (giftTimerInterval) clearInterval(giftTimerInterval);
-    giftTimerInterval = setInterval(updateGiftUI, 60000); 
-    if (hasAutoclicker) startAutoclicker();
-  </script>
-</body>
-</html>
+      if (forceMoai) { winItem = { type: 'moai' }; forceMoai = false; } 
+      else if (Math.random() < 0.000001) { winItem = { type: 'moai' }; } 
+      else if (Math.random() < 0.001) { winItem = { type: 'fries' }; } 
+      else {
+        var isNegative = Math.random() < 0.5; var val = 0; var r2 = Math.random();
+        if (r2 < 0.6) val
