@@ -237,6 +237,47 @@
     .progress-fill { height: 100%; background: #10b981; width: 0%; transition: width 0.3s; }
     .progress-hint { font-size: 8px; color: #9ca3af; margin-top: 10px; text-align: center; line-height: 1.5; }
 
+    /* НАСТРОЙКИ */
+    #screen-settings {
+      position: relative;
+      background: linear-gradient(180deg, #2e1065, #1e1b4b);
+      overflow: hidden;
+    }
+    #rocket-bg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 1; overflow: hidden;
+    }
+    .rocket {
+      position: absolute; font-size: 30px; opacity: 0.3;
+    }
+    .settings-content {
+      position: relative; z-index: 10; padding: 80px 20px 20px; display: flex; flex-direction: column; align-items: center; width: 100%;
+    }
+    .settings-title {
+      font-size: 16px; color: white; margin-bottom: 30px; text-transform: uppercase;
+      text-shadow: 2px 2px 0 #000;
+    }
+    .setting-row {
+      width: 100%; display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 20px; background: rgba(255,255,255,0.1); padding: 15px;
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
+    }
+    .setting-label {
+      font-size: 10px; color: #fff;
+    }
+    .toggle-btn {
+      background: #4b5563; color: #fff; border: 3px solid #374151; padding: 8px 12px;
+      font-size: 10px; font-family: inherit; cursor: pointer; border-radius: 8px; width: 80px; text-align: center;
+    }
+    .toggle-btn.active {
+      background: #10b981; border-color: #6ee7b7;
+    }
+    .btn-back {
+      position: absolute; top: 20px; left: 20px; z-index: 20;
+      background: #4b5563; border: 3px solid #374151; color: white; padding: 10px 15px;
+      font-family: inherit; font-size: 12px; cursor: pointer; border-radius: 8px;
+    }
+
     .lang-btn-top { 
       position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 6px; 
       background: rgba(255,255,255,0.1); padding: 6px 10px; cursor: pointer; font-size: 10px; color: #fff; z-index: 60; 
@@ -410,11 +451,31 @@
     </div>
   </div>
 
+  <!-- НОВЫЙ ЭКРАН: НАСТРОЙКИ -->
+  <div class="screen" id="screen-settings">
+    <div id="rocket-bg"></div>
+    <div class="settings-content">
+      <button class="btn-back" onclick="showScreen('profile')">◀</button>
+      <div class="settings-title" data-i18n="settings_title">Настройки</div>
+      
+      <div class="setting-row">
+        <div class="setting-label" data-i18n="sound_effects">Звуковые эффекты</div>
+        <button class="toggle-btn" id="soundToggle" onclick="toggleSound()">ВКЛ</button>
+      </div>
+      
+      <div class="setting-row">
+        <div class="setting-label" data-i18n="vibration">Вибрация</div>
+        <button class="toggle-btn" id="vibrationToggle" onclick="toggleVibration()">ВКЛ</button>
+      </div>
+
+      <button class="btn btn-blue" style="width: 100%; margin-top: 10px;" onclick="openLangMenu()" data-i18n="lang_btn">🌐 Язык / Language</button>
+      
+      <button class="btn btn-grey" style="width: 100%; background: #f59e0b; border-color: #fbbf24 #b45309 #b45309 #fbbf24;" onclick="openSupport()" data-i18n="support_btn">📢 Помощь и поддержка</button>
+    </div>
+  </div>
+
   <div class="screen" id="screen-profile">
     <div class="profile-content">
-      <div class="lang-btn-top" onclick="openLangMenu()">
-        🌐 <span id="currentLangText">RU</span>
-      </div>
       <img class="profile-avatar" id="profileAvatar" src="" alt="">
       <div class="profile-name" id="profileName" data-i18n="player">Игрок</div>
       <div class="profile-rank" id="profileRank"></div>
@@ -422,6 +483,9 @@
       <div class="profile-bottom">
         <button class="btn btn-grey" onclick="showScreen('achievements')" data-i18n="achievements_btn">🏆 Достижения</button>
         <button class="btn btn-green" onclick="withdrawMoney()" data-i18n="withdraw">Вывести средства</button>
+        
+        <!-- Кнопка Настроек -->
+        <button class="btn btn-blue" style="margin-top: 10px;" onclick="showScreen('settings')" data-i18n="settings_btn">⚙️ Настройки</button>
 
         <div class="progress-label" style="margin-top: 20px;"><span data-i18n="total_taps">Всего тапов</span><span id="totalTapsText">0</span></div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
@@ -446,6 +510,10 @@
       return false;
     };
 
+    // === НАСТРОЙКИ ЗВУКА И ВИБРАЦИИ ===
+    var isSoundEnabled = localStorage.getItem('soundEnabled') !== 'false';
+    var isVibrationEnabled = localStorage.getItem('vibrationEnabled') !== 'false';
+
     var audioCtx = null;
     function initAudio() {
       if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {} }
@@ -455,6 +523,7 @@
     document.body.addEventListener('touchstart', initAudio, { once: true });
 
     function playSound(type) {
+      if (!isSoundEnabled) return; // Проверка настроек
       if (!audioCtx) return;
       var osc = audioCtx.createOscillator();
       var gain = audioCtx.createGain();
@@ -527,6 +596,7 @@
     }
 
     function playCasinoSpinSound(durationMs) {
+      if (!isSoundEnabled) return;
       if (!audioCtx) return;
       var durationSec = durationMs / 1000;
       var now = audioCtx.currentTime;
@@ -566,6 +636,7 @@
     }
 
     function playHaptic(type) {
+      if (!isVibrationEnabled) return; // Проверка настроек
       if (tg && tg.HapticFeedback && typeof tg.HapticFeedback.impactOccurred === 'function') {
         try {
           if (type === 'light') tg.HapticFeedback.impactOccurred('light');
@@ -587,6 +658,129 @@
         } catch(e) {}
       }
     }
+
+    // === УПРАВЛЕНИЕ НАСТРОЙКАМИ ===
+    function updateSettingsUI() {
+      var soundBtn = document.getElementById('soundToggle');
+      var vibBtn = document.getElementById('vibrationToggle');
+      
+      if (isSoundEnabled) {
+        soundBtn.classList.add('active');
+        soundBtn.innerText = t.on;
+      } else {
+        soundBtn.classList.remove('active');
+        soundBtn.innerText = t.off;
+      }
+
+      if (isVibrationEnabled) {
+        vibBtn.classList.add('active');
+        vibBtn.innerText = t.on;
+      } else {
+        vibBtn.classList.remove('active');
+        vibBtn.innerText = t.off;
+      }
+    }
+
+    window.toggleSound = function() {
+      isSoundEnabled = !isSoundEnabled;
+      localStorage.setItem('soundEnabled', isSoundEnabled);
+      updateSettingsUI();
+      playHaptic('light');
+    }
+
+    window.toggleVibration = function() {
+      isVibrationEnabled = !isVibrationEnabled;
+      localStorage.setItem('vibrationEnabled', isVibrationEnabled);
+      updateSettingsUI();
+      // Принудительно вибрируем для проверки
+      if (isVibrationEnabled && navigator.vibrate) navigator.vibrate(30);
+      else if (isVibrationEnabled && tg) tg.HapticFeedback.impactOccurred('medium');
+    }
+
+    window.openSupport = function() {
+      playHaptic('medium');
+      alert(currentLang === 'ru' ? 'Если у вас возникли проблемы, напишите нам в Telegram: @negaduushchiyXD' : 'If you have any problems, write to us on Telegram: @negaduushchiyXD');
+    }
+
+    // === АНИМАЦИЯ РАКЕТ ===
+    function initRockets() {
+      var bg = document.getElementById('rocket-bg');
+      bg.innerHTML = '';
+      var rockets = [];
+      
+      for (var i = 0; i < 10; i++) {
+        var r = document.createElement('div');
+        r.className = 'rocket';
+        r.innerText = '🚀';
+        
+        // Случайные начальные позиции
+        var x = Math.random() * (window.innerWidth - 40);
+        var y = Math.random() * (window.innerHeight - 40);
+        
+        // Случайные скорости
+        var vx = (Math.random() - 0.5) * 2; // от -1 до 1
+        var vy = (Math.random() - 0.5) * 2;
+        
+        // Чтобы не было слишком медленно
+        if (Math.abs(vx) < 0.5) vx = vx > 0 ? 0.5 : -0.5;
+        if (Math.abs(vy) < 0.5) vy = vy > 0 ? 0.5 : -0.5;
+
+        r.style.left = x + 'px';
+        r.style.top = y + 'px';
+        
+        // Поворот ракеты по направлению движения
+        var angle = Math.atan2(vy, vx) * 180 / Math.PI;
+        r.style.transform = 'rotate(' + angle + 'deg)';
+        
+        bg.appendChild(r);
+        rockets.push({ el: r, x: x, y: y, vx: vx, vy: vy });
+      }
+      
+      var animId = null;
+      function animate() {
+        var bgRect = bg.getBoundingClientRect();
+        
+        for (var i = 0; i < rockets.length; i++) {
+          var rk = rockets[i];
+          
+          rk.x += rk.vx;
+          rk.y += rk.vy;
+          
+          // Отскок от стенок (учитываем размер ракеты ~30px)
+          if (rk.x <= 0) { rk.x = 0; rk.vx *= -1; }
+          if (rk.x >= bgRect.width - 30) { rk.x = bgRect.width - 30; rk.vx *= -1; }
+          
+          if (rk.y <= 0) { rk.y = 0; rk.vy *= -1; }
+          if (rk.y >= bgRect.height - 30) { rk.y = bgRect.height - 30; rk.vy *= -1; }
+          
+          var angle = Math.atan2(rk.vy, rk.vx) * 180 / Math.PI;
+          
+          rk.el.style.left = rk.x + 'px';
+          rk.el.style.top = rk.y + 'px';
+          rk.el.style.transform = 'rotate(' + angle + 'deg)';
+        }
+        
+        if (document.getElementById('screen-settings').classList.contains('active')) {
+            animId = requestAnimationFrame(animate);
+        } else {
+            cancelAnimationFrame(animId);
+        }
+      }
+      
+      // Запускаем анимацию, только когда открыт экран настроек
+      if (document.getElementById('screen-settings').classList.contains('active')) {
+          animate();
+      }
+    }
+
+    // Следим за открытием экрана настроек, чтобы запустить ракеты
+    var originalShowScreen = showScreen;
+    showScreen = function(name) {
+      originalShowScreen(name);
+      if (name === 'settings') {
+        initRockets();
+      }
+    };
 
     var translations = {
       ru: {
@@ -610,6 +804,7 @@
         daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!",
         gift_wait: "Доступно через", gift_ready: "Забрать!",
         casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)",
+        settings_btn: "⚙️ Настройки", settings_title: "Настройки", sound_effects: "Звуковые эффекты", vibration: "Вибрация", on: "ВКЛ", off: "ВЫКЛ", lang_btn: "🌐 Язык / Language", support_btn: "📢 Помощь и поддержка",
         ach_list: [
           { title: "Первый шаг", desc: "100 тапов", icon: "🌱" },
           { title: "Фанат", desc: "1 000 тапов", icon: "🥔" },
@@ -630,8 +825,8 @@
           { title: "Властелин Миров", desc: "20-й уровень тапа", icon: "💥" },
           { title: "Верхушка айсберга", desc: "500 000 тапов", icon: "🧊" },
           { title: "Ошибка вселенной", desc: "1 000 000 тапов", icon: "🌌" },
-          { title: "Апофеоз", desc: "30-й уровень тапа", icon: "🌠" }, // НОВОЕ
-          { title: "Сингулярность", desc: "25-й сила авто", icon: "🤖" } // НОВОЕ
+          { title: "Апофеоз", desc: "30-й уровень тапа", icon: "🌠" },
+          { title: "Сингулярность", desc: "25-й сила авто", icon: "🤖" }
         ]
       },
       en: {
@@ -655,6 +850,7 @@
         daily_gift_title: "DAILY GIFT", daily_gift_btn: "GIFT", jackpot: "JACKPOT!",
         gift_wait: "Available in", gift_ready: "Claim!",
         casino_btn: "Casino", spin_btn: "SPIN (5 ₽)",
+        settings_btn: "⚙️ Settings", settings_title: "Settings", sound_effects: "Sound Effects", vibration: "Vibration", on: "ON", off: "OFF", lang_btn: "🌐 Language / Язык", support_btn: "📢 Help & Support",
         ach_list: [
           { title: "First Step", desc: "100 taps", icon: "🌱" },
           { title: "Fan", desc: "1,000 taps", icon: "🥔" },
@@ -691,6 +887,7 @@
         if(t[key]) elements[i].innerText = t[key];
       }
       document.getElementById('currentLangText').innerText = currentLang.toUpperCase();
+      updateSettingsUI(); // Обновляем кнопки ВКЛ/ВЫКЛ после перевода
       renderShop(); 
       updateGiftUI();
     }
@@ -708,7 +905,6 @@
       }
     } catch(e) {}
 
-    // ТАП ДО 30 УРОВНЯ
     var upgradesData = [
       { nameIdx: 0, desc: 0.002, cost: 2.5, value: 0.002 }, { nameIdx: 1, desc: 0.003, cost: 4, value: 0.003 },
       { nameIdx: 2, desc: 0.004, cost: 8, value: 0.004 }, { nameIdx: 3, desc: 0.005, cost: 16, value: 0.005 },
@@ -737,7 +933,6 @@
       { nameIdx: 29, desc: 100.0, cost: 25000, value: 100.0 }
     ];
     
-    // СИЛА АВТОКЛИКЕРА ДО 25 УРОВНЯ
     var autoValueData = [
       { level: 1, cost: 50, value: 0.0002 }, { level: 2, cost: 60, value: 0.0003 }, { level: 3, cost: 70, value: 0.0004 }, { level: 4, cost: 80, value: 0.0005 },
       { level: 5, cost: 160, value: 0.001 }, { level: 6, cost: 180, value: 0.002 }, { level: 7, cost: 200, value: 0.003 }, { level: 8, cost: 225, value: 0.004 },
@@ -1189,7 +1384,6 @@
       if (totalTaps >= 500000 && unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); newUnlock = true; }
       if (totalTaps >= 1000000 && unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); newUnlock = true; }
       
-      // Новые достижения за максимальные прокачки
       if (maxUpgrade >= 30 && unlockedAch.indexOf(19) === -1) { unlockedAch.push(19); newUnlock = true; }
       if (autoValueLevel >= 25 && unlockedAch.indexOf(20) === -1) { unlockedAch.push(20); newUnlock = true; }
 
@@ -1547,11 +1741,11 @@
         if (menuItems[m].getAttribute('data-screen') === name) menuItems[m].classList.add('active');
       }
       
-      if (name === 'achievements' || name === 'shop' || name === 'casino') {
+      if (name === 'achievements' || name === 'shop' || name === 'casino' || name === 'settings') {
         for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active');
       }
 
-      if (name === 'quests' || name === 'rating' || name === 'achievements') {
+      if (name === 'quests' || name === 'rating' || name === 'achievements' || name === 'settings') {
         topBalanceBar.style.display = 'none';
       } else {
         topBalanceBar.style.display = 'flex';
@@ -1564,6 +1758,7 @@
       if (name === 'achievements') renderAchievements();
       if (name === 'shop') { switchShopTab('skins'); } 
       if (name === 'casino') { initCasino(); }
+      if (name === 'settings') { initRockets(); }
     }
 
     document.getElementById('openProfile').onclick = function() { showScreen('profile'); };
