@@ -907,11 +907,7 @@
         if(t[key]) elements[i].innerText = t[key];
       }
       
-      // Используем умную функцию
-      var currentLangEl = getEl('currentLangText');
-      if (currentLangEl) {
-          currentLangEl.innerText = currentLang.toUpperCase();
-      }
+      // Кнопка currentLangText была удалена из HTML, поэтому код для неё тоже убран, чтобы не было ошибки.
 
       updateSettingsUI(); 
       renderShop(); 
