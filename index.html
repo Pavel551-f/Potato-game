@@ -932,6 +932,15 @@
     function changeLang(lang) { localStorage.setItem('potatoLang', lang); location.reload(); }
 
     var tg = null;
+// ===== СИСТЕМА СОБЫТИЙ =====
+var activeEvents = {
+  blackMarket: false,
+  halloween: false,
+  newYear: false
+};
+
+var lastBlackMarket = parseInt(localStorage.getItem('lastBlackMarket')) || 0;
+var blackMarketEnd = parseInt(localStorage.getItem('blackMarketEnd')) || 0;
     try { if (window.Telegram && window.Telegram.WebApp) { tg = window.Telegram.WebApp; tg.ready(); tg.expand(); } } catch(e) {}
 
     var upgradesData = [
