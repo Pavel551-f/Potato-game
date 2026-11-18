@@ -941,6 +941,62 @@ var activeEvents = {
 
 var lastBlackMarket = parseInt(localStorage.getItem('lastBlackMarket')) || 0;
 var blackMarketEnd = parseInt(localStorage.getItem('blackMarketEnd')) || 0;
+// ===== ПРОВЕРКА СОБЫТИЙ =====
+function checkEvents() {
+  var now = Date.now();
+  var date = new Date();
+  var month = date.getMonth() + 1; // 1-12
+  var day = date.getDate();
+
+  // Хэллоуин (25 октября – 5 ноября)
+  activeEvents.halloween = (month === 10 && day >= 25) || (month === 11 && day <= 5);
+
+  // Новый год (20 декабря – 10 января)
+  activeEvents.newYear = (month === 12 && day >= 20) || (month === 1 && day <= 10);
+
+  // Чёрный рынок
+  if (now < blackMarketEnd) {
+    activeEvents.blackMarket = true;
+  } else {
+    // Если прошло больше 6 дней с прошлого раза
+    if (now - lastBlackMarket > 6 * 24 * 60 * 60 * 1000) {
+      if (Math.random() < 0.7) { // 70% шанс
+        lastBlackMarket = now;
+        blackMarketEnd = now + (48 * 60 * 60 * 1000); // на 48 часов
+        localStorage.setItem('lastBlackMarket', lastBlackMarket);
+        localStorage.setItem('blackMarketEnd', blackMarketEnd);
+        activeEvents.blackMarket = true;
+      }
+    } else {
+      activeEvents.blackMarket = false;
+    }
+  }
+
+  updateEventBanner();
+}
+
+function updateEventBanner() {
+  var banner = document.getElementById('eventBanner');
+  var text = document.getElementById('eventBannerText');
+  if (!banner || !text) return;
+
+  if (activeEvents.blackMarket) {
+    var hoursLeft = Math.max(1, Math.ceil((blackMarketEnd - Date.now()) / (1000 * 60 * 60)));
+    text.innerText = '🌑 Чёрный рынок открыт! Осталось \~' + hoursLeft + ' ч';
+    banner.style.display = 'block';
+    banner.style.background = 'linear-gradient(90deg, #581c87, #a21caf)';
+  } else if (activeEvents.halloween) {
+    text.innerText = '🎃 Хэллоуин активен!';
+    banner.style.display = 'block';
+    banner.style.background = 'linear-gradient(90deg, #9a3412, #ea580c)';
+  } else if (activeEvents.newYear) {
+    text.innerText = '🎄 Новогоднее событие!';
+    banner.style.display = 'block';
+    banner.style.background = 'linear-gradient(90deg, #0e7490, #0284c7)';
+  } else {
+    banner.style.display = 'none';
+  }
+}
     try { if (window.Telegram && window.Telegram.WebApp) { tg = window.Telegram.WebApp; tg.ready(); tg.expand(); } } catch(e) {}
 
     var upgradesData = [
