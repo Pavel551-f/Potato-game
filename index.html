@@ -18,6 +18,18 @@
       flex-direction: column;
       overflow: hidden;
       text-shadow: 2px 2px 0px rgba(0,0,0,0.8);
+      transition: background 0.4s ease;
+    }
+
+    /* Сезонные фоны */
+    body.season-halloween {
+      background: linear-gradient(180deg, #1b0a26, #3b1208);
+    }
+    body.season-newyear {
+      background: linear-gradient(180deg, #0b2545, #134e4a);
+    }
+    body.season-blackmarket {
+      background: linear-gradient(180deg, #090714, #1e1b4b);
     }
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; }
@@ -33,6 +45,7 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      cursor: pointer;
     }
 
     /* СДВИГ ИНТЕРФЕЙСА ПРИ АКТИВНОМ БАННЕРЕ СОБЫТИЙ */
@@ -58,7 +71,8 @@
     body.has-event-banner .settings-content {
       padding-top: 120px;
     }
-    body.has-event-banner #screen-achievements .list-content {
+    body.has-event-banner #screen-achievements .list-content,
+    body.has-event-banner #screen-events-history .list-content {
       padding-top: 115px;
     }
     body.has-event-banner #screen-quests .list-content,
@@ -107,12 +121,24 @@
       transition: top 0.2s ease;
     }
     .shop-btn-main, .casino-btn-main {
+      position: relative;
       display: flex; align-items: center; justify-content: center; gap: 6px;
       padding: 6px 10px; cursor: pointer;
       border: 3px solid; 
     }
     .shop-btn-main { background: rgba(168, 85, 247, 0.15); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
     .shop-btn-main:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
+    .shop-event-badge {
+      position: absolute; top: -6px; right: -6px;
+      background: #ef4444; color: #fff;
+      font-size: 8px; padding: 2px 4px;
+      border: 2px solid #000;
+      animation: badgePulse 1.4s infinite;
+    }
+    @keyframes badgePulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
     .casino-btn-main { background: rgba(234, 179, 8, 0.15); border-color: #fde047 #a16207 #a16207 #fde047; }
     .casino-btn-main:active { border-color: #a16207 #fde047 #fde047 #a16207; }
     .shop-btn-main span, .casino-btn-main span { font-size: 9px; color: #fff; text-transform: uppercase; }
@@ -122,7 +148,23 @@
 
     .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; transition: padding-top 0.2s ease; }
     
-    .potato-wrap { width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
+    .potato-wrap {
+      width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      position: relative; z-index: 10; border-radius: 24px; transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    }
+    body.season-halloween .potato-wrap {
+      border: 3px dashed #fb923c;
+      box-shadow: 0 0 22px rgba(234, 88, 12, 0.55);
+    }
+    body.season-newyear .potato-wrap {
+      border: 3px solid #67e8f9;
+      box-shadow: 0 0 22px rgba(103, 232, 249, 0.5);
+    }
+    body.season-blackmarket .potato-wrap {
+      border: 3px solid #a855f7;
+      box-shadow: 0 0 24px rgba(168, 85, 247, 0.6);
+    }
+
     .potato-emoji { font-size: 120px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
     
     .potato-wrap:active .potato-emoji { animation: shake 0.1s; }
@@ -131,9 +173,10 @@
     .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; image-rendering: pixelated; }
     .potato-wrap:active img { animation: shake 0.1s; }
 
-    .tap-power { margin-top: 16px; font-size: 11px; color: #c4b5fd; }
+    .tap-power { margin-top: 16px; font-size: 11px; color: #c4b5fd; text-align: center; }
     .tap-boost { font-size: 10px; color: #fde047; margin-left: 5px; }
-    .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; }
+    .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; text-align: center; }
+    .active-buffs-info { margin-top: 8px; font-size: 8px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
 
     /* ВКЛАДКИ УЛУЧШЕНИЙ */
     .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; transition: padding-top 0.2s ease; }
@@ -146,18 +189,46 @@
     .tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; transform: translateY(2px); }
 
     /* ВКЛАДКИ МАГАЗИНА */
-    .shop-tabs { display: flex; gap: 8px; margin-bottom: 20px; padding: 80px 16px 0; transition: padding-top 0.2s ease; }
+    .shop-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; padding: 80px 16px 0; transition: padding-top 0.2s ease; }
     .shop-tab-btn { 
-      flex: 1; padding: 10px 6px; border: none; font-size: 9px; 
+      flex: 1 1 30%; padding: 10px 6px; border: none; font-size: 8px; 
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer; 
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; 
       text-shadow: 1px 1px 0 #000; font-family: inherit;
     }
     .shop-tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; }
+    .shop-tab-btn.blackmarket-tab {
+      display: none;
+      background: rgba(15, 10, 30, 0.9);
+      color: #e9d5ff;
+    }
+    .shop-tab-btn.blackmarket-tab.visible {
+      display: block;
+    }
+    .shop-tab-btn.blackmarket-tab.active {
+      background: #4c1d95;
+      color: #fde047;
+    }
+
+    .bm-header-box {
+      margin: 0 16px 12px;
+      padding: 10px 12px;
+      background: rgba(15, 10, 30, 0.75);
+      border: 2px solid #a855f7;
+      font-size: 8px;
+      line-height: 1.6;
+      color: #e9d5ff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .bm-timer { color: #fde047; white-space: nowrap; }
 
     .list-content { padding: 0 16px 30px; }
     
-    #screen-achievements .list-content { padding-top: 75px; transition: padding-top 0.2s ease; } 
+    #screen-achievements .list-content,
+    #screen-events-history .list-content { padding-top: 75px; transition: padding-top 0.2s ease; } 
     #screen-quests .list-content { padding-top: 20px; transition: padding-top 0.2s ease; }
     #screen-rating .rating-container { padding-top: 20px; transition: padding-top 0.2s ease; }
     #screen-upgrades .list-content { padding-top: 0; }
@@ -169,8 +240,9 @@
     }
     .card-icon { font-size: 24px; flex-shrink: 0; width: 35px; text-align: center; filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5)); }
     .card-content { flex: 1; min-width: 0; }
-    .card-title { font-size: 11px; margin-bottom: 8px; color: #fff; line-height: 1.5; word-break: break-word; }
-    .card-desc { font-size: 9px; color: #c4b5fd; margin-bottom: 8px; line-height: 1.6; word-break: break-word; }
+    .card-title { font-size: 10px; margin-bottom: 8px; color: #fff; line-height: 1.5; word-break: break-word; }
+    .card-desc { font-size: 8px; color: #c4b5fd; margin-bottom: 8px; line-height: 1.6; word-break: break-word; }
+    .card-rarity { font-size: 8px; margin-bottom: 6px; color: #fde047; }
     .card-status { font-size: 9px; font-weight: 700; }
     .status-locked { color: #6b7280; }
     .status-unlocked { color: #10b981; }
@@ -202,9 +274,9 @@
     .btn-grey { background: rgba(255,255,255,0.1); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
     .btn-gold { background: #eab308; border-color: #fde047 #854d0e #854d0e #fde047; color: #000; text-shadow: none; }
 
-    .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 16px; gap: 8px; }
-    .shop-preview { font-size: 60px; margin-bottom: 5px; height: 70px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
-    .shop-preview img { width: 70px; height: 70px; object-fit: contain; image-rendering: pixelated; }
+    .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 14px; gap: 8px; }
+    .shop-preview { font-size: 56px; margin-bottom: 4px; height: 66px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
+    .shop-preview img { width: 66px; height: 66px; object-fit: contain; image-rendering: pixelated; }
     .shop-card .btn { width: 100%; margin-bottom: 0; font-size: 8px; }
 
     /* ЕЖЕДНЕВНЫЙ ПОДАРОК */
@@ -290,9 +362,14 @@
 
     /* ПРОФИЛЬ */
     .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; transition: padding-top 0.2s ease; }
-    .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 18px; image-rendering: pixelated; background: #4c1d95;}
+    .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 14px; image-rendering: pixelated; background: #4c1d95;}
     .profile-name { font-size: 12px; margin-bottom: 5px; text-align: center; color: #fff; }
-    .profile-rank { font-size: 9px; color: #fde047; margin-bottom: 20px; text-align: center; text-shadow: 1px 1px 0 #000; }
+    .profile-rank { font-size: 9px; color: #fde047; margin-bottom: 10px; text-align: center; text-shadow: 1px 1px 0 #000; }
+    .profile-badges-bar {
+      width: 100%; background: rgba(0,0,0,0.35); border: 2px solid #a855f7;
+      padding: 8px 10px; margin-bottom: 14px; font-size: 8px; line-height: 1.6;
+      color: #fde047; text-align: center; cursor: pointer;
+    }
     .profile-bottom { width: 100%; margin-top: auto; }
     .progress-label { font-size: 9px; color: #c4b5fd; margin-bottom: 8px; display: flex; justify-content: space-between; }
     .progress-bar { height: 16px; background: rgba(0,0,0,0.5); border: 2px solid #a855f7; overflow: hidden; }
@@ -349,7 +426,7 @@
 <body>
 
   <!-- БАННЕР СОБЫТИЙ -->
-  <div id="eventBanner"><span id="eventBannerText"></span></div>
+  <div id="eventBanner" onclick="handleEventBannerClick()"><span id="eventBannerText"></span></div>
 
   <div id="error-screen"></div>
 
@@ -368,6 +445,15 @@
       <h3 id="infoTitle" data-i18n="info_title">ИНСТРУКЦИЯ</h3>
       <div id="infoText"></div>
       <button class="modal-btn" id="infoCloseBtn" onclick="closeInfoMenu()" data-i18n="info_close">ПОНЯТНО</button>
+    </div>
+  </div>
+
+  <!-- МОДАЛКА УВЕДОМЛЕНИЯ О СОБЫТИИ -->
+  <div class="modal-overlay" id="eventNoticeModal">
+    <div class="modal-content" style="text-align: center;">
+      <h3 id="eventNoticeTitle"></h3>
+      <p id="eventNoticeText" style="text-align: center;"></p>
+      <button class="modal-btn" onclick="closeEventNotice()" data-i18n="info_close">ПОНЯТНО</button>
     </div>
   </div>
 
@@ -394,8 +480,9 @@
 
   <div class="screen active" id="screen-main">
     <div class="main-btns-container">
-      <div class="shop-btn-main" onclick="showScreen('shop')">
+      <div class="shop-btn-main" id="mainShopBtn" onclick="showScreen('shop')">
         🛒 <span data-i18n="shop_btn">Магазин</span>
+        <span class="shop-event-badge" id="shopEventBadge" style="display: none;">!</span>
       </div>
       <div class="casino-btn-main" onclick="showScreen('casino')">
         🎮 <span data-i18n="casino_btn">Казино</span>
@@ -411,6 +498,7 @@
         <span id="tapBoostDisplay" class="tap-boost"></span>
       </div>
       <div class="auto-info" id="autoInfo" style="display:none;"></div>
+      <div class="active-buffs-info" id="activeBuffsInfo" style="display:none;"></div>
     </div>
   </div>
 
@@ -420,6 +508,7 @@
     <div class="shop-tabs">
       <button class="shop-tab-btn active" onclick="switchShopTab('skins')" data-i18n="shop_tab_skins">Скины</button>
       <button class="shop-tab-btn" onclick="switchShopTab('gifts')" data-i18n="shop_tab_gifts">Подарки</button>
+      <button class="shop-tab-btn blackmarket-tab rgb-glow" id="tabBlackMarket" onclick="switchShopTab('blackmarket')" data-i18n="shop_tab_bm">🌑 Чёрный рынок</button>
     </div>
 
     <div id="shopContentSkins" style="display: block;">
@@ -452,6 +541,14 @@
           <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()" data-i18n="daily_gift_btn">ПОДАРОК</button>
         </div>
       </div>
+    </div>
+
+    <div id="shopContentBlackMarket" style="display: none;">
+      <div class="bm-header-box">
+        <span data-i18n="bm_subtitle">Редкие лоты тени</span>
+        <span class="bm-timer" id="bmTimerText"></span>
+      </div>
+      <div class="list-content" id="blackMarketList"></div>
     </div>
   </div>
 
@@ -552,6 +649,12 @@
     <div class="list-content" id="achievementsList"></div>
   </div>
 
+  <!-- ИСТОРИЯ СОБЫТИЙ -->
+  <div class="screen" id="screen-events-history">
+    <button class="btn-top-back" onclick="showScreen('profile')">✖</button>
+    <div class="list-content" id="eventsHistoryList"></div>
+  </div>
+
   <div class="screen" id="screen-rating">
     <div class="rating-container" id="leaderboardList"></div>
     <div class="my-rating-box">
@@ -590,8 +693,10 @@
       <img class="profile-avatar" id="profileAvatar" src="" alt="">
       <div class="profile-name" id="profileName" data-i18n="player">Игрок</div>
       <div class="profile-rank" id="profileRank"></div>
+      <div class="profile-badges-bar" id="profileBadgesBar" onclick="showScreen('events-history')"></div>
       
       <div class="profile-bottom">
+        <button class="btn btn-grey" onclick="showScreen('events-history')" data-i18n="events_history_btn">🗓️ События и бейджи</button>
         <button class="btn btn-grey" onclick="showScreen('achievements')" data-i18n="achievements_btn">🏆 Достижения</button>
         <button class="btn btn-green" onclick="withdrawMoney()" data-i18n="withdraw">Вывести средства</button>
         <button class="btn btn-blue" style="margin-top: 10px;" onclick="showScreen('settings')" data-i18n="settings_btn">⚙️ Настройки</button>
@@ -615,24 +720,42 @@
     var translations = {
       ru: {
         balance_label: "Баланс", tap_label: "Тап", tab_tap: "Ул. тапа", tab_auto: "Ул. авто",
-        rating_leader: "🏆 Лидер проекта!", player: "Игрок", legend: "Легенда",
-        total_taps: "Всего тапов", taps_hint: "Число тапов, чтобы друзья могли посмотреть",
-        withdraw: "Вывести средства", dev_btn: "Нажми 5 раз для теста",
-        menu_main: "Главная", menu_upgrades: "Улучшения", menu_rating: "Рейтинг", menu_quests: "Квесты",
-        lang_title: "Выберите язык", cancel: "Отмена", bought: "Куплено", buy_for: "Купить за", 
-        buy_prev: "Сначала купи предыдущее", not_enough_money: "Недостаточно средств!", auto_buy: "Купить автокликер", auto_desc: "Даёт +0.0001 ₽ каждые 50 сек",
-        auto_power: "Сила авто", auto_speed: "Скорость авто", gives: "Даёт", interval: "Интервал",
-        sec: "сек", balance: "Баланс", make_taps: "Сделай", taps_word: "тапов", progress: "Прогресс",
-        claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено",
-        title_rank: "Ранг: ",
+        rating_leader: "🏆 Лидер проекта!", player: "Игрок", legend: "Легенда", total_taps: "Всего тапов", taps_hint: "Число тапов, чтобы друзья могли посмотреть",
+        withdraw: "Вывести средства", dev_btn: "Нажми 5 раз для теста", menu_main: "Главная", menu_upgrades: "Улучшения", menu_rating: "Рейтинг", menu_quests: "Квесты",
+        lang_title: "Выберите язык", cancel: "Отмена", bought: "Куплено", buy_for: "Купить за", buy_prev: "Сначала купи предыдущее", not_enough_money: "Недостаточно средств!", auto_buy: "Купить автокликер", auto_desc: "Даёт +0.0001 ₽ каждые 50 сек",
+        auto_power: "Сила авто", auto_speed: "Скорость авто", gives: "Даёт", interval: "Интервал", sec: "сек", balance: "Баланс", make_taps: "Сделай", taps_word: "тапов", progress: "Прогресс",
+        claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено", title_rank: "Ранг: ",
         ranks: ["Новичок", "Тапатель", "Фермер", "Агроном", "Мастер клика", "Гуру тапов", "Магнат", "Повелитель", "Легенда", "Бог Картофеля"],
         upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель", "Архитектор", "Сингулярность", "Бесконечный", "Запредельный", "Трансцендентный", "Всемогущий", "Изначальный", "Апофеоз", "Вечный", "Тап Богов"],
-        upg_desc: "Тап даёт",
-        achievements_btn: "🏆 Достижения", ach_unlocked: "Получено", ach_locked: "Заблокировано",
-        shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить",
-        shop_tab_skins: "Скины", shop_tab_gifts: "Подарки",
-        daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!",
-        gift_wait: "Доступно через", gift_ready: "Забрать!",
+        upg_desc: "Тап даёт", achievements_btn: "🏆 Достижения", events_history_btn: "🗓️ События и бейджи", ach_unlocked: "Получено", ach_locked: "Заблокировано",
+        shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить", shop_tab_skins: "Скины", shop_tab_gifts: "Подарки", shop_tab_bm: "🌑 Чёрный рынок",
+        bm_subtitle: "Редкие лоты тени", bm_left: "Осталось: {hours}ч {mins}м",
+        bm_open_title: "🌑 ЧЁРНЫЙ РЫНОК ОТКРЫТ", bm_open_text: "Чёрный рынок открыт на {hours} часов! Заходи в Магазин, пока не поздно.",
+        bm_closing_title: "⏳ ЧЁРНЫЙ РЫНОК ЗАКРЫВАЕТСЯ", bm_closing_text: "Чёрный рынок закроется менее чем через 6 часов!",
+        season_open_title: "🎉 НОВОЕ СОБЫТИЕ", season_open_text: "В игре активно сезонное событие: {eventName}! Успейте забрать награды и бонусы.",
+        amulet_saved: "🗿 Амулет Муаи спас вас! Проигрыш {amount} ₽ в казино отменён (1 раз в день).",
+        amulet_used_today: "Сегодня Амулет Муаи уже использован", amulet_ready_today: "Готов (1 раз в день)",
+        contract_active: "Контракт с Тьмой: +25% в казино ({hours}ч)",
+        rarity_legendary: "Легендарный", rarity_mythic: "Мифический", rarity_epic: "Эпический",
+        bm_items: {
+          dark_potato: { name: "Тёмная Картошка", desc: "+12% к силе тапа навсегда", rarity: "Легендарный" },
+          chaos_potato: { name: "Картошка Хаоса", desc: "+8% к силе тапа и +10% к скорости автокликера", rarity: "Легендарный" },
+          moai_amulet: { name: "Амулет Муаи", desc: "1 раз в день можно отменить проигрыш в казино", rarity: "Мифический" },
+          skin_shadow: { name: "Скин «Тень»", desc: "Чёрный скин для картошки", rarity: "Эпический" },
+          skin_chaos_eye: { name: "Скин «Глаз Хаоса»", desc: "Редкий скин с анимацией", rarity: "Эпический" },
+          dark_contract: { name: "Контракт с Тьмой", desc: "+25% к выигрышам в казино на 7 дней", rarity: "Мифический" }
+        },
+        badges_label: "Бейджи событий: ", no_badges_yet: "Пока нет бейджей — участвуйте в событиях!",
+        badge_names: {
+          bm_regular: "🌑 Завсегдатай Чёрного рынка",
+          halloween_2026: "🎃 Хэллоуин 2026",
+          newyear_2026: "🎄 Новогодний тапер 2026"
+        },
+        history_empty: "Вы ещё не участвовали в событиях.",
+        history_period: "Период: {start} — {end}",
+        history_bought_bm: "Куплено лотов рынка: {count}",
+        history_active: "Статус: Активно", history_finished: "Статус: Завершено",
+        daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!", gift_wait: "Доступно через", gift_ready: "Забрать!",
         casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)", spin_slots_btn: "КРУТИТЬ (100 ₽)", spin_wheel_btn: "КРУТИТЬ (500 ₽)",
         casino_title: "🎰 КАЗИНО 🎰", potato_box: "Ящик картошки", potato_box_desc: "Классическая рулетка (5 ₽)", potato_truck: "Грузовик картошки", potato_truck_desc: "Слот-машина (100 ₽)", potato_field: "Поле картошки", potato_field_desc: "Колесо Фортуны (500 ₽)",
         settings_btn: "⚙️ Настройки", settings_title: "Настройки", sound_effects: "Звуковые эффекты", vibration: "Вибрация", on: "ВКЛ", off: "ВЫКЛ", lang_btn: "🌐 Язык / Language", support_btn: "📢 Помощь и поддержка",
@@ -712,8 +835,34 @@
         claim: "Claim", received: "Received", not_done: "Not done", title_rank: "Rank: ",
         ranks: ["Novice", "Tapper", "Farmer", "Agronomist", "Click Master", "Tap Guru", "Tycoon", "Lord", "Legend", "Potato God"],
         upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer", "Architect", "Singularity", "Infinite", "Transcendent", "Omnipotent", "Primordial", "Apotheosis", "Eternal", "God of Taps"],
-        upg_desc: "Tap gives", achievements_btn: "🏆 Achievements", ach_unlocked: "Received", ach_locked: "Locked",
-        shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy", shop_tab_skins: "Skins", shop_tab_gifts: "Gifts",
+        upg_desc: "Tap gives", achievements_btn: "🏆 Achievements", events_history_btn: "🗓️ Events & Badges", ach_unlocked: "Received", ach_locked: "Locked",
+        shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy", shop_tab_skins: "Skins", shop_tab_gifts: "Gifts", shop_tab_bm: "🌑 Black Market",
+        bm_subtitle: "Rare shadow lots", bm_left: "Left: {hours}h {mins}m",
+        bm_open_title: "🌑 BLACK MARKET OPEN", bm_open_text: "Black Market is open for {hours} hours! Visit the Shop before it closes.",
+        bm_closing_title: "⏳ BLACK MARKET CLOSING", bm_closing_text: "Black Market closes in less than 6 hours!",
+        season_open_title: "🎉 SEASONAL EVENT", season_open_text: "Seasonal event is active: {eventName}! Grab event rewards and bonuses.",
+        amulet_saved: "🗿 Moai Amulet saved you! A {amount} ₽ casino loss was canceled (once per day).",
+        amulet_used_today: "Moai Amulet already used today", amulet_ready_today: "Ready (once per day)",
+        contract_active: "Dark Contract: +25% casino wins ({hours}h)",
+        rarity_legendary: "Legendary", rarity_mythic: "Mythic", rarity_epic: "Epic",
+        bm_items: {
+          dark_potato: { name: "Dark Potato", desc: "+12% tap power permanently", rarity: "Legendary" },
+          chaos_potato: { name: "Chaos Potato", desc: "+8% tap power & +10% autoclicker speed", rarity: "Legendary" },
+          moai_amulet: { name: "Moai Amulet", desc: "Cancel 1 casino loss per day", rarity: "Mythic" },
+          skin_shadow: { name: "Shadow Skin", desc: "Dark potato skin", rarity: "Epic" },
+          skin_chaos_eye: { name: "Chaos Eye Skin", desc: "Rare animated skin", rarity: "Epic" },
+          dark_contract: { name: "Dark Contract", desc: "+25% casino wins for 7 days", rarity: "Mythic" }
+        },
+        badges_label: "Event badges: ", no_badges_yet: "No badges yet — join events!",
+        badge_names: {
+          bm_regular: "🌑 Black Market Regular",
+          halloween_2026: "🎃 Halloween 2026",
+          newyear_2026: "🎄 New Year Tapper 2026"
+        },
+        history_empty: "You haven't participated in any events yet.",
+        history_period: "Period: {start} — {end}",
+        history_bought_bm: "Market lots bought: {count}",
+        history_active: "Status: Active", history_finished: "Status: Finished",
         daily_gift_title: "DAILY GIFT", daily_gift_btn: "GIFT", jackpot: "JACKPOT!", gift_wait: "Available in", gift_ready: "Claim!",
         casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", spin_slots_btn: "SPIN (100 ₽)", spin_wheel_btn: "SPIN (500 ₽)",
         casino_title: "🎰 CASINO 🎰", potato_box: "Potato Box", potato_box_desc: "Classic roulette (5 ₽)", potato_truck: "Potato Truck", potato_truck_desc: "Slot machine (100 ₽)", potato_field: "Potato Field", potato_field_desc: "Wheel of Fortune (500 ₽)",
@@ -1009,17 +1158,257 @@
       playHaptic('light');
     }
 
-    // === СИСТЕМА СОБЫТИЙ ===
-    var activeEvents = {
-      blackMarket: false,
-      halloween: false,
-      newYear: false
-    };
+    function showEventNotice(titleText, bodyText) {
+      var modal = getEl('eventNoticeModal');
+      var titleEl = getEl('eventNoticeTitle');
+      var textEl = getEl('eventNoticeText');
+      if (titleEl) titleEl.innerText = titleText;
+      if (textEl) textEl.innerText = bodyText;
+      if (modal) modal.style.display = 'flex';
+    }
+
+    window.closeEventNotice = function() {
+      var modal = getEl('eventNoticeModal');
+      if (modal) modal.style.display = 'none';
+      playHaptic('light');
+    }
+
+    // === СОСТОЯНИЕ ИГРЫ, ЧЁРНОГО РЫНКА, БУСТОВ И СОБЫТИЙ ===
+    var tg = null;
+    try { if (window.Telegram && window.Telegram.WebApp) { tg = window.Telegram.WebApp; tg.ready(); tg.expand(); } } catch(e) {}
+
+    var upgradesData = [
+      { nameIdx: 0, desc: 0.002, cost: 2.5, value: 0.002 }, { nameIdx: 1, desc: 0.003, cost: 4, value: 0.003 }, { nameIdx: 2, desc: 0.004, cost: 8, value: 0.004 }, { nameIdx: 3, desc: 0.005, cost: 16, value: 0.005 },
+      { nameIdx: 4, desc: 0.010, cost: 50, value: 0.010 }, { nameIdx: 5, desc: 0.020, cost: 100, value: 0.020 }, { nameIdx: 6, desc: 0.030, cost: 150, value: 0.030 }, { nameIdx: 7, desc: 0.040, cost: 200, value: 0.040 },
+      { nameIdx: 8, desc: 0.050, cost: 250, value: 0.050 }, { nameIdx: 9, desc: 0.100, cost: 500, value: 0.100 }, { nameIdx: 10, desc: 0.2, cost: 600, value: 0.2 }, { nameIdx: 11, desc: 0.3, cost: 700, value: 0.3 },
+      { nameIdx: 12, desc: 0.4, cost: 800, value: 0.4 }, { nameIdx: 13, desc: 0.5, cost: 900, value: 0.5 }, { nameIdx: 14, desc: 1.0, cost: 1000, value: 1.0 }, { nameIdx: 15, desc: 2.0, cost: 1500, value: 2.0 },
+      { nameIdx: 16, desc: 3.0, cost: 2000, value: 3.0 }, { nameIdx: 17, desc: 4.0, cost: 2500, value: 4.0 }, { nameIdx: 18, desc: 5.0, cost: 3000, value: 5.0 }, { nameIdx: 19, desc: 10.0, cost: 5000, value: 10.0 },
+      { nameIdx: 20, desc: 15.0, cost: 6000, value: 15.0 }, { nameIdx: 21, desc: 20.0, cost: 7000, value: 20.0 }, { nameIdx: 22, desc: 25.0, cost: 8000, value: 25.0 }, { nameIdx: 23, desc: 30.0, cost: 9000, value: 30.0 },
+      { nameIdx: 24, desc: 40.0, cost: 10000, value: 40.0 }, { nameIdx: 25, desc: 50.0, cost: 12000, value: 50.0 }, { nameIdx: 26, desc: 60.0, cost: 15000, value: 60.0 }, { nameIdx: 27, desc: 75.0, cost: 18000, value: 75.0 },
+      { nameIdx: 28, desc: 85.0, cost: 20000, value: 85.0 }, { nameIdx: 29, desc: 100.0, cost: 25000, value: 100.0 }
+    ];
     
+    var autoValueData = [
+      { level: 1, cost: 50, value: 0.0002 }, { level: 2, cost: 60, value: 0.0003 }, { level: 3, cost: 70, value: 0.0004 }, { level: 4, cost: 80, value: 0.0005 },
+      { level: 5, cost: 160, value: 0.001 }, { level: 6, cost: 180, value: 0.002 }, { level: 7, cost: 200, value: 0.003 }, { level: 8, cost: 225, value: 0.004 },
+      { level: 9, cost: 250, value: 0.005 }, { level: 10, cost: 500, value: 0.01 }, { level: 11, cost: 600, value: 0.02 }, { level: 12, cost: 700, value: 0.03 }, 
+      { level: 13, cost: 800, value: 0.04 }, { level: 14, cost: 900, value: 0.05 }, { level: 15, cost: 1000, value: 0.1 }, { level: 16, cost: 1500, value: 0.2 }, 
+      { level: 17, cost: 2000, value: 0.3 }, { level: 18, cost: 2500, value: 0.4 }, { level: 19, cost: 3000, value: 0.5 }, { level: 20, cost: 4000, value: 1.0 },
+      { level: 21, cost: 5000, value: 2.0 }, { level: 22, cost: 6000, value: 3.0 }, { level: 23, cost: 8000, value: 5.0 }, { level: 24, cost: 10000, value: 10.0 }, { level: 25, cost: 15000, value: 25.0 }
+    ];
+    
+    var autoSpeedData = [
+      { level: 1, cost: 55, interval: 45000 }, { level: 2, cost: 65, interval: 40000 }, { level: 3, cost: 75, interval: 35000 }, { level: 4, cost: 100, interval: 30000 },
+      { level: 5, cost: 150, interval: 25000 }, { level: 6, cost: 200, interval: 20000 }, { level: 7, cost: 250, interval: 15000 }, { level: 8, cost: 300, interval: 10000 },
+      { level: 9, cost: 375, interval: 5000 }, { level: 10, cost: 500, interval: 1000 }
+    ];
+    
+    var questsData = [
+      { id: 1, need: 1000, reward: 0.5 }, { id: 2, need: 5000, reward: 1 }, { id: 3, need: 10000, reward: 2 }, { id: 4, need: 15000, reward: 5 }, { id: 5, need: 20000, reward: 10 },
+      { id: 6, need: 25000, reward: 15 }, { id: 7, need: 30000, reward: 20 }, { id: 8, need: 35000, reward: 25 }, { id: 9, need: 40000, reward: 30 }, { id: 10, need: 50000, reward: 50 },
+      { id: 11, need: 100000, reward: 100 }, { id: 12, need: 250000, reward: 500 }, { id: 13, need: 500000, reward: 500 }, { id: 14, need: 750000, reward: 750 }, { id: 15, need: 1000000, reward: 1000 },
+      { id: 16, need: 2500000, reward: 2500 }, { id: 17, need: 5000000, reward: 5000 }, { id: 18, need: 10000000, reward: 10000 }, { id: 19, need: 25000000, reward: 25000 }, { id: 20, need: 50000000, reward: 50000 }
+    ];
+
+    var skinsData = [
+      { id: 0, name: "Обычная", en_name: "Default", price: 0, emoji: "🥔", image: "potato.png" },
+      { id: 1, name: "Золотая", en_name: "Golden", price: 100000, emoji: "🥇", image: "potato_gold.png" },
+      { id: 2, name: "Призрачная", en_name: "Ghost", price: 50000, emoji: "👻", image: "potato_ghost.png" },
+      { id: 3, name: "Тень", en_name: "Shadow", price: 150000, emoji: "🌑", image: "potato_shadow.png", fromBlackMarket: true },
+      { id: 4, name: "Глаз Хаоса", en_name: "Chaos Eye", price: 190000, emoji: "👁️", image: "potato_chaos_eye.png", fromBlackMarket: true }
+    ];
+
+    var blackMarketItemsData = [
+      { id: "dark_potato", icon: "🖤", price: 280000, kind: "tap_perm", tapBonus: 0.12 },
+      { id: "chaos_potato", icon: "⚡", price: 350000, kind: "chaos_perm", tapBonus: 0.08, autoSpeedBonus: 0.10 },
+      { id: "moai_amulet", icon: "🗿", price: 420000, kind: "moai_amulet" },
+      { id: "skin_shadow", icon: "🌑", price: 150000, kind: "skin", skinId: 3 },
+      { id: "skin_chaos_eye", icon: "👁️", price: 190000, kind: "skin", skinId: 4 },
+      { id: "dark_contract", icon: "📜", price: 500000, kind: "casino_boost", durationMs: 7 * 24 * 60 * 60 * 1000 }
+    ];
+
+    var balance = parseFloat(localStorage.getItem('potatoBalance')) || 0;
+    var tapValue = parseFloat(localStorage.getItem('tapValue')) || 0.001;
+    var maxUpgrade = parseInt(localStorage.getItem('maxUpgrade')) || 0;
+    var totalTaps = parseInt(localStorage.getItem('totalTaps')) || 0;
+    var claimed = JSON.parse(localStorage.getItem('claimed') || '[]');
+    var unlockedAch = JSON.parse(localStorage.getItem('unlockedAch') || '[]');
+    var hasAutoclicker = localStorage.getItem('hasAutoclicker') === 'true';
+    var autoValue = parseFloat(localStorage.getItem('autoValue')) || 0.0001;
+    var autoInterval = parseInt(localStorage.getItem('autoInterval')) || 50000;
+    var autoValueLevel = parseInt(localStorage.getItem('autoValueLevel')) || 0;
+    var autoSpeedLevel = parseInt(localStorage.getItem('autoSpeedLevel')) || 0;
+    var ownedSkins = JSON.parse(localStorage.getItem('ownedSkins') || '[0]');
+    var equippedSkin = parseInt(localStorage.getItem('equippedSkin')) || 0;
+
+    // Постоянные эффекты Чёрного рынка
+    var bmTapBonus = parseFloat(localStorage.getItem('bmTapBonus')) || 0; // напр. 0.12 + 0.08 = 0.20 (+20%)
+    var bmAutoSpeedBonus = parseFloat(localStorage.getItem('bmAutoSpeedBonus')) || 0; // напр. 0.10 (+10%)
+    var hasMoaiAmulet = localStorage.getItem('hasMoaiAmulet') === 'true';
+    var lastMoaiSaveDate = localStorage.getItem('lastMoaiSaveDate') || '';
+
+    // Временные бусты в localStorage (с временем окончания)
+    var activeBuffs = JSON.parse(localStorage.getItem('activeBuffs') || '{}');
+    if (typeof activeBuffs.casinoBoostUntil !== 'number') activeBuffs.casinoBoostUntil = 0;
+
+    // Система событий, Чёрного рынка и истории
+    var activeEvents = { blackMarket: false, halloween: false, newYear: false };
+    var bmCycleId = parseInt(localStorage.getItem('bmCycleId')) || 1;
     var lastBlackMarket = parseInt(localStorage.getItem('lastBlackMarket')) || 0;
     var blackMarketEnd = parseInt(localStorage.getItem('blackMarketEnd')) || 0;
+    var bmBoughtInCycle = JSON.parse(localStorage.getItem('bmBoughtInCycle') || '[]');
+    var bmNotifiedOpenCycle = parseInt(localStorage.getItem('bmNotifiedOpenCycle')) || 0;
+    var bmNotifiedCloseCycle = parseInt(localStorage.getItem('bmNotifiedCloseCycle')) || 0;
+    var notifiedSeasons = JSON.parse(localStorage.getItem('notifiedSeasons') || '[]');
+    var eventHistory = JSON.parse(localStorage.getItem('eventHistory') || '[]');
+    var earnedBadges = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
 
-    function checkEvents() {
+    var currentTab = 'tap'; var currentShopTab = 'skins';
+    var autoTimer = null; var lastTapTime = 0;
+    var userPhoto = ''; var userName = t.player; var hasUnclaimedQuest = false;
+
+    var lastGiftTime = parseInt(localStorage.getItem('lastGiftTime')) || 0;
+    var giftCooldown = 24 * 60 * 60 * 1000; var giftTimerInterval = null;
+
+    var isSpinning = false; var spinCost = 5; var forceMoai = false; var SPIN_DURATION = 9000; 
+    var isSlotsSpinning = false; var slotsCost = 100;
+    var isWheelSpinning = false; var wheelCost = 500;
+    var currentWheelRotation = 0;
+
+    var caseSound = new Audio('case_open.mp3'); 
+
+    var rankMultipliers = [1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5];
+    var currentMultiplier = 1.05;
+
+    var balanceEl = getEl('balance'); var tapPowerEl = getEl('tapPower'); var tapBoostDisplay = getEl('tapBoostDisplay');
+    var potatoBtn = getEl('potatoBtn'); var potatoDisplay = getEl('potatoDisplay'); var upgradesList = getEl('upgradesList');
+    var questsList = getEl('questsList'); var achievementsList = getEl('achievementsList'); var shopList = getEl('shopList');
+    var blackMarketList = getEl('blackMarketList'); var eventsHistoryList = getEl('eventsHistoryList');
+    var autoInfo = getEl('autoInfo'); var activeBuffsInfo = getEl('activeBuffsInfo');
+    var totalTapsText = getEl('totalTapsText'); var progressFill = getEl('progressFill');
+    var topBalanceBar = document.querySelector('.top-balance'); var casinoReel = getEl('casinoReel'); var spinBtn = getEl('spinBtn'); var profileRankEl = getEl('profileRank');
+
+    function getTodayKey() {
+      var d = new Date();
+      return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+    }
+
+    function hasActiveCasinoBoost() {
+      return (activeBuffs.casinoBoostUntil || 0) > Date.now();
+    }
+
+    function getCasinoWinMultiplier() {
+      return hasActiveCasinoBoost() ? 1.25 : 1.0;
+    }
+
+    function getEffectiveTapValue() {
+      return tapValue * currentMultiplier * (1 + bmTapBonus);
+    }
+
+    function getEffectiveAutoInterval() {
+      var mult = Math.max(0.25, 1 - bmAutoSpeedBonus);
+      return Math.max(250, Math.round(autoInterval * mult));
+    }
+
+    function save() {
+      localStorage.setItem('potatoBalance', balance.toFixed(3));
+      localStorage.setItem('tapValue', tapValue.toFixed(3));
+      localStorage.setItem('maxUpgrade', maxUpgrade);
+      localStorage.setItem('totalTaps', totalTaps);
+      localStorage.setItem('claimed', JSON.stringify(claimed));
+      localStorage.setItem('unlockedAch', JSON.stringify(unlockedAch));
+      localStorage.setItem('hasAutoclicker', hasAutoclicker);
+      localStorage.setItem('autoValue', autoValue.toFixed(4));
+      localStorage.setItem('autoInterval', autoInterval);
+      localStorage.setItem('autoValueLevel', autoValueLevel);
+      localStorage.setItem('autoSpeedLevel', autoSpeedLevel);
+      localStorage.setItem('ownedSkins', JSON.stringify(ownedSkins));
+      localStorage.setItem('equippedSkin', equippedSkin);
+      localStorage.setItem('lastGiftTime', lastGiftTime);
+
+      localStorage.setItem('bmTapBonus', bmTapBonus);
+      localStorage.setItem('bmAutoSpeedBonus', bmAutoSpeedBonus);
+      localStorage.setItem('hasMoaiAmulet', hasMoaiAmulet);
+      localStorage.setItem('lastMoaiSaveDate', lastMoaiSaveDate);
+      localStorage.setItem('activeBuffs', JSON.stringify(activeBuffs));
+
+      localStorage.setItem('bmCycleId', bmCycleId);
+      localStorage.setItem('lastBlackMarket', lastBlackMarket);
+      localStorage.setItem('blackMarketEnd', blackMarketEnd);
+      localStorage.setItem('bmBoughtInCycle', JSON.stringify(bmBoughtInCycle));
+      localStorage.setItem('bmNotifiedOpenCycle', bmNotifiedOpenCycle);
+      localStorage.setItem('bmNotifiedCloseCycle', bmNotifiedCloseCycle);
+      localStorage.setItem('notifiedSeasons', JSON.stringify(notifiedSeasons));
+      localStorage.setItem('eventHistory', JSON.stringify(eventHistory));
+      localStorage.setItem('earnedBadges', JSON.stringify(earnedBadges));
+    }
+
+    function addBadge(badgeKey) {
+      if (earnedBadges.indexOf(badgeKey) === -1) {
+        earnedBadges.push(badgeKey);
+        save();
+      }
+    }
+
+    function recordEventParticipation(entry) {
+      var idx = eventHistory.findIndex(function(item) { return item.id === entry.id; });
+      if (idx === -1) {
+        eventHistory.unshift(entry);
+      } else {
+        eventHistory[idx] = Object.assign({}, eventHistory[idx], entry);
+      }
+      save();
+    }
+
+    function syncEventHistoryWithActive() {
+      var now = Date.now();
+      var year = new Date().getFullYear();
+      if (activeEvents.halloween) {
+        var hId = 'halloween_' + year;
+        var hStart = new Date(year, 9, 25).getTime();
+        var hEnd = new Date(year, 10, 5, 23, 59, 59).getTime();
+        recordEventParticipation({
+          id: hId,
+          badgeKey: 'halloween_2026',
+          nameRu: '🎃 Хэллоуин ' + year,
+          nameEn: '🎃 Halloween ' + year,
+          start: hStart,
+          end: hEnd,
+          active: true
+        });
+        addBadge('halloween_2026');
+      }
+      if (activeEvents.newYear) {
+        var nyId = 'newyear_' + year;
+        var nyStart = new Date(year, 11, 20).getTime();
+        var nyEnd = new Date(year + 1, 0, 10, 23, 59, 59).getTime();
+        recordEventParticipation({
+          id: nyId,
+          badgeKey: 'newyear_2026',
+          nameRu: '🎄 Новый год ' + year,
+          nameEn: '🎄 New Year ' + year,
+          start: nyStart,
+          end: nyEnd,
+          active: true
+        });
+        addBadge('newyear_2026');
+      }
+      if (activeEvents.blackMarket) {
+        var bmId = 'black_market_' + bmCycleId;
+        recordEventParticipation({
+          id: bmId,
+          badgeKey: 'bm_regular',
+          nameRu: '🌑 Чёрный рынок #' + bmCycleId,
+          nameEn: '🌑 Black Market #' + bmCycleId,
+          start: lastBlackMarket || (now - 3600000),
+          end: blackMarketEnd,
+          itemsBought: bmBoughtInCycle.length,
+          active: true
+        });
+      }
+    }
+
+    function checkEvents(showPopups) {
       var now = Date.now();
       var date = new Date();
       var month = date.getMonth() + 1;
@@ -1031,22 +1420,74 @@
       if (now < blackMarketEnd) {
         activeEvents.blackMarket = true;
       } else {
-        if (now - lastBlackMarket > 6 * 24 * 60 * 60 * 1000) {
-          if (Math.random() < 0.7) {
+        if (activeEvents.blackMarket) {
+          // Только что закрылся
+          var prevId = 'black_market_' + bmCycleId;
+          recordEventParticipation({ id: prevId, active: false, itemsBought: bmBoughtInCycle.length });
+        }
+        activeEvents.blackMarket = false;
+        var cooldownMs = 6 * 24 * 60 * 60 * 1000;
+        if (!lastBlackMarket || (now - lastBlackMarket >= cooldownMs)) {
+          if (!lastBlackMarket || Math.random() < 0.75) {
+            bmCycleId += 1;
+            var jitterHours = (Math.random() * 24 - 12); // ±12 часов
+            var durationHours = 48 + jitterHours;
             lastBlackMarket = now;
-            blackMarketEnd = now + (48 * 60 * 60 * 1000);
-            localStorage.setItem('lastBlackMarket', lastBlackMarket);
-            localStorage.setItem('blackMarketEnd', blackMarketEnd);
+            blackMarketEnd = now + Math.round(durationHours * 60 * 60 * 1000);
+            bmBoughtInCycle = [];
             activeEvents.blackMarket = true;
-          } else {
-            activeEvents.blackMarket = false;
+            save();
           }
-        } else {
-          activeEvents.blackMarket = false;
         }
       }
 
+      syncEventHistoryWithActive();
+      updateSeasonVisuals();
       updateEventBanner();
+      updateShopEventUI();
+
+      if (showPopups) {
+        if (activeEvents.blackMarket) {
+          var hoursLeft = Math.max(1, Math.ceil((blackMarketEnd - now) / (1000 * 60 * 60)));
+          if (bmNotifiedOpenCycle !== bmCycleId) {
+            bmNotifiedOpenCycle = bmCycleId;
+            save();
+            showEventNotice(t.bm_open_title, t.bm_open_text.replace('{hours}', hoursLeft));
+          } else if (hoursLeft <= 6 && bmNotifiedCloseCycle !== bmCycleId) {
+            bmNotifiedCloseCycle = bmCycleId;
+            save();
+            showEventNotice(t.bm_closing_title, t.bm_closing_text);
+          }
+        }
+        var yr = date.getFullYear();
+        if (activeEvents.halloween) {
+          var hKey = 'halloween_' + yr;
+          if (notifiedSeasons.indexOf(hKey) === -1) {
+            notifiedSeasons.push(hKey);
+            save();
+            showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_halloween));
+          }
+        }
+        if (activeEvents.newYear) {
+          var nyKey = 'newyear_' + yr;
+          if (notifiedSeasons.indexOf(nyKey) === -1) {
+            notifiedSeasons.push(nyKey);
+            save();
+            showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_newyear));
+          }
+        }
+      }
+    }
+
+    function updateSeasonVisuals() {
+      document.body.classList.remove('season-halloween', 'season-newyear', 'season-blackmarket');
+      if (activeEvents.halloween) {
+        document.body.classList.add('season-halloween');
+      } else if (activeEvents.newYear) {
+        document.body.classList.add('season-newyear');
+      } else if (activeEvents.blackMarket) {
+        document.body.classList.add('season-blackmarket');
+      }
     }
 
     function updateEventBanner() {
@@ -1076,6 +1517,48 @@
       }
     }
 
+    window.handleEventBannerClick = function() {
+      playHaptic('medium');
+      if (activeEvents.blackMarket) {
+        showScreen('shop');
+        switchShopTab('blackmarket');
+      } else {
+        showScreen('shop');
+        switchShopTab('skins');
+      }
+    };
+
+    function updateShopEventUI() {
+      var bmTab = getEl('tabBlackMarket');
+      var shopBadge = getEl('shopEventBadge');
+      var bmTimerEl = getEl('bmTimerText');
+
+      if (bmTab) {
+        if (activeEvents.blackMarket) bmTab.classList.add('visible');
+        else bmTab.classList.remove('visible');
+      }
+
+      if (shopBadge) {
+        if (activeEvents.blackMarket || activeEvents.halloween || activeEvents.newYear) {
+          shopBadge.style.display = 'block';
+          shopBadge.innerText = activeEvents.blackMarket ? '🌑' : (activeEvents.halloween ? '🎃' : '🎄');
+        } else {
+          shopBadge.style.display = 'none';
+        }
+      }
+
+      if (bmTimerEl && activeEvents.blackMarket) {
+        var diff = Math.max(0, blackMarketEnd - Date.now());
+        var h = Math.floor(diff / (1000 * 60 * 60));
+        var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        bmTimerEl.innerText = t.bm_left.replace('{hours}', h).replace('{mins}', m);
+      }
+
+      if (!activeEvents.blackMarket && currentShopTab === 'blackmarket') {
+        switchShopTab('skins');
+      }
+    }
+
     window.openTestEventMenu = function() {
       var modal = getEl('testEventModal');
       if (modal) modal.style.display = 'flex';
@@ -1096,10 +1579,18 @@
       if (eventName === 'newYear') activeEvents.newYear = true;
       if (eventName === 'blackMarket') {
         activeEvents.blackMarket = true;
+        bmCycleId += 1;
+        lastBlackMarket = Date.now();
         blackMarketEnd = Date.now() + (24 * 60 * 60 * 1000);
+        bmBoughtInCycle = [];
       }
       
+      syncEventHistoryWithActive();
+      updateSeasonVisuals();
       updateEventBanner();
+      updateShopEventUI();
+      if (currentShopTab === 'blackmarket') renderBlackMarket();
+      save();
       closeTestEventMenu();
       playHaptic('success');
     }
@@ -1140,11 +1631,15 @@
         if(t[key]) elements[i].innerText = t[key];
       }
       updateEventBanner();
+      updateShopEventUI();
       updateSettingsUI();
       renderShop();
+      renderBlackMarket();
       updateGiftUI();
       updateAutoInfo();
+      updateBuffsInfo();
       updateRank();
+      updateProfileBadges();
       if (activeInfoGame) renderInfoModalContent(activeInfoGame);
     }
 
@@ -1164,103 +1659,8 @@
         if (scrName === 'quests') renderQuests();
         if (scrName === 'rating') renderRating();
         if (scrName === 'achievements') renderAchievements();
+        if (scrName === 'events-history') renderEventsHistory();
       }
-    }
-
-    var tg = null;
-    try { if (window.Telegram && window.Telegram.WebApp) { tg = window.Telegram.WebApp; tg.ready(); tg.expand(); } } catch(e) {}
-
-    var upgradesData = [
-      { nameIdx: 0, desc: 0.002, cost: 2.5, value: 0.002 }, { nameIdx: 1, desc: 0.003, cost: 4, value: 0.003 }, { nameIdx: 2, desc: 0.004, cost: 8, value: 0.004 }, { nameIdx: 3, desc: 0.005, cost: 16, value: 0.005 },
-      { nameIdx: 4, desc: 0.010, cost: 50, value: 0.010 }, { nameIdx: 5, desc: 0.020, cost: 100, value: 0.020 }, { nameIdx: 6, desc: 0.030, cost: 150, value: 0.030 }, { nameIdx: 7, desc: 0.040, cost: 200, value: 0.040 },
-      { nameIdx: 8, desc: 0.050, cost: 250, value: 0.050 }, { nameIdx: 9, desc: 0.100, cost: 500, value: 0.100 }, { nameIdx: 10, desc: 0.2, cost: 600, value: 0.2 }, { nameIdx: 11, desc: 0.3, cost: 700, value: 0.3 },
-      { nameIdx: 12, desc: 0.4, cost: 800, value: 0.4 }, { nameIdx: 13, desc: 0.5, cost: 900, value: 0.5 }, { nameIdx: 14, desc: 1.0, cost: 1000, value: 1.0 }, { nameIdx: 15, desc: 2.0, cost: 1500, value: 2.0 },
-      { nameIdx: 16, desc: 3.0, cost: 2000, value: 3.0 }, { nameIdx: 17, desc: 4.0, cost: 2500, value: 4.0 }, { nameIdx: 18, desc: 5.0, cost: 3000, value: 5.0 }, { nameIdx: 19, desc: 10.0, cost: 5000, value: 10.0 },
-      { nameIdx: 20, desc: 15.0, cost: 6000, value: 15.0 }, { nameIdx: 21, desc: 20.0, cost: 7000, value: 20.0 }, { nameIdx: 22, desc: 25.0, cost: 8000, value: 25.0 }, { nameIdx: 23, desc: 30.0, cost: 9000, value: 30.0 },
-      { nameIdx: 24, desc: 40.0, cost: 10000, value: 40.0 }, { nameIdx: 25, desc: 50.0, cost: 12000, value: 50.0 }, { nameIdx: 26, desc: 60.0, cost: 15000, value: 60.0 }, { nameIdx: 27, desc: 75.0, cost: 18000, value: 75.0 },
-      { nameIdx: 28, desc: 85.0, cost: 20000, value: 85.0 }, { nameIdx: 29, desc: 100.0, cost: 25000, value: 100.0 }
-    ];
-    
-    var autoValueData = [
-      { level: 1, cost: 50, value: 0.0002 }, { level: 2, cost: 60, value: 0.0003 }, { level: 3, cost: 70, value: 0.0004 }, { level: 4, cost: 80, value: 0.0005 },
-      { level: 5, cost: 160, value: 0.001 }, { level: 6, cost: 180, value: 0.002 }, { level: 7, cost: 200, value: 0.003 }, { level: 8, cost: 225, value: 0.004 },
-      { level: 9, cost: 250, value: 0.005 }, { level: 10, cost: 500, value: 0.01 }, { level: 11, cost: 600, value: 0.02 }, { level: 12, cost: 700, value: 0.03 }, 
-      { level: 13, cost: 800, value: 0.04 }, { level: 14, cost: 900, value: 0.05 }, { level: 15, cost: 1000, value: 0.1 }, { level: 16, cost: 1500, value: 0.2 }, 
-      { level: 17, cost: 2000, value: 0.3 }, { level: 18, cost: 2500, value: 0.4 }, { level: 19, cost: 3000, value: 0.5 }, { level: 20, cost: 4000, value: 1.0 },
-      { level: 21, cost: 5000, value: 2.0 }, { level: 22, cost: 6000, value: 3.0 }, { level: 23, cost: 8000, value: 5.0 }, { level: 24, cost: 10000, value: 10.0 }, { level: 25, cost: 15000, value: 25.0 }
-    ];
-    
-    var autoSpeedData = [
-      { level: 1, cost: 55, interval: 45000 }, { level: 2, cost: 65, interval: 40000 }, { level: 3, cost: 75, interval: 35000 }, { level: 4, cost: 100, interval: 30000 },
-      { level: 5, cost: 150, interval: 25000 }, { level: 6, cost: 200, interval: 20000 }, { level: 7, cost: 250, interval: 15000 }, { level: 8, cost: 300, interval: 10000 },
-      { level: 9, cost: 375, interval: 5000 }, { level: 10, cost: 500, interval: 1000 }
-    ];
-    
-    var questsData = [
-      { id: 1, need: 1000, reward: 0.5 }, { id: 2, need: 5000, reward: 1 }, { id: 3, need: 10000, reward: 2 }, { id: 4, need: 15000, reward: 5 }, { id: 5, need: 20000, reward: 10 },
-      { id: 6, need: 25000, reward: 15 }, { id: 7, need: 30000, reward: 20 }, { id: 8, need: 35000, reward: 25 }, { id: 9, need: 40000, reward: 30 }, { id: 10, need: 50000, reward: 50 },
-      { id: 11, need: 100000, reward: 100 }, { id: 12, need: 250000, reward: 500 }, { id: 13, need: 500000, reward: 500 }, { id: 14, need: 750000, reward: 750 }, { id: 15, need: 1000000, reward: 1000 },
-      { id: 16, need: 2500000, reward: 2500 }, { id: 17, need: 5000000, reward: 5000 }, { id: 18, need: 10000000, reward: 10000 }, { id: 19, need: 25000000, reward: 25000 }, { id: 20, need: 50000000, reward: 50000 }
-    ];
-
-    var skinsData = [
-      { id: 0, name: "Обычная", en_name: "Default", price: 0, emoji: "🥔", image: "potato.png" },
-      { id: 1, name: "Золотая", en_name: "Golden", price: 100000, emoji: "🥇", image: "potato_gold.png" },
-      { id: 2, name: "Призрачная", en_name: "Ghost", price: 50000, emoji: "👻", image: "potato_ghost.png" }
-    ];
-
-    var balance = parseFloat(localStorage.getItem('potatoBalance')) || 0;
-    var tapValue = parseFloat(localStorage.getItem('tapValue')) || 0.001;
-    var maxUpgrade = parseInt(localStorage.getItem('maxUpgrade')) || 0;
-    var totalTaps = parseInt(localStorage.getItem('totalTaps')) || 0;
-    var claimed = JSON.parse(localStorage.getItem('claimed') || '[]');
-    var unlockedAch = JSON.parse(localStorage.getItem('unlockedAch') || '[]');
-    var hasAutoclicker = localStorage.getItem('hasAutoclicker') === 'true';
-    var autoValue = parseFloat(localStorage.getItem('autoValue')) || 0.0001;
-    var autoInterval = parseInt(localStorage.getItem('autoInterval')) || 50000;
-    var autoValueLevel = parseInt(localStorage.getItem('autoValueLevel')) || 0;
-    var autoSpeedLevel = parseInt(localStorage.getItem('autoSpeedLevel')) || 0;
-    var ownedSkins = JSON.parse(localStorage.getItem('ownedSkins') || '[0]');
-    var equippedSkin = parseInt(localStorage.getItem('equippedSkin')) || 0;
-    
-    var currentTab = 'tap'; var autoTimer = null; var lastTapTime = 0;
-    var userPhoto = ''; var userName = t.player; var hasUnclaimedQuest = false;
-
-    var lastGiftTime = parseInt(localStorage.getItem('lastGiftTime')) || 0;
-    var giftCooldown = 24 * 60 * 60 * 1000; var giftTimerInterval = null;
-
-    var isSpinning = false; var spinCost = 5; var forceMoai = false; var SPIN_DURATION = 9000; 
-    var isSlotsSpinning = false; var slotsCost = 100;
-    
-    var isWheelSpinning = false; var wheelCost = 500;
-    var currentWheelRotation = 0;
-
-    var caseSound = new Audio('case_open.mp3'); 
-
-    var rankMultipliers = [1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5];
-    var currentMultiplier = 1.05;
-
-    var balanceEl = getEl('balance'); var tapPowerEl = getEl('tapPower'); var tapBoostDisplay = getEl('tapBoostDisplay');
-    var potatoBtn = getEl('potatoBtn'); var potatoDisplay = getEl('potatoDisplay'); var upgradesList = getEl('upgradesList');
-    var questsList = getEl('questsList'); var achievementsList = getEl('achievementsList'); var shopList = getEl('shopList');
-    var autoInfo = getEl('autoInfo'); var totalTapsText = getEl('totalTapsText'); var progressFill = getEl('progressFill');
-    var topBalanceBar = document.querySelector('.top-balance'); var casinoReel = getEl('casinoReel'); var spinBtn = getEl('spinBtn'); var profileRankEl = getEl('profileRank');
-
-    function save() {
-      localStorage.setItem('potatoBalance', balance.toFixed(3));
-      localStorage.setItem('tapValue', tapValue.toFixed(3));
-      localStorage.setItem('maxUpgrade', maxUpgrade);
-      localStorage.setItem('totalTaps', totalTaps);
-      localStorage.setItem('claimed', JSON.stringify(claimed));
-      localStorage.setItem('unlockedAch', JSON.stringify(unlockedAch));
-      localStorage.setItem('hasAutoclicker', hasAutoclicker);
-      localStorage.setItem('autoValue', autoValue.toFixed(4));
-      localStorage.setItem('autoInterval', autoInterval);
-      localStorage.setItem('autoValueLevel', autoValueLevel);
-      localStorage.setItem('autoSpeedLevel', autoSpeedLevel);
-      localStorage.setItem('ownedSkins', JSON.stringify(ownedSkins));
-      localStorage.setItem('equippedSkin', equippedSkin);
-      localStorage.setItem('lastGiftTime', lastGiftTime);
     }
 
     function updatePotatoSkin() {
@@ -1280,7 +1680,40 @@
 
       currentMultiplier = rankMultipliers[rankIndex];
       if (profileRankEl) profileRankEl.innerText = t.title_rank + t.ranks[rankIndex] + " (x" + currentMultiplier + ")";
-      if (tapBoostDisplay) tapBoostDisplay.innerText = "(x" + currentMultiplier + ")";
+      var permPct = Math.round(bmTapBonus * 100);
+      if (tapBoostDisplay) {
+        tapBoostDisplay.innerText = "(x" + currentMultiplier + (permPct > 0 ? " +" + permPct + "%" : "") + ")";
+      }
+    }
+
+    function updateBuffsInfo() {
+      if (!activeBuffsInfo) return;
+      var lines = [];
+      if (hasActiveCasinoBoost()) {
+        var hoursLeft = Math.max(1, Math.ceil((activeBuffs.casinoBoostUntil - Date.now()) / (1000 * 60 * 60)));
+        lines.push(t.contract_active.replace('{hours}', hoursLeft));
+      }
+      if (hasMoaiAmulet) {
+        var usedToday = (lastMoaiSaveDate === getTodayKey());
+        lines.push("🗿 " + (usedToday ? t.amulet_used_today : t.amulet_ready_today));
+      }
+      if (lines.length > 0) {
+        activeBuffsInfo.style.display = 'block';
+        activeBuffsInfo.innerHTML = lines.join('<br>');
+      } else {
+        activeBuffsInfo.style.display = 'none';
+      }
+    }
+
+    function updateProfileBadges() {
+      var bar = getEl('profileBadgesBar');
+      if (!bar) return;
+      if (!earnedBadges.length) {
+        bar.innerText = t.no_badges_yet;
+      } else {
+        var names = earnedBadges.map(function(k) { return t.badge_names[k] || k; });
+        bar.innerText = t.badges_label + names.join(' • ');
+      }
     }
 
     function updateUI() {
@@ -1289,10 +1722,12 @@
         if (balance < 0) { balanceEl.classList.add('negative'); } else { balanceEl.classList.remove('negative'); }
       }
       updateRank(); 
-      var effectiveTapValue = tapValue * currentMultiplier;
+      var effectiveTapValue = getEffectiveTapValue();
       if (tapPowerEl) tapPowerEl.innerText = formatMoney(effectiveTapValue); 
       if (totalTapsText) totalTapsText.innerText = formatMoney(totalTaps, 0); 
       if (progressFill) progressFill.style.width = Math.min(100, (totalTaps / 50000000) * 100) + '%';
+      updateBuffsInfo();
+      updateProfileBadges();
       checkAchievements(); checkQuestReady(); save();
     }
 
@@ -1344,13 +1779,141 @@
     };
 
     window.switchShopTab = function(tab) {
+      if (tab === 'blackmarket' && !activeEvents.blackMarket) return;
+      currentShopTab = tab;
       playHaptic('medium'); 
-      var tabs = document.querySelectorAll('.shop-tab-btn'); if(tabs.length < 2) return;
-      var skinsBtn = tabs[0]; var giftsBtn = tabs[1]; var skinsContent = getEl('shopContentSkins'); var giftsContent = getEl('shopContentGifts');
-      if (!skinsContent || !giftsContent) return;
-      if (tab === 'skins') { skinsBtn.classList.add('active'); giftsBtn.classList.remove('active'); skinsContent.style.display = 'block'; giftsContent.style.display = 'none'; renderShop(); } 
-      else { giftsBtn.classList.add('active'); skinsBtn.classList.remove('active'); skinsContent.style.display = 'none'; giftsContent.style.display = 'block'; updateGiftUI(); }
+      var tabs = document.querySelectorAll('.shop-tab-btn');
+      for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+
+      var skinsContent = getEl('shopContentSkins');
+      var giftsContent = getEl('shopContentGifts');
+      var bmContent = getEl('shopContentBlackMarket');
+      if (!skinsContent || !giftsContent || !bmContent) return;
+
+      skinsContent.style.display = 'none';
+      giftsContent.style.display = 'none';
+      bmContent.style.display = 'none';
+
+      if (tab === 'skins') {
+        if (tabs[0]) tabs[0].classList.add('active');
+        skinsContent.style.display = 'block';
+        renderShop();
+      } else if (tab === 'gifts') {
+        if (tabs[1]) tabs[1].classList.add('active');
+        giftsContent.style.display = 'block';
+        updateGiftUI();
+      } else if (tab === 'blackmarket') {
+        var bmTabEl = getEl('tabBlackMarket');
+        if (bmTabEl) bmTabEl.classList.add('active');
+        bmContent.style.display = 'block';
+        updateShopEventUI();
+        renderBlackMarket();
+      }
     };
+
+    function renderBlackMarket() {
+      if (!blackMarketList) return;
+      blackMarketList.innerHTML = '';
+
+      for (var i = 0; i < blackMarketItemsData.length; i++) {
+        var item = blackMarketItemsData[i];
+        var loc = t.bm_items[item.id] || { name: item.id, desc: '', rarity: '' };
+        var alreadyBought = false;
+        if (item.kind === 'skin' && ownedSkins.indexOf(item.skinId) !== -1) alreadyBought = true;
+        if (bmBoughtInCycle.indexOf(item.id) !== -1) alreadyBought = true;
+
+        var card = document.createElement('div');
+        card.className = 'card';
+        if (item.kind === 'casino_boost' || item.kind === 'moai_amulet') {
+          card.classList.add('rgb-glow');
+        }
+
+        card.innerHTML =
+          '<div class="card-icon">' + item.icon + '</div>' +
+          '<div class="card-content">' +
+            '<div class="card-title">' + loc.name + '</div>' +
+            '<div class="card-rarity">★ ' + loc.rarity + '</div>' +
+            '<div class="card-desc">' + loc.desc + '</div>' +
+          '</div>';
+
+        var btn = document.createElement('button');
+        btn.className = 'btn btn-gold';
+        btn.style.width = 'auto';
+        btn.style.marginBottom = '0';
+        btn.style.padding = '8px 10px';
+        btn.style.fontSize = '8px';
+
+        if (alreadyBought) {
+          btn.innerText = t.bought;
+          btn.disabled = true;
+        } else {
+          btn.innerText = t.buy + ' (' + formatMoney(item.price, 0) + ' ₽)';
+          btn.onclick = (function(lot) {
+            return function() {
+              if (balance < lot.price) {
+                playHaptic('error');
+                alert(t.not_enough_money);
+                return;
+              }
+              balance -= lot.price;
+              if (lot.kind === 'tap_perm') {
+                bmTapBonus += lot.tapBonus;
+              } else if (lot.kind === 'chaos_perm') {
+                bmTapBonus += lot.tapBonus;
+                bmAutoSpeedBonus += lot.autoSpeedBonus;
+                if (hasAutoclicker) startAutoclicker();
+              } else if (lot.kind === 'moai_amulet') {
+                hasMoaiAmulet = true;
+              } else if (lot.kind === 'skin') {
+                if (ownedSkins.indexOf(lot.skinId) === -1) ownedSkins.push(lot.skinId);
+              } else if (lot.kind === 'casino_boost') {
+                activeBuffs.casinoBoostUntil = Date.now() + lot.durationMs;
+              }
+
+              if (bmBoughtInCycle.indexOf(lot.id) === -1) bmBoughtInCycle.push(lot.id);
+              addBadge('bm_regular');
+              recordEventParticipation({
+                id: 'black_market_' + bmCycleId,
+                itemsBought: bmBoughtInCycle.length
+              });
+
+              playSound('buy_gold');
+              playHaptic('success');
+              updateUI();
+              updateAutoInfo();
+              renderShop();
+              renderBlackMarket();
+            };
+          })(item);
+        }
+
+        card.appendChild(btn);
+        blackMarketList.appendChild(card);
+      }
+    }
+
+    function applyCasinoOutcome(rawDelta) {
+      if (rawDelta < 0) {
+        var todayKey = getTodayKey();
+        if (hasMoaiAmulet && lastMoaiSaveDate !== todayKey) {
+          lastMoaiSaveDate = todayKey;
+          updateUI();
+          playSound('quest_claim');
+          playHaptic('success');
+          alert(t.amulet_saved.replace('{amount}', formatMoney(Math.abs(rawDelta), 0)));
+          return 0;
+        }
+        balance += rawDelta;
+        updateUI();
+        return rawDelta;
+      } else if (rawDelta > 0) {
+        var finalWin = rawDelta * getCasinoWinMultiplier();
+        balance += finalWin;
+        updateUI();
+        return finalWin;
+      }
+      return 0;
+    }
 
     // === РУЛЕТКА (ЯЩИК КАРТОШКИ) ===
     var casinoItems = [
@@ -1426,12 +1989,14 @@
             balance = 0; updateUI(); playSound('quest_claim_10'); playHaptic('heavy'); alert(t.moai_win);
             if (unlockedAch.indexOf(19) === -1) { unlockedAch.push(19); playSound('achievement'); save(); }
           } else if (winItem.type === 'fries') {
-            balance += 5000; updateUI(); playSound('quest_claim_10'); playHaptic('heavy'); alert(t.box_jackpot);
+            var boosted = applyCasinoOutcome(5000);
+            playSound('quest_claim_10'); playHaptic('heavy');
+            alert(t.box_jackpot + (hasActiveCasinoBoost() ? ' (' + formatMoney(boosted, 0) + ' ₽)' : ''));
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
           } else {
-            var winVal = parseFloat(winItem.value); balance += winVal; updateUI();
-            if (winVal < 0) { playHaptic('error'); alert(t.you_lost_val + formatMoney(Math.abs(winVal), 0) + ' ₽'); } 
-            else { playSound('casino_win'); playHaptic('success'); alert(t.you_won_val + formatMoney(winVal, 0) + ' ₽'); }
+            var applied = applyCasinoOutcome(parseFloat(winItem.value));
+            if (applied < 0) { playHaptic('error'); alert(t.you_lost_val + formatMoney(Math.abs(applied), 0) + ' ₽'); } 
+            else if (applied > 0) { playSound('casino_win'); playHaptic('success'); alert(t.you_won_val + formatMoney(applied, 0) + ' ₽'); }
             if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
           }
         }, SPIN_DURATION + 100); 
@@ -1514,12 +2079,13 @@
         if (spinBtnEl) spinBtnEl.disabled = false;
 
         if (winAmount > 0) {
-          balance += winAmount; updateUI(); playSound('quest_claim_10'); playHaptic('heavy');
+          var finalWin = applyCasinoOutcome(winAmount);
+          playSound('quest_claim_10'); playHaptic('heavy');
           if (winType === 'jackpot') {
-            alert(t.slot_jackpot.replace('{amount}', formatMoney(winAmount, 0)));
+            alert(t.slot_jackpot.replace('{amount}', formatMoney(finalWin, 0)));
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
           } else {
-            alert(t.you_won_val + formatMoney(winAmount, 0) + ' ₽');
+            alert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽');
           }
           if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
         } else {
@@ -1595,15 +2161,14 @@
         playHaptic('heavy');
 
         if (winAmount > 0) {
-          balance += winAmount;
-          updateUI();
+          var finalWin = applyCasinoOutcome(winAmount);
           playSound('quest_claim_10');
           
           if (winType === 'jackpot') {
-            alert(t.wheel_jackpot.replace('{amount}', formatMoney(winAmount, 0)));
+            alert(t.wheel_jackpot.replace('{amount}', formatMoney(finalWin, 0)));
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
           } else {
-            alert(t.you_won_val + formatMoney(winAmount, 0) + ' ₽');
+            alert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽');
           }
           if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
         } else {
@@ -1649,9 +2214,10 @@
       if (hasAutoclicker) {
         if (autoInfo) {
           autoInfo.style.display = 'block';
+          var effSec = (getEffectiveAutoInterval() / 1000).toFixed(1).replace(/\.0$/, '');
           var text = currentLang === 'ru'
-            ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' сек'
-            : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' sec';
+            ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + effSec + ' сек'
+            : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + effSec + ' sec';
           autoInfo.innerText = text;
         }
       } else { if (autoInfo) autoInfo.style.display = 'none'; }
@@ -1659,14 +2225,14 @@
 
     function startAutoclicker() {
       if (autoTimer) clearInterval(autoTimer); if (!hasAutoclicker) return;
-      autoTimer = setInterval(function() { balance += autoValue; updateUI(); }, autoInterval);
+      autoTimer = setInterval(function() { balance += autoValue; updateUI(); }, getEffectiveAutoInterval());
     }
 
     function handleTap(e) {
       var now = Date.now(); if (now - lastTapTime < 50) return; lastTapTime = now;
       if (e.cancelable) e.preventDefault();
       playHaptic('light');
-      var effectiveTapValue = tapValue * currentMultiplier;
+      var effectiveTapValue = getEffectiveTapValue();
       balance += effectiveTapValue; totalTaps += 1; updateUI();
 
       var float = document.createElement('div'); float.className = 'float-text'; float.innerText = '+' + formatMoney(effectiveTapValue); 
@@ -1683,6 +2249,7 @@
       if (!shopList) return; shopList.innerHTML = '';
       for (var i = 0; i < skinsData.length; i++) {
         var skin = skinsData[i]; var isOwned = ownedSkins.indexOf(skin.id) !== -1; var isEquipped = equippedSkin === skin.id;
+        if (skin.fromBlackMarket && !isOwned) continue;
         var skinName = currentLang === 'en' ? skin.en_name : skin.name;
         var card = document.createElement('div'); card.className = 'card shop-card';
         var previewStyle = (!isOwned && skin.id !== 0) ? 'filter: grayscale(100%) opacity(0.5);' : '';
@@ -1847,6 +2414,52 @@
       }
     }
 
+    function formatShortDate(ts) {
+      if (!ts) return '—';
+      var d = new Date(ts);
+      var locale = currentLang === 'ru' ? 'ru-RU' : 'en-US';
+      return d.toLocaleDateString(locale, { day: '2-digit', month: 'short' });
+    }
+
+    function renderEventsHistory() {
+      if (!eventsHistoryList) return;
+      eventsHistoryList.innerHTML = '';
+
+      if (!eventHistory.length) {
+        var emptyCard = document.createElement('div');
+        emptyCard.className = 'card';
+        emptyCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;">' + t.history_empty + '</div></div>';
+        eventsHistoryList.appendChild(emptyCard);
+        return;
+      }
+
+      for (var i = 0; i < eventHistory.length; i++) {
+        var ev = eventHistory[i];
+        var title = currentLang === 'en' ? (ev.nameEn || ev.nameRu) : (ev.nameRu || ev.nameEn);
+        var periodLine = t.history_period
+          .replace('{start}', formatShortDate(ev.start))
+          .replace('{end}', formatShortDate(ev.end));
+        var extraLine = typeof ev.itemsBought === 'number'
+          ? '<div class="card-desc">' + t.history_bought_bm.replace('{count}', ev.itemsBought) + '</div>'
+          : '';
+        var statusLine = ev.active
+          ? '<div class="card-status status-unlocked">' + t.history_active + '</div>'
+          : '<div class="card-status status-locked">' + t.history_finished + '</div>';
+
+        var card = document.createElement('div');
+        card.className = 'card';
+        if (ev.active) card.classList.add('rgb-glow');
+        card.innerHTML =
+          '<div class="card-content">' +
+            '<div class="card-title">' + title + '</div>' +
+            '<div class="card-desc">' + periodLine + '</div>' +
+            extraLine +
+            statusLine +
+          '</div>';
+        eventsHistoryList.appendChild(card);
+      }
+    }
+
     function renderRating() {
       var container = getEl('leaderboardList'); if (!container) return;
       container.innerHTML = ''; var row = document.createElement('div'); row.className = 'rating-row';
@@ -1884,20 +2497,21 @@
         if (menuItems[m].getAttribute('data-screen') === name) menuItems[m].classList.add('active');
       }
       
-      if (name === 'achievements' || name === 'shop' || name === 'casino' || name === 'casino-box' || name === 'casino-slots' || name === 'casino-wheel' || name === 'settings') { 
+      if (name === 'achievements' || name === 'events-history' || name === 'shop' || name === 'casino' || name === 'casino-box' || name === 'casino-slots' || name === 'casino-wheel' || name === 'settings') { 
         for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active'); 
       }
 
       if (topBalanceBar) {
-        if (name === 'quests' || name === 'rating' || name === 'achievements' || name === 'settings') { topBalanceBar.style.display = 'none'; } else { topBalanceBar.style.display = 'flex'; }
+        if (name === 'quests' || name === 'rating' || name === 'achievements' || name === 'events-history' || name === 'settings') { topBalanceBar.style.display = 'none'; } else { topBalanceBar.style.display = 'flex'; }
       }
 
       if (name === 'upgrades') renderUpgrades();
       if (name === 'quests') renderQuests();
-      if (name === 'profile') { loadUser(); updateRank(); }
+      if (name === 'profile') { loadUser(); updateRank(); updateProfileBadges(); }
       if (name === 'rating') renderRating();
       if (name === 'achievements') renderAchievements();
-      if (name === 'shop') { switchShopTab('skins'); }
+      if (name === 'events-history') renderEventsHistory();
+      if (name === 'shop') { updateShopEventUI(); switchShopTab('skins'); }
       if (name === 'casino-box') { initCasino(); }
       if (name === 'settings') { initRockets(); }
     }
@@ -1927,13 +2541,17 @@
       };
     }
 
-    checkEvents();
     applyTranslations();
+    checkEvents(true);
     loadUser();
     updateUI();
     updatePotatoSkin();
     if (giftTimerInterval) clearInterval(giftTimerInterval);
-    giftTimerInterval = setInterval(updateGiftUI, 60000); 
+    giftTimerInterval = setInterval(function() {
+      updateGiftUI();
+      checkEvents(false);
+      updateBuffsInfo();
+    }, 60000); 
     if (hasAutoclicker) startAutoclicker();
   </script>
 </body>
