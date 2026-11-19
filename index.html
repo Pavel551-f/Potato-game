@@ -21,15 +21,9 @@
       transition: background 0.4s ease;
     }
 
-    body.season-halloween {
-      background: linear-gradient(180deg, #1b0a26, #3b1208);
-    }
-    body.season-newyear {
-      background: linear-gradient(180deg, #0b2545, #134e4a);
-    }
-    body.season-blackmarket {
-      background: linear-gradient(180deg, #090714, #1e1b4b);
-    }
+    body.season-halloween { background: linear-gradient(180deg, #1b0a26, #3b1208); }
+    body.season-newyear { background: linear-gradient(180deg, #0b2545, #134e4a); }
+    body.season-blackmarket { background: linear-gradient(180deg, #090714, #1e1b4b); }
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; overflow-y: auto; }
 
@@ -47,35 +41,21 @@
     }
 
     body.has-event-banner .top-balance,
-    body.has-event-banner .btn-top-back {
-      top: 54px;
-    }
-    body.has-event-banner .main-btns-container {
-      top: 100px;
-    }
+    body.has-event-banner .btn-top-back { top: 54px; }
+    body.has-event-banner .main-btns-container { top: 100px; }
     body.has-event-banner .tabs,
-    body.has-event-banner .shop-tabs {
-      padding-top: 120px;
-    }
+    body.has-event-banner .shop-tabs { padding-top: 120px; }
     body.has-event-banner .main-content,
-    body.has-event-banner .profile-content {
-      padding-top: 110px;
-    }
+    body.has-event-banner .profile-content { padding-top: 110px; }
     body.has-event-banner .casino-menu-container,
     body.has-event-banner .casino-container,
     body.has-event-banner .slots-container,
     body.has-event-banner .wheel-container,
-    body.has-event-banner .settings-content {
-      padding-top: 120px;
-    }
+    body.has-event-banner .settings-content { padding-top: 120px; }
     body.has-event-banner #screen-achievements .list-content,
-    body.has-event-banner #screen-events-history .list-content {
-      padding-top: 115px;
-    }
+    body.has-event-banner #screen-events-history .list-content { padding-top: 115px; }
     body.has-event-banner #screen-quests .list-content,
-    body.has-event-banner #screen-rating .rating-container {
-      padding-top: 52px;
-    }
+    body.has-event-banner #screen-rating .rating-container { padding-top: 52px; }
 
     .top-balance { 
       position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 10px; 
@@ -145,21 +125,11 @@
       width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center;
       position: relative; z-index: 10; border-radius: 24px; transition: box-shadow 0.3s ease, border-color 0.3s ease;
     }
-    body.season-halloween .potato-wrap {
-      border: 3px dashed #fb923c;
-      box-shadow: 0 0 22px rgba(234, 88, 12, 0.55);
-    }
-    body.season-newyear .potato-wrap {
-      border: 3px solid #67e8f9;
-      box-shadow: 0 0 22px rgba(103, 232, 249, 0.5);
-    }
-    body.season-blackmarket .potato-wrap {
-      border: 3px solid #a855f7;
-      box-shadow: 0 0 24px rgba(168, 85, 247, 0.6);
-    }
+    body.season-halloween .potato-wrap { border: 3px dashed #fb923c; box-shadow: 0 0 22px rgba(234, 88, 12, 0.55); }
+    body.season-newyear .potato-wrap { border: 3px solid #67e8f9; box-shadow: 0 0 22px rgba(103, 232, 249, 0.5); }
+    body.season-blackmarket .potato-wrap { border: 3px solid #a855f7; box-shadow: 0 0 24px rgba(168, 85, 247, 0.6); }
 
     .potato-emoji { font-size: 120px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
-    
     .potato-wrap:active .potato-emoji { animation: shake 0.1s; }
     @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
     
@@ -188,36 +158,19 @@
       text-shadow: 1px 1px 0 #000; font-family: inherit;
     }
     .shop-tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; }
-    .shop-tab-btn.blackmarket-tab {
-      display: none;
-      background: rgba(15, 10, 30, 0.9);
-      color: #e9d5ff;
-    }
-    .shop-tab-btn.blackmarket-tab.visible {
-      display: block;
-    }
-    .shop-tab-btn.blackmarket-tab.active {
-      background: #4c1d95;
-      color: #fde047;
-    }
+    .shop-tab-btn.blackmarket-tab { display: none; background: rgba(15, 10, 30, 0.9); color: #e9d5ff; }
+    .shop-tab-btn.blackmarket-tab.visible { display: block; }
+    .shop-tab-btn.blackmarket-tab.active { background: #4c1d95; color: #fde047; }
 
     .bm-header-box {
-      margin: 0 16px 12px;
-      padding: 10px 12px;
-      background: rgba(15, 10, 30, 0.75);
-      border: 2px solid #a855f7;
-      font-size: 8px;
-      line-height: 1.6;
-      color: #e9d5ff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
+      margin: 0 16px 12px; padding: 10px 12px;
+      background: rgba(15, 10, 30, 0.75); border: 2px solid #a855f7;
+      font-size: 8px; line-height: 1.6; color: #e9d5ff;
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
     }
     .bm-timer { color: #fde047; white-space: nowrap; }
 
     .list-content { padding: 0 16px 30px; }
-    
     #screen-achievements .list-content,
     #screen-events-history .list-content { padding-top: 75px; transition: padding-top 0.2s ease; } 
     #screen-quests .list-content { padding-top: 20px; transition: padding-top 0.2s ease; }
@@ -269,7 +222,6 @@
     .shop-preview img { width: 66px; height: 66px; object-fit: contain; image-rendering: pixelated; }
     .shop-card .btn { width: 100%; margin-bottom: 0; font-size: 8px; }
 
-    /* ЕЖЕДНЕВНЫЙ ПОДАРОК */
     .gift-wrapper { display: flex; flex-direction: column; align-items: center; padding: 10px 16px 30px; }
     .gift-card { width: 100%; max-width: 280px; background: #1a1625; border: 4px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; padding: 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
     .gift-title { font-size: 12px; color: #fff; margin-bottom: 15px; text-shadow: 2px 2px 0 #000; }
@@ -319,7 +271,6 @@
 
     .wheel-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
     .wheel-wrapper { position: relative; width: 280px; height: 280px; margin-bottom: 30px; }
-    
     .wheel {
       width: 100%; height: 100%; border-radius: 50%;
       border: 8px solid #1a1625;
@@ -333,20 +284,14 @@
         #10b981 270deg 292.5deg, #ec4899 292.5deg 315deg, #dc2626 315deg 337.5deg, #00e5ff 337.5deg 360deg
       );
     }
-
     .wheel-pointer {
       position: absolute; top: -30px; left: 50%; transform: translateX(-50%);
       width: 0; height: 0; border-left: 15px solid transparent; border-right: 15px solid transparent;
-      border-top: 30px solid #4b5563;
-      z-index: 10;
-      filter: drop-shadow(0 4px 2px rgba(0,0,0,0.5));
+      border-top: 30px solid #4b5563; z-index: 10; filter: drop-shadow(0 4px 2px rgba(0,0,0,0.5));
     }
     .wheel-pointer::after {
-      content: ''; position: absolute;
-      top: 30px; left: -2px;
-      width: 4px; height: 40px;
-      background: #4b5563;
-      border-radius: 2px;
+      content: ''; position: absolute; top: 30px; left: -2px;
+      width: 4px; height: 40px; background: #4b5563; border-radius: 2px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
@@ -413,7 +358,6 @@
 <body>
 
   <div id="eventBanner" onclick="handleEventBannerClick()"><span id="eventBannerText"></span></div>
-
   <div id="error-screen"></div>
 
   <div class="modal-overlay" id="langModal">
@@ -444,7 +388,7 @@
   <div class="modal-overlay" id="testEventModal">
     <div class="modal-content" style="text-align: center;">
       <h3 data-i18n="test_events_title">🧪 ТЕСТ СОБЫТИЙ</h3>
-      <p style="text-align: center; margin-bottom: 15px;" data-i18n="test_events_desc">Выберите событие для принудительного включения. Баннер появится сверху.</p>
+      <p style="text-align: center; margin-bottom: 15px;" data-i18n="test_events_desc">Выберите событие для включения (баннер скроется через 5 сек).</p>
       <button class="modal-btn" onclick="forceEvent('halloween')" style="background: #ea580c; border-color: #fdba74 #9a3412 #9a3412 #fdba74;" data-i18n="evt_force_halloween">🎃 Включить Хэллоуин</button>
       <button class="modal-btn" onclick="forceEvent('newYear')" style="background: #065f46; border-color: #6ee7b7 #047857 #047857 #6ee7b7;" data-i18n="evt_force_newyear">🎄 Включить Новый Год</button>
       <button class="modal-btn" onclick="forceEvent('blackMarket')" style="background: #1e1b4b; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;" data-i18n="evt_force_blackmarket">🌑 Включить Чёрный Рынок</button>
@@ -585,15 +529,9 @@
     <button class="btn-info" onclick="openInfo('slots')">❓</button>
     <div class="slots-container">
       <div class="slots-window">
-        <div class="slot-reel">
-          <div class="reel-strip" id="strip1"><div class="slot-item-symbol">🥔</div></div>
-        </div>
-        <div class="slot-reel">
-          <div class="reel-strip" id="strip2"><div class="slot-item-symbol">🥔</div></div>
-        </div>
-        <div class="slot-reel">
-          <div class="reel-strip" id="strip3"><div class="slot-item-symbol">🥔</div></div>
-        </div>
+        <div class="slot-reel"><div class="reel-strip" id="strip1"><div class="slot-item-symbol">🥔</div></div></div>
+        <div class="slot-reel"><div class="reel-strip" id="strip2"><div class="slot-item-symbol">🥔</div></div></div>
+        <div class="slot-reel"><div class="reel-strip" id="strip3"><div class="slot-item-symbol">🥔</div></div></div>
       </div>
       <button class="btn btn-gold" id="spinSlotsBtn" onclick="spinSlots()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_slots_btn">КРУТИТЬ (100 ₽)</button>
     </div>
@@ -636,7 +574,7 @@
   <div class="screen" id="screen-rating">
     <div class="rating-container" id="leaderboardList"></div>
     <div class="my-rating-box">
-       <div class="rating-name" data-i18n="rating_leader">🏆 Вы — Лидер проекта!</div>
+       <div class="rating-name" data-i18n="rating_leader">🏆 Лидер проекта!</div>
     </div>
   </div>
 
@@ -657,9 +595,7 @@
       </div>
 
       <button class="btn btn-blue" style="width: 100%; margin-top: 10px;" onclick="openLangMenu()" data-i18n="lang_btn">🌐 Язык / Language</button>
-      
       <button class="btn" style="width: 100%; background: #8b5cf6; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;" onclick="openTestEventMenu()" data-i18n="test_events_btn">🧪 Тест Событий</button>
-
       <button class="btn btn-grey" style="width: 100%; background: #f59e0b; border-color: #fbbf24 #b45309 #b45309 #fbbf24;" onclick="openSupport()" data-i18n="support_btn">📢 Помощь и поддержка</button>
     </div>
   </div>
@@ -693,21 +629,25 @@
   </div>
 
   <script>
+    // =========================================================================
+    // НАСТРОЙКА ЗВУКА КЕЙСА ИЗ РЕПОЗИТОРИЯ
+    // Когда добавишь свой файл в репозиторий, укажи путь в customSoundUrl,
+    // например: './assets/sounds/case-spin.mp3'
+    // =========================================================================
+    var CASE_AUDIO_CONFIG = {
+      customSoundUrl: '',
+      stopWhenReelFinishes: true
+    };
+
     var memoryStorage = {};
     var safeStorage = {
       getItem: function(key) {
-        try {
-          return window.localStorage.getItem(key);
-        } catch (e) {
-          return Object.prototype.hasOwnProperty.call(memoryStorage, key) ? memoryStorage[key] : null;
-        }
+        try { return window.localStorage.getItem(key); }
+        catch (e) { return Object.prototype.hasOwnProperty.call(memoryStorage, key) ? memoryStorage[key] : null; }
       },
       setItem: function(key, val) {
-        try {
-          window.localStorage.setItem(key, String(val));
-        } catch (e) {
-          memoryStorage[key] = String(val);
-        }
+        try { window.localStorage.setItem(key, String(val)); }
+        catch (e) { memoryStorage[key] = String(val); }
       }
     };
 
@@ -715,9 +655,7 @@
       try {
         var parsed = JSON.parse(raw);
         return parsed !== null && parsed !== undefined ? parsed : fallback;
-      } catch (e) {
-        return fallback;
-      }
+      } catch (e) { return fallback; }
     }
 
     var translations = {
@@ -739,7 +677,6 @@
         amulet_saved: "🗿 Амулет Муаи спас вас! Проигрыш {amount} ₽ в казино отменён (1 раз в день).",
         amulet_used_today: "Сегодня Амулет Муаи уже использован", amulet_ready_today: "Готов (1 раз в день)",
         contract_active: "Контракт с Тьмой: +25% в казино ({hours}ч)",
-        rarity_legendary: "Легендарный", rarity_mythic: "Мифический", rarity_epic: "Эпический",
         bm_items: {
           dark_potato: { name: "Тёмная Картошка", desc: "+12% к силе тапа навсегда", rarity: "Легендарный" },
           chaos_potato: { name: "Картошка Хаоса", desc: "+8% к силе тапа и +10% к скорости автокликера", rarity: "Легендарный" },
@@ -765,7 +702,7 @@
         casino_title: "🎰 КАЗИНО 🎰", potato_box: "Ящик картошки", potato_box_desc: "Классическая рулетка (5 ₽)", potato_truck: "Грузовик картошки", potato_truck_desc: "Слот-машина (100 ₽)", potato_field: "Поле картошки", potato_field_desc: "Колесо Фортуны (500 ₽)",
         settings_btn: "⚙️ Настройки", settings_title: "Настройки", sound_effects: "Звуковые эффекты", vibration: "Вибрация", on: "ВКЛ", off: "ВЫКЛ", lang_btn: "🌐 Язык / Language", support_btn: "📢 Помощь и поддержка",
         test_events_btn: "🧪 Тест Событий", test_events_title: "🧪 ТЕСТ СОБЫТИЙ",
-        test_events_desc: "Выберите событие для принудительного включения. Баннер появится сверху.",
+        test_events_desc: "Выберите событие для включения (баннер скроется через 5 сек).",
         evt_force_halloween: "🎃 Включить Хэллоуин", evt_force_newyear: "🎄 Включить Новый Год",
         evt_force_blackmarket: "🌑 Включить Чёрный Рынок", evt_force_none: "❌ Выключить все",
         close_btn: "Закрыть", info_title: "ИНСТРУКЦИЯ", info_close: "ПОНЯТНО",
@@ -849,7 +786,6 @@
         amulet_saved: "🗿 Moai Amulet saved you! A {amount} ₽ casino loss was canceled (once per day).",
         amulet_used_today: "Moai Amulet already used today", amulet_ready_today: "Ready (once per day)",
         contract_active: "Dark Contract: +25% casino wins ({hours}h)",
-        rarity_legendary: "Legendary", rarity_mythic: "Mythic", rarity_epic: "Epic",
         bm_items: {
           dark_potato: { name: "Dark Potato", desc: "+12% tap power permanently", rarity: "Legendary" },
           chaos_potato: { name: "Chaos Potato", desc: "+8% tap power & +10% autoclicker speed", rarity: "Legendary" },
@@ -875,7 +811,7 @@
         casino_title: "🎰 CASINO 🎰", potato_box: "Potato Box", potato_box_desc: "Classic roulette (5 ₽)", potato_truck: "Potato Truck", potato_truck_desc: "Slot machine (100 ₽)", potato_field: "Potato Field", potato_field_desc: "Wheel of Fortune (500 ₽)",
         settings_btn: "⚙️ Settings", settings_title: "Settings", sound_effects: "Sound Effects", vibration: "Vibration", on: "ON", off: "OFF", lang_btn: "🌐 Language / Язык", support_btn: "📢 Help & Support",
         test_events_btn: "🧪 Event Test", test_events_title: "🧪 EVENT TEST",
-        test_events_desc: "Choose an event to force-enable. The banner will appear at the top.",
+        test_events_desc: "Choose an event to enable (banner hides in 5s).",
         evt_force_halloween: "🎃 Enable Halloween", evt_force_newyear: "🎄 Enable New Year",
         evt_force_blackmarket: "🌑 Enable Black Market", evt_force_none: "❌ Disable all",
         close_btn: "Close", info_title: "GUIDE", info_close: "GOT IT",
@@ -956,17 +892,7 @@
       return false;
     };
 
-    function getEl(id) {
-      var el = document.getElementById(id);
-      if (!el && document.body) {
-        var errorDiv = document.createElement('div');
-        errorDiv.style.cssText = 'position:fixed; top:10px; left:10px; right:10px; background:rgba(220,38,38,0.95); color:white; padding:10px; font-size:12px; z-index:999999; text-align:center; border:3px solid white; border-radius:8px; font-family:monospace; box-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events:none;';
-        errorDiv.innerText = '⚠️ #' + id;
-        document.body.appendChild(errorDiv);
-        setTimeout(function() { if (errorDiv.parentNode) errorDiv.parentNode.removeChild(errorDiv); }, 4000);
-      }
-      return el;
-    }
+    function getEl(id) { return document.getElementById(id); }
 
     function formatMoney(amount, decimals) {
       if (decimals === undefined) decimals = 3;
@@ -977,10 +903,7 @@
     }
 
     function formatMainBalance(amount) {
-      if (tapValue < 1) {
-        return formatMoney(amount, 3); 
-      }
-      return formatMoney(Math.trunc(amount), 0);
+      return tapValue < 1 ? formatMoney(amount, 3) : formatMoney(Math.trunc(amount), 0);
     }
 
     var isSoundEnabled = safeStorage.getItem('soundEnabled') !== 'false';
@@ -989,9 +912,7 @@
     var audioCtx = null;
     function initAudio() {
       if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {} }
-      if (audioCtx && audioCtx.state === 'suspended') {
-        try { audioCtx.resume(); } catch(e) {}
-      }
+      if (audioCtx && audioCtx.state === 'suspended') { try { audioCtx.resume(); } catch(e) {} }
     }
     if (document.body) {
       document.body.addEventListener('click', initAudio, { once: true });
@@ -999,16 +920,36 @@
     }
 
     var caseOpenTimers = [];
+    var customCaseAudio = null;
+
     function stopCaseOpenSound() {
-      for (var i = 0; i < caseOpenTimers.length; i++) {
-        clearTimeout(caseOpenTimers[i]);
-      }
+      for (var i = 0; i < caseOpenTimers.length; i++) clearTimeout(caseOpenTimers[i]);
       caseOpenTimers = [];
+      if (customCaseAudio) {
+        try {
+          customCaseAudio.pause();
+          customCaseAudio.currentTime = 0;
+        } catch (e) {}
+      }
     }
 
     function playCaseOpenSound(durationSec) {
       stopCaseOpenSound();
       if (!isSoundEnabled) return;
+
+      if (CASE_AUDIO_CONFIG.customSoundUrl) {
+        try {
+          if (!customCaseAudio || customCaseAudio.src !== CASE_AUDIO_CONFIG.customSoundUrl) {
+            customCaseAudio = new Audio(CASE_AUDIO_CONFIG.customSoundUrl);
+          }
+          customCaseAudio.currentTime = 0;
+          customCaseAudio.loop = durationSec > 0;
+          var p = customCaseAudio.play();
+          if (p && typeof p.catch === 'function') p.catch(function() {});
+          return;
+        } catch (e) {}
+      }
+
       initAudio();
       if (!audioCtx) return;
 
@@ -1042,13 +983,9 @@
         var vol = progress > 0.85 ? 0.045 : 0.03;
         scheduleTick(elapsed, freq, vol, 0.035);
         idx++;
-        if (progress < 0.55) {
-          step = 48;
-        } else if (progress < 0.8) {
-          step = 48 + Math.round((progress - 0.55) * 420);
-        } else {
-          step = 155 + Math.round((progress - 0.8) * 900);
-        }
+        if (progress < 0.55) step = 48;
+        else if (progress < 0.8) step = 48 + Math.round((progress - 0.55) * 420);
+        else step = 155 + Math.round((progress - 0.8) * 900);
         elapsed += step;
       }
     }
@@ -1112,25 +1049,19 @@
       var time = now;
       var interval = 0.05; 
       while (time < now + totalDuration) {
-        var osc = audioCtx.createOscillator();
-        var gain = audioCtx.createGain();
+        var osc = audioCtx.createOscillator(); var gain = audioCtx.createGain();
         osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.type = 'square';
-        osc.frequency.setValueAtTime(800, time);
-        gain.gain.setValueAtTime(0.03, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
+        osc.type = 'square'; osc.frequency.setValueAtTime(800, time);
+        gain.gain.setValueAtTime(0.03, time); gain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
         osc.start(time); osc.stop(time + 0.03);
-        time += interval;
-        interval *= 1.03; 
+        time += interval; interval *= 1.03; 
       }
       var stopTimes = [1.5, 2.2, 3.0]; 
       for (var i = 0; i < stopTimes.length; i++) {
         var stopOsc = audioCtx.createOscillator(); var stopGain = audioCtx.createGain();
         stopOsc.connect(stopGain); stopGain.connect(audioCtx.destination);
-        stopOsc.type = 'sine';
-        stopOsc.frequency.setValueAtTime(200, now + stopTimes[i]);
-        stopGain.gain.setValueAtTime(0.4, now + stopTimes[i]);
-        stopGain.gain.exponentialRampToValueAtTime(0.01, now + stopTimes[i] + 0.1);
+        stopOsc.type = 'sine'; stopOsc.frequency.setValueAtTime(200, now + stopTimes[i]);
+        stopGain.gain.setValueAtTime(0.4, now + stopTimes[i]); stopGain.gain.exponentialRampToValueAtTime(0.01, now + stopTimes[i] + 0.1);
         stopOsc.start(now + stopTimes[i]); stopOsc.stop(now + stopTimes[i] + 0.1);
       }
     }
@@ -1143,16 +1074,12 @@
       var time = now;
       var interval = 0.04; 
       while (time < now + totalDuration) {
-        var osc = audioCtx.createOscillator();
-        var gain = audioCtx.createGain();
+        var osc = audioCtx.createOscillator(); var gain = audioCtx.createGain();
         osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(1200, time);
-        gain.gain.setValueAtTime(0.05, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
+        osc.type = 'triangle'; osc.frequency.setValueAtTime(1200, time);
+        gain.gain.setValueAtTime(0.05, time); gain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
         osc.start(time); osc.stop(time + 0.03);
-        time += interval;
-        interval *= 1.02; 
+        time += interval; interval *= 1.02; 
       }
       var finalOsc = audioCtx.createOscillator(); var finalGain = audioCtx.createGain();
       finalOsc.connect(finalGain); finalGain.connect(audioCtx.destination);
@@ -1187,12 +1114,12 @@
     function updateSettingsUI() {
       var soundBtn = getEl('soundToggle'); var vibBtn = getEl('vibrationToggle');
       if (soundBtn) {
-        if (isSoundEnabled) { soundBtn.classList.add('active'); soundBtn.innerText = t.on; }
-        else { soundBtn.classList.remove('active'); soundBtn.innerText = t.off; }
+        soundBtn.classList.toggle('active', isSoundEnabled);
+        soundBtn.innerText = isSoundEnabled ? t.on : t.off;
       }
       if (vibBtn) {
-        if (isVibrationEnabled) { vibBtn.classList.add('active'); vibBtn.innerText = t.on; }
-        else { vibBtn.classList.remove('active'); vibBtn.innerText = t.off; }
+        vibBtn.classList.toggle('active', isVibrationEnabled);
+        vibBtn.innerText = isVibrationEnabled ? t.on : t.off;
       }
     }
 
@@ -1204,37 +1131,29 @@
       playHaptic('light');
     };
     window.toggleVibration = function() {
-      isVibrationEnabled = !isVibrationEnabled; safeStorage.setItem('vibrationEnabled', isVibrationEnabled); updateSettingsUI();
-      if (isVibrationEnabled && navigator.vibrate) navigator.vibrate(30); else if (isVibrationEnabled && tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+      isVibrationEnabled = !isVibrationEnabled;
+      safeStorage.setItem('vibrationEnabled', isVibrationEnabled);
+      updateSettingsUI();
+      if (isVibrationEnabled && navigator.vibrate) navigator.vibrate(30);
+      else if (isVibrationEnabled && tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
     };
 
     window.openSupport = function() { playHaptic('medium'); alert(t.support_msg); };
 
     var activeInfoGame = null;
     function renderInfoModalContent(game) {
-      var title = getEl('infoTitle');
-      var text = getEl('infoText');
-      var closeBtn = getEl('infoCloseBtn');
+      var title = getEl('infoTitle'); var text = getEl('infoText'); var closeBtn = getEl('infoCloseBtn');
       if (!title || !text) return;
-
       if (closeBtn) closeBtn.innerText = t.info_close;
-
-      if (game === 'box') {
-        title.innerText = "📦 " + t.potato_box;
-        text.innerHTML = t.info_box_html;
-      } else if (game === 'slots') {
-        title.innerText = "🚛 " + t.potato_truck;
-        text.innerHTML = t.info_slots_html;
-      } else if (game === 'wheel') {
-        title.innerText = "🎡 " + t.potato_field;
-        text.innerHTML = t.info_wheel_html;
-      }
+      if (game === 'box') { title.innerText = "📦 " + t.potato_box; text.innerHTML = t.info_box_html; }
+      else if (game === 'slots') { title.innerText = "🚛 " + t.potato_truck; text.innerHTML = t.info_slots_html; }
+      else if (game === 'wheel') { title.innerText = "🎡 " + t.potato_field; text.innerHTML = t.info_wheel_html; }
     }
 
     window.openInfo = function(game) {
       activeInfoGame = game;
-      var modal = getEl('infoModal');
       renderInfoModalContent(game);
+      var modal = getEl('infoModal');
       if (modal) modal.style.display = 'flex';
       playHaptic('medium');
     };
@@ -1338,6 +1257,7 @@
     if (typeof activeBuffs.casinoBoostUntil !== 'number') activeBuffs.casinoBoostUntil = 0;
 
     var activeEvents = { blackMarket: false, halloween: false, newYear: false };
+    var manualEventsDisabled = safeStorage.getItem('manualEventsDisabled') === 'true';
     var bmCycleId = parseInt(safeStorage.getItem('bmCycleId'), 10) || 1;
     var lastBlackMarket = parseInt(safeStorage.getItem('lastBlackMarket'), 10) || 0;
     var blackMarketEnd = parseInt(safeStorage.getItem('blackMarketEnd'), 10) || 0;
@@ -1347,6 +1267,9 @@
     var notifiedSeasons = safeJsonParse(safeStorage.getItem('notifiedSeasons'), []);
     var eventHistory = safeJsonParse(safeStorage.getItem('eventHistory'), []);
     var earnedBadges = safeJsonParse(safeStorage.getItem('earnedBadges'), []);
+
+    var bannerHideTimer = null;
+    var currentBannerEventType = null;
 
     var currentTab = 'tap'; var currentShopTab = 'skins';
     var autoTimer = null; var lastTapTime = 0;
@@ -1377,22 +1300,10 @@
       return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
     }
 
-    function hasActiveCasinoBoost() {
-      return (activeBuffs.casinoBoostUntil || 0) > Date.now();
-    }
-
-    function getCasinoWinMultiplier() {
-      return hasActiveCasinoBoost() ? 1.25 : 1.0;
-    }
-
-    function getEffectiveTapValue() {
-      return tapValue * currentMultiplier * (1 + bmTapBonus);
-    }
-
-    function getEffectiveAutoInterval() {
-      var mult = Math.max(0.25, 1 - bmAutoSpeedBonus);
-      return Math.max(250, Math.round(autoInterval * mult));
-    }
+    function hasActiveCasinoBoost() { return (activeBuffs.casinoBoostUntil || 0) > Date.now(); }
+    function getCasinoWinMultiplier() { return hasActiveCasinoBoost() ? 1.25 : 1.0; }
+    function getEffectiveTapValue() { return tapValue * currentMultiplier * (1 + bmTapBonus); }
+    function getEffectiveAutoInterval() { return Math.max(250, Math.round(autoInterval * Math.max(0.25, 1 - bmAutoSpeedBonus))); }
 
     function save() {
       safeStorage.setItem('potatoBalance', balance.toFixed(3));
@@ -1416,6 +1327,7 @@
       safeStorage.setItem('lastMoaiSaveDate', lastMoaiSaveDate);
       safeStorage.setItem('activeBuffs', JSON.stringify(activeBuffs));
 
+      safeStorage.setItem('manualEventsDisabled', manualEventsDisabled);
       safeStorage.setItem('bmCycleId', bmCycleId);
       safeStorage.setItem('lastBlackMarket', lastBlackMarket);
       safeStorage.setItem('blackMarketEnd', blackMarketEnd);
@@ -1428,19 +1340,13 @@
     }
 
     function addBadge(badgeKey) {
-      if (earnedBadges.indexOf(badgeKey) === -1) {
-        earnedBadges.push(badgeKey);
-        save();
-      }
+      if (earnedBadges.indexOf(badgeKey) === -1) { earnedBadges.push(badgeKey); save(); }
     }
 
     function recordEventParticipation(entry) {
       var idx = eventHistory.findIndex(function(item) { return item.id === entry.id; });
-      if (idx === -1) {
-        eventHistory.unshift(entry);
-      } else {
-        eventHistory[idx] = Object.assign({}, eventHistory[idx], entry);
-      }
+      if (idx === -1) eventHistory.unshift(entry);
+      else eventHistory[idx] = Object.assign({}, eventHistory[idx], entry);
       save();
     }
 
@@ -1448,48 +1354,67 @@
       var now = Date.now();
       var year = new Date().getFullYear();
       if (activeEvents.halloween) {
-        var hId = 'halloween_' + year;
-        var hStart = new Date(year, 9, 25).getTime();
-        var hEnd = new Date(year, 10, 5, 23, 59, 59).getTime();
         recordEventParticipation({
-          id: hId,
-          badgeKey: 'halloween_2026',
-          nameRu: '🎃 Хэллоуин ' + year,
-          nameEn: '🎃 Halloween ' + year,
-          start: hStart,
-          end: hEnd,
-          active: true
+          id: 'halloween_' + year, badgeKey: 'halloween_2026',
+          nameRu: '🎃 Хэллоуин ' + year, nameEn: '🎃 Halloween ' + year,
+          start: new Date(year, 9, 25).getTime(), end: new Date(year, 10, 5, 23, 59, 59).getTime(), active: true
         });
         addBadge('halloween_2026');
       }
       if (activeEvents.newYear) {
-        var nyId = 'newyear_' + year;
-        var nyStart = new Date(year, 11, 20).getTime();
-        var nyEnd = new Date(year + 1, 0, 10, 23, 59, 59).getTime();
         recordEventParticipation({
-          id: nyId,
-          badgeKey: 'newyear_2026',
-          nameRu: '🎄 Новый год ' + year,
-          nameEn: '🎄 New Year ' + year,
-          start: nyStart,
-          end: nyEnd,
-          active: true
+          id: 'newyear_' + year, badgeKey: 'newyear_2026',
+          nameRu: '🎄 Новый год ' + year, nameEn: '🎄 New Year ' + year,
+          start: new Date(year, 11, 20).getTime(), end: new Date(year + 1, 0, 10, 23, 59, 59).getTime(), active: true
         });
         addBadge('newyear_2026');
       }
       if (activeEvents.blackMarket) {
-        var bmId = 'black_market_' + bmCycleId;
         recordEventParticipation({
-          id: bmId,
-          badgeKey: 'bm_regular',
-          nameRu: '🌑 Чёрный рынок #' + bmCycleId,
-          nameEn: '🌑 Black Market #' + bmCycleId,
-          start: lastBlackMarket || (now - 3600000),
-          end: blackMarketEnd,
-          itemsBought: bmBoughtInCycle.length,
-          active: true
+          id: 'black_market_' + bmCycleId, badgeKey: 'bm_regular',
+          nameRu: '🌑 Чёрный рынок #' + bmCycleId, nameEn: '🌑 Black Market #' + bmCycleId,
+          start: lastBlackMarket || (now - 3600000), end: blackMarketEnd,
+          itemsBought: bmBoughtInCycle.length, active: true
         });
       }
+    }
+
+    function hideEventBanner() {
+      if (bannerHideTimer) { clearTimeout(bannerHideTimer); bannerHideTimer = null; }
+      currentBannerEventType = null;
+      var banner = getEl('eventBanner');
+      if (banner) banner.style.display = 'none';
+      if (document.body) document.body.classList.remove('has-event-banner');
+    }
+
+    function triggerBannerFor5Sec(eventType) {
+      currentBannerEventType = eventType;
+      var banner = getEl('eventBanner');
+      var text = getEl('eventBannerText');
+      if (!banner || !text || !document.body) return;
+
+      if (eventType === 'blackMarket') {
+        var hoursLeft = Math.max(1, Math.ceil((blackMarketEnd - Date.now()) / (1000 * 60 * 60)));
+        text.innerText = t.evt_blackmarket.replace('{hours}', hoursLeft);
+        banner.style.background = 'linear-gradient(90deg, #1e1b4b, #4c1d95)';
+      } else if (eventType === 'halloween') {
+        text.innerText = t.evt_halloween;
+        banner.style.background = 'linear-gradient(90deg, #ea580c, #9a3412)';
+      } else if (eventType === 'newYear') {
+        text.innerText = t.evt_newyear;
+        banner.style.background = 'linear-gradient(90deg, #065f46, #047857)';
+      } else {
+        hideEventBanner();
+        return;
+      }
+
+      banner.style.display = 'block';
+      document.body.classList.add('has-event-banner');
+
+      if (bannerHideTimer) clearTimeout(bannerHideTimer);
+      bannerHideTimer = setTimeout(function() {
+        hideEventBanner();
+      }, 5000);
     }
 
     function checkEvents(showPopups) {
@@ -1498,64 +1423,62 @@
       var month = date.getMonth() + 1;
       var day = date.getDate();
 
-      activeEvents.halloween = (month === 10 && day >= 25) || (month === 11 && day <= 5);
-      activeEvents.newYear = (month === 12 && day >= 20) || (month === 1 && day <= 10);
+      if (!manualEventsDisabled) {
+        activeEvents.halloween = (month === 10 && day >= 25) || (month === 11 && day <= 5);
+        activeEvents.newYear = (month === 12 && day >= 20) || (month === 1 && day <= 10);
 
-      if (now < blackMarketEnd) {
-        activeEvents.blackMarket = true;
-      } else {
-        if (activeEvents.blackMarket) {
-          var prevId = 'black_market_' + bmCycleId;
-          recordEventParticipation({ id: prevId, active: false, itemsBought: bmBoughtInCycle.length });
-        }
-        activeEvents.blackMarket = false;
-        var cooldownMs = 6 * 24 * 60 * 60 * 1000;
-        if (!lastBlackMarket || (now - lastBlackMarket >= cooldownMs)) {
-          if (!lastBlackMarket || Math.random() < 0.75) {
-            bmCycleId += 1;
-            var jitterHours = (Math.random() * 24 - 12);
-            var durationHours = 48 + jitterHours;
-            lastBlackMarket = now;
-            blackMarketEnd = now + Math.round(durationHours * 60 * 60 * 1000);
-            bmBoughtInCycle = [];
-            activeEvents.blackMarket = true;
-            save();
+        if (now < blackMarketEnd) {
+          activeEvents.blackMarket = true;
+        } else {
+          if (activeEvents.blackMarket) {
+            recordEventParticipation({ id: 'black_market_' + bmCycleId, active: false, itemsBought: bmBoughtInCycle.length });
+          }
+          activeEvents.blackMarket = false;
+          var cooldownMs = 6 * 24 * 60 * 60 * 1000;
+          if (!lastBlackMarket || (now - lastBlackMarket >= cooldownMs)) {
+            if (!lastBlackMarket || Math.random() < 0.75) {
+              bmCycleId += 1;
+              var durationHours = 48 + (Math.random() * 24 - 12);
+              lastBlackMarket = now;
+              blackMarketEnd = now + Math.round(durationHours * 60 * 60 * 1000);
+              bmBoughtInCycle = [];
+              activeEvents.blackMarket = true;
+              save();
+            }
           }
         }
       }
 
       syncEventHistoryWithActive();
       updateSeasonVisuals();
-      updateEventBanner();
       updateShopEventUI();
 
-      if (showPopups) {
+      if (showPopups && !manualEventsDisabled) {
         if (activeEvents.blackMarket) {
+          triggerBannerFor5Sec('blackMarket');
           var hoursLeft = Math.max(1, Math.ceil((blackMarketEnd - now) / (1000 * 60 * 60)));
           if (bmNotifiedOpenCycle !== bmCycleId) {
-            bmNotifiedOpenCycle = bmCycleId;
-            save();
+            bmNotifiedOpenCycle = bmCycleId; save();
             showEventNotice(t.bm_open_title, t.bm_open_text.replace('{hours}', hoursLeft));
           } else if (hoursLeft <= 6 && bmNotifiedCloseCycle !== bmCycleId) {
-            bmNotifiedCloseCycle = bmCycleId;
-            save();
+            bmNotifiedCloseCycle = bmCycleId; save();
             showEventNotice(t.bm_closing_title, t.bm_closing_text);
           }
         }
         var yr = date.getFullYear();
         if (activeEvents.halloween) {
+          if (!activeEvents.blackMarket) triggerBannerFor5Sec('halloween');
           var hKey = 'halloween_' + yr;
           if (notifiedSeasons.indexOf(hKey) === -1) {
-            notifiedSeasons.push(hKey);
-            save();
+            notifiedSeasons.push(hKey); save();
             showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_halloween));
           }
         }
         if (activeEvents.newYear) {
+          if (!activeEvents.blackMarket && !activeEvents.halloween) triggerBannerFor5Sec('newYear');
           var nyKey = 'newyear_' + yr;
           if (notifiedSeasons.indexOf(nyKey) === -1) {
-            notifiedSeasons.push(nyKey);
-            save();
+            notifiedSeasons.push(nyKey); save();
             showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_newyear));
           }
         }
@@ -1565,51 +1488,18 @@
     function updateSeasonVisuals() {
       if (!document.body) return;
       document.body.classList.remove('season-halloween', 'season-newyear', 'season-blackmarket');
-      if (activeEvents.halloween) {
-        document.body.classList.add('season-halloween');
-      } else if (activeEvents.newYear) {
-        document.body.classList.add('season-newyear');
-      } else if (activeEvents.blackMarket) {
-        document.body.classList.add('season-blackmarket');
-      }
-    }
-
-    function updateEventBanner() {
-      var banner = getEl('eventBanner');
-      var text = getEl('eventBannerText');
-      if (!banner || !text || !document.body) return;
-
-      if (activeEvents.blackMarket) {
-        var hoursLeft = Math.max(1, Math.ceil((blackMarketEnd - Date.now()) / (1000 * 60 * 60)));
-        text.innerText = t.evt_blackmarket.replace('{hours}', hoursLeft);
-        banner.style.display = 'block';
-        banner.style.background = 'linear-gradient(90deg, #1e1b4b, #4c1d95)';
-        document.body.classList.add('has-event-banner');
-      } else if (activeEvents.halloween) {
-        text.innerText = t.evt_halloween;
-        banner.style.display = 'block';
-        banner.style.background = 'linear-gradient(90deg, #ea580c, #9a3412)';
-        document.body.classList.add('has-event-banner');
-      } else if (activeEvents.newYear) {
-        text.innerText = t.evt_newyear;
-        banner.style.display = 'block';
-        banner.style.background = 'linear-gradient(90deg, #065f46, #047857)';
-        document.body.classList.add('has-event-banner');
-      } else {
-        banner.style.display = 'none';
-        document.body.classList.remove('has-event-banner');
-      }
+      if (activeEvents.halloween) document.body.classList.add('season-halloween');
+      else if (activeEvents.newYear) document.body.classList.add('season-newyear');
+      else if (activeEvents.blackMarket) document.body.classList.add('season-blackmarket');
     }
 
     window.handleEventBannerClick = function() {
+      var targetTab = currentBannerEventType === 'blackMarket' ? 'blackmarket' : 'skins';
+      hideEventBanner();
       playHaptic('medium');
-      if (activeEvents.blackMarket) {
-        showScreen('shop');
-        switchShopTab('blackmarket');
-      } else {
-        showScreen('shop');
-        switchShopTab('skins');
-      }
+      showScreen('shop');
+      if (targetTab === 'blackmarket' && activeEvents.blackMarket) switchShopTab('blackmarket');
+      else switchShopTab('skins');
     };
 
     function updateShopEventUI() {
@@ -1617,10 +1507,7 @@
       var shopBadge = getEl('shopEventBadge');
       var bmTimerEl = getEl('bmTimerText');
 
-      if (bmTab) {
-        if (activeEvents.blackMarket) bmTab.classList.add('visible');
-        else bmTab.classList.remove('visible');
-      }
+      if (bmTab) bmTab.classList.toggle('visible', !!activeEvents.blackMarket);
 
       if (shopBadge) {
         if (activeEvents.blackMarket || activeEvents.halloween || activeEvents.newYear) {
@@ -1638,9 +1525,7 @@
         bmTimerEl.innerText = t.bm_left.replace('{hours}', h).replace('{mins}', m);
       }
 
-      if (!activeEvents.blackMarket && currentShopTab === 'blackmarket') {
-        switchShopTab('skins');
-      }
+      if (!activeEvents.blackMarket && currentShopTab === 'blackmarket') switchShopTab('skins');
     }
 
     window.openTestEventMenu = function() {
@@ -1658,20 +1543,30 @@
       activeEvents.blackMarket = false;
       activeEvents.halloween = false;
       activeEvents.newYear = false;
+      hideEventBanner();
 
-      if (eventName === 'halloween') activeEvents.halloween = true;
-      if (eventName === 'newYear') activeEvents.newYear = true;
-      if (eventName === 'blackMarket') {
-        activeEvents.blackMarket = true;
-        bmCycleId += 1;
-        lastBlackMarket = Date.now();
-        blackMarketEnd = Date.now() + (24 * 60 * 60 * 1000);
-        bmBoughtInCycle = [];
+      if (eventName === 'none') {
+        manualEventsDisabled = true;
+      } else {
+        manualEventsDisabled = false;
+        if (eventName === 'halloween') {
+          activeEvents.halloween = true;
+          triggerBannerFor5Sec('halloween');
+        } else if (eventName === 'newYear') {
+          activeEvents.newYear = true;
+          triggerBannerFor5Sec('newYear');
+        } else if (eventName === 'blackMarket') {
+          activeEvents.blackMarket = true;
+          bmCycleId += 1;
+          lastBlackMarket = Date.now();
+          blackMarketEnd = Date.now() + (24 * 60 * 60 * 1000);
+          bmBoughtInCycle = [];
+          triggerBannerFor5Sec('blackMarket');
+        }
       }
       
       syncEventHistoryWithActive();
       updateSeasonVisuals();
-      updateEventBanner();
       updateShopEventUI();
       if (currentShopTab === 'blackmarket') renderBlackMarket();
       save();
@@ -1689,7 +1584,8 @@
         var y = Math.random() * Math.max(40, window.innerHeight - 40);
         var vx = (Math.random() - 0.5) * 2; var vy = (Math.random() - 0.5) * 2;
         if (Math.abs(vx) < 0.5) vx = vx > 0 ? 0.5 : -0.5; if (Math.abs(vy) < 0.5) vy = vy > 0 ? 0.5 : -0.5;
-        r.style.left = x + 'px'; r.style.top = y + 'px'; var angle = Math.atan2(vy, vx) * 180 / Math.PI; r.style.transform = 'rotate(' + angle + 'deg)';
+        r.style.left = x + 'px'; r.style.top = y + 'px';
+        r.style.transform = 'rotate(' + (Math.atan2(vy, vx) * 180 / Math.PI) + 'deg)';
         bg.appendChild(r); rockets.push({ el: r, x: x, y: y, vx: vx, vy: vy });
       }
       function animate() {
@@ -1700,7 +1596,8 @@
           var rk = rockets[i]; rk.x += rk.vx; rk.y += rk.vy;
           if (rk.x <= 0) { rk.x = 0; rk.vx *= -1; } if (rk.x >= bgRect.width - 30) { rk.x = Math.max(0, bgRect.width - 30); rk.vx *= -1; }
           if (rk.y <= 0) { rk.y = 0; rk.vy *= -1; } if (rk.y >= bgRect.height - 30) { rk.y = Math.max(0, bgRect.height - 30); rk.vy *= -1; }
-          var angle = Math.atan2(rk.vy, rk.vx) * 180 / Math.PI; rk.el.style.left = rk.x + 'px'; rk.el.style.top = rk.y + 'px'; rk.el.style.transform = 'rotate(' + angle + 'deg)';
+          rk.el.style.left = rk.x + 'px'; rk.el.style.top = rk.y + 'px';
+          rk.el.style.transform = 'rotate(' + (Math.atan2(rk.vy, rk.vx) * 180 / Math.PI) + 'deg)';
         }
         rocketAnimId = requestAnimationFrame(animate);
       }
@@ -1714,7 +1611,6 @@
         var key = elements[i].getAttribute('data-i18n');
         if (t[key]) elements[i].innerText = t[key];
       }
-      updateEventBanner();
       updateShopEventUI();
       updateSettingsUI();
       renderShop();
@@ -1731,11 +1627,9 @@
     function closeLangMenu() { var m = getEl('langModal'); if (m) m.style.display = 'none'; }
     function changeLang(lang) {
       if (!translations[lang]) return;
-      currentLang = lang;
-      t = translations[currentLang];
+      currentLang = lang; t = translations[currentLang];
       safeStorage.setItem('potatoLang', lang);
-      closeLangMenu();
-      applyTranslations();
+      closeLangMenu(); applyTranslations();
       var activeScreen = document.querySelector('.screen.active');
       if (activeScreen) {
         var scrName = activeScreen.id.replace('screen-', '');
@@ -1754,9 +1648,7 @@
       if (parent) {
         var span = document.createElement('span');
         span.innerText = emoji;
-        if (isLocked) {
-          span.style.filter = 'grayscale(100%) opacity(0.5)';
-        }
+        if (isLocked) span.style.filter = 'grayscale(100%) opacity(0.5)';
         parent.appendChild(span);
       }
     };
@@ -1767,12 +1659,9 @@
         potatoDisplay.style.fontSize = '120px';
         potatoDisplay.innerHTML = '';
         var img = document.createElement('img');
-        img.src = skin.image;
-        img.draggable = false;
+        img.src = skin.image; img.draggable = false;
         img.style.cssText = 'width:100%; height:100%; object-fit:contain;';
-        img.onerror = function() {
-          window.handleSkinImgError(img, skin.emoji, false);
-        };
+        img.onerror = function() { window.handleSkinImgError(img, skin.emoji, false); };
         potatoDisplay.appendChild(img);
       }
     }
@@ -1788,9 +1677,7 @@
       currentMultiplier = rankMultipliers[rankIndex];
       if (profileRankEl) profileRankEl.innerText = t.title_rank + t.ranks[rankIndex] + " (x" + currentMultiplier + ")";
       var permPct = Math.round(bmTapBonus * 100);
-      if (tapBoostDisplay) {
-        tapBoostDisplay.innerText = "(x" + currentMultiplier + (permPct > 0 ? " +" + permPct + "%" : "") + ")";
-      }
+      if (tapBoostDisplay) tapBoostDisplay.innerText = "(x" + currentMultiplier + (permPct > 0 ? " +" + permPct + "%" : "") + ")";
     }
 
     function updateBuffsInfo() {
@@ -1801,36 +1688,26 @@
         lines.push(t.contract_active.replace('{hours}', hoursLeft));
       }
       if (hasMoaiAmulet) {
-        var usedToday = (lastMoaiSaveDate === getTodayKey());
-        lines.push("🗿 " + (usedToday ? t.amulet_used_today : t.amulet_ready_today));
+        lines.push("🗿 " + (lastMoaiSaveDate === getTodayKey() ? t.amulet_used_today : t.amulet_ready_today));
       }
-      if (lines.length > 0) {
-        activeBuffsInfo.style.display = 'block';
-        activeBuffsInfo.innerHTML = lines.join('<br>');
-      } else {
-        activeBuffsInfo.style.display = 'none';
-      }
+      if (lines.length > 0) { activeBuffsInfo.style.display = 'block'; activeBuffsInfo.innerHTML = lines.join('<br>'); }
+      else { activeBuffsInfo.style.display = 'none'; }
     }
 
     function updateProfileBadges() {
       var bar = getEl('profileBadgesBar');
       if (!bar) return;
-      if (!earnedBadges.length) {
-        bar.innerText = t.no_badges_yet;
-      } else {
-        var names = earnedBadges.map(function(k) { return t.badge_names[k] || k; });
-        bar.innerText = t.badges_label + names.join(' • ');
-      }
+      if (!earnedBadges.length) bar.innerText = t.no_badges_yet;
+      else bar.innerText = t.badges_label + earnedBadges.map(function(k) { return t.badge_names[k] || k; }).join(' • ');
     }
 
     function updateUI() {
       if (balanceEl) {
         balanceEl.innerText = formatMainBalance(balance); 
-        if (balance < 0) { balanceEl.classList.add('negative'); } else { balanceEl.classList.remove('negative'); }
+        balanceEl.classList.toggle('negative', balance < 0);
       }
       updateRank(); 
-      var effectiveTapValue = getEffectiveTapValue();
-      if (tapPowerEl) tapPowerEl.innerText = formatMoney(effectiveTapValue); 
+      if (tapPowerEl) tapPowerEl.innerText = formatMoney(getEffectiveTapValue()); 
       if (totalTapsText) totalTapsText.innerText = formatMoney(totalTaps, 0); 
       if (progressFill) progressFill.style.width = Math.min(100, (totalTaps / 50000000) * 100) + '%';
       updateBuffsInfo();
@@ -1842,46 +1719,37 @@
       var now = Date.now(); var timeLeft = giftCooldown - (now - lastGiftTime);
       var lockEl = getEl('giftLockIcon'); var btnEl = getEl('giftBtn'); var btnTextEl = getEl('giftBtnText');
       var questionEl = getEl('giftQuestion'); var rewardDisplayEl = getEl('giftRewardDisplay');
-      var rewardTextEl = getEl('giftRewardText'); var rewardNoteEl = getEl('giftBalanceNote');
-      var jackpotEl = getEl('jackpotText');
+      var rewardTextEl = getEl('giftRewardText'); var rewardNoteEl = getEl('giftBalanceNote'); var jackpotEl = getEl('jackpotText');
       if (!btnEl || !btnTextEl || !questionEl || !rewardDisplayEl) return;
-
       if (jackpotEl) jackpotEl.innerText = t.jackpot;
 
       if (timeLeft > 0) {
         var hours = Math.floor(timeLeft / (1000 * 60 * 60));
         var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
         var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-        var hUnit = currentLang === 'ru' ? 'ч ' : 'h ';
-        var mUnit = currentLang === 'ru' ? 'м ' : 'm ';
-        var sUnit = currentLang === 'ru' ? 'с' : 's';
-        var timeStr = hours + hUnit + minutes + mUnit + seconds + sUnit;
+        var timeStr = hours + (currentLang === 'ru' ? 'ч ' : 'h ') + minutes + (currentLang === 'ru' ? 'м ' : 'm ') + seconds + (currentLang === 'ru' ? 'с' : 's');
 
         if (lockEl) lockEl.style.display = 'inline';
         btnEl.disabled = true;
         btnTextEl.innerText = t.gift_wait_prefix + ' ' + timeStr;
 
         if (lastGiftRewardShown) {
-          questionEl.style.display = 'none';
-          rewardDisplayEl.style.display = 'flex';
+          questionEl.style.display = 'none'; rewardDisplayEl.style.display = 'flex';
           if (rewardTextEl) {
             rewardTextEl.innerText = '+' + formatMoney(lastGiftRewardShown.amount) + ' ₽';
-            if (lastGiftRewardShown.isJackpot) rewardTextEl.classList.add('jackpot');
-            else rewardTextEl.classList.remove('jackpot');
+            rewardTextEl.classList.toggle('jackpot', !!lastGiftRewardShown.isJackpot);
           }
           if (rewardNoteEl) rewardNoteEl.innerText = t.gift_added_note;
           if (jackpotEl) jackpotEl.style.display = lastGiftRewardShown.isJackpot ? 'block' : 'none';
         } else {
-          questionEl.style.display = 'flex';
-          rewardDisplayEl.style.display = 'none';
+          questionEl.style.display = 'flex'; rewardDisplayEl.style.display = 'none';
         }
       } else {
         lastGiftRewardShown = null;
         if (lockEl) lockEl.style.display = 'none';
         btnEl.disabled = false;
         btnTextEl.innerText = t.daily_gift_btn;
-        questionEl.style.display = 'flex';
-        rewardDisplayEl.style.display = 'none';
+        questionEl.style.display = 'flex'; rewardDisplayEl.style.display = 'none';
       }
     }
 
@@ -1917,11 +1785,7 @@
       }
       updateGiftUI();
       if (giftTimerInterval) clearInterval(giftTimerInterval);
-      giftTimerInterval = setInterval(function() {
-        updateGiftUI();
-        checkEvents(false);
-        updateBuffsInfo();
-      }, 1000); 
+      giftTimerInterval = setInterval(function() { updateGiftUI(); checkEvents(false); updateBuffsInfo(); }, 1000); 
     };
 
     window.switchShopTab = function(tab) {
@@ -1931,31 +1795,19 @@
       var tabs = document.querySelectorAll('.shop-tab-btn');
       for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
 
-      var skinsContent = getEl('shopContentSkins');
-      var giftsContent = getEl('shopContentGifts');
-      var bmContent = getEl('shopContentBlackMarket');
+      var skinsContent = getEl('shopContentSkins'); var giftsContent = getEl('shopContentGifts'); var bmContent = getEl('shopContentBlackMarket');
       if (!skinsContent || !giftsContent || !bmContent) return;
-
-      skinsContent.style.display = 'none';
-      giftsContent.style.display = 'none';
-      bmContent.style.display = 'none';
+      skinsContent.style.display = 'none'; giftsContent.style.display = 'none'; bmContent.style.display = 'none';
 
       if (tab === 'skins') {
-        var tSkins = getEl('shopTabSkins');
-        if (tSkins) tSkins.classList.add('active');
-        skinsContent.style.display = 'block';
-        renderShop();
+        var tSkins = getEl('shopTabSkins'); if (tSkins) tSkins.classList.add('active');
+        skinsContent.style.display = 'block'; renderShop();
       } else if (tab === 'gifts') {
-        var tGifts = getEl('shopTabGifts');
-        if (tGifts) tGifts.classList.add('active');
-        giftsContent.style.display = 'block';
-        updateGiftUI();
+        var tGifts = getEl('shopTabGifts'); if (tGifts) tGifts.classList.add('active');
+        giftsContent.style.display = 'block'; updateGiftUI();
       } else if (tab === 'blackmarket') {
-        var bmTabEl = getEl('tabBlackMarket');
-        if (bmTabEl) bmTabEl.classList.add('active');
-        bmContent.style.display = 'block';
-        updateShopEventUI();
-        renderBlackMarket();
+        var bmTabEl = getEl('tabBlackMarket'); if (bmTabEl) bmTabEl.classList.add('active');
+        bmContent.style.display = 'block'; updateShopEventUI(); renderBlackMarket();
       }
     };
 
@@ -1966,16 +1818,10 @@
       for (var i = 0; i < blackMarketItemsData.length; i++) {
         var item = blackMarketItemsData[i];
         var loc = t.bm_items[item.id] || { name: item.id, desc: '', rarity: '' };
-        var alreadyBought = false;
-        if (item.kind === 'skin' && ownedSkins.indexOf(item.skinId) !== -1) alreadyBought = true;
-        if (bmBoughtInCycle.indexOf(item.id) !== -1) alreadyBought = true;
+        var alreadyBought = (item.kind === 'skin' && ownedSkins.indexOf(item.skinId) !== -1) || (bmBoughtInCycle.indexOf(item.id) !== -1);
 
         var card = document.createElement('div');
-        card.className = 'card';
-        if (item.kind === 'casino_boost' || item.kind === 'moai_amulet') {
-          card.classList.add('rgb-glow');
-        }
-
+        card.className = 'card' + ((item.kind === 'casino_boost' || item.kind === 'moai_amulet') ? ' rgb-glow' : '');
         card.innerHTML =
           '<div class="card-icon">' + item.icon + '</div>' +
           '<div class="card-content">' +
@@ -1986,57 +1832,32 @@
 
         var btn = document.createElement('button');
         btn.className = 'btn btn-gold';
-        btn.style.width = 'auto';
-        btn.style.marginBottom = '0';
-        btn.style.padding = '8px 10px';
-        btn.style.fontSize = '8px';
+        btn.style.cssText = 'width:auto;margin-bottom:0;padding:8px 10px;font-size:8px;';
 
         if (alreadyBought) {
-          btn.innerText = t.bought;
-          btn.disabled = true;
+          btn.innerText = t.bought; btn.disabled = true;
         } else {
           btn.innerText = t.buy + ' (' + formatMoney(item.price, 0) + ' ₽)';
           btn.onclick = (function(lot) {
             return function() {
-              if (balance < lot.price) {
-                playHaptic('error');
-                alert(t.not_enough_money);
-                return;
-              }
+              if (balance < lot.price) { playHaptic('error'); alert(t.not_enough_money); return; }
               balance -= lot.price;
-              if (lot.kind === 'tap_perm') {
-                bmTapBonus += lot.tapBonus;
-              } else if (lot.kind === 'chaos_perm') {
-                bmTapBonus += lot.tapBonus;
-                bmAutoSpeedBonus += lot.autoSpeedBonus;
-                if (hasAutoclicker) startAutoclicker();
-              } else if (lot.kind === 'moai_amulet') {
-                hasMoaiAmulet = true;
-              } else if (lot.kind === 'skin') {
-                if (ownedSkins.indexOf(lot.skinId) === -1) ownedSkins.push(lot.skinId);
-              } else if (lot.kind === 'casino_boost') {
-                activeBuffs.casinoBoostUntil = Date.now() + lot.durationMs;
-              }
+              if (lot.kind === 'tap_perm') bmTapBonus += lot.tapBonus;
+              else if (lot.kind === 'chaos_perm') { bmTapBonus += lot.tapBonus; bmAutoSpeedBonus += lot.autoSpeedBonus; if (hasAutoclicker) startAutoclicker(); }
+              else if (lot.kind === 'moai_amulet') hasMoaiAmulet = true;
+              else if (lot.kind === 'skin' && ownedSkins.indexOf(lot.skinId) === -1) ownedSkins.push(lot.skinId);
+              else if (lot.kind === 'casino_boost') activeBuffs.casinoBoostUntil = Date.now() + lot.durationMs;
 
               if (bmBoughtInCycle.indexOf(lot.id) === -1) bmBoughtInCycle.push(lot.id);
               addBadge('bm_regular');
-              recordEventParticipation({
-                id: 'black_market_' + bmCycleId,
-                itemsBought: bmBoughtInCycle.length
-              });
+              recordEventParticipation({ id: 'black_market_' + bmCycleId, itemsBought: bmBoughtInCycle.length });
 
-              playSound('buy_gold');
-              playHaptic('success');
-              updateUI();
-              updateAutoInfo();
-              renderShop();
-              renderBlackMarket();
+              playSound('buy_gold'); playHaptic('success');
+              updateUI(); updateAutoInfo(); renderShop(); renderBlackMarket();
             };
           })(item);
         }
-
-        card.appendChild(btn);
-        blackMarketList.appendChild(card);
+        card.appendChild(btn); blackMarketList.appendChild(card);
       }
     }
 
@@ -2044,21 +1865,15 @@
       if (rawDelta < 0) {
         var todayKey = getTodayKey();
         if (hasMoaiAmulet && lastMoaiSaveDate !== todayKey) {
-          lastMoaiSaveDate = todayKey;
-          updateUI();
-          playSound('quest_claim');
-          playHaptic('success');
+          lastMoaiSaveDate = todayKey; updateUI();
+          playSound('quest_claim'); playHaptic('success');
           alert(t.amulet_saved.replace('{amount}', formatMoney(Math.abs(rawDelta), 0)));
           return 0;
         }
-        balance += rawDelta;
-        updateUI();
-        return rawDelta;
+        balance += rawDelta; updateUI(); return rawDelta;
       } else if (rawDelta > 0) {
         var finalWin = rawDelta * getCasinoWinMultiplier();
-        balance += finalWin;
-        updateUI();
-        return finalWin;
+        balance += finalWin; updateUI(); return finalWin;
       }
       return 0;
     }
@@ -2070,7 +1885,7 @@
 
     function initCasino() {
       if (!casinoReel) return; casinoReel.innerHTML = '';
-      for (var i = 0; i < 50; i++) { addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]); }
+      for (var i = 0; i < 50; i++) addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
     }
 
     function addReelItem(item) {
@@ -2105,9 +1920,9 @@
       }
 
       casinoReel.style.transition = 'none'; casinoReel.style.transform = 'translateX(0px)'; casinoReel.innerHTML = '';
-      for (var i = 0; i < 40; i++) { addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]); }
+      for (var i = 0; i < 40; i++) addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
       addReelItem(winItem);
-      for (var i = 0; i < 10; i++) { addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]); }
+      for (var i = 0; i < 10; i++) addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
 
       setTimeout(function() {
         casinoReel.style.transition = 'transform ' + (SPIN_DURATION/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
@@ -2117,7 +1932,7 @@
         
         setTimeout(function() {
           isSpinning = false;
-          stopCaseOpenSound();
+          if (CASE_AUDIO_CONFIG.stopWhenReelFinishes) stopCaseOpenSound();
           spinBtn.disabled = false;
 
           if (winItem.type === 'moai') {
@@ -2139,30 +1954,16 @@
     };
 
     var slotSymbols = ['🥔', '🍟', '👻'];
-    
     function buildStrip(stripId, targetSymbol, durationMs) {
-      var strip = getEl(stripId);
-      if (!strip) return;
-      
-      strip.style.transition = 'none';
-      strip.style.transform = 'translateY(0)';
-      strip.innerHTML = '';
-      
+      var strip = getEl(stripId); if (!strip) return;
+      strip.style.transition = 'none'; strip.style.transform = 'translateY(0)'; strip.innerHTML = '';
       for (var i = 0; i < 30; i++) {
-        var sym = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-        var div = document.createElement('div');
-        div.className = 'slot-item-symbol';
-        div.innerText = sym;
-        strip.appendChild(div);
+        var div = document.createElement('div'); div.className = 'slot-item-symbol';
+        div.innerText = slotSymbols[Math.floor(Math.random() * slotSymbols.length)]; strip.appendChild(div);
       }
-      
-      var targetDiv = document.createElement('div');
-      targetDiv.className = 'slot-item-symbol';
-      targetDiv.innerText = targetSymbol;
-      strip.appendChild(targetDiv);
-
+      var targetDiv = document.createElement('div'); targetDiv.className = 'slot-item-symbol';
+      targetDiv.innerText = targetSymbol; strip.appendChild(targetDiv);
       void strip.offsetWidth;
-
       strip.style.transition = 'transform ' + durationMs + 'ms cubic-bezier(0.15, 0.8, 0.3, 1)';
       strip.style.transform = 'translateY(-' + (30 * 100) + 'px)';
     }
@@ -2171,34 +1972,20 @@
       if (isSlotsSpinning) return;
       var spinBtnEl = getEl('spinSlotsBtn');
       if (balance < slotsCost) { playHaptic('error'); alert(t.not_enough_money); return; }
-      
-      isSlotsSpinning = true;
-      balance -= slotsCost;
-      updateUI();
-      
+      isSlotsSpinning = true; balance -= slotsCost; updateUI();
       if (spinBtnEl) spinBtnEl.disabled = true;
       playHaptic('medium');
-      
-      var dur1 = 1500; var dur2 = 2200; var dur3 = 3000;
+      var dur1 = 1500, dur2 = 2200, dur3 = 3000;
       playSlotSpinSound(dur3 / 1000);
 
-      var roll = Math.random();
-      var winType = 'none';
-      var winAmount = 0;
-      var finalSymbols = ['🥔', '🥔', '🥔'];
-
+      var roll = Math.random(), winType = 'none', winAmount = 0, finalSymbols = ['🥔', '🥔', '🥔'];
       if (roll < 0.0001) { finalSymbols = ['🍟', '🍟', '🍟']; winAmount = 10000; winType = 'jackpot'; } 
       else if (roll < 0.0101) { finalSymbols = ['🍟', '🍟', Math.random() < 0.5 ? '🥔' : '👻']; winAmount = 1000; winType = 'win'; } 
       else if (roll < 0.0151) { finalSymbols = ['👻', '👻', '👻']; winAmount = 5000; winType = 'win'; } 
       else if (roll < 0.0351) { finalSymbols = ['🥔', '🥔', '🥔']; winAmount = 3000; winType = 'win'; } 
       else if (roll < 0.0651) { finalSymbols = ['👻', '👻', Math.random() < 0.5 ? '🥔' : '🍟']; winAmount = 500; winType = 'win'; } 
       else if (roll < 0.2151) { finalSymbols = ['🥔', '🥔', Math.random() < 0.5 ? '🍟' : '👻']; winAmount = 100; winType = 'win'; } 
-      else {
-        var arr = ['🥔', '🍟', '👻'];
-        arr.sort(function() { return Math.random() - 0.5; });
-        finalSymbols = arr;
-        winAmount = 0; winType = 'none';
-      }
+      else { var arr = ['🥔', '🍟', '👻']; arr.sort(function() { return Math.random() - 0.5; }); finalSymbols = arr; }
 
       buildStrip('strip1', finalSymbols[0], dur1);
       buildStrip('strip2', finalSymbols[1], dur2);
@@ -2211,21 +1998,15 @@
       setTimeout(function() {
         isSlotsSpinning = false;
         if (spinBtnEl) spinBtnEl.disabled = false;
-
         if (winAmount > 0) {
           var finalWin = applyCasinoOutcome(winAmount);
           playSound('quest_claim_10'); playHaptic('heavy');
           if (winType === 'jackpot') {
             alert(t.slot_jackpot.replace('{amount}', formatMoney(finalWin, 0)));
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
-          } else {
-            alert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽');
-          }
+          } else { alert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽'); }
           if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
-        } else {
-          playHaptic('error');
-          alert(t.nothing_won);
-        }
+        } else { playHaptic('error'); alert(t.nothing_won); }
       }, dur3 + 100); 
     };
 
@@ -2233,24 +2014,14 @@
       if (isWheelSpinning) return;
       var spinBtnEl = getEl('spinWheelBtn');
       if (balance < wheelCost) { playHaptic('error'); alert(t.not_enough_money); return; }
-      
-      isWheelSpinning = true;
-      balance -= wheelCost;
-      updateUI();
-      
+      isWheelSpinning = true; balance -= wheelCost; updateUI();
       if (spinBtnEl) spinBtnEl.disabled = true;
       playHaptic('medium');
 
-      var wheel = getEl('fortuneWheel');
-      var spinDuration = 5000;
-      
+      var wheel = getEl('fortuneWheel'); var spinDuration = 5000;
       playWheelSpinSound(spinDuration / 1000);
 
-      var roll = Math.random();
-      var winType = 'none';
-      var winAmount = 0;
-      var targetSectorIndex = 0;
-
+      var roll = Math.random(), winType = 'none', winAmount = 0, targetSectorIndex = 0;
       if (roll < 0.65) { 
         winType = 'loss'; winAmount = 0;
         var lossSectors = [0, 1, 3, 4, 6, 7, 9, 11, 14];
@@ -2259,29 +2030,17 @@
         winType = 'win'; winAmount = 750;
         var greenSectors = [2, 8, 12];
         targetSectorIndex = greenSectors[Math.floor(Math.random() * greenSectors.length)];
-      } else if (roll < 0.95) { 
-        winType = 'win'; winAmount = 1000; targetSectorIndex = 5;
-      } else if (roll < 0.98) { 
-        winType = 'win'; winAmount = 2500; targetSectorIndex = 10;
-      } else if (roll < 0.995) { 
-        winType = 'win'; winAmount = 5000; targetSectorIndex = 13;
-      } else { 
-        winType = 'jackpot'; winAmount = 25000; targetSectorIndex = 15;
-      }
+      } else if (roll < 0.95) { winType = 'win'; winAmount = 1000; targetSectorIndex = 5; } 
+      else if (roll < 0.98) { winType = 'win'; winAmount = 2500; targetSectorIndex = 10; } 
+      else if (roll < 0.995) { winType = 'win'; winAmount = 5000; targetSectorIndex = 13; } 
+      else { winType = 'jackpot'; winAmount = 25000; targetSectorIndex = 15; }
 
       var sectorAngle = 22.5;
       var targetCenterAngle = (targetSectorIndex * sectorAngle) + (sectorAngle / 2);
       var absoluteTargetAngle = (360 - targetCenterAngle) % 360;
-      
-      var currentRotationMod = currentWheelRotation % 360;
-      if (currentRotationMod < 0) currentRotationMod += 360;
-      
+      var currentRotationMod = ((currentWheelRotation % 360) + 360) % 360;
       var rotationToAdd = (absoluteTargetAngle - currentRotationMod + 360) % 360;
-      
-      var fullRotations = 360 * 5;
-      var totalRotationToAdd = fullRotations + rotationToAdd;
-      
-      currentWheelRotation += totalRotationToAdd;
+      currentWheelRotation += (360 * 5) + rotationToAdd;
       
       if (wheel) {
         wheel.style.transition = 'transform ' + (spinDuration/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
@@ -2292,30 +2051,22 @@
         isWheelSpinning = false;
         if (spinBtnEl) spinBtnEl.disabled = false;
         playHaptic('heavy');
-
         if (winAmount > 0) {
           var finalWin = applyCasinoOutcome(winAmount);
           playSound('quest_claim_10');
-          
           if (winType === 'jackpot') {
             alert(t.wheel_jackpot.replace('{amount}', formatMoney(finalWin, 0)));
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
-          } else {
-            alert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽');
-          }
+          } else { alert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽'); }
           if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
-        } else {
-          playHaptic('error');
-          alert(t.wheel_lost);
-        }
+        } else { playHaptic('error'); alert(t.wheel_lost); }
       }, spinDuration + 100);
     };
 
     function checkQuestReady() {
       if (hasUnclaimedQuest) return;
       for (var i = 0; i < questsData.length; i++) {
-        var q = questsData[i];
-        if (claimed.indexOf(q.id) === -1 && totalTaps >= q.need) { playSound('quest_ready'); hasUnclaimedQuest = true; break; }
+        if (claimed.indexOf(questsData[i].id) === -1 && totalTaps >= questsData[i].need) { playSound('quest_ready'); hasUnclaimedQuest = true; break; }
       }
     }
 
@@ -2344,20 +2095,18 @@
     }
 
     function updateAutoInfo() {
-      if (hasAutoclicker) {
-        if (autoInfo) {
-          autoInfo.style.display = 'block';
-          var effSec = (getEffectiveAutoInterval() / 1000).toFixed(1).replace(/\.0$/, '');
-          var text = currentLang === 'ru'
-            ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + effSec + ' сек'
-            : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + effSec + ' sec';
-          autoInfo.innerText = text;
-        }
-      } else { if (autoInfo) autoInfo.style.display = 'none'; }
+      if (hasAutoclicker && autoInfo) {
+        autoInfo.style.display = 'block';
+        var effSec = (getEffectiveAutoInterval() / 1000).toFixed(1).replace(/\.0$/, '');
+        autoInfo.innerText = currentLang === 'ru'
+          ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + effSec + ' сек'
+          : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + effSec + ' sec';
+      } else if (autoInfo) { autoInfo.style.display = 'none'; }
     }
 
     function startAutoclicker() {
-      if (autoTimer) clearInterval(autoTimer); if (!hasAutoclicker) return;
+      if (autoTimer) clearInterval(autoTimer);
+      if (!hasAutoclicker) return;
       autoTimer = setInterval(function() { balance += autoValue; updateUI(); }, getEffectiveAutoInterval());
     }
 
@@ -2370,8 +2119,9 @@
 
       if (!document.body) return;
       var float = document.createElement('div'); float.className = 'float-text'; float.innerText = '+' + formatMoney(effectiveTapValue); 
-      var clientX = window.innerWidth / 2; var clientY = window.innerHeight / 2;
-      if (e && e.touches && e.touches[0]) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; } else if (e && e.clientX) { clientX = e.clientX; clientY = e.clientY; }
+      var clientX = window.innerWidth / 2, clientY = window.innerHeight / 2;
+      if (e && e.touches && e.touches[0]) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; }
+      else if (e && e.clientX) { clientX = e.clientX; clientY = e.clientY; }
       float.style.left = clientX + 'px'; float.style.top = clientY + 'px';
       document.body.appendChild(float);
       setTimeout(function() { if (float.parentNode) float.parentNode.removeChild(float); }, 800);
@@ -2384,45 +2134,26 @@
       for (var i = 0; i < skinsData.length; i++) {
         var skin = skinsData[i]; var isOwned = ownedSkins.indexOf(skin.id) !== -1; var isEquipped = equippedSkin === skin.id;
         if (skin.fromBlackMarket && !isOwned) continue;
-        var skinName = currentLang === 'en' ? skin.en_name : skin.name;
         var card = document.createElement('div'); card.className = 'card shop-card';
         var isLocked = (!isOwned && skin.id !== 0);
         
-        var previewBox = document.createElement('div');
-        previewBox.className = 'shop-preview';
-        var img = document.createElement('img');
-        img.src = skin.image;
-        if (isLocked) {
-          img.style.filter = 'grayscale(100%) opacity(0.5)';
-        }
+        var previewBox = document.createElement('div'); previewBox.className = 'shop-preview';
+        var img = document.createElement('img'); img.src = skin.image;
+        if (isLocked) img.style.filter = 'grayscale(100%) opacity(0.5)';
         img.onerror = (function(imgRef, emj, locked) {
           return function() { window.handleSkinImgError(imgRef, emj, locked); };
         })(img, skin.emoji, isLocked);
         previewBox.appendChild(img);
 
-        var titleDiv = document.createElement('div');
-        titleDiv.className = 'card-title';
-        titleDiv.style.marginBottom = '8px';
-        titleDiv.innerText = skinName;
+        var titleDiv = document.createElement('div'); titleDiv.className = 'card-title'; titleDiv.style.marginBottom = '8px';
+        titleDiv.innerText = currentLang === 'en' ? skin.en_name : skin.name;
 
-        var btn = document.createElement('button');
-        btn.className = 'btn';
-        if (isEquipped) {
-          btn.classList.add('btn-green');
-          btn.disabled = true;
-          btn.innerText = t.equipped;
-        } else if (isOwned) {
-          btn.innerText = t.equip;
-          btn.onclick = (function(sid) { return function() { window.equipSkin(sid); }; })(skin.id);
-        } else {
-          btn.classList.add('btn-blue');
-          btn.innerText = t.buy + ' (' + formatMoney(skin.price, 0) + ' ₽)';
-          btn.onclick = (function(sid) { return function() { window.buySkin(sid); }; })(skin.id);
-        }
+        var btn = document.createElement('button'); btn.className = 'btn';
+        if (isEquipped) { btn.classList.add('btn-green'); btn.disabled = true; btn.innerText = t.equipped; }
+        else if (isOwned) { btn.innerText = t.equip; btn.onclick = (function(sid) { return function() { window.equipSkin(sid); }; })(skin.id); }
+        else { btn.classList.add('btn-blue'); btn.innerText = t.buy + ' (' + formatMoney(skin.price, 0) + ' ₽)'; btn.onclick = (function(sid) { return function() { window.buySkin(sid); }; })(skin.id); }
 
-        card.appendChild(previewBox);
-        card.appendChild(titleDiv);
-        card.appendChild(btn);
+        card.appendChild(previewBox); card.appendChild(titleDiv); card.appendChild(btn);
         shopList.appendChild(card);
       }
     }
@@ -2432,12 +2163,22 @@
       if (!skin) return;
       if (balance >= skin.price) {
         balance -= skin.price; ownedSkins.push(id);
-        if (id === 1) { playSound('buy_gold'); } else if (id === 2) { playSound('buy_ghost'); } else { playSound('upgrade'); }
+        if (id === 1) playSound('buy_gold'); else if (id === 2) playSound('buy_ghost'); else playSound('upgrade');
         playHaptic('success'); updateUI(); renderShop();
       } else { playHaptic('error'); alert(t.not_enough_money); }
     };
 
     window.equipSkin = function(id) { equippedSkin = id; updatePotatoSkin(); save(); renderShop(); playHaptic('medium'); };
+
+    function makeActionButton(text, disabled, onClick) {
+      var btn = document.createElement('button');
+      btn.className = 'btn';
+      btn.style.cssText = 'width:auto;margin-bottom:0;padding:8px 12px;font-size:9px;';
+      btn.innerText = text;
+      btn.disabled = !!disabled;
+      if (!disabled && onClick) btn.onclick = onClick;
+      return btn;
+    }
 
     function renderUpgrades() {
       if (!upgradesList) return; upgradesList.innerHTML = '';
@@ -2445,83 +2186,51 @@
         for (var i = 0; i < upgradesData.length; i++) {
           var upg = upgradesData[i]; var level = i + 1; var isBought = level <= maxUpgrade; var isNext = level === maxUpgrade + 1;
           var btnText = isBought ? t.bought : (isNext ? t.buy_for + ' ' + formatMoney(upg.cost, 1) + ' ₽' : t.buy_prev);
-          var upgName = t.upg_names[i]; var upgDesc = t.upg_desc + ' ' + formatMoney(upg.desc) + ' ₽';
-          
           var card = document.createElement('div'); card.className = 'card';
-          card.innerHTML = '<div class="card-content"><div class="card-title">' + upgName + '</div><div class="card-desc">' + upgDesc + '</div></div>';
-          
-          var btn = document.createElement('button'); btn.className = 'btn';
-          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
-          btn.innerText = btnText; if (!isNext) btn.disabled = true;
-
-          if (isNext) {
-            btn.onclick = (function(u, lvl) {
-              return function() {
-                if (balance >= u.cost) {
-                  balance -= u.cost; tapValue = u.value; maxUpgrade = lvl;
-                  playSound('upgrade'); playHaptic('success'); updateUI(); renderUpgrades();
-                } else { playHaptic('error'); alert(t.not_enough_money); }
-              };
-            })(upg, level);
-          }
-          card.appendChild(btn); upgradesList.appendChild(card);
+          card.innerHTML = '<div class="card-content"><div class="card-title">' + t.upg_names[i] + '</div><div class="card-desc">' + t.upg_desc + ' ' + formatMoney(upg.desc) + ' ₽</div></div>';
+          card.appendChild(makeActionButton(btnText, !isNext, (function(u, lvl) {
+            return function() {
+              if (balance >= u.cost) { balance -= u.cost; tapValue = u.value; maxUpgrade = lvl; playSound('upgrade'); playHaptic('success'); updateUI(); renderUpgrades(); }
+              else { playHaptic('error'); alert(t.not_enough_money); }
+            };
+          })(upg, level)));
+          upgradesList.appendChild(card);
         }
       } else {
         if (!hasAutoclicker) {
           var card = document.createElement('div'); card.className = 'card';
           card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_buy + '</div><div class="card-desc">' + t.auto_desc + '</div></div>';
-          var btn = document.createElement('button'); btn.className = 'btn'; 
-          btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
-          btn.innerText = t.buy_for + ' 100 ₽';
-          btn.onclick = function() {
-            if (balance >= 100) {
-              balance -= 100; hasAutoclicker = true;
-              playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
-            } else { playHaptic('error'); alert(t.not_enough_money); }
-          };
-          card.appendChild(btn); upgradesList.appendChild(card);
+          card.appendChild(makeActionButton(t.buy_for + ' 100 ₽', false, function() {
+            if (balance >= 100) { balance -= 100; hasAutoclicker = true; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
+            else { playHaptic('error'); alert(t.not_enough_money); }
+          }));
+          upgradesList.appendChild(card);
         } else {
           var t1 = document.createElement('div'); t1.className = 'section-title'; t1.innerText = t.auto_power; upgradesList.appendChild(t1);
           for (var v = 0; v < autoValueData.length; v++) {
             var av = autoValueData[v]; var isB = autoValueLevel >= av.level; var isN = autoValueLevel + 1 === av.level;
             var card = document.createElement('div'); card.className = 'card';
             card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_power + ' Lv.' + av.level + '</div><div class="card-desc">' + t.gives + ' ' + formatMoney(av.value, 4) + ' ₽</div></div>';
-            var btn = document.createElement('button'); btn.className = 'btn';
-            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
-            btn.innerText = isB ? t.bought : (isN ? t.buy_for + ' ' + formatMoney(av.cost, 0) + ' ₽' : t.buy_prev);
-            if (!isN) btn.disabled = true;
-            if (isN) {
-              btn.onclick = (function(a) {
-                return function() {
-                  if (balance >= a.cost) {
-                    balance -= a.cost; autoValue = a.value; autoValueLevel = a.level;
-                    playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
-                  } else { playHaptic('error'); alert(t.not_enough_money); }
-                };
-              })(av);
-            }
-            card.appendChild(btn); upgradesList.appendChild(card);
+            card.appendChild(makeActionButton(isB ? t.bought : (isN ? t.buy_for + ' ' + formatMoney(av.cost, 0) + ' ₽' : t.buy_prev), !isN, (function(a) {
+              return function() {
+                if (balance >= a.cost) { balance -= a.cost; autoValue = a.value; autoValueLevel = a.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
+                else { playHaptic('error'); alert(t.not_enough_money); }
+              };
+            })(av)));
+            upgradesList.appendChild(card);
           }
           var t2 = document.createElement('div'); t2.className = 'section-title'; t2.innerText = t.auto_speed; upgradesList.appendChild(t2);
           for (var s = 0; s < autoSpeedData.length; s++) {
             var as = autoSpeedData[s]; var isB = autoSpeedLevel >= as.level; var isN = autoSpeedLevel + 1 === as.level;
             var card = document.createElement('div'); card.className = 'card';
             card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_speed + ' Lv.' + as.level + '</div><div class="card-desc">' + t.interval + ': ' + (as.interval/1000) + ' ' + t.sec + '</div></div>';
-            var btn = document.createElement('button'); btn.className = 'btn';
-            btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
-            btn.innerText = isB ? t.bought : (isN ? t.buy_for + ' ' + formatMoney(as.cost, 0) + ' ₽' : t.buy_prev);
-            if (!isN) btn.disabled = true;
-            if (isN) {
-              btn.onclick = (function(a) {
-                return function() {
-                  if (balance >= a.cost) {
-                    balance -= a.cost; autoInterval = a.interval; autoSpeedLevel = a.level;
-                    playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades();
-                  } else { playHaptic('error'); alert(t.not_enough_money); }
-                };
-              })(as);
-            }
-            card.appendChild(btn); upgradesList.appendChild(card);
+            card.appendChild(makeActionButton(isB ? t.bought : (isN ? t.buy_for + ' ' + formatMoney(as.cost, 0) + ' ₽' : t.buy_prev), !isN, (function(a) {
+              return function() {
+                if (balance >= a.cost) { balance -= a.cost; autoInterval = a.interval; autoSpeedLevel = a.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
+                else { playHaptic('error'); alert(t.not_enough_money); }
+              };
+            })(as)));
+            upgradesList.appendChild(card);
           }
         }
       }
@@ -2536,25 +2245,20 @@
         var progText = t.progress + ': ' + formatMoney(Math.min(totalTaps, q.need), 0) + ' / ' + formatMoney(q.need, 0);
         
         var card = document.createElement('div'); card.className = 'card';
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-top: 8px; margin-bottom: 0; color: #a78bfa; font-size:9px; line-height: 1.6; word-break: break-word;">' + progText + '</div></div>';
-        var btn = document.createElement('button'); btn.className = 'btn';
-        btn.style.width = 'auto'; btn.style.marginBottom = '0'; btn.style.padding = '8px 12px'; btn.style.fontSize = '9px';
+        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-top:8px;margin-bottom:0;color:#a78bfa;font-size:9px;line-height:1.6;word-break:break-word;">' + progText + '</div></div>';
         
-        if (isClaimed) { btn.innerText = t.received; btn.disabled = true; }
-        else if (canClaim) {
-          btn.innerText = t.claim + ' (+' + formatMoney(q.reward, 1) + ' ₽)';
-          btn.style.background = '#10b981';
-          btn.onclick = (function(quest) {
-            return function() {
-              balance += quest.reward; claimed.push(quest.id);
-              if (quest.id === 10 || quest.id === 16 || quest.id === 18 || quest.id === 19 || quest.id === 20) { playSound('quest_claim_10'); } 
-              else if (quest.id === 11) { playSound('quest_claim_11'); } 
-              else if (quest.id === 15 || quest.id === 17) { playSound('quest_claim_15'); } 
-              else { playSound('quest_claim'); }
-              playHaptic('success'); hasUnclaimedQuest = false; updateUI(); renderQuests();
-            };
-          })(q);
-        } else { btn.innerText = t.not_done; btn.disabled = true; }
+        var btnText = isClaimed ? t.received : (canClaim ? t.claim + ' (+' + formatMoney(q.reward, 1) + ' ₽)' : t.not_done);
+        var btn = makeActionButton(btnText, !canClaim, (function(quest) {
+          return function() {
+            balance += quest.reward; claimed.push(quest.id);
+            if (quest.id === 10 || quest.id === 16 || quest.id === 18 || quest.id === 19 || quest.id === 20) playSound('quest_claim_10');
+            else if (quest.id === 11) playSound('quest_claim_11');
+            else if (quest.id === 15 || quest.id === 17) playSound('quest_claim_15');
+            else playSound('quest_claim');
+            playHaptic('success'); hasUnclaimedQuest = false; updateUI(); renderQuests();
+          };
+        })(q));
+        if (canClaim) btn.style.background = '#10b981';
         card.appendChild(btn); questsList.appendChild(card);
       }
     }
@@ -2564,7 +2268,8 @@
       for (var i = 0; i < achData.length; i++) {
         var isUnlocked = unlockedAch.indexOf(i) !== -1; var ach = achData[i];
         var card = document.createElement('div'); card.className = 'card';
-        if (isUnlocked) { card.classList.add('rgb-glow'); } else { card.style.opacity = '0.5'; card.style.filter = 'grayscale(100%)'; }
+        if (isUnlocked) card.classList.add('rgb-glow');
+        else { card.style.opacity = '0.5'; card.style.filter = 'grayscale(100%)'; }
         
         var iconHtml = ach.icon === 'wood' 
           ? '<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/><ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/><ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/><ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/><ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/><path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>' 
@@ -2578,46 +2283,24 @@
 
     function formatShortDate(ts) {
       if (!ts) return '—';
-      var d = new Date(ts);
-      var locale = currentLang === 'ru' ? 'ru-RU' : 'en-US';
-      return d.toLocaleDateString(locale, { day: '2-digit', month: 'short' });
+      return new Date(ts).toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { day: '2-digit', month: 'short' });
     }
 
     function renderEventsHistory() {
-      if (!eventsHistoryList) return;
-      eventsHistoryList.innerHTML = '';
-
+      if (!eventsHistoryList) return; eventsHistoryList.innerHTML = '';
       if (!eventHistory.length) {
-        var emptyCard = document.createElement('div');
-        emptyCard.className = 'card';
+        var emptyCard = document.createElement('div'); emptyCard.className = 'card';
         emptyCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;">' + t.history_empty + '</div></div>';
-        eventsHistoryList.appendChild(emptyCard);
-        return;
+        eventsHistoryList.appendChild(emptyCard); return;
       }
-
       for (var i = 0; i < eventHistory.length; i++) {
         var ev = eventHistory[i];
         var title = currentLang === 'en' ? (ev.nameEn || ev.nameRu) : (ev.nameRu || ev.nameEn);
-        var periodLine = t.history_period
-          .replace('{start}', formatShortDate(ev.start))
-          .replace('{end}', formatShortDate(ev.end));
-        var extraLine = typeof ev.itemsBought === 'number'
-          ? '<div class="card-desc">' + t.history_bought_bm.replace('{count}', ev.itemsBought) + '</div>'
-          : '';
-        var statusLine = ev.active
-          ? '<div class="card-status status-unlocked">' + t.history_active + '</div>'
-          : '<div class="card-status status-locked">' + t.history_finished + '</div>';
-
-        var card = document.createElement('div');
-        card.className = 'card';
-        if (ev.active) card.classList.add('rgb-glow');
-        card.innerHTML =
-          '<div class="card-content">' +
-            '<div class="card-title">' + title + '</div>' +
-            '<div class="card-desc">' + periodLine + '</div>' +
-            extraLine +
-            statusLine +
-          '</div>';
+        var periodLine = t.history_period.replace('{start}', formatShortDate(ev.start)).replace('{end}', formatShortDate(ev.end));
+        var extraLine = typeof ev.itemsBought === 'number' ? '<div class="card-desc">' + t.history_bought_bm.replace('{count}', ev.itemsBought) + '</div>' : '';
+        var statusLine = ev.active ? '<div class="card-status status-unlocked">' + t.history_active + '</div>' : '<div class="card-status status-locked">' + t.history_finished + '</div>';
+        var card = document.createElement('div'); card.className = 'card' + (ev.active ? ' rgb-glow' : '');
+        card.innerHTML = '<div class="card-content"><div class="card-title">' + title + '</div><div class="card-desc">' + periodLine + '</div>' + extraLine + statusLine + '</div>';
         eventsHistoryList.appendChild(card);
       }
     }
@@ -2625,14 +2308,13 @@
     function renderRating() {
       var container = getEl('leaderboardList'); if (!container) return;
       container.innerHTML = ''; var row = document.createElement('div'); row.className = 'rating-row';
-      var avatarSrc = userPhoto ? userPhoto : 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
+      var avatarSrc = userPhoto || 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
       row.innerHTML = '<div class="rating-rank">1</div><img class="rating-avatar" src="' + avatarSrc + '" alt=""><div class="rating-info"><div class="rating-name">' + userName + '</div><div class="rating-score">' + t.balance + ': ' + formatMoney(balance) + ' ₽</div></div>';
       container.appendChild(row);
     }
 
     function loadUser() {
-      var photo = '';
-      userName = t.player;
+      var photo = ''; userName = t.player;
       try {
         if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
           var u = tg.initDataUnsafe.user;
@@ -2642,7 +2324,6 @@
       } catch(e) {}
       if (!photo) photo = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="%234c1d95"/><text x="50" y="62" font-size="40" text-anchor="middle" fill="white">🥔</text></svg>';
       userPhoto = photo;
-      
       var topAvatar = getEl('topAvatar'); var profileAvatar = getEl('profileAvatar'); var profileName = getEl('profileName');
       if (topAvatar) topAvatar.src = photo; if (profileAvatar) profileAvatar.src = photo; if (profileName) profileName.innerText = userName;
     }
@@ -2655,16 +2336,14 @@
 
       var menuItems = document.querySelectorAll('.menu-item');
       for (var m = 0; m < menuItems.length; m++) {
-        menuItems[m].classList.remove('active');
-        if (menuItems[m].getAttribute('data-screen') === name) menuItems[m].classList.add('active');
+        menuItems[m].classList.toggle('active', menuItems[m].getAttribute('data-screen') === name);
       }
-      
-      if (name === 'achievements' || name === 'events-history' || name === 'shop' || name === 'casino' || name === 'casino-box' || name === 'casino-slots' || name === 'casino-wheel' || name === 'settings') { 
+      if (['achievements', 'events-history', 'shop', 'casino', 'casino-box', 'casino-slots', 'casino-wheel', 'settings'].indexOf(name) !== -1) {
         for (var k = 0; k < menuItems.length; k++) menuItems[k].classList.remove('active'); 
       }
 
       if (topBalanceBar) {
-        if (name === 'quests' || name === 'rating' || name === 'achievements' || name === 'events-history' || name === 'settings') { topBalanceBar.style.display = 'none'; } else { topBalanceBar.style.display = 'flex'; }
+        topBalanceBar.style.display = ['quests', 'rating', 'achievements', 'events-history', 'settings'].indexOf(name) !== -1 ? 'none' : 'flex';
       }
 
       if (name === 'upgrades') renderUpgrades();
@@ -2674,36 +2353,29 @@
       if (name === 'achievements') renderAchievements();
       if (name === 'events-history') renderEventsHistory();
       if (name === 'shop') { updateShopEventUI(); switchShopTab('skins'); }
-      if (name === 'casino-box') { initCasino(); }
-      if (name === 'settings') { initRockets(); }
+      if (name === 'casino-box') initCasino();
+      if (name === 'settings') initRockets();
     }
 
-    var openProfileBtn = getEl('openProfile'); if (openProfileBtn) { openProfileBtn.onclick = function() { showScreen('profile'); }; }
+    var openProfileBtn = getEl('openProfile'); if (openProfileBtn) openProfileBtn.onclick = function() { showScreen('profile'); };
     
     var menuItems = document.querySelectorAll('.menu-item');
     for (var i = 0; i < menuItems.length; i++) {
-      menuItems[i].onclick = function() {
-        var scr = this.getAttribute('data-screen');
-        if (scr) showScreen(scr);
-      };
+      menuItems[i].onclick = function() { var scr = this.getAttribute('data-screen'); if (scr) showScreen(scr); };
     }
 
     var tabTapBtn = getEl('tabTap'); var tabAutoBtn = getEl('tabAuto');
     if (tabTapBtn) {
       tabTapBtn.onclick = function() {
-        playHaptic('medium');
-        currentTab = 'tap';
-        tabTapBtn.classList.add('active');
-        if (tabAutoBtn) tabAutoBtn.classList.remove('active');
+        playHaptic('medium'); currentTab = 'tap';
+        tabTapBtn.classList.add('active'); if (tabAutoBtn) tabAutoBtn.classList.remove('active');
         renderUpgrades();
       };
     }
     if (tabAutoBtn) {
       tabAutoBtn.onclick = function() {
-        playHaptic('medium');
-        currentTab = 'auto';
-        tabAutoBtn.classList.add('active');
-        if (tabTapBtn) tabTapBtn.classList.remove('active');
+        playHaptic('medium'); currentTab = 'auto';
+        tabAutoBtn.classList.add('active'); if (tabTapBtn) tabTapBtn.classList.remove('active');
         renderUpgrades();
       };
     }
@@ -2730,11 +2402,7 @@
     updateUI();
     updatePotatoSkin();
     if (giftTimerInterval) clearInterval(giftTimerInterval);
-    giftTimerInterval = setInterval(function() {
-      updateGiftUI();
-      checkEvents(false);
-      updateBuffsInfo();
-    }, 1000); 
+    giftTimerInterval = setInterval(function() { updateGiftUI(); checkEvents(false); updateBuffsInfo(); }, 1000); 
     if (hasAutoclicker) startAutoclicker();
   </script>
 </body>
