@@ -29,6 +29,41 @@
       text-align: center; font-size: 10px; line-height: 40px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
       text-shadow: 1px 1px 0 #000;
+      padding: 0 10px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* СДВИГ ИНТЕРФЕЙСА ПРИ АКТИВНОМ БАННЕРЕ СОБЫТИЙ */
+    body.has-event-banner .top-balance,
+    body.has-event-banner .btn-top-back {
+      top: 54px;
+    }
+    body.has-event-banner .main-btns-container {
+      top: 100px;
+    }
+    body.has-event-banner .tabs,
+    body.has-event-banner .shop-tabs {
+      padding-top: 120px;
+    }
+    body.has-event-banner .main-content,
+    body.has-event-banner .profile-content {
+      padding-top: 110px;
+    }
+    body.has-event-banner .casino-menu-container,
+    body.has-event-banner .casino-container,
+    body.has-event-banner .slots-container,
+    body.has-event-banner .wheel-container,
+    body.has-event-banner .settings-content {
+      padding-top: 120px;
+    }
+    body.has-event-banner #screen-achievements .list-content {
+      padding-top: 115px;
+    }
+    body.has-event-banner #screen-quests .list-content,
+    body.has-event-banner #screen-rating .rating-container {
+      padding-top: 52px;
     }
 
     /* ВЕРХНИЙ БАЛАНС (СПРАВА) */
@@ -36,6 +71,7 @@
       position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 10px; 
       background: rgba(0,0,0,0.45); padding: 4px 4px 4px 10px; z-index: 60; cursor: pointer; 
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
+      transition: top 0.2s ease;
     }
     .top-avatar { width: 30px; height: 30px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; order: 2; }
     .top-balance-text { display: flex; flex-direction: column; align-items: flex-end; order: 1; }
@@ -50,6 +86,7 @@
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; 
       color: white; padding: 8px 12px;
       font-family: inherit; font-size: 12px; cursor: pointer;
+      transition: top 0.2s ease;
     }
     .btn-top-back:active { border-color: #4c1d95 #a855f7 #a855f7 #4c1d95; }
 
@@ -67,6 +104,7 @@
     /* КНОПКИ НА ГЛАВНОМ */
     .main-btns-container {
       position: absolute; top: 60px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
+      transition: top 0.2s ease;
     }
     .shop-btn-main, .casino-btn-main {
       display: flex; align-items: center; justify-content: center; gap: 6px;
@@ -82,7 +120,7 @@
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; position: relative; }
     .screen.active { display: flex; }
 
-    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; }
+    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; transition: padding-top 0.2s ease; }
     
     .potato-wrap { width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center; position: relative; z-index: 10; }
     .potato-emoji { font-size: 120px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
@@ -98,7 +136,7 @@
     .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; }
 
     /* ВКЛАДКИ УЛУЧШЕНИЙ */
-    .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; }
+    .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; transition: padding-top 0.2s ease; }
     .tab-btn { 
       flex: 1; padding: 12px 6px; border: none; font-size: 10px; 
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer; 
@@ -108,7 +146,7 @@
     .tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; transform: translateY(2px); }
 
     /* ВКЛАДКИ МАГАЗИНА */
-    .shop-tabs { display: flex; gap: 8px; margin-bottom: 20px; padding: 80px 16px 0; }
+    .shop-tabs { display: flex; gap: 8px; margin-bottom: 20px; padding: 80px 16px 0; transition: padding-top 0.2s ease; }
     .shop-tab-btn { 
       flex: 1; padding: 10px 6px; border: none; font-size: 9px; 
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer; 
@@ -119,9 +157,9 @@
 
     .list-content { padding: 0 16px 30px; }
     
-    #screen-achievements .list-content { padding-top: 75px; } 
-    #screen-quests .list-content { padding-top: 20px; }
-    #screen-rating .rating-container { padding-top: 20px; }
+    #screen-achievements .list-content { padding-top: 75px; transition: padding-top 0.2s ease; } 
+    #screen-quests .list-content { padding-top: 20px; transition: padding-top 0.2s ease; }
+    #screen-rating .rating-container { padding-top: 20px; transition: padding-top 0.2s ease; }
     #screen-upgrades .list-content { padding-top: 0; }
     #screen-shop .list-content { padding-top: 10px; }
     
@@ -190,14 +228,14 @@
     .gift-timer { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 8px; font-size: 10px; border: 2px solid #fff; z-index: 10; }
 
     /* КАЗИНО МЕНЮ */
-    .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 80px 16px 30px; gap: 20px; }
+    .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 80px 16px 30px; gap: 20px; transition: padding-top 0.2s ease; }
     .casino-title { font-size: 16px; color: #fde047; margin-bottom: 20px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
     .casino-game-card { width: 100%; max-width: 320px; cursor: pointer; background: rgba(255,255,255,0.09); padding: 20px; display: flex; align-items: center; gap: 15px; border: 3px solid; border-color: #fde047 #a16207 #a16207 #fde047; transition: transform 0.1s; }
     .casino-game-card:active { transform: scale(0.98); border-color: #a16207 #fde047 #fde047 #a16207; }
     .casino-game-card .card-icon { font-size: 40px; }
 
     /* РУЛЕТКА (ЯЩИК КАРТОШКИ) */
-    .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; }
+    .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
     .reel-window { width: 100%; max-width: 320px; height: 90px; overflow: hidden; position: relative; background: rgba(0,0,0,0.5); border: 4px solid #a855f7; margin-bottom: 30px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
     .reel { display: flex; height: 100%; align-items: center; position: absolute; left: 0; top: 0; transition: transform 9s cubic-bezier(0.1, 0.8, 0.1, 1); }
     .reel-item { width: 80px; height: 80px; margin: 0 5px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; background: #eab308; color: #000; text-shadow: none; border: 3px solid #fde047; border-radius: 10px; }
@@ -210,14 +248,14 @@
     .pointer::after { bottom: 0; border-bottom: 15px solid #a855f7; }
 
     /* СЛОТ-МАШИНА (ГРУЗОВИК КАРТОШКИ) */
-    .slots-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; }
+    .slots-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
     .slots-window { display: flex; gap: 10px; margin-bottom: 30px; background: #1a1625; padding: 15px; border: 4px solid #a855f7; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); border-radius: 10px; }
     .slot-reel { width: 70px; height: 100px; background: #2e1065; border: 3px solid #4c1d95; border-radius: 8px; overflow: hidden; position: relative; }
     .reel-strip { display: flex; flex-direction: column; align-items: center; position: absolute; top: 0; left: 0; width: 100%; }
     .slot-item-symbol { width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 40px; flex-shrink: 0; }
 
     /* ПОЛЕ КАРТОШКИ (КОЛЕСО) */
-    .wheel-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; }
+    .wheel-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
     .wheel-wrapper { position: relative; width: 280px; height: 280px; margin-bottom: 30px; }
     
     .wheel {
@@ -250,11 +288,8 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    .wheel-text { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; }
-    .wheel-text span { position: absolute; font-size: 10px; font-weight: bold; color: white; text-shadow: 1px 1px 2px black; left: 50%; top: 50%; transform-origin: 0 0; }
-
     /* ПРОФИЛЬ */
-    .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; }
+    .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; transition: padding-top 0.2s ease; }
     .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 18px; image-rendering: pixelated; background: #4c1d95;}
     .profile-name { font-size: 12px; margin-bottom: 5px; text-align: center; color: #fff; }
     .profile-rank { font-size: 9px; color: #fde047; margin-bottom: 20px; text-align: center; text-shadow: 1px 1px 0 #000; }
@@ -268,7 +303,7 @@
     #screen-settings { background: linear-gradient(180deg, #2e1065, #1e1b4b); overflow: hidden; }
     #rocket-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
     .rocket { position: absolute; font-size: 30px; opacity: 0.3; }
-    .settings-content { position: relative; z-index: 10; padding: 80px 20px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; }
+    .settings-content { position: relative; z-index: 10; padding: 80px 20px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; transition: padding-top 0.2s ease; }
     .settings-title { font-size: 16px; color: white; margin-bottom: 30px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; }
     .setting-row { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: rgba(255,255,255,0.1); padding: 15px; border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
     .setting-label { font-size: 10px; color: #fff; }
@@ -293,7 +328,7 @@
     .float-text { position: fixed; font-size: 14px; color: #f5d0fe; text-shadow: 2px 2px 0 #000; pointer-events: none; z-index: 100; animation: floatUp 0.8s ease-out forwards; }
     @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); } }
 
-    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; }
+    .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; }
     .modal-content { 
       background: #2e1065; padding: 20px; width: 90%; max-width: 340px; text-align: left; 
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; max-height: 80vh; overflow-y: auto; 
@@ -330,22 +365,22 @@
   <!-- МОДАЛКА ИНСТРУКЦИИ -->
   <div class="modal-overlay" id="infoModal">
     <div class="modal-content">
-      <h3 id="infoTitle">ИНСТРУКЦИЯ</h3>
+      <h3 id="infoTitle" data-i18n="info_title">ИНСТРУКЦИЯ</h3>
       <div id="infoText"></div>
-      <button class="modal-btn" onclick="closeInfoMenu()">ПОНЯТНО</button>
+      <button class="modal-btn" id="infoCloseBtn" onclick="closeInfoMenu()" data-i18n="info_close">ПОНЯТНО</button>
     </div>
   </div>
 
   <!-- ТЕСТОВОЕ МЕНЮ ИВЕНТОВ -->
   <div class="modal-overlay" id="testEventModal">
     <div class="modal-content" style="text-align: center;">
-      <h3>🧪 ТЕСТ СОБЫТИЙ</h3>
-      <p style="text-align: center; margin-bottom: 15px;">Выберите событие для принудительного включения. Баннер появится сверху.</p>
-      <button class="modal-btn" onclick="forceEvent('halloween')" style="background: #ea580c; border-color: #fdba74 #9a3412 #9a3412 #fdba74;">🎃 Включить Хэллоуин</button>
-      <button class="modal-btn" onclick="forceEvent('newYear')" style="background: #065f46; border-color: #6ee7b7 #047857 #047857 #6ee7b7;">🎄 Включить Новый Год</button>
-      <button class="modal-btn" onclick="forceEvent('blackMarket')" style="background: #1e1b4b; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;">🌑 Включить Чёрный Рынок</button>
-      <button class="modal-btn" onclick="forceEvent('none')" style="background: #4b5563; border-color: #9ca3af #374151 #374151 #9ca3af;">❌ Выключить все</button>
-      <button class="modal-btn" onclick="closeTestEventMenu()" style="margin-top: 20px; background: #ef4444; border-color: #fca5a5 #7f1d1d #7f1d1d #fca5a5;">Закрыть</button>
+      <h3 data-i18n="test_events_title">🧪 ТЕСТ СОБЫТИЙ</h3>
+      <p style="text-align: center; margin-bottom: 15px;" data-i18n="test_events_desc">Выберите событие для принудительного включения. Баннер появится сверху.</p>
+      <button class="modal-btn" onclick="forceEvent('halloween')" style="background: #ea580c; border-color: #fdba74 #9a3412 #9a3412 #fdba74;" data-i18n="evt_force_halloween">🎃 Включить Хэллоуин</button>
+      <button class="modal-btn" onclick="forceEvent('newYear')" style="background: #065f46; border-color: #6ee7b7 #047857 #047857 #6ee7b7;" data-i18n="evt_force_newyear">🎄 Включить Новый Год</button>
+      <button class="modal-btn" onclick="forceEvent('blackMarket')" style="background: #1e1b4b; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;" data-i18n="evt_force_blackmarket">🌑 Включить Чёрный Рынок</button>
+      <button class="modal-btn" onclick="forceEvent('none')" style="background: #4b5563; border-color: #9ca3af #374151 #374151 #9ca3af;" data-i18n="evt_force_none">❌ Выключить все</button>
+      <button class="modal-btn" onclick="closeTestEventMenu()" style="margin-top: 20px; background: #ef4444; border-color: #fca5a5 #7f1d1d #7f1d1d #fca5a5;" data-i18n="close_btn">Закрыть</button>
     </div>
   </div>
 
@@ -462,7 +497,7 @@
         <div class="pointer"></div>
       </div>
       <button class="btn btn-gold" id="spinBtn" onclick="spinCasino()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_btn">КРУТИТЬ (5 ₽)</button>
-      <div onclick="activateMoaiTest()" style="margin-top: 50px; font-size: 8px; color: #6b7280; cursor: pointer; text-align: center;">[ Для теста: Выбить 🗿 ]</div>
+      <div onclick="activateMoaiTest()" style="margin-top: 50px; font-size: 8px; color: #6b7280; cursor: pointer; text-align: center;" data-i18n="test_moai">[ Для теста: Выбить 🗿 ]</div>
     </div>
   </div>
 
@@ -482,7 +517,7 @@
           <div class="reel-strip" id="strip3"><div class="slot-item-symbol">🥔</div></div>
         </div>
       </div>
-      <button class="btn btn-gold" id="spinSlotsBtn" onclick="spinSlots()" style="font-size: 12px; padding: 15px 30px;">КРУТИТЬ (100 ₽)</button>
+      <button class="btn btn-gold" id="spinSlotsBtn" onclick="spinSlots()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_slots_btn">КРУТИТЬ (100 ₽)</button>
     </div>
   </div>
 
@@ -495,7 +530,7 @@
         <div class="wheel-pointer"></div>
         <div class="wheel" id="fortuneWheel"></div>
       </div>
-      <button class="btn btn-gold" id="spinWheelBtn" onclick="spinWheel()" style="font-size: 12px; padding: 15px 30px;">КРУТИТЬ (500 ₽)</button>
+      <button class="btn btn-gold" id="spinWheelBtn" onclick="spinWheel()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_wheel_btn">КРУТИТЬ (500 ₽)</button>
     </div>
   </div>
 
@@ -544,7 +579,7 @@
       <button class="btn btn-blue" style="width: 100%; margin-top: 10px;" onclick="openLangMenu()" data-i18n="lang_btn">🌐 Язык / Language</button>
       
       <!-- КНОПКА ТЕСТА ИВЕНТОВ -->
-      <button class="btn" style="width: 100%; background: #8b5cf6; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;" onclick="openTestEventMenu()">🧪 Тест Событий</button>
+      <button class="btn" style="width: 100%; background: #8b5cf6; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;" onclick="openTestEventMenu()" data-i18n="test_events_btn">🧪 Тест Событий</button>
 
       <button class="btn btn-grey" style="width: 100%; background: #f59e0b; border-color: #fbbf24 #b45309 #b45309 #fbbf24;" onclick="openSupport()" data-i18n="support_btn">📢 Помощь и поддержка</button>
     </div>
@@ -577,9 +612,188 @@
   </div>
 
   <script>
+    var translations = {
+      ru: {
+        balance_label: "Баланс", tap_label: "Тап", tab_tap: "Ул. тапа", tab_auto: "Ул. авто",
+        rating_leader: "🏆 Лидер проекта!", player: "Игрок", legend: "Легенда",
+        total_taps: "Всего тапов", taps_hint: "Число тапов, чтобы друзья могли посмотреть",
+        withdraw: "Вывести средства", dev_btn: "Нажми 5 раз для теста",
+        menu_main: "Главная", menu_upgrades: "Улучшения", menu_rating: "Рейтинг", menu_quests: "Квесты",
+        lang_title: "Выберите язык", cancel: "Отмена", bought: "Куплено", buy_for: "Купить за", 
+        buy_prev: "Сначала купи предыдущее", not_enough_money: "Недостаточно средств!", auto_buy: "Купить автокликер", auto_desc: "Даёт +0.0001 ₽ каждые 50 сек",
+        auto_power: "Сила авто", auto_speed: "Скорость авто", gives: "Даёт", interval: "Интервал",
+        sec: "сек", balance: "Баланс", make_taps: "Сделай", taps_word: "тапов", progress: "Прогресс",
+        claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено",
+        title_rank: "Ранг: ",
+        ranks: ["Новичок", "Тапатель", "Фермер", "Агроном", "Мастер клика", "Гуру тапов", "Магнат", "Повелитель", "Легенда", "Бог Картофеля"],
+        upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель", "Архитектор", "Сингулярность", "Бесконечный", "Запредельный", "Трансцендентный", "Всемогущий", "Изначальный", "Апофеоз", "Вечный", "Тап Богов"],
+        upg_desc: "Тап даёт",
+        achievements_btn: "🏆 Достижения", ach_unlocked: "Получено", ach_locked: "Заблокировано",
+        shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить",
+        shop_tab_skins: "Скины", shop_tab_gifts: "Подарки",
+        daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!",
+        gift_wait: "Доступно через", gift_ready: "Забрать!",
+        casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)", spin_slots_btn: "КРУТИТЬ (100 ₽)", spin_wheel_btn: "КРУТИТЬ (500 ₽)",
+        casino_title: "🎰 КАЗИНО 🎰", potato_box: "Ящик картошки", potato_box_desc: "Классическая рулетка (5 ₽)", potato_truck: "Грузовик картошки", potato_truck_desc: "Слот-машина (100 ₽)", potato_field: "Поле картошки", potato_field_desc: "Колесо Фортуны (500 ₽)",
+        settings_btn: "⚙️ Настройки", settings_title: "Настройки", sound_effects: "Звуковые эффекты", vibration: "Вибрация", on: "ВКЛ", off: "ВЫКЛ", lang_btn: "🌐 Язык / Language", support_btn: "📢 Помощь и поддержка",
+        test_events_btn: "🧪 Тест Событий", test_events_title: "🧪 ТЕСТ СОБЫТИЙ",
+        test_events_desc: "Выберите событие для принудительного включения. Баннер появится сверху.",
+        evt_force_halloween: "🎃 Включить Хэллоуин", evt_force_newyear: "🎄 Включить Новый Год",
+        evt_force_blackmarket: "🌑 Включить Чёрный Рынок", evt_force_none: "❌ Выключить все",
+        close_btn: "Закрыть", info_title: "ИНСТРУКЦИЯ", info_close: "ПОНЯТНО",
+        test_moai: "[ Для теста: Выбить 🗿 ]",
+        test_moai_alert: "Следующая прокрутка 100% выдаст 🗿! (Для теста)",
+        moai_win: "🗿 ТЫ ВЫБИЛ МУАИ! Баланс обнулен...",
+        box_jackpot: "🍟 ДЖЕКПОТ! Вы выиграли 5000 ₽ и выполнили квест \"Игроман\"!",
+        you_lost_val: "Вы проиграли: ", you_won_val: "Вы выиграли: ",
+        slot_jackpot: "ДЖЕКПОТ! Вы выиграли {amount} ₽!",
+        wheel_jackpot: "🎉 ДЖЕКПОТ! Вы сорвали куш и выиграли {amount} ₽!",
+        nothing_won: "Вы ничего не выиграли. Попробуйте еще раз!",
+        wheel_lost: "Увы, вы проиграли. Попробуйте еще раз!",
+        evt_blackmarket: "🌑 Чёрный рынок открыт! Осталось {hours}ч.",
+        evt_halloween: "🎃 Хэллоуин активен!",
+        evt_newyear: "🎄 Новогоднее событие!",
+        support_msg: "Если у вас возникли проблемы, напишите нам в Telegram: @negaduushchiyXD",
+        min_withdraw: "Минимум 10 ₽", withdraw_msg: "Вывод {amount} ₽ (test)",
+        dev_bonus_msg: "+200 000 ₽ и +50 000 тапов!",
+        info_box_html: `
+          <p><b>Стоимость:</b> 5 ₽ за прокрутку.</p>
+          <p><b>Как играть:</b> Стрелка указывает на выигрыш. Если выпадают отрицательные числа (красные), вы теряете эти деньги. Если положительные (желтые), получаете.</p>
+          <hr>
+          <p><b>Шансы:</b></p>
+          <p>🍟 Фри (Джекпот 5000 ₽): <b>0.1%</b></p>
+          <p>🗿 Муаи (Баланс в 0): <b>0.01% (1 к 10 000)</b></p>
+          <p>💵 Обычные числа: <b>~99.89%</b></p>
+        `,
+        info_slots_html: `
+          <p><b>Стоимость:</b> 100 ₽ за прокрутку.</p>
+          <p><b>Как играть:</b> Соберите 3 одинаковых символа на линии.</p>
+          <hr>
+          <p><b>Таблица выплат:</b></p>
+          <p>🍟 🍟 🍟 — <b>10 000 ₽</b> (0.01%)</p>
+          <p>👻 👻 👻 — <b>5 000 ₽</b> (0.5%)</p>
+          <p>🥔 🥔 🥔 — <b>3 000 ₽</b> (2%)</p>
+          <p>🍟 🍟 + любой — <b>1 000 ₽</b> (1%)</p>
+          <p>👻 👻 + любой — <b>500 ₽</b> (3%)</p>
+          <p>🥔 🥔 + любой — <b>100 ₽</b> (15%)</p>
+        `,
+        info_wheel_html: `
+          <p><b>Стоимость:</b> 500 ₽ за прокрутку.</p>
+          <p><b>Как играть:</b> Крутите колесо. Стрелка покажет ваш приз.</p>
+          <p style="color:#ef4444;"><b>Красный</b> — Проигрыш</p>
+          <p style="color:#10b981;"><b>Зеленый</b> — x1.5 (750 ₽)</p>
+          <p style="color:#3b82f6;"><b>Синий</b> — x2 (1 000 ₽)</p>
+          <p style="color:#a855f7;"><b>Фиолетовый</b> — x5 (2 500 ₽)</p>
+          <p style="color:#ec4899;"><b>Розовый</b> — x10 (5 000 ₽)</p>
+          <p style="color:#00e5ff;"><b>Бирюзовый</b> — ДЖЕКПОТ x50 (25 000 ₽)</p>
+          <hr>
+          <p><b>Шансы:</b> Проигрыш — 65%. Выигрыш — 35% (Джекпот — всего 0.5%).</p>
+        `,
+        ach_list: [
+          { title: "Первый шаг", desc: "100 тапов", icon: "🌱" }, { title: "Фанат", desc: "1 000 тапов", icon: "🥔" },
+          { title: "Мастер клика", desc: "10 000 тапов", icon: "🔥" }, { title: "Деревянная легенда", desc: "20 000 тапов", icon: "wood" },
+          { title: "Протёртый палец", desc: "50 000 тапов", icon: "🩹" }, { title: "Затянуло", desc: "100 000 тапов", icon: "🌀" },
+          { title: "Верхушка айсберга", desc: "500 000 тапов", icon: "🧊" }, { title: "Ошибка вселенной", desc: "1 000 000 тапов", icon: "🌌" },
+          { title: "Богач", desc: "100 ₽", icon: "💰" }, { title: "Автоматизация", desc: "Купить авто", icon: "⚙️" },
+          { title: "Прокачка", desc: "5-й уровень", icon: "⚡" }, { title: "Божественная мощь", desc: "Божеств. тап", icon: "🌟" },
+          { title: "Сила Творца", desc: "Тап Творца", icon: "👑" }, { title: "Властелин Миров", desc: "20-й уровень тапа", icon: "💥" },
+          { title: "Апофеоз", desc: "30-й уровень тапа", icon: "🌠" }, { title: "Автоматизированный рай", desc: "15-й сила авто", icon: "⚙️" },
+          { title: "Сингулярность", desc: "25-й сила авто", icon: "🤖" }, { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" },
+          { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" }, { title: "Всё про**бал", desc: "Выбить 🗿", icon: "🗿" },
+          { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" }, { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" }
+        ]
+      },
+      en: {
+        balance_label: "Balance", tap_label: "Tap", tab_tap: "Tap Upg.", tab_auto: "Auto Upg.",
+        rating_leader: "🏆 Leader!", player: "Player", legend: "Legend", total_taps: "Total taps", taps_hint: "Total taps for friends to see",
+        withdraw: "Withdraw funds", dev_btn: "Press 5 times to test", menu_main: "Main", menu_upgrades: "Upgrades", menu_rating: "Rating", menu_quests: "Quests",
+        lang_title: "Choose language", cancel: "Cancel", bought: "Bought", buy_for: "Buy for", buy_prev: "Buy prev first", not_enough_money: "Not enough funds!", auto_buy: "Buy Autoclicker", auto_desc: "Gives +0.0001 ₽ every 50s",
+        auto_power: "Auto Power", auto_speed: "Auto Speed", gives: "Gives", interval: "Interval", sec: "sec", balance: "Balance", make_taps: "Make", taps_word: "taps", progress: "Progress",
+        claim: "Claim", received: "Received", not_done: "Not done", title_rank: "Rank: ",
+        ranks: ["Novice", "Tapper", "Farmer", "Agronomist", "Click Master", "Tap Guru", "Tycoon", "Lord", "Legend", "Potato God"],
+        upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer", "Architect", "Singularity", "Infinite", "Transcendent", "Omnipotent", "Primordial", "Apotheosis", "Eternal", "God of Taps"],
+        upg_desc: "Tap gives", achievements_btn: "🏆 Achievements", ach_unlocked: "Received", ach_locked: "Locked",
+        shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy", shop_tab_skins: "Skins", shop_tab_gifts: "Gifts",
+        daily_gift_title: "DAILY GIFT", daily_gift_btn: "GIFT", jackpot: "JACKPOT!", gift_wait: "Available in", gift_ready: "Claim!",
+        casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", spin_slots_btn: "SPIN (100 ₽)", spin_wheel_btn: "SPIN (500 ₽)",
+        casino_title: "🎰 CASINO 🎰", potato_box: "Potato Box", potato_box_desc: "Classic roulette (5 ₽)", potato_truck: "Potato Truck", potato_truck_desc: "Slot machine (100 ₽)", potato_field: "Potato Field", potato_field_desc: "Wheel of Fortune (500 ₽)",
+        settings_btn: "⚙️ Settings", settings_title: "Settings", sound_effects: "Sound Effects", vibration: "Vibration", on: "ON", off: "OFF", lang_btn: "🌐 Language / Язык", support_btn: "📢 Help & Support",
+        test_events_btn: "🧪 Event Test", test_events_title: "🧪 EVENT TEST",
+        test_events_desc: "Choose an event to force-enable. The banner will appear at the top.",
+        evt_force_halloween: "🎃 Enable Halloween", evt_force_newyear: "🎄 Enable New Year",
+        evt_force_blackmarket: "🌑 Enable Black Market", evt_force_none: "❌ Disable all",
+        close_btn: "Close", info_title: "GUIDE", info_close: "GOT IT",
+        test_moai: "[ For test: Hit 🗿 ]",
+        test_moai_alert: "Next spin 100% drops 🗿! (For testing)",
+        moai_win: "🗿 YOU HIT THE MOAI! Balance reset to zero...",
+        box_jackpot: "🍟 JACKPOT! You won 5000 ₽ and completed the \"Gambler\" quest!",
+        you_lost_val: "You lost: ", you_won_val: "You won: ",
+        slot_jackpot: "JACKPOT! You won {amount} ₽!",
+        wheel_jackpot: "🎉 JACKPOT! You hit the jackpot and won {amount} ₽!",
+        nothing_won: "You won nothing. Try again!",
+        wheel_lost: "Alas, you lost. Try again!",
+        evt_blackmarket: "🌑 Black Market is open! {hours}h left.",
+        evt_halloween: "🎃 Halloween is active!",
+        evt_newyear: "🎄 New Year event!",
+        support_msg: "If you have any problems, write to us on Telegram: @negaduushchiyXD",
+        min_withdraw: "Minimum 10 ₽", withdraw_msg: "Withdraw {amount} ₽ (test)",
+        dev_bonus_msg: "+200,000 ₽ and +50,000 taps!",
+        info_box_html: `
+          <p><b>Cost:</b> 5 ₽ per spin.</p>
+          <p><b>How to play:</b> The pointer shows your result. Red negative numbers subtract money; yellow positive numbers add money.</p>
+          <hr>
+          <p><b>Odds:</b></p>
+          <p>🍟 Fries (5000 ₽ Jackpot): <b>0.1%</b></p>
+          <p>🗿 Moai (Reset balance to 0): <b>0.01% (1 in 10,000)</b></p>
+          <p>💵 Regular numbers: <b>~99.89%</b></p>
+        `,
+        info_slots_html: `
+          <p><b>Cost:</b> 100 ₽ per spin.</p>
+          <p><b>How to play:</b> Match 3 identical symbols on the payline.</p>
+          <hr>
+          <p><b>Payout table:</b></p>
+          <p>🍟 🍟 🍟 — <b>10,000 ₽</b> (0.01%)</p>
+          <p>👻 👻 👻 — <b>5,000 ₽</b> (0.5%)</p>
+          <p>🥔 🥔 🥔 — <b>3,000 ₽</b> (2%)</p>
+          <p>🍟 🍟 + any — <b>1,000 ₽</b> (1%)</p>
+          <p>👻 👻 + any — <b>500 ₽</b> (3%)</p>
+          <p>🥔 🥔 + any — <b>100 ₽</b> (15%)</p>
+        `,
+        info_wheel_html: `
+          <p><b>Cost:</b> 500 ₽ per spin.</p>
+          <p><b>How to play:</b> Spin the wheel. The pointer shows your prize.</p>
+          <p style="color:#ef4444;"><b>Red</b> — Loss</p>
+          <p style="color:#10b981;"><b>Green</b> — x1.5 (750 ₽)</p>
+          <p style="color:#3b82f6;"><b>Blue</b> — x2 (1,000 ₽)</p>
+          <p style="color:#a855f7;"><b>Purple</b> — x5 (2,500 ₽)</p>
+          <p style="color:#ec4899;"><b>Pink</b> — x10 (5,000 ₽)</p>
+          <p style="color:#00e5ff;"><b>Cyan</b> — x50 JACKPOT (25,000 ₽)</p>
+          <hr>
+          <p><b>Odds:</b> Loss — 65%. Win — 35% (Jackpot — only 0.5%).</p>
+        `,
+        ach_list: [
+          { title: "First Step", desc: "100 taps", icon: "🌱" }, { title: "Fan", desc: "1,000 taps", icon: "🥔" },
+          { title: "Click Master", desc: "10,000 taps", icon: "🔥" }, { title: "Wooden Legend", desc: "20,000 taps", icon: "wood" },
+          { title: "Worn Finger", desc: "50,000 taps", icon: "🩹" }, { title: "Sucked In", desc: "100,000 taps", icon: "🌀" },
+          { title: "Tip of the Iceberg", desc: "500,000 taps", icon: "🧊" }, { title: "Universe Error", desc: "1,000,000 taps", icon: "🌌" },
+          { title: "Rich Man", desc: "100 ₽", icon: "💰" }, { title: "Automation", desc: "Buy autoclicker", icon: "⚙️" },
+          { title: "Upgraded", desc: "5th level", icon: "⚡" }, { title: "Divine Might", desc: "Buy Divine Tap", icon: "🌟" },
+          { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" }, { title: "Lord of Worlds", desc: "20th tap level", icon: "💥" },
+          { title: "Apotheosis", desc: "30th tap level", icon: "🌠" }, { title: "Automated Paradise", desc: "15th auto power", icon: "⚙️" },
+          { title: "Singularity", desc: "25th auto power", icon: "🤖" }, { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" },
+          { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" }, { title: "Lost Everything", desc: "Hit the 🗿", icon: "🗿" },
+          { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" }, { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" }
+        ]
+      }
+    };
+
+    var currentLang = localStorage.getItem('potatoLang') || 'ru';
+    if (!translations[currentLang]) currentLang = 'ru';
+    var t = translations[currentLang];
+
     window.onerror = function(msg, url, line) {
       var err = document.getElementById('error-screen');
-      if(err) { err.style.display = 'block'; err.innerHTML += "<p><b>ОШИБКА:</b> " + msg + "<br>Строка: " + line + "</p>"; }
+      if(err) { err.style.display = 'block'; err.innerHTML += "<p><b>ERROR:</b> " + msg + "<br>Line: " + line + "</p>"; }
       return false;
     };
 
@@ -588,7 +802,7 @@
       if (!el) {
         var errorDiv = document.createElement('div');
         errorDiv.style.cssText = 'position:fixed; top:10px; left:10px; right:10px; background:rgba(220,38,38,0.95); color:white; padding:10px; font-size:12px; z-index:999999; text-align:center; border:3px solid white; border-radius:8px; font-family:monospace; box-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events:none;';
-        errorDiv.innerText = '⚠️ БАГ: Элемент #' + id + ' не найден!';
+        errorDiv.innerText = '⚠️ #' + id;
         document.body.appendChild(errorDiv);
         setTimeout(function() { if (errorDiv.parentNode) errorDiv.parentNode.removeChild(errorDiv); }, 4000);
       }
@@ -669,25 +883,6 @@
       }
     }
 
-    function playCasinoSpinSound(durationMs) {
-      if (!isSoundEnabled || !audioCtx) return;
-      var durationSec = durationMs / 1000; var now = audioCtx.currentTime; var tickCount = 150; 
-      for (var i = 0; i < tickCount; i++) {
-        var progress = i / tickCount; var easeProgress = 1 - Math.pow(1 - progress, 4); 
-        var timeOffset = durationSec * easeProgress; var tickTime = now + timeOffset;
-        var osc = audioCtx.createOscillator(); var gain = audioCtx.createGain();
-        osc.connect(gain); gain.connect(audioCtx.destination);
-        osc.type = 'square'; osc.frequency.setValueAtTime(1800 - (progress * 800), tickTime); 
-        gain.gain.setValueAtTime(0.08, tickTime); gain.gain.exponentialRampToValueAtTime(0.001, tickTime + 0.02);
-        osc.start(tickTime); osc.stop(tickTime + 0.03);
-      }
-      var finalOsc = audioCtx.createOscillator(); var finalGain = audioCtx.createGain();
-      finalOsc.connect(finalGain); finalGain.connect(audioCtx.destination);
-      finalOsc.type = 'sine'; finalOsc.frequency.setValueAtTime(150, now + durationSec); finalOsc.frequency.exponentialRampToValueAtTime(50, now + durationSec + 0.3);
-      finalGain.gain.setValueAtTime(0.5, now + durationSec); finalGain.gain.exponentialRampToValueAtTime(0.01, now + durationSec + 0.3);
-      finalOsc.start(now + durationSec); finalOsc.stop(now + durationSec + 0.3);
-    }
-
     function playSlotSpinSound(totalDuration) {
       if (!isSoundEnabled || !audioCtx) return;
       var now = audioCtx.currentTime;
@@ -711,7 +906,6 @@
         stopOsc.connect(stopGain); stopGain.connect(audioCtx.destination);
         stopOsc.type = 'sine';
         stopOsc.frequency.setValueAtTime(200, now + stopTimes[i]);
-        stopOsc.frequency.exponentialRampToValueAtTime(50, now + stopTimes[i] + 0.1);
         stopGain.gain.setValueAtTime(0.4, now + stopTimes[i]);
         stopGain.gain.exponentialRampToValueAtTime(0.01, now + stopTimes[i] + 0.1);
         stopOsc.start(now + stopTimes[i]); stopOsc.stop(now + stopTimes[i] + 0.1);
@@ -777,61 +971,41 @@
       if (isVibrationEnabled && navigator.vibrate) navigator.vibrate(30); else if (isVibrationEnabled && tg) tg.HapticFeedback.impactOccurred('medium');
     }
 
-    window.openSupport = function() { playHaptic('medium'); alert(currentLang === 'ru' ? 'Если у вас возникли проблемы, напишите нам в Telegram: @negaduushchiyXD' : 'If you have any problems, write to us on Telegram: @negaduushchiyXD'); }
+    window.openSupport = function() { playHaptic('medium'); alert(t.support_msg); }
 
-    // === ИНСТРУКЦИИ (МОДАЛКИ) ===
-    window.openInfo = function(game) {
-      var modal = getEl('infoModal');
+    var activeInfoGame = null;
+    function renderInfoModalContent(game) {
       var title = getEl('infoTitle');
       var text = getEl('infoText');
-      
+      var closeBtn = getEl('infoCloseBtn');
+      if (!title || !text) return;
+
+      if (closeBtn) closeBtn.innerText = t.info_close;
+
       if (game === 'box') {
-        title.innerText = "📦 ЯЩИК КАРТОШКИ";
-        text.innerHTML = `
-          <p><b>Стоимость:</b> 5 ₽ за прокрутку.</p>
-          <p><b>Как играть:</b> Стрелка указывает на выигрыш. Если выпадают отрицательные числа (красные), вы теряете эти деньги. Если положительные (желтые), получаете.</p>
-          <hr>
-          <p><b>Шансы:</b></p>
-          <p>🍟 Фри (Джекпот 5000 ₽): <b>0.1%</b></p>
-          <p>🗿 Муаи (Баланс в 0): <b>0.01% (1 к 10 000)</b></p>
-          <p>💵 Обычные числа: <b>~99.89%</b></p>
-        `;
+        title.innerText = "📦 " + t.potato_box;
+        text.innerHTML = t.info_box_html;
       } else if (game === 'slots') {
-        title.innerText = "🚛 ГРУЗОВИК КАРТОШКИ";
-        text.innerHTML = `
-          <p><b>Стоимость:</b> 100 ₽ за прокрутку.</p>
-          <p><b>Как играть:</b> Соберите 3 одинаковых символа на линии.</p>
-          <hr>
-          <p><b>Таблица выплат:</b></p>
-          <p>🍟 🍟 🍟 — <b>10 000 ₽</b> (0.01%)</p>
-          <p>👻 👻 👻 — <b>5 000 ₽</b> (0.5%)</p>
-          <p>🥔 🥔 🥔 — <b>3 000 ₽</b> (2%)</p>
-          <p>🍟 🍟 + любой — <b>1 000 ₽</b> (1%)</p>
-          <p>👻 👻 + любой — <b>500 ₽</b> (3%)</p>
-          <p>🥔 🥔 + любой — <b>100 ₽</b> (15%)</p>
-        `;
+        title.innerText = "🚛 " + t.potato_truck;
+        text.innerHTML = t.info_slots_html;
       } else if (game === 'wheel') {
-        title.innerText = "🎡 ПОЛЕ КАРТОШКИ";
-        text.innerHTML = `
-          <p><b>Стоимость:</b> 500 ₽ за прокрутку.</p>
-          <p><b>Как играть:</b> Крутите колесо. Стрелка покажет ваш приз.</p>
-          <p style="color:#ef4444;"><b>Красный</b> — Проигрыш</p>
-          <p style="color:#10b981;"><b>Зеленый</b> — x1.5 (750 ₽)</p>
-          <p style="color:#3b82f6;"><b>Синий</b> — x2 (1 000 ₽)</p>
-          <p style="color:#a855f7;"><b>Фиолетовый</b> — x5 (2 500 ₽)</p>
-          <p style="color:#ec4899;"><b>Розовый</b> — x10 (5 000 ₽)</p>
-          <p style="color:#00e5ff;"><b>Бирюзовый</b> — ДЖЕКПОТ x50 (25 000 ₽)</p>
-          <hr>
-          <p><b>Шансы:</b> Проигрыш — 65%. Выигрыш — 35% (Джекпот — всего 0.5%).</p>
-        `;
+        title.innerText = "🎡 " + t.potato_field;
+        text.innerHTML = t.info_wheel_html;
       }
-      
-      modal.style.display = 'flex';
+    }
+
+    window.openInfo = function(game) {
+      activeInfoGame = game;
+      var modal = getEl('infoModal');
+      renderInfoModalContent(game);
+      if (modal) modal.style.display = 'flex';
       playHaptic('medium');
     }
 
     window.closeInfoMenu = function() {
-      getEl('infoModal').style.display = 'none';
+      activeInfoGame = null;
+      var modal = getEl('infoModal');
+      if (modal) modal.style.display = 'none';
       playHaptic('light');
     }
 
@@ -848,29 +1022,24 @@
     function checkEvents() {
       var now = Date.now();
       var date = new Date();
-      var month = date.getMonth() + 1; // 1-12
+      var month = date.getMonth() + 1;
       var day = date.getDate();
 
-      // Хэллоуин (25 октября - 5 ноября)
       activeEvents.halloween = (month === 10 && day >= 25) || (month === 11 && day <= 5);
-
-      // Новый год (20 декабря - 10 января)
       activeEvents.newYear = (month === 12 && day >= 20) || (month === 1 && day <= 10);
 
-      // Чёрный рынок
       if (now < blackMarketEnd) {
         activeEvents.blackMarket = true;
       } else {
-        // Если прошло больше 6 дней с прошлого раза
         if (now - lastBlackMarket > 6 * 24 * 60 * 60 * 1000) {
-          if (Math.random() < 0.7) { // 70% шанс
+          if (Math.random() < 0.7) {
             lastBlackMarket = now;
-            blackMarketEnd = now + (48 * 60 * 60 * 1000); // На 48 часов
+            blackMarketEnd = now + (48 * 60 * 60 * 1000);
             localStorage.setItem('lastBlackMarket', lastBlackMarket);
             localStorage.setItem('blackMarketEnd', blackMarketEnd);
             activeEvents.blackMarket = true;
           } else {
-             activeEvents.blackMarket = false;
+            activeEvents.blackMarket = false;
           }
         } else {
           activeEvents.blackMarket = false;
@@ -887,34 +1056,38 @@
 
       if (activeEvents.blackMarket) {
         var hoursLeft = Math.max(1, Math.ceil((blackMarketEnd - Date.now()) / (1000 * 60 * 60)));
-        text.innerText = '🌑 Чёрный рынок открыт! Осталось ' + hoursLeft + 'ч.';
+        text.innerText = t.evt_blackmarket.replace('{hours}', hoursLeft);
         banner.style.display = 'block';
         banner.style.background = 'linear-gradient(90deg, #1e1b4b, #4c1d95)';
+        document.body.classList.add('has-event-banner');
       } else if (activeEvents.halloween) {
-        text.innerText = '🎃 Хэллоуин активен!';
+        text.innerText = t.evt_halloween;
         banner.style.display = 'block';
         banner.style.background = 'linear-gradient(90deg, #ea580c, #9a3412)';
+        document.body.classList.add('has-event-banner');
       } else if (activeEvents.newYear) {
-        text.innerText = '🎄 Новогоднее событие!';
+        text.innerText = t.evt_newyear;
         banner.style.display = 'block';
         banner.style.background = 'linear-gradient(90deg, #065f46, #047857)';
+        document.body.classList.add('has-event-banner');
       } else {
         banner.style.display = 'none';
+        document.body.classList.remove('has-event-banner');
       }
     }
 
-    // === ТЕСТОВОЕ МЕНЮ ===
     window.openTestEventMenu = function() {
-      getEl('testEventModal').style.display = 'flex';
+      var modal = getEl('testEventModal');
+      if (modal) modal.style.display = 'flex';
       playHaptic('medium');
     }
     window.closeTestEventMenu = function() {
-      getEl('testEventModal').style.display = 'none';
+      var modal = getEl('testEventModal');
+      if (modal) modal.style.display = 'none';
       playHaptic('light');
     }
     
     window.forceEvent = function(eventName) {
-      // Сбрасываем все
       activeEvents.blackMarket = false;
       activeEvents.halloween = false;
       activeEvents.newYear = false;
@@ -923,126 +1096,76 @@
       if (eventName === 'newYear') activeEvents.newYear = true;
       if (eventName === 'blackMarket') {
         activeEvents.blackMarket = true;
-        // Устанавливаем конец через 24 часа для теста
         blackMarketEnd = Date.now() + (24 * 60 * 60 * 1000);
       }
       
       updateEventBanner();
       closeTestEventMenu();
-      
-      // Прокручиваем страницу вверх, чтобы увидеть баннер
-      window.scrollTo(0, 0); 
       playHaptic('success');
     }
 
+    var rocketAnimId = null;
     function initRockets() {
+      if (rocketAnimId) { cancelAnimationFrame(rocketAnimId); rocketAnimId = null; }
       var bg = getEl('rocket-bg'); if (!bg) return; bg.innerHTML = ''; var rockets = [];
       for (var i = 0; i < 10; i++) {
         var r = document.createElement('div'); r.className = 'rocket'; r.innerText = '🚀';
-        var x = Math.random() * (window.innerWidth - 40); var y = Math.random() * (window.innerHeight - 40);
+        var x = Math.random() * Math.max(40, window.innerWidth - 40);
+        var y = Math.random() * Math.max(40, window.innerHeight - 40);
         var vx = (Math.random() - 0.5) * 2; var vy = (Math.random() - 0.5) * 2;
         if (Math.abs(vx) < 0.5) vx = vx > 0 ? 0.5 : -0.5; if (Math.abs(vy) < 0.5) vy = vy > 0 ? 0.5 : -0.5;
         r.style.left = x + 'px'; r.style.top = y + 'px'; var angle = Math.atan2(vy, vx) * 180 / Math.PI; r.style.transform = 'rotate(' + angle + 'deg)';
         bg.appendChild(r); rockets.push({ el: r, x: x, y: y, vx: vx, vy: vy });
       }
-      var animId = null;
       function animate() {
+        var settingsScreen = getEl('screen-settings');
+        if (!settingsScreen || !settingsScreen.classList.contains('active')) { rocketAnimId = null; return; }
         var bgRect = bg.getBoundingClientRect();
         for (var i = 0; i < rockets.length; i++) {
           var rk = rockets[i]; rk.x += rk.vx; rk.y += rk.vy;
-          if (rk.x <= 0) { rk.x = 0; rk.vx *= -1; } if (rk.x >= bgRect.width - 30) { rk.x = bgRect.width - 30; rk.vx *= -1; }
-          if (rk.y <= 0) { rk.y = 0; rk.vy *= -1; } if (rk.y >= bgRect.height - 30) { rk.y = bgRect.height - 30; rk.vy *= -1; }
+          if (rk.x <= 0) { rk.x = 0; rk.vx *= -1; } if (rk.x >= bgRect.width - 30) { rk.x = Math.max(0, bgRect.width - 30); rk.vx *= -1; }
+          if (rk.y <= 0) { rk.y = 0; rk.vy *= -1; } if (rk.y >= bgRect.height - 30) { rk.y = Math.max(0, bgRect.height - 30); rk.vy *= -1; }
           var angle = Math.atan2(rk.vy, rk.vx) * 180 / Math.PI; rk.el.style.left = rk.x + 'px'; rk.el.style.top = rk.y + 'px'; rk.el.style.transform = 'rotate(' + angle + 'deg)';
         }
-        var settingsScreen = getEl('screen-settings');
-        if (settingsScreen && settingsScreen.classList.contains('active')) { animId = requestAnimationFrame(animate); } else { cancelAnimationFrame(animId); }
+        rocketAnimId = requestAnimationFrame(animate);
       }
-      var settingsScreen = getEl('screen-settings'); if (settingsScreen && settingsScreen.classList.contains('active')) { animate(); }
+      rocketAnimId = requestAnimationFrame(animate);
     }
-
-    var originalShowScreen = showScreen;
-    showScreen = function(name) { originalShowScreen(name); if (name === 'settings') { initRockets(); } };
-
-    var translations = {
-      ru: {
-        balance_label: "Баланс", tap_label: "Тап", tab_tap: "Ул. тапа", tab_auto: "Ул. авто",
-        rating_leader: "🏆 Лидер проекта!", player: "Игрок", legend: "Легенда",
-        total_taps: "Всего тапов", taps_hint: "Число тапов, чтобы друзья могли посмотреть",
-        withdraw: "Вывести средства", dev_btn: "Нажми 5 раз для теста",
-        menu_main: "Главная", menu_upgrades: "Улучшения", menu_rating: "Рейтинг", menu_quests: "Квесты",
-        lang_title: "Выберите язык", cancel: "Отмена", bought: "Куплено", buy_for: "Купить за", 
-        buy_prev: "Сначала купи предыдущее", not_enough_money: "Недостаточно средств!", auto_buy: "Купить автокликер", auto_desc: "Даёт +0.0001 ₽ каждые 50 сек",
-        auto_power: "Сила авто", auto_speed: "Скорость авто", gives: "Даёт", interval: "Интервал",
-        sec: "сек", balance: "Баланс", make_taps: "Сделай", taps_word: "тапов", progress: "Прогресс",
-        claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено",
-        title_rank: "Ранг: ",
-        ranks: ["Новичок", "Тапатель", "Фермер", "Агроном", "Мастер клика", "Гуру тапов", "Магнат", "Повелитель", "Легенда", "Бог Картофеля"],
-        upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель", "Архитектор", "Сингулярность", "Бесконечный", "Запредельный", "Трансцендентный", "Всемогущий", "Изначальный", "Апофеоз", "Вечный", "Тап Богов"],
-        upg_desc: "Тап даёт",
-        achievements_btn: "🏆 Достижения", ach_unlocked: "Получено", ach_locked: "Заблокировано",
-        shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить",
-        shop_tab_skins: "Скины", shop_tab_gifts: "Подарки",
-        daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!",
-        gift_wait: "Доступно через", gift_ready: "Забрать!",
-        casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)",
-        casino_title: "🎰 КАЗИНО 🎰", potato_box: "Ящик картошки", potato_box_desc: "Классическая рулетка (5 ₽)", potato_truck: "Грузовик картошки", potato_truck_desc: "Слот-машина (100 ₽)", potato_field: "Поле картошки", potato_field_desc: "Колесо Фортуны (500 ₽)",
-        settings_btn: "⚙️ Настройки", settings_title: "Настройки", sound_effects: "Звуковые эффекты", vibration: "Вибрация", on: "ВКЛ", off: "ВЫКЛ", lang_btn: "🌐 Язык / Language", support_btn: "📢 Помощь и поддержка",
-        ach_list: [
-          { title: "Первый шаг", desc: "100 тапов", icon: "🌱" }, { title: "Фанат", desc: "1 000 тапов", icon: "🥔" },
-          { title: "Мастер клика", desc: "10 000 тапов", icon: "🔥" }, { title: "Деревянная легенда", desc: "20 000 тапов", icon: "wood" },
-          { title: "Протёртый палец", desc: "50 000 тапов", icon: "🩹" }, { title: "Затянуло", desc: "100 000 тапов", icon: "🌀" },
-          { title: "Верхушка айсберга", desc: "500 000 тапов", icon: "🧊" }, { title: "Ошибка вселенной", desc: "1 000 000 тапов", icon: "🌌" },
-          { title: "Богач", desc: "100 ₽", icon: "💰" }, { title: "Автоматизация", desc: "Купить авто", icon: "⚙️" },
-          { title: "Прокачка", desc: "5-й уровень", icon: "⚡" }, { title: "Божественная мощь", desc: "Божеств. тап", icon: "🌟" },
-          { title: "Сила Творца", desc: "Тап Творца", icon: "👑" }, { title: "Властелин Миров", desc: "20-й уровень тапа", icon: "💥" },
-          { title: "Апофеоз", desc: "30-й уровень тапа", icon: "🌠" }, { title: "Автоматизированный рай", desc: "15-й сила авто", icon: "⚙️" },
-          { title: "Сингулярность", desc: "25-й сила авто", icon: "🤖" }, { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" },
-          { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" }, { title: "Всё про**бал", desc: "Выбить 🗿", icon: "🗿" },
-          { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" }, { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" }
-        ]
-      },
-      en: {
-        balance_label: "Balance", tap_label: "Tap", tab_tap: "Tap Upg.", tab_auto: "Auto Upg.",
-        rating_leader: "🏆 Leader!", player: "Player", legend: "Legend", total_taps: "Total taps", taps_hint: "Total taps for friends to see",
-        withdraw: "Withdraw funds", dev_btn: "Press 5 times to test", menu_main: "Main", menu_upgrades: "Upgrades", menu_rating: "Rating", menu_quests: "Quests",
-        lang_title: "Choose language", cancel: "Cancel", bought: "Bought", buy_for: "Buy for", buy_prev: "Buy prev first", not_enough_money: "Not enough funds!", auto_buy: "Buy Autoclicker", auto_desc: "Gives +0.0001 ₽ every 50s",
-        auto_power: "Auto Power", auto_speed: "Auto Speed", gives: "Gives", interval: "Interval", sec: "sec", balance: "Balance", make_taps: "Make", taps_word: "taps", progress: "Progress",
-        claim: "Claim", received: "Received", not_done: "Not done", title_rank: "Rank: ",
-        ranks: ["Novice", "Tapper", "Farmer", "Agronomist", "Click Master", "Tap Guru", "Tycoon", "Lord", "Legend", "Potato God"],
-        upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer", "Architect", "Singularity", "Infinite", "Transcendent", "Omnipotent", "Primordial", "Apotheosis", "Eternal", "God of Taps"],
-        upg_desc: "Tap gives", achievements_btn: "🏆 Achievements", ach_unlocked: "Received", ach_locked: "Locked",
-        shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy", shop_tab_skins: "Skins", shop_tab_gifts: "Gifts",
-        daily_gift_title: "DAILY GIFT", daily_gift_btn: "GIFT", jackpot: "JACKPOT!", gift_wait: "Available in", gift_ready: "Claim!",
-        casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", casino_title: "🎰 CASINO 🎰", potato_box: "Potato Box", potato_box_desc: "Classic roulette (5 ₽)", potato_truck: "Potato Truck", potato_truck_desc: "Slot machine (100 ₽)", potato_field: "Potato Field", potato_field_desc: "Wheel of Fortune (500 ₽)",
-        settings_btn: "⚙️ Settings", settings_title: "Settings", sound_effects: "Sound Effects", vibration: "Vibration", on: "ON", off: "OFF", lang_btn: "🌐 Language / Язык", support_btn: "📢 Help & Support",
-        ach_list: [
-          { title: "First Step", desc: "100 taps", icon: "🌱" }, { title: "Fan", desc: "1,000 taps", icon: "🥔" },
-          { title: "Click Master", desc: "10,000 taps", icon: "🔥" }, { title: "Wooden Legend", desc: "20,000 taps", icon: "wood" },
-          { title: "Worn Finger", desc: "50,000 taps", icon: "🩹" }, { title: "Sucked In", desc: "100,000 taps", icon: "🌀" },
-          { title: "Tip of the Iceberg", desc: "500,000 taps", icon: "🧊" }, { title: "Universe Error", desc: "1,000,000 taps", icon: "🌌" },
-          { title: "Rich Man", desc: "100 ₽", icon: "💰" }, { title: "Automation", desc: "Buy autoclicker", icon: "⚙️" },
-          { title: "Upgraded", desc: "5th level", icon: "⚡" }, { title: "Divine Might", desc: "Buy Divine Tap", icon: "🌟" },
-          { title: "Creator's Power", desc: "Creator's Tap", icon: "👑" }, { title: "Lord of Worlds", desc: "20th tap level", icon: "💥" },
-          { title: "Apotheosis", desc: "30th tap level", icon: "🌠" }, { title: "Automated Paradise", desc: "15th auto power", icon: "⚙️" },
-          { title: "Singularity", desc: "25th auto power", icon: "🤖" }, { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" },
-          { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" }, { title: "Lost Everything", desc: "Hit the 🗿", icon: "🗿" },
-          { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" }, { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" }
-        ]
-      }
-    };
-
-    var currentLang = localStorage.getItem('potatoLang') || 'ru';
-    var t = translations[currentLang];
 
     function applyTranslations() {
+      document.documentElement.lang = currentLang;
       var elements = document.querySelectorAll('[data-i18n]');
-      for(var i = 0; i < elements.length; i++) { var key = elements[i].getAttribute('data-i18n'); if(t[key]) elements[i].innerText = t[key]; }
-      updateSettingsUI(); renderShop(); updateGiftUI();
+      for(var i = 0; i < elements.length; i++) {
+        var key = elements[i].getAttribute('data-i18n');
+        if(t[key]) elements[i].innerText = t[key];
+      }
+      updateEventBanner();
+      updateSettingsUI();
+      renderShop();
+      updateGiftUI();
+      updateAutoInfo();
+      updateRank();
+      if (activeInfoGame) renderInfoModalContent(activeInfoGame);
     }
 
-    function openLangMenu() { getEl('langModal')?.style.setProperty('display', 'flex'); }
-    function closeLangMenu() { getEl('langModal')?.style.setProperty('display', 'none'); }
-    function changeLang(lang) { localStorage.setItem('potatoLang', lang); location.reload(); }
+    function openLangMenu() { var m = getEl('langModal'); if (m) m.style.display = 'flex'; }
+    function closeLangMenu() { var m = getEl('langModal'); if (m) m.style.display = 'none'; }
+    function changeLang(lang) {
+      if (!translations[lang]) return;
+      currentLang = lang;
+      t = translations[currentLang];
+      localStorage.setItem('potatoLang', lang);
+      closeLangMenu();
+      applyTranslations();
+      var activeScreen = document.querySelector('.screen.active');
+      if (activeScreen) {
+        var scrName = activeScreen.id.replace('screen-', '');
+        if (scrName === 'upgrades') renderUpgrades();
+        if (scrName === 'quests') renderQuests();
+        if (scrName === 'rating') renderRating();
+        if (scrName === 'achievements') renderAchievements();
+      }
+    }
 
     var tg = null;
     try { if (window.Telegram && window.Telegram.WebApp) { tg = window.Telegram.WebApp; tg.ready(); tg.expand(); } } catch(e) {}
@@ -1112,7 +1235,6 @@
     var isWheelSpinning = false; var wheelCost = 500;
     var currentWheelRotation = 0;
 
-    // ЗВУК ДЛЯ ЯЩИКА КАРТОШКИ (CS:GO)
     var caseSound = new Audio('case_open.mp3'); 
 
     var rankMultipliers = [1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5];
@@ -1143,7 +1265,7 @@
 
     function updatePotatoSkin() {
       var skin = skinsData.find(s => s.id === equippedSkin);
-      if(potatoDisplay) { 
+      if(potatoDisplay && skin) { 
         potatoDisplay.innerHTML = `<img src="${skin.image}" draggable="false" style="width:100%; height:100%; object-fit:contain;" onerror="this.style.display='none'; this.parentNode.innerText='${skin.emoji}'; this.parentNode.style.fontSize='120px';">`; 
       }
     }
@@ -1176,12 +1298,16 @@
 
     function updateGiftUI() {
       var now = Date.now(); var timeLeft = giftCooldown - (now - lastGiftTime);
-      var timerEl = getEl('giftTimer'); var lockEl = getEl('giftLockIcon'); var btnEl = getEl('giftBtn'); var questionEl = getEl('giftQuestion'); var rewardDisplayEl = getEl('giftRewardDisplay');
+      var timerEl = getEl('giftTimer'); var lockEl = getEl('giftLockIcon'); var btnEl = getEl('giftBtn'); var questionEl = getEl('giftQuestion'); var rewardDisplayEl = getEl('giftRewardDisplay'); var jackpotEl = getEl('jackpotText');
       if (!timerEl || !lockEl || !btnEl || !questionEl || !rewardDisplayEl) return;
+
+      if (jackpotEl) jackpotEl.innerText = t.jackpot;
 
       if (timeLeft > 0) {
         var hours = Math.floor(timeLeft / (1000 * 60 * 60)); var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-        timerEl.innerText = hours + 'ч ' + minutes + 'м'; timerEl.style.display = 'block'; lockEl.style.display = 'flex'; btnEl.disabled = true; btnEl.innerText = t.gift_wait;
+        var hUnit = currentLang === 'ru' ? 'ч ' : 'h ';
+        var mUnit = currentLang === 'ru' ? 'м' : 'm';
+        timerEl.innerText = hours + hUnit + minutes + mUnit; timerEl.style.display = 'block'; lockEl.style.display = 'flex'; btnEl.disabled = true; btnEl.innerText = t.gift_wait;
         questionEl.style.display = 'flex'; rewardDisplayEl.style.display = 'none';
       } else {
         timerEl.style.display = 'none'; lockEl.style.display = 'none'; btnEl.disabled = false; btnEl.innerText = t.daily_gift_btn;
@@ -1246,7 +1372,7 @@
       casinoReel.appendChild(div);
     }
 
-    window.activateMoaiTest = function() { forceMoai = true; playHaptic('medium'); alert('Следующая прокрутка 100% выдаст 🗿! (Для теста)'); }
+    window.activateMoaiTest = function() { forceMoai = true; playHaptic('medium'); alert(t.test_moai_alert); }
 
     window.spinCasino = function() {
       if (isSpinning || !casinoReel || !spinBtn) return;
@@ -1255,16 +1381,17 @@
       isSpinning = true; balance -= spinCost; updateUI();
       spinBtn.disabled = true; playHaptic('medium'); 
       
-      // ЗАПУСК ЗВУКА CS:GO
       if (isSoundEnabled) {
+        try {
           caseSound.pause();
           caseSound.currentTime = 0;
-          caseSound.play().catch(function(e) { console.log("Браузер заблокировал звук: ", e); });
+          caseSound.play().catch(function() {});
+        } catch(e) {}
       }
       
       var winItem = null;
       if (forceMoai) { winItem = { type: 'moai' }; forceMoai = false; } 
-      else if (Math.random() < 0.0001) { winItem = { type: 'moai' }; } // 0.01% (1 к 10 000)
+      else if (Math.random() < 0.0001) { winItem = { type: 'moai' }; }
       else if (Math.random() < 0.001) { winItem = { type: 'fries' }; } 
       else {
         var isNegative = Math.random() < 0.5; var val = 0; var r2 = Math.random();
@@ -1288,22 +1415,23 @@
         setTimeout(function() {
           isSpinning = false; spinBtn.disabled = false;
           
-          // ОСТАНОВКА ЗВУКА CS:GO
           if (caseSound) {
+            try {
               caseSound.pause();
               caseSound.currentTime = 0;
+            } catch(e) {}
           }
 
           if (winItem.type === 'moai') {
-            balance = 0; updateUI(); playSound('quest_claim_10'); playHaptic('heavy'); alert(currentLang === 'ru' ? '🗿 ТЫ ВЫБИЛ МУАИ! Баланс обнулен...' : '🗿 YOU HIT THE MOAI! Balance zeroed...');
+            balance = 0; updateUI(); playSound('quest_claim_10'); playHaptic('heavy'); alert(t.moai_win);
             if (unlockedAch.indexOf(19) === -1) { unlockedAch.push(19); playSound('achievement'); save(); }
           } else if (winItem.type === 'fries') {
-            balance += 5000; updateUI(); playSound('quest_claim_10'); playHaptic('heavy'); alert(currentLang === 'ru' ? '🍟 ДЖЕКПОТ! Вы выиграли 5000 ₽ и выполнили квест "Игроман"!' : '🍟 JACKPOT! You won 5000 ₽ and completed the "Gambler" quest!');
+            balance += 5000; updateUI(); playSound('quest_claim_10'); playHaptic('heavy'); alert(t.box_jackpot);
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
           } else {
             var winVal = parseFloat(winItem.value); balance += winVal; updateUI();
-            if (winVal < 0) { playHaptic('error'); alert((currentLang === 'ru' ? 'Вы проиграли: ' : 'You lost: ') + formatMoney(Math.abs(winVal), 0) + ' ₽'); } 
-            else { playSound('casino_win'); playHaptic('success'); alert((currentLang === 'ru' ? 'Вы выиграли: ' : 'You won: ') + formatMoney(winVal, 0) + ' ₽'); }
+            if (winVal < 0) { playHaptic('error'); alert(t.you_lost_val + formatMoney(Math.abs(winVal), 0) + ' ₽'); } 
+            else { playSound('casino_win'); playHaptic('success'); alert(t.you_won_val + formatMoney(winVal, 0) + ' ₽'); }
             if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
           }
         }, SPIN_DURATION + 100); 
@@ -1342,14 +1470,14 @@
 
     window.spinSlots = function() {
       if (isSlotsSpinning) return;
-      var spinBtn = getEl('spinSlotsBtn');
+      var spinBtnEl = getEl('spinSlotsBtn');
       if (balance < slotsCost) { playHaptic('error'); alert(t.not_enough_money); return; }
       
       isSlotsSpinning = true;
       balance -= slotsCost;
       updateUI();
       
-      spinBtn.disabled = true;
+      if (spinBtnEl) spinBtnEl.disabled = true;
       playHaptic('medium');
       
       var dur1 = 1500; var dur2 = 2200; var dur3 = 3000;
@@ -1383,20 +1511,20 @@
 
       setTimeout(function() {
         isSlotsSpinning = false;
-        spinBtn.disabled = false;
+        if (spinBtnEl) spinBtnEl.disabled = false;
 
         if (winAmount > 0) {
           balance += winAmount; updateUI(); playSound('quest_claim_10'); playHaptic('heavy');
           if (winType === 'jackpot') {
-            alert(currentLang === 'ru' ? `ДЖЕКПОТ! Вы выиграли ${formatMoney(winAmount, 0)} ₽!` : `JACKPOT! You won ${formatMoney(winAmount, 0)} ₽!`);
+            alert(t.slot_jackpot.replace('{amount}', formatMoney(winAmount, 0)));
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
           } else {
-            alert((currentLang === 'ru' ? 'Вы выиграли: ' : 'You won: ') + formatMoney(winAmount, 0) + ' ₽');
+            alert(t.you_won_val + formatMoney(winAmount, 0) + ' ₽');
           }
           if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
         } else {
           playHaptic('error');
-          alert(currentLang === 'ru' ? 'Вы ничего не выиграли. Попробуйте еще раз!' : 'You won nothing. Try again!');
+          alert(t.nothing_won);
         }
       }, dur3 + 100); 
     };
@@ -1404,14 +1532,14 @@
     // === КОЛЕСО ФОРТУНЫ (ПОЛЕ КАРТОШКИ) ===
     window.spinWheel = function() {
       if (isWheelSpinning) return;
-      var spinBtn = getEl('spinWheelBtn');
+      var spinBtnEl = getEl('spinWheelBtn');
       if (balance < wheelCost) { playHaptic('error'); alert(t.not_enough_money); return; }
       
       isWheelSpinning = true;
       balance -= wheelCost;
       updateUI();
       
-      spinBtn.disabled = true;
+      if (spinBtnEl) spinBtnEl.disabled = true;
       playHaptic('medium');
 
       var wheel = getEl('fortuneWheel');
@@ -1456,12 +1584,14 @@
       
       currentWheelRotation += totalRotationToAdd;
       
-      wheel.style.transition = 'transform ' + (spinDuration/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
-      wheel.style.transform = 'rotate(' + currentWheelRotation + 'deg)';
+      if (wheel) {
+        wheel.style.transition = 'transform ' + (spinDuration/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
+        wheel.style.transform = 'rotate(' + currentWheelRotation + 'deg)';
+      }
 
       setTimeout(function() {
         isWheelSpinning = false;
-        spinBtn.disabled = false;
+        if (spinBtnEl) spinBtnEl.disabled = false;
         playHaptic('heavy');
 
         if (winAmount > 0) {
@@ -1470,15 +1600,15 @@
           playSound('quest_claim_10');
           
           if (winType === 'jackpot') {
-            alert(currentLang === 'ru' ? `🎉 ДЖЕКПОТ! Вы сорвали куш и выиграли ${formatMoney(winAmount, 0)} ₽!` : `🎉 JACKPOT! You hit the jackpot and won ${formatMoney(winAmount, 0)} ₽!`);
+            alert(t.wheel_jackpot.replace('{amount}', formatMoney(winAmount, 0)));
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
           } else {
-            alert((currentLang === 'ru' ? 'Вы выиграли: ' : 'You won: ') + formatMoney(winAmount, 0) + ' ₽');
+            alert(t.you_won_val + formatMoney(winAmount, 0) + ' ₽');
           }
           if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
         } else {
           playHaptic('error');
-          alert(currentLang === 'ru' ? 'Увы, вы проиграли. Попробуйте еще раз!' : 'Alas, you lost. Try again!');
+          alert(t.wheel_lost);
         }
       }, spinDuration + 100);
     };
@@ -1519,7 +1649,9 @@
       if (hasAutoclicker) {
         if (autoInfo) {
           autoInfo.style.display = 'block';
-          var text = currentLang === 'ru' ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' сек' : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' sec';
+          var text = currentLang === 'ru'
+            ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' сек'
+            : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + (autoInterval / 1000) + ' sec';
           autoInfo.innerText = text;
         }
       } else { if (autoInfo) autoInfo.style.display = 'none'; }
@@ -1568,6 +1700,7 @@
 
     window.buySkin = function(id) {
       var skin = skinsData.find(s => s.id === id);
+      if (!skin) return;
       if (balance >= skin.price) {
         balance -= skin.price; ownedSkins.push(id);
         if (id === 1) { playSound('buy_gold'); } else if (id === 2) { playSound('buy_ghost'); } else { playSound('upgrade'); }
@@ -1724,6 +1857,7 @@
 
     function loadUser() {
       var photo = '';
+      userName = t.player;
       try {
         if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
           var u = tg.initDataUnsafe.user;
@@ -1758,10 +1892,14 @@
         if (name === 'quests' || name === 'rating' || name === 'achievements' || name === 'settings') { topBalanceBar.style.display = 'none'; } else { topBalanceBar.style.display = 'flex'; }
       }
 
-      if (name === 'upgrades') renderUpgrades(); if (name === 'quests') renderQuests();
-      if (name === 'profile') { loadUser(); updateRank(); } if (name === 'rating') renderRating();
-      if (name === 'achievements') renderAchievements(); if (name === 'shop') { switchShopTab('skins'); } 
-      if (name === 'casino-box') { initCasino(); } if (name === 'settings') { initRockets(); }
+      if (name === 'upgrades') renderUpgrades();
+      if (name === 'quests') renderQuests();
+      if (name === 'profile') { loadUser(); updateRank(); }
+      if (name === 'rating') renderRating();
+      if (name === 'achievements') renderAchievements();
+      if (name === 'shop') { switchShopTab('skins'); }
+      if (name === 'casino-box') { initCasino(); }
+      if (name === 'settings') { initRockets(); }
     }
 
     var openProfileBtn = getEl('openProfile'); if (openProfileBtn) { openProfileBtn.onclick = function() { showScreen('profile'); }; }
@@ -1774,8 +1912,8 @@
     if (tabAutoBtn) { tabAutoBtn.onclick = function() { playHaptic('medium'); currentTab = 'auto'; this.classList.add('active'); if (tabTapBtn) tabTapBtn.classList.remove('active'); renderUpgrades(); }; }
 
     window.withdrawMoney = function() {
-      if (balance < 10) { playHaptic('error'); alert(currentLang === 'ru' ? 'Минимум 10 ₽' : 'Minimum 10 ₽'); return; }
-      playHaptic('success'); alert((currentLang === 'ru' ? 'Вывод ' : 'Withdraw ') + balance.toFixed(2) + ' ₽ (test)'); balance = 0; updateUI();
+      if (balance < 10) { playHaptic('error'); alert(t.min_withdraw); return; }
+      playHaptic('success'); alert(t.withdraw_msg.replace('{amount}', balance.toFixed(2))); balance = 0; updateUI();
     };
 
     var devClickCount = 0; var devBtn = getEl('devBtn');
@@ -1784,15 +1922,18 @@
         devClickCount++;
         if (devClickCount >= 5) {
           balance += 200000; totalTaps += 50000; updateUI(); playHaptic('heavy');
-          alert(currentLang === 'ru' ? '+200 000 ₽ и +50 000 тапов!' : '+200,000 ₽ and +50,000 taps!'); devClickCount = 0;
+          alert(t.dev_bonus_msg); devClickCount = 0;
         }
       };
     }
 
-    // Инициализация игры
-    checkEvents(); // Запуск проверки событий при старте
-    applyTranslations(); loadUser(); updateUI(); updateAutoInfo(); updatePotatoSkin(); updateGiftUI(); 
-    if (giftTimerInterval) clearInterval(giftTimerInterval); giftTimerInterval = setInterval(updateGiftUI, 60000); 
+    checkEvents();
+    applyTranslations();
+    loadUser();
+    updateUI();
+    updatePotatoSkin();
+    if (giftTimerInterval) clearInterval(giftTimerInterval);
+    giftTimerInterval = setInterval(updateGiftUI, 60000); 
     if (hasAutoclicker) startAutoclicker();
   </script>
 </body>
