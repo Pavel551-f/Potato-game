@@ -280,19 +280,24 @@
     .shop-card .btn { width: 100%; margin-bottom: 0; font-size: 8px; }
 
     /* ЕЖЕДНЕВНЫЙ ПОДАРОК */
-    .gift-wrapper { display: flex; flex-direction: column; align-items: center; padding: 48px 16px 30px; }
-    .gift-card { width: min(78vw, 650px); min-width: 0; background: #1a1625; border: 5px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; padding: 12px; display: flex; flex-direction: column; align-items: center; position: relative; box-shadow: 5px 5px 0 rgba(0,0,0,.35); }
-    .gift-title { font-size: clamp(12px, 2.2vw, 24px); color: #fff; margin: 8px 0 24px; text-align:center; text-shadow: 3px 3px 0 #000; }
-    .gift-box-inner { width: 100%; aspect-ratio: 1/1; background: #f000e8; border: 5px solid #000; display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden; }
-    .bg-potato { position: absolute; font-size: clamp(34px, 7vw, 68px); opacity: .12; filter: grayscale(1); z-index: 1; pointer-events: none; }
-    .gift-reward-text { font-size: clamp(18px, 4vw, 34px); color: #fff; text-align:center; text-shadow: 4px 4px 0 #000; margin-top: 10px; z-index: 2; position: relative; line-height:1.6; }
+    .gift-wrapper { display: flex; flex-direction: column; align-items: center; padding: 24px 16px 30px; }
+    .gift-card { width: min(78vw, 650px); max-width: 650px; background: #1a1625; border: 5px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; padding: 12px; display: flex; flex-direction: column; align-items: center; position: relative; box-shadow: 5px 5px 0 rgba(0,0,0,.35); }
+    .gift-title { font-size: clamp(12px, 2.2vw, 24px); color: #fff; margin: 8px 0 24px; text-align: center; text-shadow: 3px 3px 0 #000; }
+    .gift-box-inner {
+      width: 100%; aspect-ratio: 1/1; background: #f000e8; border: 5px solid #000;
+      display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%), radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%);
+      background-size: 30px 30px; background-position: 0 0, 15px 15px;
+    }
+    .bg-potato { position: absolute; font-size: 35px; opacity: 0.15; z-index: 1; pointer-events: none; }
+    .gift-reward-text { font-size: clamp(18px, 4vw, 34px); color: #fff; text-align: center; text-shadow: 4px 4px 0 #000; margin-top: 10px; z-index: 2; position: relative; line-height: 1.6;}
     .gift-reward-text.jackpot { color: #fde047; animation: pulse 1s infinite alternate; }
     @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-    .gift-btn-bottom { width: 100%; min-height: 76px; background: #4b5563; padding: 14px 12px; margin-top: 0; border: 5px solid #000; border-top: 0; font-size: clamp(10px, 2vw, 18px); line-height:1.6; color: #e5e7eb; text-align: center; cursor: pointer; font-family: inherit; position:relative; }
+    .gift-btn-bottom { width: 100%; min-height: 76px; background: #4b5563; padding: 14px 12px; margin-top: 0; border: 5px solid #000; border-top: 0; font-size: clamp(10px, 2vw, 18px); line-height: 1.6; color: #e5e7eb; text-align: center; cursor: pointer; font-family: inherit; }
     .gift-btn-bottom:active:not(:disabled) { background: #374151; }
     .gift-btn-bottom:disabled { background: #4b5563; color: #e5e7eb; cursor: not-allowed; }
-    .gift-lock { display:inline-flex; margin-right:16px; font-size:22px; vertical-align:middle; }
-    .gift-timer { display:inline; color:#fff; font-size:inherit; background:transparent; padding:0; border:0; }
+    .gift-lock { display: inline-flex; margin-right: 16px; font-size: 22px; vertical-align: middle; }
+    .gift-timer { display: inline; color: #fff; font-size: inherit; background: transparent; padding: 0; border: 0; }
 
     /* КАЗИНО МЕНЮ */
     .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 80px 16px 30px; gap: 20px; transition: padding-top 0.2s ease; }
@@ -515,6 +520,7 @@
         <div class="gift-card">
           <div class="gift-title" data-i18n="daily_gift_title">Ежедневный подарок</div>
           <div class="gift-box-inner">
+            <div class="gift-timer" id="giftTimer">00:00</div>
             <div class="bg-potato" style="top: 10%; left: 15%; transform: rotate(15deg);">🥔</div>
             <div class="bg-potato" style="top: 20%; right: 10%; transform: rotate(-25deg);">🥔</div>
             <div class="bg-potato" style="bottom: 15%; left: 20%; transform: rotate(45deg);">🥔</div>
@@ -523,13 +529,16 @@
             <div class="bg-potato" style="top: 60%; right: 5%; transform: rotate(-60deg);">🥔</div>
             <div class="bg-potato" style="top: 5%; left: 45%; transform: rotate(30deg);">🥔</div>
             <div class="bg-potato" style="bottom: 5%; right: 45%; transform: rotate(-45deg);">🥔</div>
+
             <div id="giftRewardDisplay" style="display: none; flex-direction: column; align-items: center; z-index: 2; position: relative;">
               <div class="gift-reward-text" id="giftRewardText">₽ 10</div>
               <div id="jackpotText" style="display: none; color: #fde047; font-size: 10px; margin-top: 10px; text-shadow: 2px 2px 0 #000;">ДЖЕКПОТ!</div>
             </div>
+            
             <div id="giftQuestion" style="font-size: clamp(76px, 15vw, 130px); text-shadow: 8px 8px 0 #000; z-index: 2; position: relative;">?</div>
+            <div class="gift-lock" id="giftLockIcon">🔒</div>
           </div>
-          <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()" data-i18n="daily_gift_btn"><span class="gift-lock" id="giftLockIcon">🔒</span><span class="gift-timer" id="giftTimer">ПОДАРОК</span></button>
+          <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()"><span class="gift-lock" id="giftLockIcon">🔒</span><span class="gift-timer" id="giftTimer">ПОДАРОК</span></button>
         </div>
       </div>
     </div>
@@ -1530,7 +1539,10 @@
       var banner = getEl('eventBanner');
       var text = getEl('eventBannerText');
       if (!banner || !text || !document.body) return;
-      var key = activeEvents.blackMarket ? 'blackmarket-' + bmCycleId : activeEvents.halloween ? 'halloween' : activeEvents.newYear ? 'newyear' : '';
+
+      var key = activeEvents.blackMarket ? 'blackmarket-' + bmCycleId :
+                activeEvents.halloween ? 'halloween' :
+                activeEvents.newYear ? 'newyear' : '';
       if (!key) {
         if (eventBannerTimer) clearTimeout(eventBannerTimer);
         eventBannerTimer = null;
@@ -1539,13 +1551,10 @@
         document.body.classList.remove('has-event-banner');
         return;
       }
-      if (key === 'blackmarket') {
+
+      if (key.indexOf('blackmarket-') === 0) {
         var hoursLeft = Math.max(1, Math.ceil((blackMarketEnd - Date.now()) / (1000 * 60 * 60)));
         text.innerText = t.evt_blackmarket.replace('{hours}', hoursLeft);
-        banner.style.background = 'linear-gradient(90deg, #1e1b4b, #4c1d95)';
-      } else if (key.indexOf('blackmarket-') === 0) {
-        var hoursLeft2 = Math.max(1, Math.ceil((blackMarketEnd - Date.now()) / (1000 * 60 * 60)));
-        text.innerText = t.evt_blackmarket.replace('{hours}', hoursLeft2);
         banner.style.background = 'linear-gradient(90deg, #1e1b4b, #4c1d95)';
       } else if (key === 'halloween') {
         text.innerText = t.evt_halloween;
@@ -1554,6 +1563,7 @@
         text.innerText = t.evt_newyear;
         banner.style.background = 'linear-gradient(90deg, #065f46, #047857)';
       }
+
       if (visibleEventBannerKey !== key) {
         visibleEventBannerKey = key;
         if (eventBannerTimer) clearTimeout(eventBannerTimer);
@@ -1805,27 +1815,49 @@
     }
 
     function updateGiftUI() {
-      var now = Date.now(); var timeLeft = giftCooldown - (now - lastGiftTime);
-      var timerEl = getEl('giftTimer'); var lockEl = getEl('giftLockIcon'); var btnEl = getEl('giftBtn'); var questionEl = getEl('giftQuestion'); var rewardDisplayEl = getEl('giftRewardDisplay'); var rewardTextEl = getEl('giftRewardText'); var jackpotEl = getEl('jackpotText');
+      var now = Date.now();
+      var timeLeft = giftCooldown - (now - lastGiftTime);
+      var timerEl = getEl('giftTimer');
+      var lockEl = getEl('giftLockIcon');
+      var btnEl = getEl('giftBtn');
+      var questionEl = getEl('giftQuestion');
+      var rewardDisplayEl = getEl('giftRewardDisplay');
+      var rewardTextEl = getEl('giftRewardText');
+      var jackpotEl = getEl('jackpotText');
       if (!timerEl || !lockEl || !btnEl || !questionEl || !rewardDisplayEl) return;
+
       if (jackpotEl) jackpotEl.innerText = t.jackpot;
+
       if (lastGiftTime > 0 && lastGiftReward > 0) {
         questionEl.style.display = 'none';
         rewardDisplayEl.style.display = 'flex';
         if (rewardTextEl) rewardTextEl.innerText = '₽ ' + formatMoney(lastGiftReward);
-        if (lastGiftJackpot) { if (rewardTextEl) rewardTextEl.classList.add('jackpot'); if (jackpotEl) jackpotEl.style.display = 'block'; }
-        else { if (rewardTextEl) rewardTextEl.classList.remove('jackpot'); if (jackpotEl) jackpotEl.style.display = 'none'; }
+        if (lastGiftJackpot) {
+          if (rewardTextEl) rewardTextEl.classList.add('jackpot');
+          if (jackpotEl) jackpotEl.style.display = 'block';
+        } else {
+          if (rewardTextEl) rewardTextEl.classList.remove('jackpot');
+          if (jackpotEl) jackpotEl.style.display = 'none';
+        }
       } else {
         questionEl.style.display = 'flex';
         rewardDisplayEl.style.display = 'none';
       }
+
       if (timeLeft > 0) {
-        var hours = Math.floor(timeLeft / (1000 * 60 * 60)); var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60)); var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-        var hUnit = currentLang === 'ru' ? 'ч ' : 'h '; var mUnit = currentLang === 'ru' ? 'м ' : 'm '; var sUnit = currentLang === 'ru' ? 'с' : 's';
+        var hours = Math.floor(timeLeft / (1000 * 60 * 60));
+        var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+        var hUnit = currentLang === 'ru' ? 'ч ' : 'h ';
+        var mUnit = currentLang === 'ru' ? 'м ' : 'm ';
+        var sUnit = currentLang === 'ru' ? 'с' : 's';
         timerEl.innerText = t.gift_wait + ' ' + hours + hUnit + minutes + mUnit + seconds + sUnit;
-        lockEl.style.display = 'inline-flex'; btnEl.disabled = true;
+        lockEl.style.display = 'inline-flex';
+        btnEl.disabled = true;
       } else {
-        timerEl.innerText = t.daily_gift_btn; lockEl.style.display = 'none'; btnEl.disabled = false;
+        timerEl.innerText = t.daily_gift_btn;
+        lockEl.style.display = 'none';
+        btnEl.disabled = false;
       }
     }
 
