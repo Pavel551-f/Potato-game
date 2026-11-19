@@ -32,7 +32,7 @@
       background: linear-gradient(180deg, #090714, #1e1b4b);
     }
 
-    #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; }
+    #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; overflow-y: auto; }
 
     /* === БАННЕР СОБЫТИЙ === */
     #eventBanner {
@@ -181,7 +181,7 @@
     /* ВКЛАДКИ УЛУЧШЕНИЙ */
     .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; transition: padding-top 0.2s ease; }
     .tab-btn { 
-      flex: 1; padding: 12px 6px; border: none; font-size: 10px; 
+      flex: 1; padding: 12px 6px; font-size: 10px; 
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer; 
       border: 4px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; 
       text-shadow: 2px 2px 0 #000; font-family: 'Press Start 2P', monospace; text-transform: uppercase;
@@ -191,7 +191,7 @@
     /* ВКЛАДКИ МАГАЗИНА */
     .shop-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; padding: 80px 16px 0; transition: padding-top 0.2s ease; }
     .shop-tab-btn { 
-      flex: 1 1 30%; padding: 10px 6px; border: none; font-size: 8px; 
+      flex: 1 1 30%; padding: 10px 6px; font-size: 8px; 
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer; 
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; 
       text-shadow: 1px 1px 0 #000; font-family: inherit;
@@ -263,7 +263,7 @@
     .section-title { font-size: 10px; color: #a78bfa; margin: 14px 0 10px; }
     
     .btn { 
-      background: #8b5cf6; border: none; color: white; padding: 10px; font-size: 9px; cursor: pointer; margin-bottom: 10px; 
+      background: #8b5cf6; color: white; padding: 10px; font-size: 9px; cursor: pointer; margin-bottom: 10px; 
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-family: inherit;
       flex-shrink: 0;
     }
@@ -293,7 +293,7 @@
     .gift-reward-text { font-size: 24px; color: #fff; text-shadow: 3px 3px 0 #000; margin-top: 10px; z-index: 2; position: relative;}
     .gift-reward-text.jackpot { color: #fde047; animation: pulse 1s infinite alternate; }
     @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-    .gift-btn-bottom { width: 100%; background: #374151; padding: 15px 0; margin-top: -4px; border: 4px solid #000; font-size: 12px; color: #fff; text-align: center; cursor: pointer; }
+    .gift-btn-bottom { width: 100%; background: #374151; padding: 15px 0; margin-top: -4px; border: 4px solid #000; font-size: 12px; color: #fff; text-align: center; cursor: pointer; font-family: inherit; }
     .gift-btn-bottom:active { background: #1f2937; }
     .gift-btn-bottom:disabled { background: #4b5563; color: #9ca3af; cursor: not-allowed; }
     .gift-lock { position: absolute; bottom: -15px; left: -15px; width: 50px; height: 50px; background: #fff; border: 3px solid #000; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #000; z-index: 10; }
@@ -506,8 +506,8 @@
   <div class="screen" id="screen-shop">
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="shop-tabs">
-      <button class="shop-tab-btn active" onclick="switchShopTab('skins')" data-i18n="shop_tab_skins">Скины</button>
-      <button class="shop-tab-btn" onclick="switchShopTab('gifts')" data-i18n="shop_tab_gifts">Подарки</button>
+      <button class="shop-tab-btn active" id="shopTabSkins" onclick="switchShopTab('skins')" data-i18n="shop_tab_skins">Скины</button>
+      <button class="shop-tab-btn" id="shopTabGifts" onclick="switchShopTab('gifts')" data-i18n="shop_tab_gifts">Подарки</button>
       <button class="shop-tab-btn blackmarket-tab rgb-glow" id="tabBlackMarket" onclick="switchShopTab('blackmarket')" data-i18n="shop_tab_bm">🌑 Чёрный рынок</button>
     </div>
 
@@ -717,6 +717,34 @@
   </div>
 
   <script>
+    // Безопасная обёртка над localStorage
+    var memoryStorage = {};
+    var safeStorage = {
+      getItem: function(key) {
+        try {
+          return window.localStorage.getItem(key);
+        } catch (e) {
+          return Object.prototype.hasOwnProperty.call(memoryStorage, key) ? memoryStorage[key] : null;
+        }
+      },
+      setItem: function(key, val) {
+        try {
+          window.localStorage.setItem(key, String(val));
+        } catch (e) {
+          memoryStorage[key] = String(val);
+        }
+      }
+    };
+
+    function safeJsonParse(raw, fallback) {
+      try {
+        var parsed = JSON.parse(raw);
+        return parsed !== null && parsed !== undefined ? parsed : fallback;
+      } catch (e) {
+        return fallback;
+      }
+    }
+
     var translations = {
       ru: {
         balance_label: "Баланс", tap_label: "Тап", tab_tap: "Ул. тапа", tab_auto: "Ул. авто",
@@ -936,19 +964,22 @@
       }
     };
 
-    var currentLang = localStorage.getItem('potatoLang') || 'ru';
+    var currentLang = safeStorage.getItem('potatoLang') || 'ru';
     if (!translations[currentLang]) currentLang = 'ru';
     var t = translations[currentLang];
 
     window.onerror = function(msg, url, line) {
       var err = document.getElementById('error-screen');
-      if(err) { err.style.display = 'block'; err.innerHTML += "<p><b>ERROR:</b> " + msg + "<br>Line: " + line + "</p>"; }
+      if (err) {
+        err.style.display = 'block';
+        err.innerHTML += "<p><b>ERROR:</b> " + msg + "<br>Line: " + line + "</p>";
+      }
       return false;
     };
 
     function getEl(id) {
       var el = document.getElementById(id);
-      if (!el) {
+      if (!el && document.body) {
         var errorDiv = document.createElement('div');
         errorDiv.style.cssText = 'position:fixed; top:10px; left:10px; right:10px; background:rgba(220,38,38,0.95); color:white; padding:10px; font-size:12px; z-index:999999; text-align:center; border:3px solid white; border-radius:8px; font-family:monospace; box-shadow: 0 4px 10px rgba(0,0,0,0.5); pointer-events:none;';
         errorDiv.innerText = '⚠️ #' + id;
@@ -958,9 +989,10 @@
       return el;
     }
 
-    function formatMoney(amount, decimals = 3) {
+    function formatMoney(amount, decimals) {
+      if (decimals === undefined) decimals = 3;
       if (isNaN(amount) || amount === null) return (0).toFixed(decimals);
-      let parts = amount.toFixed(decimals).split('.');
+      var parts = amount.toFixed(decimals).split('.');
       parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
       return parts.join('.');
     }
@@ -972,16 +1004,18 @@
       return formatMoney(Math.trunc(amount), 0);
     }
 
-    var isSoundEnabled = localStorage.getItem('soundEnabled') !== 'false';
-    var isVibrationEnabled = localStorage.getItem('vibrationEnabled') !== 'false';
+    var isSoundEnabled = safeStorage.getItem('soundEnabled') !== 'false';
+    var isVibrationEnabled = safeStorage.getItem('vibrationEnabled') !== 'false';
 
     var audioCtx = null;
     function initAudio() {
       if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {} }
       if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
     }
-    document.body.addEventListener('click', initAudio, { once: true });
-    document.body.addEventListener('touchstart', initAudio, { once: true });
+    if (document.body) {
+      document.body.addEventListener('click', initAudio, { once: true });
+      document.body.addEventListener('touchstart', initAudio, { once: true });
+    }
 
     function playSound(type) {
       if (!isSoundEnabled || !audioCtx) return; 
@@ -1050,7 +1084,7 @@
         interval *= 1.03; 
       }
       var stopTimes = [1.5, 2.2, 3.0]; 
-      for(var i=0; i<stopTimes.length; i++) {
+      for (var i = 0; i < stopTimes.length; i++) {
         var stopOsc = audioCtx.createOscillator(); var stopGain = audioCtx.createGain();
         stopOsc.connect(stopGain); stopGain.connect(audioCtx.destination);
         stopOsc.type = 'sine';
@@ -1110,17 +1144,23 @@
 
     function updateSettingsUI() {
       var soundBtn = getEl('soundToggle'); var vibBtn = getEl('vibrationToggle');
-      if (soundBtn) { if (isSoundEnabled) { soundBtn.classList.add('active'); soundBtn.innerText = t.on; } else { soundBtn.classList.remove('active'); soundBtn.innerText = t.off; } }
-      if (vibBtn) { if (isVibrationEnabled) { vibBtn.classList.add('active'); vibBtn.innerText = t.on; } else { vibBtn.classList.remove('active'); vibBtn.innerText = t.off; } }
+      if (soundBtn) {
+        if (isSoundEnabled) { soundBtn.classList.add('active'); soundBtn.innerText = t.on; }
+        else { soundBtn.classList.remove('active'); soundBtn.innerText = t.off; }
+      }
+      if (vibBtn) {
+        if (isVibrationEnabled) { vibBtn.classList.add('active'); vibBtn.innerText = t.on; }
+        else { vibBtn.classList.remove('active'); vibBtn.innerText = t.off; }
+      }
     }
 
-    window.toggleSound = function() { isSoundEnabled = !isSoundEnabled; localStorage.setItem('soundEnabled', isSoundEnabled); updateSettingsUI(); playHaptic('light'); }
+    window.toggleSound = function() { isSoundEnabled = !isSoundEnabled; safeStorage.setItem('soundEnabled', isSoundEnabled); updateSettingsUI(); playHaptic('light'); };
     window.toggleVibration = function() {
-      isVibrationEnabled = !isVibrationEnabled; localStorage.setItem('vibrationEnabled', isVibrationEnabled); updateSettingsUI();
-      if (isVibrationEnabled && navigator.vibrate) navigator.vibrate(30); else if (isVibrationEnabled && tg) tg.HapticFeedback.impactOccurred('medium');
-    }
+      isVibrationEnabled = !isVibrationEnabled; safeStorage.setItem('vibrationEnabled', isVibrationEnabled); updateSettingsUI();
+      if (isVibrationEnabled && navigator.vibrate) navigator.vibrate(30); else if (isVibrationEnabled && tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
+    };
 
-    window.openSupport = function() { playHaptic('medium'); alert(t.support_msg); }
+    window.openSupport = function() { playHaptic('medium'); alert(t.support_msg); };
 
     var activeInfoGame = null;
     function renderInfoModalContent(game) {
@@ -1149,14 +1189,14 @@
       renderInfoModalContent(game);
       if (modal) modal.style.display = 'flex';
       playHaptic('medium');
-    }
+    };
 
     window.closeInfoMenu = function() {
       activeInfoGame = null;
       var modal = getEl('infoModal');
       if (modal) modal.style.display = 'none';
       playHaptic('light');
-    }
+    };
 
     function showEventNotice(titleText, bodyText) {
       var modal = getEl('eventNoticeModal');
@@ -1171,7 +1211,7 @@
       var modal = getEl('eventNoticeModal');
       if (modal) modal.style.display = 'none';
       playHaptic('light');
-    }
+    };
 
     // === СОСТОЯНИЕ ИГРЫ, ЧЁРНОГО РЫНКА, БУСТОВ И СОБЫТИЙ ===
     var tg = null;
@@ -1227,47 +1267,45 @@
       { id: "dark_contract", icon: "📜", price: 500000, kind: "casino_boost", durationMs: 7 * 24 * 60 * 60 * 1000 }
     ];
 
-    var balance = parseFloat(localStorage.getItem('potatoBalance')) || 0;
-    var tapValue = parseFloat(localStorage.getItem('tapValue')) || 0.001;
-    var maxUpgrade = parseInt(localStorage.getItem('maxUpgrade')) || 0;
-    var totalTaps = parseInt(localStorage.getItem('totalTaps')) || 0;
-    var claimed = JSON.parse(localStorage.getItem('claimed') || '[]');
-    var unlockedAch = JSON.parse(localStorage.getItem('unlockedAch') || '[]');
-    var hasAutoclicker = localStorage.getItem('hasAutoclicker') === 'true';
-    var autoValue = parseFloat(localStorage.getItem('autoValue')) || 0.0001;
-    var autoInterval = parseInt(localStorage.getItem('autoInterval')) || 50000;
-    var autoValueLevel = parseInt(localStorage.getItem('autoValueLevel')) || 0;
-    var autoSpeedLevel = parseInt(localStorage.getItem('autoSpeedLevel')) || 0;
-    var ownedSkins = JSON.parse(localStorage.getItem('ownedSkins') || '[0]');
-    var equippedSkin = parseInt(localStorage.getItem('equippedSkin')) || 0;
+    var balance = parseFloat(safeStorage.getItem('potatoBalance')) || 0;
+    var tapValue = parseFloat(safeStorage.getItem('tapValue')) || 0.001;
+    var maxUpgrade = parseInt(safeStorage.getItem('maxUpgrade'), 10) || 0;
+    var totalTaps = parseInt(safeStorage.getItem('totalTaps'), 10) || 0;
+    var claimed = safeJsonParse(safeStorage.getItem('claimed'), []);
+    var unlockedAch = safeJsonParse(safeStorage.getItem('unlockedAch'), []);
+    var hasAutoclicker = safeStorage.getItem('hasAutoclicker') === 'true';
+    var autoValue = parseFloat(safeStorage.getItem('autoValue')) || 0.0001;
+    var autoInterval = parseInt(safeStorage.getItem('autoInterval'), 10) || 50000;
+    var autoValueLevel = parseInt(safeStorage.getItem('autoValueLevel'), 10) || 0;
+    var autoSpeedLevel = parseInt(safeStorage.getItem('autoSpeedLevel'), 10) || 0;
+    var ownedSkins = safeJsonParse(safeStorage.getItem('ownedSkins'), [0]);
+    var equippedSkin = parseInt(safeStorage.getItem('equippedSkin'), 10) || 0;
 
-    // Постоянные эффекты Чёрного рынка
-    var bmTapBonus = parseFloat(localStorage.getItem('bmTapBonus')) || 0; // напр. 0.12 + 0.08 = 0.20 (+20%)
-    var bmAutoSpeedBonus = parseFloat(localStorage.getItem('bmAutoSpeedBonus')) || 0; // напр. 0.10 (+10%)
-    var hasMoaiAmulet = localStorage.getItem('hasMoaiAmulet') === 'true';
-    var lastMoaiSaveDate = localStorage.getItem('lastMoaiSaveDate') || '';
+    var bmTapBonus = parseFloat(safeStorage.getItem('bmTapBonus')) || 0;
+    var bmAutoSpeedBonus = parseFloat(safeStorage.getItem('bmAutoSpeedBonus')) || 0;
+    var hasMoaiAmulet = safeStorage.getItem('hasMoaiAmulet') === 'true';
+    var lastMoaiSaveDate = safeStorage.getItem('lastMoaiSaveDate') || '';
 
-    // Временные бусты в localStorage (с временем окончания)
-    var activeBuffs = JSON.parse(localStorage.getItem('activeBuffs') || '{}');
+    var activeBuffs = safeJsonParse(safeStorage.getItem('activeBuffs'), {});
+    if (!activeBuffs || typeof activeBuffs !== 'object') activeBuffs = {};
     if (typeof activeBuffs.casinoBoostUntil !== 'number') activeBuffs.casinoBoostUntil = 0;
 
-    // Система событий, Чёрного рынка и истории
     var activeEvents = { blackMarket: false, halloween: false, newYear: false };
-    var bmCycleId = parseInt(localStorage.getItem('bmCycleId')) || 1;
-    var lastBlackMarket = parseInt(localStorage.getItem('lastBlackMarket')) || 0;
-    var blackMarketEnd = parseInt(localStorage.getItem('blackMarketEnd')) || 0;
-    var bmBoughtInCycle = JSON.parse(localStorage.getItem('bmBoughtInCycle') || '[]');
-    var bmNotifiedOpenCycle = parseInt(localStorage.getItem('bmNotifiedOpenCycle')) || 0;
-    var bmNotifiedCloseCycle = parseInt(localStorage.getItem('bmNotifiedCloseCycle')) || 0;
-    var notifiedSeasons = JSON.parse(localStorage.getItem('notifiedSeasons') || '[]');
-    var eventHistory = JSON.parse(localStorage.getItem('eventHistory') || '[]');
-    var earnedBadges = JSON.parse(localStorage.getItem('earnedBadges') || '[]');
+    var bmCycleId = parseInt(safeStorage.getItem('bmCycleId'), 10) || 1;
+    var lastBlackMarket = parseInt(safeStorage.getItem('lastBlackMarket'), 10) || 0;
+    var blackMarketEnd = parseInt(safeStorage.getItem('blackMarketEnd'), 10) || 0;
+    var bmBoughtInCycle = safeJsonParse(safeStorage.getItem('bmBoughtInCycle'), []);
+    var bmNotifiedOpenCycle = parseInt(safeStorage.getItem('bmNotifiedOpenCycle'), 10) || 0;
+    var bmNotifiedCloseCycle = parseInt(safeStorage.getItem('bmNotifiedCloseCycle'), 10) || 0;
+    var notifiedSeasons = safeJsonParse(safeStorage.getItem('notifiedSeasons'), []);
+    var eventHistory = safeJsonParse(safeStorage.getItem('eventHistory'), []);
+    var earnedBadges = safeJsonParse(safeStorage.getItem('earnedBadges'), []);
 
     var currentTab = 'tap'; var currentShopTab = 'skins';
     var autoTimer = null; var lastTapTime = 0;
     var userPhoto = ''; var userName = t.player; var hasUnclaimedQuest = false;
 
-    var lastGiftTime = parseInt(localStorage.getItem('lastGiftTime')) || 0;
+    var lastGiftTime = parseInt(safeStorage.getItem('lastGiftTime'), 10) || 0;
     var giftCooldown = 24 * 60 * 60 * 1000; var giftTimerInterval = null;
 
     var isSpinning = false; var spinCost = 5; var forceMoai = false; var SPIN_DURATION = 9000; 
@@ -1275,7 +1313,8 @@
     var isWheelSpinning = false; var wheelCost = 500;
     var currentWheelRotation = 0;
 
-    var caseSound = new Audio('case_open.mp3'); 
+    var caseSound = null;
+    try { caseSound = new Audio('case_open.mp3'); } catch(e) {}
 
     var rankMultipliers = [1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5];
     var currentMultiplier = 1.05;
@@ -1311,36 +1350,36 @@
     }
 
     function save() {
-      localStorage.setItem('potatoBalance', balance.toFixed(3));
-      localStorage.setItem('tapValue', tapValue.toFixed(3));
-      localStorage.setItem('maxUpgrade', maxUpgrade);
-      localStorage.setItem('totalTaps', totalTaps);
-      localStorage.setItem('claimed', JSON.stringify(claimed));
-      localStorage.setItem('unlockedAch', JSON.stringify(unlockedAch));
-      localStorage.setItem('hasAutoclicker', hasAutoclicker);
-      localStorage.setItem('autoValue', autoValue.toFixed(4));
-      localStorage.setItem('autoInterval', autoInterval);
-      localStorage.setItem('autoValueLevel', autoValueLevel);
-      localStorage.setItem('autoSpeedLevel', autoSpeedLevel);
-      localStorage.setItem('ownedSkins', JSON.stringify(ownedSkins));
-      localStorage.setItem('equippedSkin', equippedSkin);
-      localStorage.setItem('lastGiftTime', lastGiftTime);
+      safeStorage.setItem('potatoBalance', balance.toFixed(3));
+      safeStorage.setItem('tapValue', tapValue.toFixed(3));
+      safeStorage.setItem('maxUpgrade', maxUpgrade);
+      safeStorage.setItem('totalTaps', totalTaps);
+      safeStorage.setItem('claimed', JSON.stringify(claimed));
+      safeStorage.setItem('unlockedAch', JSON.stringify(unlockedAch));
+      safeStorage.setItem('hasAutoclicker', hasAutoclicker);
+      safeStorage.setItem('autoValue', autoValue.toFixed(4));
+      safeStorage.setItem('autoInterval', autoInterval);
+      safeStorage.setItem('autoValueLevel', autoValueLevel);
+      safeStorage.setItem('autoSpeedLevel', autoSpeedLevel);
+      safeStorage.setItem('ownedSkins', JSON.stringify(ownedSkins));
+      safeStorage.setItem('equippedSkin', equippedSkin);
+      safeStorage.setItem('lastGiftTime', lastGiftTime);
 
-      localStorage.setItem('bmTapBonus', bmTapBonus);
-      localStorage.setItem('bmAutoSpeedBonus', bmAutoSpeedBonus);
-      localStorage.setItem('hasMoaiAmulet', hasMoaiAmulet);
-      localStorage.setItem('lastMoaiSaveDate', lastMoaiSaveDate);
-      localStorage.setItem('activeBuffs', JSON.stringify(activeBuffs));
+      safeStorage.setItem('bmTapBonus', bmTapBonus);
+      safeStorage.setItem('bmAutoSpeedBonus', bmAutoSpeedBonus);
+      safeStorage.setItem('hasMoaiAmulet', hasMoaiAmulet);
+      safeStorage.setItem('lastMoaiSaveDate', lastMoaiSaveDate);
+      safeStorage.setItem('activeBuffs', JSON.stringify(activeBuffs));
 
-      localStorage.setItem('bmCycleId', bmCycleId);
-      localStorage.setItem('lastBlackMarket', lastBlackMarket);
-      localStorage.setItem('blackMarketEnd', blackMarketEnd);
-      localStorage.setItem('bmBoughtInCycle', JSON.stringify(bmBoughtInCycle));
-      localStorage.setItem('bmNotifiedOpenCycle', bmNotifiedOpenCycle);
-      localStorage.setItem('bmNotifiedCloseCycle', bmNotifiedCloseCycle);
-      localStorage.setItem('notifiedSeasons', JSON.stringify(notifiedSeasons));
-      localStorage.setItem('eventHistory', JSON.stringify(eventHistory));
-      localStorage.setItem('earnedBadges', JSON.stringify(earnedBadges));
+      safeStorage.setItem('bmCycleId', bmCycleId);
+      safeStorage.setItem('lastBlackMarket', lastBlackMarket);
+      safeStorage.setItem('blackMarketEnd', blackMarketEnd);
+      safeStorage.setItem('bmBoughtInCycle', JSON.stringify(bmBoughtInCycle));
+      safeStorage.setItem('bmNotifiedOpenCycle', bmNotifiedOpenCycle);
+      safeStorage.setItem('bmNotifiedCloseCycle', bmNotifiedCloseCycle);
+      safeStorage.setItem('notifiedSeasons', JSON.stringify(notifiedSeasons));
+      safeStorage.setItem('eventHistory', JSON.stringify(eventHistory));
+      safeStorage.setItem('earnedBadges', JSON.stringify(earnedBadges));
     }
 
     function addBadge(badgeKey) {
@@ -1421,7 +1460,6 @@
         activeEvents.blackMarket = true;
       } else {
         if (activeEvents.blackMarket) {
-          // Только что закрылся
           var prevId = 'black_market_' + bmCycleId;
           recordEventParticipation({ id: prevId, active: false, itemsBought: bmBoughtInCycle.length });
         }
@@ -1430,7 +1468,7 @@
         if (!lastBlackMarket || (now - lastBlackMarket >= cooldownMs)) {
           if (!lastBlackMarket || Math.random() < 0.75) {
             bmCycleId += 1;
-            var jitterHours = (Math.random() * 24 - 12); // ±12 часов
+            var jitterHours = (Math.random() * 24 - 12);
             var durationHours = 48 + jitterHours;
             lastBlackMarket = now;
             blackMarketEnd = now + Math.round(durationHours * 60 * 60 * 1000);
@@ -1480,6 +1518,7 @@
     }
 
     function updateSeasonVisuals() {
+      if (!document.body) return;
       document.body.classList.remove('season-halloween', 'season-newyear', 'season-blackmarket');
       if (activeEvents.halloween) {
         document.body.classList.add('season-halloween');
@@ -1493,7 +1532,7 @@
     function updateEventBanner() {
       var banner = getEl('eventBanner');
       var text = getEl('eventBannerText');
-      if (!banner || !text) return;
+      if (!banner || !text || !document.body) return;
 
       if (activeEvents.blackMarket) {
         var hoursLeft = Math.max(1, Math.ceil((blackMarketEnd - Date.now()) / (1000 * 60 * 60)));
@@ -1563,12 +1602,12 @@
       var modal = getEl('testEventModal');
       if (modal) modal.style.display = 'flex';
       playHaptic('medium');
-    }
+    };
     window.closeTestEventMenu = function() {
       var modal = getEl('testEventModal');
       if (modal) modal.style.display = 'none';
       playHaptic('light');
-    }
+    };
     
     window.forceEvent = function(eventName) {
       activeEvents.blackMarket = false;
@@ -1593,7 +1632,7 @@
       save();
       closeTestEventMenu();
       playHaptic('success');
-    }
+    };
 
     var rocketAnimId = null;
     function initRockets() {
@@ -1626,9 +1665,9 @@
     function applyTranslations() {
       document.documentElement.lang = currentLang;
       var elements = document.querySelectorAll('[data-i18n]');
-      for(var i = 0; i < elements.length; i++) {
+      for (var i = 0; i < elements.length; i++) {
         var key = elements[i].getAttribute('data-i18n');
-        if(t[key]) elements[i].innerText = t[key];
+        if (t[key]) elements[i].innerText = t[key];
       }
       updateEventBanner();
       updateShopEventUI();
@@ -1649,7 +1688,7 @@
       if (!translations[lang]) return;
       currentLang = lang;
       t = translations[currentLang];
-      localStorage.setItem('potatoLang', lang);
+      safeStorage.setItem('potatoLang', lang);
       closeLangMenu();
       applyTranslations();
       var activeScreen = document.querySelector('.screen.active');
@@ -1663,10 +1702,33 @@
       }
     }
 
+    window.handleSkinImgError = function(imgEl, emoji, isLocked) {
+      if (!imgEl) return;
+      imgEl.style.display = 'none';
+      var parent = imgEl.parentElement || imgEl.parentNode;
+      if (parent) {
+        var span = document.createElement('span');
+        span.innerText = emoji;
+        if (isLocked) {
+          span.style.filter = 'grayscale(100%) opacity(0.5)';
+        }
+        parent.appendChild(span);
+      }
+    };
+
     function updatePotatoSkin() {
-      var skin = skinsData.find(s => s.id === equippedSkin);
-      if(potatoDisplay && skin) { 
-        potatoDisplay.innerHTML = `<img src="${skin.image}" draggable="false" style="width:100%; height:100%; object-fit:contain;" onerror="this.style.display='none'; this.parentNode.innerText='${skin.emoji}'; this.parentNode.style.fontSize='120px';">`; 
+      var skin = skinsData.find(function(s) { return s.id === equippedSkin; });
+      if (potatoDisplay && skin) {
+        potatoDisplay.style.fontSize = '120px';
+        potatoDisplay.innerHTML = '';
+        var img = document.createElement('img');
+        img.src = skin.image;
+        img.draggable = false;
+        img.style.cssText = 'width:100%; height:100%; object-fit:contain;';
+        img.onerror = function() {
+          window.handleSkinImgError(img, skin.emoji, false);
+        };
+        potatoDisplay.appendChild(img);
       }
     }
 
@@ -1795,11 +1857,13 @@
       bmContent.style.display = 'none';
 
       if (tab === 'skins') {
-        if (tabs[0]) tabs[0].classList.add('active');
+        var tSkins = getEl('shopTabSkins');
+        if (tSkins) tSkins.classList.add('active');
         skinsContent.style.display = 'block';
         renderShop();
       } else if (tab === 'gifts') {
-        if (tabs[1]) tabs[1].classList.add('active');
+        var tGifts = getEl('shopTabGifts');
+        if (tGifts) tGifts.classList.add('active');
         giftsContent.style.display = 'block';
         updateGiftUI();
       } else if (tab === 'blackmarket') {
@@ -1935,7 +1999,7 @@
       casinoReel.appendChild(div);
     }
 
-    window.activateMoaiTest = function() { forceMoai = true; playHaptic('medium'); alert(t.test_moai_alert); }
+    window.activateMoaiTest = function() { forceMoai = true; playHaptic('medium'); alert(t.test_moai_alert); };
 
     window.spinCasino = function() {
       if (isSpinning || !casinoReel || !spinBtn) return;
@@ -1944,7 +2008,7 @@
       isSpinning = true; balance -= spinCost; updateUI();
       spinBtn.disabled = true; playHaptic('medium'); 
       
-      if (isSoundEnabled) {
+      if (isSoundEnabled && caseSound) {
         try {
           caseSound.pause();
           caseSound.currentTime = 0;
@@ -2007,30 +2071,30 @@
     var slotSymbols = ['🥔', '🍟', '👻'];
     
     function buildStrip(stripId, targetSymbol, durationMs) {
-        var strip = getEl(stripId);
-        if(!strip) return;
-        
-        strip.style.transition = 'none';
-        strip.style.transform = 'translateY(0)';
-        strip.innerHTML = '';
-        
-        for (var i = 0; i < 30; i++) {
-            var sym = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
-            var div = document.createElement('div');
-            div.className = 'slot-item-symbol';
-            div.innerText = sym;
-            strip.appendChild(div);
-        }
-        
-        var targetDiv = document.createElement('div');
-        targetDiv.className = 'slot-item-symbol';
-        targetDiv.innerText = targetSymbol;
-        strip.appendChild(targetDiv);
+      var strip = getEl(stripId);
+      if (!strip) return;
+      
+      strip.style.transition = 'none';
+      strip.style.transform = 'translateY(0)';
+      strip.innerHTML = '';
+      
+      for (var i = 0; i < 30; i++) {
+        var sym = slotSymbols[Math.floor(Math.random() * slotSymbols.length)];
+        var div = document.createElement('div');
+        div.className = 'slot-item-symbol';
+        div.innerText = sym;
+        strip.appendChild(div);
+      }
+      
+      var targetDiv = document.createElement('div');
+      targetDiv.className = 'slot-item-symbol';
+      targetDiv.innerText = targetSymbol;
+      strip.appendChild(targetDiv);
 
-        void strip.offsetWidth;
+      void strip.offsetWidth;
 
-        strip.style.transition = 'transform ' + durationMs + 'ms cubic-bezier(0.15, 0.8, 0.3, 1)';
-        strip.style.transform = 'translateY(-' + (30 * 100) + 'px)';
+      strip.style.transition = 'transform ' + durationMs + 'ms cubic-bezier(0.15, 0.8, 0.3, 1)';
+      strip.style.transform = 'translateY(-' + (30 * 100) + 'px)';
     }
 
     window.spinSlots = function() {
@@ -2061,7 +2125,7 @@
       else if (roll < 0.2151) { finalSymbols = ['🥔', '🥔', Math.random() < 0.5 ? '🍟' : '👻']; winAmount = 100; winType = 'win'; } 
       else {
         var arr = ['🥔', '🍟', '👻'];
-        arr.sort(() => Math.random() - 0.5);
+        arr.sort(function() { return Math.random() - 0.5; });
         finalSymbols = arr;
         winAmount = 0; winType = 'none';
       }
@@ -2230,14 +2294,15 @@
 
     function handleTap(e) {
       var now = Date.now(); if (now - lastTapTime < 50) return; lastTapTime = now;
-      if (e.cancelable) e.preventDefault();
+      if (e && e.cancelable) e.preventDefault();
       playHaptic('light');
       var effectiveTapValue = getEffectiveTapValue();
       balance += effectiveTapValue; totalTaps += 1; updateUI();
 
+      if (!document.body) return;
       var float = document.createElement('div'); float.className = 'float-text'; float.innerText = '+' + formatMoney(effectiveTapValue); 
       var clientX = window.innerWidth / 2; var clientY = window.innerHeight / 2;
-      if (e.touches && e.touches[0]) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; } else if (e.clientX) { clientX = e.clientX; clientY = e.clientY; }
+      if (e && e.touches && e.touches[0]) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; } else if (e && e.clientX) { clientX = e.clientX; clientY = e.clientY; }
       float.style.left = clientX + 'px'; float.style.top = clientY + 'px';
       document.body.appendChild(float);
       setTimeout(function() { if (float.parentNode) float.parentNode.removeChild(float); }, 800);
@@ -2252,30 +2317,58 @@
         if (skin.fromBlackMarket && !isOwned) continue;
         var skinName = currentLang === 'en' ? skin.en_name : skin.name;
         var card = document.createElement('div'); card.className = 'card shop-card';
-        var previewStyle = (!isOwned && skin.id !== 0) ? 'filter: grayscale(100%) opacity(0.5);' : '';
-        var btnHtml = '';
-        if (isEquipped) { btnHtml = `<button class="btn btn-green" disabled>${t.equipped}</button>`; } 
-        else if (isOwned) { btnHtml = `<button class="btn" onclick="equipSkin(${skin.id})">${t.equip}</button>`; } 
-        else { btnHtml = `<button class="btn btn-blue" onclick="buySkin(${skin.id})">${t.buy} (${formatMoney(skin.price, 0)} ₽)</button>`; }
+        var isLocked = (!isOwned && skin.id !== 0);
         
-        var previewHtml = `<img src="${skin.image}" style="${previewStyle}" onerror="this.style.display='none'; this.parentNode.innerHTML='<span style=\\'${previewStyle}\\'>${skin.emoji}</span>';">`;
+        var previewBox = document.createElement('div');
+        previewBox.className = 'shop-preview';
+        var img = document.createElement('img');
+        img.src = skin.image;
+        if (isLocked) {
+          img.style.filter = 'grayscale(100%) opacity(0.5)';
+        }
+        img.onerror = (function(imgRef, emj, locked) {
+          return function() { window.handleSkinImgError(imgRef, emj, locked); };
+        })(img, skin.emoji, isLocked);
+        previewBox.appendChild(img);
 
-        card.innerHTML = `<div class="shop-preview">${previewHtml}</div><div class="card-title" style="margin-bottom: 8px;">${skinName}</div>${btnHtml}`;
+        var titleDiv = document.createElement('div');
+        titleDiv.className = 'card-title';
+        titleDiv.style.marginBottom = '8px';
+        titleDiv.innerText = skinName;
+
+        var btn = document.createElement('button');
+        btn.className = 'btn';
+        if (isEquipped) {
+          btn.classList.add('btn-green');
+          btn.disabled = true;
+          btn.innerText = t.equipped;
+        } else if (isOwned) {
+          btn.innerText = t.equip;
+          btn.onclick = (function(sid) { return function() { window.equipSkin(sid); }; })(skin.id);
+        } else {
+          btn.classList.add('btn-blue');
+          btn.innerText = t.buy + ' (' + formatMoney(skin.price, 0) + ' ₽)';
+          btn.onclick = (function(sid) { return function() { window.buySkin(sid); }; })(skin.id);
+        }
+
+        card.appendChild(previewBox);
+        card.appendChild(titleDiv);
+        card.appendChild(btn);
         shopList.appendChild(card);
       }
     }
 
     window.buySkin = function(id) {
-      var skin = skinsData.find(s => s.id === id);
+      var skin = skinsData.find(function(s) { return s.id === id; });
       if (!skin) return;
       if (balance >= skin.price) {
         balance -= skin.price; ownedSkins.push(id);
         if (id === 1) { playSound('buy_gold'); } else if (id === 2) { playSound('buy_ghost'); } else { playSound('upgrade'); }
         playHaptic('success'); updateUI(); renderShop();
       } else { playHaptic('error'); alert(t.not_enough_money); }
-    }
+    };
 
-    window.equipSkin = function(id) { equippedSkin = id; updatePotatoSkin(); save(); renderShop(); playHaptic('medium'); }
+    window.equipSkin = function(id) { equippedSkin = id; updatePotatoSkin(); save(); renderShop(); playHaptic('medium'); };
 
     function renderUpgrades() {
       if (!upgradesList) return; upgradesList.innerHTML = '';
@@ -2405,11 +2498,11 @@
         if (isUnlocked) { card.classList.add('rgb-glow'); } else { card.style.opacity = '0.5'; card.style.filter = 'grayscale(100%)'; }
         
         var iconHtml = ach.icon === 'wood' 
-          ? `<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/><ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/><ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/><ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/><ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/><path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>` 
-          : `<div class="card-icon">${ach.icon}</div>`;
+          ? '<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/><ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/><ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/><ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/><ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/><path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>' 
+          : '<div class="card-icon">' + ach.icon + '</div>';
         
-        var statusHtml = isUnlocked ? `<div class="card-status status-unlocked">${t.ach_unlocked}</div>` : `<div class="card-status status-locked">${t.ach_locked}</div>`;
-        card.innerHTML = `${iconHtml}<div class="card-content"><div class="card-title">${ach.title}</div><div class="card-desc">${ach.desc}</div>${statusHtml}</div>`;
+        var statusHtml = isUnlocked ? '<div class="card-status status-unlocked">' + t.ach_unlocked + '</div>' : '<div class="card-status status-locked">' + t.ach_locked + '</div>';
+        card.innerHTML = iconHtml + '<div class="card-content"><div class="card-title">' + ach.title + '</div><div class="card-desc">' + ach.desc + '</div>' + statusHtml + '</div>';
         achievementsList.appendChild(card);
       }
     }
@@ -2498,7 +2591,7 @@
       }
       
       if (name === 'achievements' || name === 'events-history' || name === 'shop' || name === 'casino' || name === 'casino-box' || name === 'casino-slots' || name === 'casino-wheel' || name === 'settings') { 
-        for (var m = 0; m < menuItems.length; m++) menuItems[m].classList.remove('active'); 
+        for (var k = 0; k < menuItems.length; k++) menuItems[k].classList.remove('active'); 
       }
 
       if (topBalanceBar) {
@@ -2519,11 +2612,32 @@
     var openProfileBtn = getEl('openProfile'); if (openProfileBtn) { openProfileBtn.onclick = function() { showScreen('profile'); }; }
     
     var menuItems = document.querySelectorAll('.menu-item');
-    for (var i = 0; i < menuItems.length; i++) { menuItems[i].onclick = function() { showScreen(this.getAttribute('data-screen')); }; }
+    for (var i = 0; i < menuItems.length; i++) {
+      menuItems[i].onclick = function() {
+        var scr = this.getAttribute('data-screen');
+        if (scr) showScreen(scr);
+      };
+    }
 
     var tabTapBtn = getEl('tabTap'); var tabAutoBtn = getEl('tabAuto');
-    if (tabTapBtn) { tabTapBtn.onclick = function() { playHaptic('medium'); currentTab = 'tap'; this.classList.add('active'); if (tabAutoBtn) tabAutoBtn.classList.remove('active'); renderUpgrades(); }; }
-    if (tabAutoBtn) { tabAutoBtn.onclick = function() { playHaptic('medium'); currentTab = 'auto'; this.classList.add('active'); if (tabTapBtn) tabTapBtn.classList.remove('active'); renderUpgrades(); }; }
+    if (tabTapBtn) {
+      tabTapBtn.onclick = function() {
+        playHaptic('medium');
+        currentTab = 'tap';
+        tabTapBtn.classList.add('active');
+        if (tabAutoBtn) tabAutoBtn.classList.remove('active');
+        renderUpgrades();
+      };
+    }
+    if (tabAutoBtn) {
+      tabAutoBtn.onclick = function() {
+        playHaptic('medium');
+        currentTab = 'auto';
+        tabAutoBtn.classList.add('active');
+        if (tabTapBtn) tabTapBtn.classList.remove('active');
+        renderUpgrades();
+      };
+    }
 
     window.withdrawMoney = function() {
       if (balance < 10) { playHaptic('error'); alert(t.min_withdraw); return; }
