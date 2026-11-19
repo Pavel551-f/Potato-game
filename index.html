@@ -21,7 +21,6 @@
       transition: background 0.4s ease;
     }
 
-    /* Сезонные фоны */
     body.season-halloween {
       background: linear-gradient(180deg, #1b0a26, #3b1208);
     }
@@ -34,7 +33,6 @@
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; overflow-y: auto; }
 
-    /* === БАННЕР СОБЫТИЙ === */
     #eventBanner {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 40px;
       background: #7c3aed; color: white; z-index: 9999;
@@ -48,7 +46,6 @@
       cursor: pointer;
     }
 
-    /* СДВИГ ИНТЕРФЕЙСА ПРИ АКТИВНОМ БАННЕРЕ СОБЫТИЙ */
     body.has-event-banner .top-balance,
     body.has-event-banner .btn-top-back {
       top: 54px;
@@ -80,7 +77,6 @@
       padding-top: 52px;
     }
 
-    /* ВЕРХНИЙ БАЛАНС (СПРАВА) */
     .top-balance { 
       position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 10px; 
       background: rgba(0,0,0,0.45); padding: 4px 4px 4px 10px; z-index: 60; cursor: pointer; 
@@ -93,7 +89,6 @@
     .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; transition: color 0.3s; }
     .top-balance-value.negative { color: #ef4444; } 
 
-    /* КНОПКА НАЗАД (СЛЕВА) */
     .btn-top-back {
       position: absolute; top: 14px; left: 14px; z-index: 70;
       background: rgba(76, 29, 149, 0.7);
@@ -104,7 +99,6 @@
     }
     .btn-top-back:active { border-color: #4c1d95 #a855f7 #a855f7 #4c1d95; }
 
-    /* КНОПКА ИНФО (❓) */
     .btn-info {
       position: fixed; bottom: 90px; right: 20px; z-index: 80;
       background: rgba(59, 130, 246, 0.8);
@@ -115,7 +109,6 @@
     }
     .btn-info:active { border-color: #1e40af #93c5fd #93c5fd #1e40af; transform: scale(0.95); }
 
-    /* КНОПКИ НА ГЛАВНОМ */
     .main-btns-container {
       position: absolute; top: 60px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
       transition: top 0.2s ease;
@@ -178,7 +171,6 @@
     .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; text-align: center; }
     .active-buffs-info { margin-top: 8px; font-size: 8px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
 
-    /* ВКЛАДКИ УЛУЧШЕНИЙ */
     .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; transition: padding-top 0.2s ease; }
     .tab-btn { 
       flex: 1; padding: 12px 6px; font-size: 10px; 
@@ -188,7 +180,6 @@
     }
     .tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; transform: translateY(2px); }
 
-    /* ВКЛАДКИ МАГАЗИНА */
     .shop-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; padding: 80px 16px 0; transition: padding-top 0.2s ease; }
     .shop-tab-btn { 
       flex: 1 1 30%; padding: 10px 6px; font-size: 8px; 
@@ -247,7 +238,6 @@
     .status-locked { color: #6b7280; }
     .status-unlocked { color: #10b981; }
     
-    /* === RGB ПОДСВЕТКА === */
     .rgb-glow {
       background-color: rgba(255, 255, 255, 0.09) !important;
       animation: borderRGB 3s linear infinite !important;
@@ -285,28 +275,30 @@
     .gift-title { font-size: 12px; color: #fff; margin-bottom: 15px; text-shadow: 2px 2px 0 #000; }
     .gift-box-inner {
       width: 100%; aspect-ratio: 1/1; background: #ff00ff; border: 4px solid #000;
-      display: flex; justify-content: center; align-items: center; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden;
       background-image: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%), radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%);
       background-size: 30px 30px; background-position: 0 0, 15px 15px;
     }
     .bg-potato { position: absolute; font-size: 35px; opacity: 0.15; z-index: 1; pointer-events: none; }
-    .gift-reward-text { font-size: 24px; color: #fff; text-shadow: 3px 3px 0 #000; margin-top: 10px; z-index: 2; position: relative;}
+    .gift-reward-text { font-size: 20px; color: #fff; text-shadow: 3px 3px 0 #000; margin-top: 6px; z-index: 2; position: relative; text-align: center; padding: 0 8px; }
+    .gift-reward-sub { font-size: 9px; color: #e9d5ff; text-shadow: 2px 2px 0 #000; margin-top: 8px; z-index: 2; position: relative; text-align: center; line-height: 1.5; }
     .gift-reward-text.jackpot { color: #fde047; animation: pulse 1s infinite alternate; }
     @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-    .gift-btn-bottom { width: 100%; background: #374151; padding: 15px 0; margin-top: -4px; border: 4px solid #000; font-size: 12px; color: #fff; text-align: center; cursor: pointer; font-family: inherit; }
+    .gift-btn-bottom {
+      width: 100%; background: #374151; padding: 13px 10px; margin-top: -4px; border: 4px solid #000;
+      font-size: 10px; line-height: 1.4; color: #fff; text-align: center; cursor: pointer; font-family: inherit;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
     .gift-btn-bottom:active { background: #1f2937; }
-    .gift-btn-bottom:disabled { background: #4b5563; color: #9ca3af; cursor: not-allowed; }
-    .gift-lock { position: absolute; bottom: -15px; left: -15px; width: 50px; height: 50px; background: #fff; border: 3px solid #000; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 24px; color: #000; z-index: 10; }
-    .gift-timer { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: #fff; padding: 4px 8px; font-size: 10px; border: 2px solid #fff; z-index: 10; }
+    .gift-btn-bottom:disabled { background: #4b5563; color: #e5e7eb; cursor: not-allowed; }
+    .gift-lock-inline { font-size: 13px; flex-shrink: 0; }
 
-    /* КАЗИНО МЕНЮ */
     .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 80px 16px 30px; gap: 20px; transition: padding-top 0.2s ease; }
     .casino-title { font-size: 16px; color: #fde047; margin-bottom: 20px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
     .casino-game-card { width: 100%; max-width: 320px; cursor: pointer; background: rgba(255,255,255,0.09); padding: 20px; display: flex; align-items: center; gap: 15px; border: 3px solid; border-color: #fde047 #a16207 #a16207 #fde047; transition: transform 0.1s; }
     .casino-game-card:active { transform: scale(0.98); border-color: #a16207 #fde047 #fde047 #a16207; }
     .casino-game-card .card-icon { font-size: 40px; }
 
-    /* РУЛЕТКА (ЯЩИК КАРТОШКИ) */
     .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
     .reel-window { width: 100%; max-width: 320px; height: 90px; overflow: hidden; position: relative; background: rgba(0,0,0,0.5); border: 4px solid #a855f7; margin-bottom: 30px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
     .reel { display: flex; height: 100%; align-items: center; position: absolute; left: 0; top: 0; transition: transform 9s cubic-bezier(0.1, 0.8, 0.1, 1); }
@@ -319,14 +311,12 @@
     .pointer::before { top: 0; border-top: 15px solid #a855f7; }
     .pointer::after { bottom: 0; border-bottom: 15px solid #a855f7; }
 
-    /* СЛОТ-МАШИНА (ГРУЗОВИК КАРТОШКИ) */
     .slots-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
     .slots-window { display: flex; gap: 10px; margin-bottom: 30px; background: #1a1625; padding: 15px; border: 4px solid #a855f7; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); border-radius: 10px; }
     .slot-reel { width: 70px; height: 100px; background: #2e1065; border: 3px solid #4c1d95; border-radius: 8px; overflow: hidden; position: relative; }
     .reel-strip { display: flex; flex-direction: column; align-items: center; position: absolute; top: 0; left: 0; width: 100%; }
     .slot-item-symbol { width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 40px; flex-shrink: 0; }
 
-    /* ПОЛЕ КАРТОШКИ (КОЛЕСО) */
     .wheel-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
     .wheel-wrapper { position: relative; width: 280px; height: 280px; margin-bottom: 30px; }
     
@@ -360,7 +350,6 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    /* ПРОФИЛЬ */
     .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; transition: padding-top 0.2s ease; }
     .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 14px; image-rendering: pixelated; background: #4c1d95;}
     .profile-name { font-size: 12px; margin-bottom: 5px; text-align: center; color: #fff; }
@@ -376,7 +365,6 @@
     .progress-fill { height: 100%; background: #10b981; width: 0%; transition: width 0.3s; }
     .progress-hint { font-size: 8px; color: #9ca3af; margin-top: 10px; text-align: center; line-height: 1.5; }
 
-    /* НАСТРОЙКИ */
     #screen-settings { background: linear-gradient(180deg, #2e1065, #1e1b4b); overflow: hidden; }
     #rocket-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
     .rocket { position: absolute; font-size: 30px; opacity: 0.3; }
@@ -387,7 +375,6 @@
     .toggle-btn { background: #4b5563; color: #fff; border: 3px solid #374151; padding: 8px 12px; font-size: 10px; font-family: inherit; cursor: pointer; border-radius: 8px; width: 80px; text-align: center; }
     .toggle-btn.active { background: #10b981; border-color: #6ee7b7; }
 
-    /* РЕЙТИНГ */
     .rating-container { flex: 1; overflow-y: auto; padding: 20px 16px 100px; }
     .rating-row { display: flex; align-items: center; padding: 12px; margin-bottom: 12px; background: rgba(255,255,255,0.09); border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
     .rating-rank { width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; font-size: 10px; margin-right: 12px; background: #eab308; color: #000; flex-shrink: 0; border: 2px solid #000; }
@@ -425,7 +412,6 @@
 </head>
 <body>
 
-  <!-- БАННЕР СОБЫТИЙ -->
   <div id="eventBanner" onclick="handleEventBannerClick()"><span id="eventBannerText"></span></div>
 
   <div id="error-screen"></div>
@@ -439,7 +425,6 @@
     </div>
   </div>
 
-  <!-- МОДАЛКА ИНСТРУКЦИИ -->
   <div class="modal-overlay" id="infoModal">
     <div class="modal-content">
       <h3 id="infoTitle" data-i18n="info_title">ИНСТРУКЦИЯ</h3>
@@ -448,7 +433,6 @@
     </div>
   </div>
 
-  <!-- МОДАЛКА УВЕДОМЛЕНИЯ О СОБЫТИИ -->
   <div class="modal-overlay" id="eventNoticeModal">
     <div class="modal-content" style="text-align: center;">
       <h3 id="eventNoticeTitle"></h3>
@@ -457,7 +441,6 @@
     </div>
   </div>
 
-  <!-- ТЕСТОВОЕ МЕНЮ ИВЕНТОВ -->
   <div class="modal-overlay" id="testEventModal">
     <div class="modal-content" style="text-align: center;">
       <h3 data-i18n="test_events_title">🧪 ТЕСТ СОБЫТИЙ</h3>
@@ -502,7 +485,6 @@
     </div>
   </div>
 
-  <!-- МАГАЗИН -->
   <div class="screen" id="screen-shop">
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="shop-tabs">
@@ -520,7 +502,6 @@
         <div class="gift-card">
           <div class="gift-title" data-i18n="daily_gift_title">Ежедневный подарок</div>
           <div class="gift-box-inner">
-            <div class="gift-timer" id="giftTimer">00:00</div>
             <div class="bg-potato" style="top: 10%; left: 15%; transform: rotate(15deg);">🥔</div>
             <div class="bg-potato" style="top: 20%; right: 10%; transform: rotate(-25deg);">🥔</div>
             <div class="bg-potato" style="bottom: 15%; left: 20%; transform: rotate(45deg);">🥔</div>
@@ -531,14 +512,17 @@
             <div class="bg-potato" style="bottom: 5%; right: 45%; transform: rotate(-45deg);">🥔</div>
 
             <div id="giftRewardDisplay" style="display: none; flex-direction: column; align-items: center; z-index: 2; position: relative;">
-              <div class="gift-reward-text" id="giftRewardText">₽ 10</div>
-              <div id="jackpotText" style="display: none; color: #fde047; font-size: 10px; margin-top: 10px; text-shadow: 2px 2px 0 #000;">ДЖЕКПОТ!</div>
+              <div class="gift-reward-text" id="giftRewardText">+10.000 ₽</div>
+              <div class="gift-reward-sub" id="giftBalanceNote"></div>
+              <div id="jackpotText" style="display: none; color: #fde047; font-size: 10px; margin-top: 8px; text-shadow: 2px 2px 0 #000;">ДЖЕКПОТ!</div>
             </div>
             
             <div id="giftQuestion" style="font-size: 60px; text-shadow: 4px 4px 0 #000; z-index: 2; position: relative;">?</div>
-            <div class="gift-lock" id="giftLockIcon">🔒</div>
           </div>
-          <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()" data-i18n="daily_gift_btn">ПОДАРОК</button>
+          <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()">
+            <span class="gift-lock-inline" id="giftLockIcon" style="display: none;">🔒</span>
+            <span id="giftBtnText" data-i18n="daily_gift_btn">ПОДАРОК</span>
+          </button>
         </div>
       </div>
     </div>
@@ -552,7 +536,6 @@
     </div>
   </div>
 
-  <!-- МЕНЮ КАЗИНО -->
   <div class="screen" id="screen-casino">
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="casino-menu-container">
@@ -584,7 +567,6 @@
     </div>
   </div>
 
-  <!-- РУЛЕТКА (ЯЩИК КАРТОШКИ) -->
   <div class="screen" id="screen-casino-box">
     <button class="btn-top-back" onclick="showScreen('casino')">◀</button>
     <button class="btn-info" onclick="openInfo('box')">❓</button>
@@ -598,7 +580,6 @@
     </div>
   </div>
 
-  <!-- СЛОТЫ (ГРУЗОВИК КАРТОШКИ) -->
   <div class="screen" id="screen-casino-slots">
     <button class="btn-top-back" onclick="showScreen('casino')">◀</button>
     <button class="btn-info" onclick="openInfo('slots')">❓</button>
@@ -618,7 +599,6 @@
     </div>
   </div>
 
-  <!-- ПОЛЕ КАРТОШКИ (КОЛЕСО) -->
   <div class="screen" id="screen-casino-wheel">
     <button class="btn-top-back" onclick="showScreen('casino')">◀</button>
     <button class="btn-info" onclick="openInfo('wheel')">❓</button>
@@ -643,13 +623,11 @@
     <div class="list-content" id="questsList"></div>
   </div>
 
-  <!-- ДОСТИЖЕНИЯ -->
   <div class="screen" id="screen-achievements">
     <button class="btn-top-back" onclick="showScreen('profile')">✖</button>
     <div class="list-content" id="achievementsList"></div>
   </div>
 
-  <!-- ИСТОРИЯ СОБЫТИЙ -->
   <div class="screen" id="screen-events-history">
     <button class="btn-top-back" onclick="showScreen('profile')">✖</button>
     <div class="list-content" id="eventsHistoryList"></div>
@@ -662,7 +640,6 @@
     </div>
   </div>
 
-  <!-- НАСТРОЙКИ -->
   <div class="screen" id="screen-settings">
     <div id="rocket-bg"></div>
     <div class="settings-content">
@@ -681,7 +658,6 @@
 
       <button class="btn btn-blue" style="width: 100%; margin-top: 10px;" onclick="openLangMenu()" data-i18n="lang_btn">🌐 Язык / Language</button>
       
-      <!-- КНОПКА ТЕСТА ИВЕНТОВ -->
       <button class="btn" style="width: 100%; background: #8b5cf6; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;" onclick="openTestEventMenu()" data-i18n="test_events_btn">🧪 Тест Событий</button>
 
       <button class="btn btn-grey" style="width: 100%; background: #f59e0b; border-color: #fbbf24 #b45309 #b45309 #fbbf24;" onclick="openSupport()" data-i18n="support_btn">📢 Помощь и поддержка</button>
@@ -717,7 +693,6 @@
   </div>
 
   <script>
-    // Безопасная обёртка над localStorage
     var memoryStorage = {};
     var safeStorage = {
       getItem: function(key) {
@@ -783,7 +758,9 @@
         history_period: "Период: {start} — {end}",
         history_bought_bm: "Куплено лотов рынка: {count}",
         history_active: "Статус: Активно", history_finished: "Статус: Завершено",
-        daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!", gift_wait: "Доступно через", gift_ready: "Забрать!",
+        daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!",
+        gift_wait_prefix: "Доступно через", gift_ready: "Забрать!",
+        gift_added_note: "Пришло на ваш баланс",
         casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)", spin_slots_btn: "КРУТИТЬ (100 ₽)", spin_wheel_btn: "КРУТИТЬ (500 ₽)",
         casino_title: "🎰 КАЗИНО 🎰", potato_box: "Ящик картошки", potato_box_desc: "Классическая рулетка (5 ₽)", potato_truck: "Грузовик картошки", potato_truck_desc: "Слот-машина (100 ₽)", potato_field: "Поле картошки", potato_field_desc: "Колесо Фортуны (500 ₽)",
         settings_btn: "⚙️ Настройки", settings_title: "Настройки", sound_effects: "Звуковые эффекты", vibration: "Вибрация", on: "ВКЛ", off: "ВЫКЛ", lang_btn: "🌐 Язык / Language", support_btn: "📢 Помощь и поддержка",
@@ -891,7 +868,9 @@
         history_period: "Period: {start} — {end}",
         history_bought_bm: "Market lots bought: {count}",
         history_active: "Status: Active", history_finished: "Status: Finished",
-        daily_gift_title: "DAILY GIFT", daily_gift_btn: "GIFT", jackpot: "JACKPOT!", gift_wait: "Available in", gift_ready: "Claim!",
+        daily_gift_title: "DAILY GIFT", daily_gift_btn: "GIFT", jackpot: "JACKPOT!",
+        gift_wait_prefix: "Available in", gift_ready: "Claim!",
+        gift_added_note: "Added to your balance",
         casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", spin_slots_btn: "SPIN (100 ₽)", spin_wheel_btn: "SPIN (500 ₽)",
         casino_title: "🎰 CASINO 🎰", potato_box: "Potato Box", potato_box_desc: "Classic roulette (5 ₽)", potato_truck: "Potato Truck", potato_truck_desc: "Slot machine (100 ₽)", potato_field: "Potato Field", potato_field_desc: "Wheel of Fortune (500 ₽)",
         settings_btn: "⚙️ Settings", settings_title: "Settings", sound_effects: "Sound Effects", vibration: "Vibration", on: "ON", off: "OFF", lang_btn: "🌐 Language / Язык", support_btn: "📢 Help & Support",
@@ -1010,15 +989,74 @@
     var audioCtx = null;
     function initAudio() {
       if (!audioCtx) { try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {} }
-      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+      if (audioCtx && audioCtx.state === 'suspended') {
+        try { audioCtx.resume(); } catch(e) {}
+      }
     }
     if (document.body) {
       document.body.addEventListener('click', initAudio, { once: true });
       document.body.addEventListener('touchstart', initAudio, { once: true });
     }
 
+    var caseOpenTimers = [];
+    function stopCaseOpenSound() {
+      for (var i = 0; i < caseOpenTimers.length; i++) {
+        clearTimeout(caseOpenTimers[i]);
+      }
+      caseOpenTimers = [];
+    }
+
+    function playCaseOpenSound(durationSec) {
+      stopCaseOpenSound();
+      if (!isSoundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+
+      var totalMs = durationSec * 1000;
+      var elapsed = 0;
+      var step = 48;
+
+      function scheduleTick(tOffset, freq, gainVal, dur) {
+        var timerId = setTimeout(function() {
+          if (!isSoundEnabled || !audioCtx || !isSpinning) return;
+          try {
+            var osc = audioCtx.createOscillator();
+            var gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+            osc.type = 'square';
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(gainVal, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + dur);
+            osc.start(audioCtx.currentTime);
+            osc.stop(audioCtx.currentTime + dur);
+          } catch (e) {}
+        }, tOffset);
+        caseOpenTimers.push(timerId);
+      }
+
+      var idx = 0;
+      while (elapsed < totalMs - 80) {
+        var progress = elapsed / totalMs;
+        var freq = 720 + Math.sin(idx * 0.7) * 140 + progress * 220;
+        var vol = progress > 0.85 ? 0.045 : 0.03;
+        scheduleTick(elapsed, freq, vol, 0.035);
+        idx++;
+        if (progress < 0.55) {
+          step = 48;
+        } else if (progress < 0.8) {
+          step = 48 + Math.round((progress - 0.55) * 420);
+        } else {
+          step = 155 + Math.round((progress - 0.8) * 900);
+        }
+        elapsed += step;
+      }
+    }
+
     function playSound(type) {
-      if (!isSoundEnabled || !audioCtx) return; 
+      if (!isSoundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
       var osc = audioCtx.createOscillator(); var gain = audioCtx.createGain();
       osc.connect(gain); gain.connect(audioCtx.destination);
       var now = audioCtx.currentTime;
@@ -1067,7 +1105,9 @@
     }
 
     function playSlotSpinSound(totalDuration) {
-      if (!isSoundEnabled || !audioCtx) return;
+      if (!isSoundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
       var now = audioCtx.currentTime;
       var time = now;
       var interval = 0.05; 
@@ -1096,7 +1136,9 @@
     }
 
     function playWheelSpinSound(totalDuration) {
-      if (!isSoundEnabled || !audioCtx) return;
+      if (!isSoundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
       var now = audioCtx.currentTime;
       var time = now;
       var interval = 0.04; 
@@ -1154,7 +1196,13 @@
       }
     }
 
-    window.toggleSound = function() { isSoundEnabled = !isSoundEnabled; safeStorage.setItem('soundEnabled', isSoundEnabled); updateSettingsUI(); playHaptic('light'); };
+    window.toggleSound = function() {
+      isSoundEnabled = !isSoundEnabled;
+      safeStorage.setItem('soundEnabled', isSoundEnabled);
+      if (!isSoundEnabled) stopCaseOpenSound();
+      updateSettingsUI();
+      playHaptic('light');
+    };
     window.toggleVibration = function() {
       isVibrationEnabled = !isVibrationEnabled; safeStorage.setItem('vibrationEnabled', isVibrationEnabled); updateSettingsUI();
       if (isVibrationEnabled && navigator.vibrate) navigator.vibrate(30); else if (isVibrationEnabled && tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
@@ -1213,7 +1261,6 @@
       playHaptic('light');
     };
 
-    // === СОСТОЯНИЕ ИГРЫ, ЧЁРНОГО РЫНКА, БУСТОВ И СОБЫТИЙ ===
     var tg = null;
     try { if (window.Telegram && window.Telegram.WebApp) { tg = window.Telegram.WebApp; tg.ready(); tg.expand(); } } catch(e) {}
 
@@ -1307,14 +1354,12 @@
 
     var lastGiftTime = parseInt(safeStorage.getItem('lastGiftTime'), 10) || 0;
     var giftCooldown = 24 * 60 * 60 * 1000; var giftTimerInterval = null;
+    var lastGiftRewardShown = null;
 
     var isSpinning = false; var spinCost = 5; var forceMoai = false; var SPIN_DURATION = 9000; 
     var isSlotsSpinning = false; var slotsCost = 100;
     var isWheelSpinning = false; var wheelCost = 500;
     var currentWheelRotation = 0;
-
-    var caseSound = null;
-    try { caseSound = new Audio('case_open.mp3'); } catch(e) {}
 
     var rankMultipliers = [1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5];
     var currentMultiplier = 1.05;
@@ -1795,20 +1840,48 @@
 
     function updateGiftUI() {
       var now = Date.now(); var timeLeft = giftCooldown - (now - lastGiftTime);
-      var timerEl = getEl('giftTimer'); var lockEl = getEl('giftLockIcon'); var btnEl = getEl('giftBtn'); var questionEl = getEl('giftQuestion'); var rewardDisplayEl = getEl('giftRewardDisplay'); var jackpotEl = getEl('jackpotText');
-      if (!timerEl || !lockEl || !btnEl || !questionEl || !rewardDisplayEl) return;
+      var lockEl = getEl('giftLockIcon'); var btnEl = getEl('giftBtn'); var btnTextEl = getEl('giftBtnText');
+      var questionEl = getEl('giftQuestion'); var rewardDisplayEl = getEl('giftRewardDisplay');
+      var rewardTextEl = getEl('giftRewardText'); var rewardNoteEl = getEl('giftBalanceNote');
+      var jackpotEl = getEl('jackpotText');
+      if (!btnEl || !btnTextEl || !questionEl || !rewardDisplayEl) return;
 
       if (jackpotEl) jackpotEl.innerText = t.jackpot;
 
       if (timeLeft > 0) {
-        var hours = Math.floor(timeLeft / (1000 * 60 * 60)); var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        var hours = Math.floor(timeLeft / (1000 * 60 * 60));
+        var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
         var hUnit = currentLang === 'ru' ? 'ч ' : 'h ';
-        var mUnit = currentLang === 'ru' ? 'м' : 'm';
-        timerEl.innerText = hours + hUnit + minutes + mUnit; timerEl.style.display = 'block'; lockEl.style.display = 'flex'; btnEl.disabled = true; btnEl.innerText = t.gift_wait;
-        questionEl.style.display = 'flex'; rewardDisplayEl.style.display = 'none';
+        var mUnit = currentLang === 'ru' ? 'м ' : 'm ';
+        var sUnit = currentLang === 'ru' ? 'с' : 's';
+        var timeStr = hours + hUnit + minutes + mUnit + seconds + sUnit;
+
+        if (lockEl) lockEl.style.display = 'inline';
+        btnEl.disabled = true;
+        btnTextEl.innerText = t.gift_wait_prefix + ' ' + timeStr;
+
+        if (lastGiftRewardShown) {
+          questionEl.style.display = 'none';
+          rewardDisplayEl.style.display = 'flex';
+          if (rewardTextEl) {
+            rewardTextEl.innerText = '+' + formatMoney(lastGiftRewardShown.amount) + ' ₽';
+            if (lastGiftRewardShown.isJackpot) rewardTextEl.classList.add('jackpot');
+            else rewardTextEl.classList.remove('jackpot');
+          }
+          if (rewardNoteEl) rewardNoteEl.innerText = t.gift_added_note;
+          if (jackpotEl) jackpotEl.style.display = lastGiftRewardShown.isJackpot ? 'block' : 'none';
+        } else {
+          questionEl.style.display = 'flex';
+          rewardDisplayEl.style.display = 'none';
+        }
       } else {
-        timerEl.style.display = 'none'; lockEl.style.display = 'none'; btnEl.disabled = false; btnEl.innerText = t.daily_gift_btn;
-        questionEl.style.display = 'flex'; rewardDisplayEl.style.display = 'none';
+        lastGiftRewardShown = null;
+        if (lockEl) lockEl.style.display = 'none';
+        btnEl.disabled = false;
+        btnTextEl.innerText = t.daily_gift_btn;
+        questionEl.style.display = 'flex';
+        rewardDisplayEl.style.display = 'none';
       }
     }
 
@@ -1821,23 +1894,34 @@
       else { reward = Math.random() * (1 - 0.001) + 0.001; }
       
       reward = parseFloat(reward.toFixed(3));
-      balance += reward; lastGiftTime = Date.now(); save(); updateUI();
+      balance += reward; lastGiftTime = Date.now();
+      lastGiftRewardShown = { amount: reward, isJackpot: isJackpot };
+      save(); updateUI();
       
-      var questionEl = getEl('giftQuestion'); var rewardDisplayEl = getEl('giftRewardDisplay'); var rewardTextEl = getEl('giftRewardText'); var jackpotEl = getEl('jackpotText');
-      if (questionEl) questionEl.style.display = 'none'; if (rewardDisplayEl) rewardDisplayEl.style.display = 'flex';
-      if (rewardTextEl) rewardTextEl.innerText = '₽ ' + formatMoney(reward); 
+      var questionEl = getEl('giftQuestion'); var rewardDisplayEl = getEl('giftRewardDisplay');
+      var rewardTextEl = getEl('giftRewardText'); var rewardNoteEl = getEl('giftBalanceNote'); var jackpotEl = getEl('jackpotText');
+      if (questionEl) questionEl.style.display = 'none';
+      if (rewardDisplayEl) rewardDisplayEl.style.display = 'flex';
+      if (rewardTextEl) rewardTextEl.innerText = '+' + formatMoney(reward) + ' ₽';
+      if (rewardNoteEl) rewardNoteEl.innerText = t.gift_added_note;
       
       if (isJackpot) {
-        if (rewardTextEl) rewardTextEl.classList.add('jackpot'); if (jackpotEl) { jackpotEl.style.display = 'block'; jackpotEl.innerText = t.jackpot; }
+        if (rewardTextEl) rewardTextEl.classList.add('jackpot');
+        if (jackpotEl) { jackpotEl.style.display = 'block'; jackpotEl.innerText = t.jackpot; }
         playSound('quest_claim_10'); playHaptic('heavy'); 
         if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); setTimeout(function() { playSound('achievement'); }, 500); }
       } else {
-        if (rewardTextEl) rewardTextEl.classList.remove('jackpot'); if (jackpotEl) jackpotEl.style.display = 'none';
+        if (rewardTextEl) rewardTextEl.classList.remove('jackpot');
+        if (jackpotEl) jackpotEl.style.display = 'none';
         playSound('quest_claim'); playHaptic('success');
       }
       updateGiftUI();
       if (giftTimerInterval) clearInterval(giftTimerInterval);
-      giftTimerInterval = setInterval(updateGiftUI, 60000); 
+      giftTimerInterval = setInterval(function() {
+        updateGiftUI();
+        checkEvents(false);
+        updateBuffsInfo();
+      }, 1000); 
     };
 
     window.switchShopTab = function(tab) {
@@ -1979,7 +2063,6 @@
       return 0;
     }
 
-    // === РУЛЕТКА (ЯЩИК КАРТОШКИ) ===
     var casinoItems = [
       { type: 'money', value: 1 }, { type: 'money', value: 2 }, { type: 'money', value: 5 }, { type: 'money', value: 10 }, { type: 'money', value: 25 }, { type: 'money', value: 50 }, { type: 'money', value: 100 }, { type: 'money', value: 500 }, { type: 'money', value: 1000 },
       { type: 'money', value: -1 }, { type: 'money', value: -2 }, { type: 'money', value: -5 }, { type: 'money', value: -10 }, { type: 'money', value: -25 }, { type: 'money', value: -50 }, { type: 'money', value: -100 }, { type: 'money', value: -500 }, { type: 'money', value: -1000 }
@@ -2007,14 +2090,7 @@
       
       isSpinning = true; balance -= spinCost; updateUI();
       spinBtn.disabled = true; playHaptic('medium'); 
-      
-      if (isSoundEnabled && caseSound) {
-        try {
-          caseSound.pause();
-          caseSound.currentTime = 0;
-          caseSound.play().catch(function() {});
-        } catch(e) {}
-      }
+      playCaseOpenSound(SPIN_DURATION / 1000);
       
       var winItem = null;
       if (forceMoai) { winItem = { type: 'moai' }; forceMoai = false; } 
@@ -2040,14 +2116,9 @@
         casinoReel.style.transform = 'translateX(-' + targetPosition + 'px)';
         
         setTimeout(function() {
-          isSpinning = false; spinBtn.disabled = false;
-          
-          if (caseSound) {
-            try {
-              caseSound.pause();
-              caseSound.currentTime = 0;
-            } catch(e) {}
-          }
+          isSpinning = false;
+          stopCaseOpenSound();
+          spinBtn.disabled = false;
 
           if (winItem.type === 'moai') {
             balance = 0; updateUI(); playSound('quest_claim_10'); playHaptic('heavy'); alert(t.moai_win);
@@ -2063,11 +2134,10 @@
             else if (applied > 0) { playSound('casino_win'); playHaptic('success'); alert(t.you_won_val + formatMoney(applied, 0) + ' ₽'); }
             if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
           }
-        }, SPIN_DURATION + 100); 
+        }, SPIN_DURATION); 
       }, 50);
     };
 
-    // === СЛОТ-МАШИНА (ГРУЗОВИК КАРТОШКИ) ===
     var slotSymbols = ['🥔', '🍟', '👻'];
     
     function buildStrip(stripId, targetSymbol, durationMs) {
@@ -2159,7 +2229,6 @@
       }, dur3 + 100); 
     };
 
-    // === КОЛЕСО ФОРТУНЫ (ПОЛЕ КАРТОШКИ) ===
     window.spinWheel = function() {
       if (isWheelSpinning) return;
       var spinBtnEl = getEl('spinWheelBtn');
@@ -2665,7 +2734,7 @@
       updateGiftUI();
       checkEvents(false);
       updateBuffsInfo();
-    }, 60000); 
+    }, 1000); 
     if (hasAutoclicker) startAutoclicker();
   </script>
 </body>
