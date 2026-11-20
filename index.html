@@ -21,11 +21,72 @@
       transition: background 0.4s ease;
     }
 
-    body.season-halloween { background: linear-gradient(180deg, #1b0a26, #3b1208); }
+    /* Темы событий */
+    body.season-halloween { background: linear-gradient(180deg, #3b1208, #7c2d12); }
     body.season-newyear { background: linear-gradient(180deg, #0b2545, #134e4a); }
-    body.season-blackmarket { background: linear-gradient(180deg, #090714, #1e1b4b); }
+    body.season-valentine { background: linear-gradient(180deg, #500724, #9d174d); }
+    body.season-april { background: linear-gradient(180deg, #3f2e05, #854d0e); }
+    /* Чёрный рынок оставляет классический фон и классическую картошку */
+    body.season-blackmarket { background: linear-gradient(180deg, #2e1065, #1e1b4b); }
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; overflow-y: auto; }
+
+    /* Паутинка с паучком в углу на Хэллоуин */
+    .halloween-corner-web {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 140px;
+      height: 140px;
+      pointer-events: none;
+      z-index: 8;
+    }
+    body.season-halloween .halloween-corner-web { display: block; }
+    .spider-line {
+      position: absolute;
+      top: 0;
+      right: 34px;
+      width: 2px;
+      height: 54px;
+      background: rgba(255, 255, 255, 0.55);
+      transform-origin: top center;
+      animation: spiderSwing 2.8s ease-in-out infinite;
+    }
+    .spider-icon {
+      position: absolute;
+      top: 50px;
+      right: 24px;
+      font-size: 18px;
+      transform-origin: top center;
+      animation: spiderSwing 2.8s ease-in-out infinite;
+    }
+    @keyframes spiderSwing {
+      0%, 100% { transform: rotate(-6deg); }
+      50% { transform: rotate(6deg); }
+    }
+
+    /* Летящие снежинки на Новый год */
+    .snowflakes-layer {
+      display: none;
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 7;
+      overflow: hidden;
+    }
+    body.season-newyear .snowflakes-layer { display: block; }
+    .flake {
+      position: absolute;
+      top: -20px;
+      color: rgba(255, 255, 255, 0.85);
+      text-shadow: none;
+      animation: flakeFall linear infinite;
+    }
+    @keyframes flakeFall {
+      0% { transform: translateY(-20px) translateX(0); }
+      100% { transform: translateY(105vh) translateX(22px); }
+    }
 
     #eventBanner {
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 40px;
@@ -46,7 +107,8 @@
     body.has-event-banner .tabs,
     body.has-event-banner .shop-tabs { padding-top: 120px; }
     body.has-event-banner .main-content,
-    body.has-event-banner .profile-content { padding-top: 110px; }
+    body.has-event-banner .profile-content,
+    body.has-event-banner .inventory-content { padding-top: 110px; }
     body.has-event-banner .casino-menu-container,
     body.has-event-banner .casino-container,
     body.has-event-banner .slots-container,
@@ -123,11 +185,8 @@
     
     .potato-wrap {
       width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-      position: relative; z-index: 10; border-radius: 24px; transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      position: relative; z-index: 10; border-radius: 24px; transition: transform 0.1s ease;
     }
-    body.season-halloween .potato-wrap { border: 3px dashed #fb923c; box-shadow: 0 0 22px rgba(234, 88, 12, 0.55); }
-    body.season-newyear .potato-wrap { border: 3px solid #67e8f9; box-shadow: 0 0 22px rgba(103, 232, 249, 0.5); }
-    body.season-blackmarket .potato-wrap { border: 3px solid #a855f7; box-shadow: 0 0 24px rgba(168, 85, 247, 0.6); }
 
     .potato-emoji { font-size: 120px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
     .potato-wrap:active .potato-emoji { animation: shake 0.1s; }
@@ -295,7 +354,7 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    .profile-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; transition: padding-top 0.2s ease; }
+    .profile-content, .inventory-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; transition: padding-top 0.2s ease; }
     .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 14px; image-rendering: pixelated; background: #4c1d95;}
     .profile-name { font-size: 12px; margin-bottom: 5px; text-align: center; color: #fff; }
     .profile-rank { font-size: 9px; color: #fde047; margin-bottom: 10px; text-align: center; text-shadow: 1px 1px 0 #000; }
@@ -357,6 +416,17 @@
 </head>
 <body>
 
+  <div class="halloween-corner-web" aria-hidden="true">
+    <svg viewBox="0 0 140 140" width="140" height="140">
+      <path d="M140 0 L0 140 M140 0 L32 0 M140 0 L140 108 M140 0 L75 0 M140 0 L140 65" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" fill="none"/>
+      <path d="M108 0 A32 32 0 0 0 140 32 M75 0 A65 65 0 0 0 140 65 M42 0 A98 98 0 0 0 140 98" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" fill="none"/>
+    </svg>
+    <div class="spider-line"></div>
+    <div class="spider-icon">🕷️</div>
+  </div>
+
+  <div class="snowflakes-layer" id="snowflakesLayer" aria-hidden="true"></div>
+
   <div id="eventBanner" onclick="handleEventBannerClick()"><span id="eventBannerText"></span></div>
   <div id="error-screen"></div>
 
@@ -391,8 +461,10 @@
       <p style="text-align: center; margin-bottom: 15px;" data-i18n="test_events_desc">Выберите событие для включения (баннер скроется через 5 сек).</p>
       <button class="modal-btn" onclick="forceEvent('halloween')" style="background: #ea580c; border-color: #fdba74 #9a3412 #9a3412 #fdba74;" data-i18n="evt_force_halloween">🎃 Включить Хэллоуин</button>
       <button class="modal-btn" onclick="forceEvent('newYear')" style="background: #065f46; border-color: #6ee7b7 #047857 #047857 #6ee7b7;" data-i18n="evt_force_newyear">🎄 Включить Новый Год</button>
-      <button class="modal-btn" onclick="forceEvent('blackMarket')" style="background: #1e1b4b; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;" data-i18n="evt_force_blackmarket">🌑 Включить Чёрный Рынок</button>
-      <button class="modal-btn" onclick="forceEvent('none')" style="background: #4b5563; border-color: #9ca3af #374151 #374151 #9ca3af;" data-i18n="evt_force_none">❌ Выключить все</button>
+      <button class="modal-btn" onclick="forceEvent('valentine')" style="background: #be185d; border-color: #f9a8d4 #831843 #831843 #f9a8d4;" data-i18n="evt_force_valentine">💘 Включить День святого Валентина</button>
+      <button class="modal-btn" onclick="forceEvent('april')" style="background: #a16207; border-color: #fde047 #713f12 #713f12 #fde047;" data-i18n="evt_force_april">🤡 Включить 1 апреля</button>
+      <button class="modal-btn" onclick="forceEvent('blackMarket')" style="background: #1e1b4b; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;" data-i18n="evt_force_blackmarket">🌑 Включить Чёрный Рынок (3 дня)</button>
+      <button class="modal-btn" onclick="forceEvent('none')" style="background: #4b5563; border-color: #9ca3af #374151 #374151 #9ca3af;" data-i18n="evt_force_none">❌ Выключить все (Классика)</button>
       <button class="modal-btn" onclick="closeTestEventMenu()" style="margin-top: 20px; background: #ef4444; border-color: #fca5a5 #7f1d1d #7f1d1d #fca5a5;" data-i18n="close_btn">Закрыть</button>
     </div>
   </div>
@@ -571,6 +643,14 @@
     <div class="list-content" id="eventsHistoryList"></div>
   </div>
 
+  <div class="screen" id="screen-inventory">
+    <button class="btn-top-back" onclick="showScreen('profile')">✖</button>
+    <div class="inventory-content">
+      <div class="settings-title" data-i18n="inventory_title">🎒 Инвентарь</div>
+      <div id="inventoryList" style="width: 100%;"></div>
+    </div>
+  </div>
+
   <div class="screen" id="screen-rating">
     <div class="rating-container" id="leaderboardList"></div>
     <div class="my-rating-box">
@@ -608,6 +688,7 @@
       <div class="profile-badges-bar" id="profileBadgesBar" onclick="showScreen('events-history')"></div>
       
       <div class="profile-bottom">
+        <button class="btn btn-grey" onclick="showScreen('inventory')" data-i18n="inventory_btn">🎒 Инвентарь</button>
         <button class="btn btn-grey" onclick="showScreen('events-history')" data-i18n="events_history_btn">🗓️ События и бейджи</button>
         <button class="btn btn-grey" onclick="showScreen('achievements')" data-i18n="achievements_btn">🏆 Достижения</button>
         <button class="btn btn-green" onclick="withdrawMoney()" data-i18n="withdraw">Вывести средства</button>
@@ -629,13 +710,9 @@
   </div>
 
   <script>
-    // =========================================================================
-    // НАСТРОЙКА ЗВУКА КЕЙСА ИЗ РЕПОЗИТОРИЯ
-    // Когда добавишь свой файл в репозиторий, укажи путь в customSoundUrl,
-    // например: './assets/sounds/case-spin.mp3'
-    // =========================================================================
     var CASE_AUDIO_CONFIG = {
-       customSoundUrl: './potato-box-spin.mp3',    stopWhenReelFinishes: true
+      customSoundUrl: './potato-box-spin.mp3',
+      stopWhenReelFinishes: true
     };
 
     var memoryStorage = {};
@@ -667,7 +744,7 @@
         claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено", title_rank: "Ранг: ",
         ranks: ["Новичок", "Тапатель", "Фермер", "Агроном", "Мастер клика", "Гуру тапов", "Магнат", "Повелитель", "Легенда", "Бог Картофеля"],
         upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель", "Архитектор", "Сингулярность", "Бесконечный", "Запредельный", "Трансцендентный", "Всемогущий", "Изначальный", "Апофеоз", "Вечный", "Тап Богов"],
-        upg_desc: "Тап даёт", achievements_btn: "🏆 Достижения", events_history_btn: "🗓️ События и бейджи", ach_unlocked: "Получено", ach_locked: "Заблокировано",
+        upg_desc: "Тап даёт", achievements_btn: "🏆 Достижения", inventory_btn: "🎒 Инвентарь", inventory_title: "🎒 Инвентарь", events_history_btn: "🗓️ События и бейджи", ach_unlocked: "Получено", ach_locked: "Заблокировано",
         shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить", shop_tab_skins: "Скины", shop_tab_gifts: "Подарки", shop_tab_bm: "🌑 Чёрный рынок",
         bm_subtitle: "Редкие лоты тени", bm_left: "Осталось: {hours}ч {mins}м",
         bm_open_title: "🌑 ЧЁРНЫЙ РЫНОК ОТКРЫТ", bm_open_text: "Чёрный рынок открыт на {hours} часов! Заходи в Магазин, пока не поздно.",
@@ -675,20 +752,22 @@
         season_open_title: "🎉 НОВОЕ СОБЫТИЕ", season_open_text: "В игре активно сезонное событие: {eventName}! Успейте забрать награды и бонусы.",
         amulet_saved: "🗿 Амулет Муаи спас вас! Проигрыш {amount} ₽ в казино отменён (1 раз в день).",
         amulet_used_today: "Сегодня Амулет Муаи уже использован", amulet_ready_today: "Готов (1 раз в день)",
-        contract_active: "Контракт с Тьмой: +25% в казино ({hours}ч)",
+        amulet_inv_desc: "Предмет для ношения. 1 раз в день отменяет проигрыш в казино (без бонусов к тапу и автокликеру).",
+        amulet_empty: "У вас пока нет амулетов. Их можно купить на Чёрном рынке.",
+        amulet_future_note: "Новые предметы для ношения и слоты инвентаря появятся позже.",
+        wear_btn: "Надеть", unequip_btn: "Снять", worn_status: "Надет", unworn_status: "Снят",
         bm_items: {
-          dark_potato: { name: "Тёмная Картошка", desc: "+12% к силе тапа навсегда", rarity: "Легендарный" },
-          chaos_potato: { name: "Картошка Хаоса", desc: "+8% к силе тапа и +10% к скорости автокликера", rarity: "Легендарный" },
-          moai_amulet: { name: "Амулет Муаи", desc: "1 раз в день можно отменить проигрыш в казино", rarity: "Мифический" },
-          skin_shadow: { name: "Скин «Тень»", desc: "Чёрный скин для картошки", rarity: "Эпический" },
-          skin_chaos_eye: { name: "Скин «Глаз Хаоса»", desc: "Редкий скин с анимацией", rarity: "Эпический" },
-          dark_contract: { name: "Контракт с Тьмой", desc: "+25% к выигрышам в казино на 7 дней", rarity: "Мифический" }
+          moai_amulet: { name: "Амулет Муаи", desc: "1 раз в день можно отменить проигрыш в казино (предмет для ношения)", rarity: "Мифический" },
+          skin_shadow: { name: "Скин «Тень»", desc: "Эксклюзивный чёрный скин (без бонусов)", rarity: "Эпический" },
+          skin_chaos_eye: { name: "Скин «Глаз Хаоса»", desc: "Редкий скин (без бонусов)", rarity: "Эпический" }
         },
         badges_label: "Бейджи событий: ", no_badges_yet: "Пока нет бейджей — участвуйте в событиях!",
         badge_names: {
           bm_regular: "🌑 Завсегдатай Чёрного рынка",
           halloween_2026: "🎃 Хэллоуин 2026",
-          newyear_2026: "🎄 Новогодний тапер 2026"
+          newyear_2026: "🎄 Новогодний тапер 2026",
+          valentine_2026: "💘 Валентинка 2026",
+          april_2026: "🤡 Розыгрыш 1 апреля"
         },
         history_empty: "Вы ещё не участвовали в событиях.",
         history_period: "Период: {start} — {end}",
@@ -703,7 +782,8 @@
         test_events_btn: "🧪 Тест Событий", test_events_title: "🧪 ТЕСТ СОБЫТИЙ",
         test_events_desc: "Выберите событие для включения (баннер скроется через 5 сек).",
         evt_force_halloween: "🎃 Включить Хэллоуин", evt_force_newyear: "🎄 Включить Новый Год",
-        evt_force_blackmarket: "🌑 Включить Чёрный Рынок", evt_force_none: "❌ Выключить все",
+        evt_force_valentine: "💘 Включить День святого Валентина", evt_force_april: "🤡 Включить 1 апреля",
+        evt_force_blackmarket: "🌑 Включить Чёрный Рынок (3 дня)", evt_force_none: "❌ Выключить все (Классика)",
         close_btn: "Закрыть", info_title: "ИНСТРУКЦИЯ", info_close: "ПОНЯТНО",
         test_moai: "[ Для теста: Выбить 🗿 ]",
         test_moai_alert: "Следующая прокрутка 100% выдаст 🗿! (Для теста)",
@@ -717,6 +797,8 @@
         evt_blackmarket: "🌑 Чёрный рынок открыт! Осталось {hours}ч.",
         evt_halloween: "🎃 Хэллоуин активен!",
         evt_newyear: "🎄 Новогоднее событие!",
+        evt_valentine: "💘 День святого Валентина!",
+        evt_april: "🤡 1 апреля — время розыгрышей!",
         support_msg: "Если у вас возникли проблемы, напишите нам в Telegram: @negaduushchiyXD",
         min_withdraw: "Минимум 10 ₽", withdraw_msg: "Вывод {amount} ₽ (test)",
         dev_bonus_msg: "+200 000 ₽ и +50 000 тапов!",
@@ -776,7 +858,7 @@
         claim: "Claim", received: "Received", not_done: "Not done", title_rank: "Rank: ",
         ranks: ["Novice", "Tapper", "Farmer", "Agronomist", "Click Master", "Tap Guru", "Tycoon", "Lord", "Legend", "Potato God"],
         upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer", "Architect", "Singularity", "Infinite", "Transcendent", "Omnipotent", "Primordial", "Apotheosis", "Eternal", "God of Taps"],
-        upg_desc: "Tap gives", achievements_btn: "🏆 Achievements", events_history_btn: "🗓️ Events & Badges", ach_unlocked: "Received", ach_locked: "Locked",
+        upg_desc: "Tap gives", achievements_btn: "🏆 Achievements", inventory_btn: "🎒 Inventory", inventory_title: "🎒 Inventory", events_history_btn: "🗓️ Events & Badges", ach_unlocked: "Received", ach_locked: "Locked",
         shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy", shop_tab_skins: "Skins", shop_tab_gifts: "Gifts", shop_tab_bm: "🌑 Black Market",
         bm_subtitle: "Rare shadow lots", bm_left: "Left: {hours}h {mins}m",
         bm_open_title: "🌑 BLACK MARKET OPEN", bm_open_text: "Black Market is open for {hours} hours! Visit the Shop before it closes.",
@@ -784,20 +866,22 @@
         season_open_title: "🎉 SEASONAL EVENT", season_open_text: "Seasonal event is active: {eventName}! Grab event rewards and bonuses.",
         amulet_saved: "🗿 Moai Amulet saved you! A {amount} ₽ casino loss was canceled (once per day).",
         amulet_used_today: "Moai Amulet already used today", amulet_ready_today: "Ready (once per day)",
-        contract_active: "Dark Contract: +25% casino wins ({hours}h)",
+        amulet_inv_desc: "Wearable item. Cancels 1 casino loss per day (no tap or autoclicker bonuses).",
+        amulet_empty: "You have no amulets yet. Buy them at the Black Market.",
+        amulet_future_note: "More wearable items and inventory slots will arrive later.",
+        wear_btn: "Equip", unequip_btn: "Unequip", worn_status: "Equipped", unworn_status: "Unequipped",
         bm_items: {
-          dark_potato: { name: "Dark Potato", desc: "+12% tap power permanently", rarity: "Legendary" },
-          chaos_potato: { name: "Chaos Potato", desc: "+8% tap power & +10% autoclicker speed", rarity: "Legendary" },
-          moai_amulet: { name: "Moai Amulet", desc: "Cancel 1 casino loss per day", rarity: "Mythic" },
-          skin_shadow: { name: "Shadow Skin", desc: "Dark potato skin", rarity: "Epic" },
-          skin_chaos_eye: { name: "Chaos Eye Skin", desc: "Rare animated skin", rarity: "Epic" },
-          dark_contract: { name: "Dark Contract", desc: "+25% casino wins for 7 days", rarity: "Mythic" }
+          moai_amulet: { name: "Moai Amulet", desc: "Cancel 1 casino loss per day (wearable item)", rarity: "Mythic" },
+          skin_shadow: { name: "Shadow Skin", desc: "Exclusive black skin (no bonuses)", rarity: "Epic" },
+          skin_chaos_eye: { name: "Chaos Eye Skin", desc: "Rare skin (no bonuses)", rarity: "Epic" }
         },
         badges_label: "Event badges: ", no_badges_yet: "No badges yet — join events!",
         badge_names: {
           bm_regular: "🌑 Black Market Regular",
           halloween_2026: "🎃 Halloween 2026",
-          newyear_2026: "🎄 New Year Tapper 2026"
+          newyear_2026: "🎄 New Year Tapper 2026",
+          valentine_2026: "💘 Valentine 2026",
+          april_2026: "🤡 April Fools Joke"
         },
         history_empty: "You haven't participated in any events yet.",
         history_period: "Period: {start} — {end}",
@@ -812,7 +896,8 @@
         test_events_btn: "🧪 Event Test", test_events_title: "🧪 EVENT TEST",
         test_events_desc: "Choose an event to enable (banner hides in 5s).",
         evt_force_halloween: "🎃 Enable Halloween", evt_force_newyear: "🎄 Enable New Year",
-        evt_force_blackmarket: "🌑 Enable Black Market", evt_force_none: "❌ Disable all",
+        evt_force_valentine: "💘 Enable Valentine's Day", evt_force_april: "🤡 Enable April Fools",
+        evt_force_blackmarket: "🌑 Enable Black Market (3 days)", evt_force_none: "❌ Disable all (Classic)",
         close_btn: "Close", info_title: "GUIDE", info_close: "GOT IT",
         test_moai: "[ For test: Hit 🗿 ]",
         test_moai_alert: "Next spin 100% drops 🗿! (For testing)",
@@ -826,6 +911,8 @@
         evt_blackmarket: "🌑 Black Market is open! {hours}h left.",
         evt_halloween: "🎃 Halloween is active!",
         evt_newyear: "🎄 New Year event!",
+        evt_valentine: "💘 Valentine's Day!",
+        evt_april: "🤡 April Fools joke day!",
         support_msg: "If you have any problems, write to us on Telegram: @negaduushchiyXD",
         min_withdraw: "Minimum 10 ₽", withdraw_msg: "Withdraw {amount} ₽ (test)",
         dev_bonus_msg: "+200,000 ₽ and +50,000 taps!",
@@ -1217,19 +1304,21 @@
 
     var skinsData = [
       { id: 0, name: "Обычная", en_name: "Default", price: 0, emoji: "🥔", image: "potato.png" },
-      { id: 1, name: "Золотая", en_name: "Golden", price: 100000, emoji: "🥇", image: "potato_gold.png" },
-      { id: 2, name: "Призрачная", en_name: "Ghost", price: 50000, emoji: "👻", image: "potato_ghost.png" },
-      { id: 3, name: "Тень", en_name: "Shadow", price: 150000, emoji: "🌑", image: "potato_shadow.png", fromBlackMarket: true },
-      { id: 4, name: "Глаз Хаоса", en_name: "Chaos Eye", price: 190000, emoji: "👁️", image: "potato_chaos_eye.png", fromBlackMarket: true }
+      { id: 2, name: "Призрак", en_name: "Ghost", price: 100000, emoji: "👻", image: "potato_ghost.png" },
+      { id: 1, name: "Золотая картошка", en_name: "Golden Potato", price: 300000, emoji: "🥇", image: "potato_gold.png" },
+      { id: 5, name: "Машинка из картошки", en_name: "Potato Car", price: 500000, emoji: "🚗", image: "potato_car.png" },
+      { id: 3, name: "Тень", en_name: "Shadow", price: 1000000, emoji: "🌑", image: "potato_shadow.png", fromBlackMarket: true },
+      { id: 4, name: "Глаз Хаоса", en_name: "Chaos Eye", price: 3000000, emoji: "👁️", image: "potato_chaos_eye.png", fromBlackMarket: true },
+      { id: 6, name: "Хэллоуинский скин", en_name: "Halloween Skin", price: 1500000, emoji: "🎃", image: "potato_halloween.png", eventOnly: "halloween" },
+      { id: 7, name: "Новогодний скин", en_name: "New Year Skin", price: 2000000, emoji: "🎄", image: "potato_newyear.png", eventOnly: "newYear" },
+      { id: 8, name: "Скин Валентина", en_name: "Valentine Skin", price: 1000000, emoji: "💘", image: "potato_valentine.png", eventOnly: "valentine" },
+      { id: 9, name: "Скин 1 апреля", en_name: "April Fools Skin", price: 1, emoji: "🤡", image: "potato_april.png", eventOnly: "april" }
     ];
 
     var blackMarketItemsData = [
-      { id: "dark_potato", icon: "🖤", price: 280000, kind: "tap_perm", tapBonus: 0.12 },
-      { id: "chaos_potato", icon: "⚡", price: 350000, kind: "chaos_perm", tapBonus: 0.08, autoSpeedBonus: 0.10 },
-      { id: "moai_amulet", icon: "🗿", price: 420000, kind: "moai_amulet" },
-      { id: "skin_shadow", icon: "🌑", price: 150000, kind: "skin", skinId: 3 },
-      { id: "skin_chaos_eye", icon: "👁️", price: 190000, kind: "skin", skinId: 4 },
-      { id: "dark_contract", icon: "📜", price: 500000, kind: "casino_boost", durationMs: 7 * 24 * 60 * 60 * 1000 }
+      { id: "moai_amulet", icon: "🗿", price: 500000, kind: "moai_amulet" },
+      { id: "skin_shadow", icon: "🌑", price: 1000000, kind: "skin", skinId: 3 },
+      { id: "skin_chaos_eye", icon: "👁️", price: 3000000, kind: "skin", skinId: 4 }
     ];
 
     var balance = parseFloat(safeStorage.getItem('potatoBalance')) || 0;
@@ -1246,16 +1335,11 @@
     var ownedSkins = safeJsonParse(safeStorage.getItem('ownedSkins'), [0]);
     var equippedSkin = parseInt(safeStorage.getItem('equippedSkin'), 10) || 0;
 
-    var bmTapBonus = parseFloat(safeStorage.getItem('bmTapBonus')) || 0;
-    var bmAutoSpeedBonus = parseFloat(safeStorage.getItem('bmAutoSpeedBonus')) || 0;
     var hasMoaiAmulet = safeStorage.getItem('hasMoaiAmulet') === 'true';
+    var moaiEquipped = safeStorage.getItem('moaiEquipped') !== 'false';
     var lastMoaiSaveDate = safeStorage.getItem('lastMoaiSaveDate') || '';
 
-    var activeBuffs = safeJsonParse(safeStorage.getItem('activeBuffs'), {});
-    if (!activeBuffs || typeof activeBuffs !== 'object') activeBuffs = {};
-    if (typeof activeBuffs.casinoBoostUntil !== 'number') activeBuffs.casinoBoostUntil = 0;
-
-    var activeEvents = { blackMarket: false, halloween: false, newYear: false };
+    var activeEvents = { blackMarket: false, halloween: false, newYear: false, valentine: false, april: false };
     var manualEventsDisabled = safeStorage.getItem('manualEventsDisabled') === 'true';
     var bmCycleId = parseInt(safeStorage.getItem('bmCycleId'), 10) || 1;
     var lastBlackMarket = parseInt(safeStorage.getItem('lastBlackMarket'), 10) || 0;
@@ -1289,20 +1373,32 @@
     var balanceEl = getEl('balance'); var tapPowerEl = getEl('tapPower'); var tapBoostDisplay = getEl('tapBoostDisplay');
     var potatoBtn = getEl('potatoBtn'); var potatoDisplay = getEl('potatoDisplay'); var upgradesList = getEl('upgradesList');
     var questsList = getEl('questsList'); var achievementsList = getEl('achievementsList'); var shopList = getEl('shopList');
-    var blackMarketList = getEl('blackMarketList'); var eventsHistoryList = getEl('eventsHistoryList');
+    var blackMarketList = getEl('blackMarketList'); var eventsHistoryList = getEl('eventsHistoryList'); var inventoryList = getEl('inventoryList');
     var autoInfo = getEl('autoInfo'); var activeBuffsInfo = getEl('activeBuffsInfo');
     var totalTapsText = getEl('totalTapsText'); var progressFill = getEl('progressFill');
     var topBalanceBar = document.querySelector('.top-balance'); var casinoReel = getEl('casinoReel'); var spinBtn = getEl('spinBtn'); var profileRankEl = getEl('profileRank');
+
+    function initSnowflakes() {
+      var layer = getEl('snowflakesLayer');
+      if (!layer) return;
+      var html = '';
+      for (var i = 0; i < 24; i++) {
+        var left = (i * 4.2) % 100;
+        var dur = 5 + (i % 5);
+        var delay = (i % 4) * -1.4;
+        var size = 14 + (i % 3) * 4;
+        html += '<span class="flake" style="left:' + left + '%;animation-duration:' + dur + 's;animation-delay:' + delay + 's;font-size:' + size + 'px;">❄</span>';
+      }
+      layer.innerHTML = html;
+    }
 
     function getTodayKey() {
       var d = new Date();
       return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
     }
 
-    function hasActiveCasinoBoost() { return (activeBuffs.casinoBoostUntil || 0) > Date.now(); }
-    function getCasinoWinMultiplier() { return hasActiveCasinoBoost() ? 1.25 : 1.0; }
-    function getEffectiveTapValue() { return tapValue * currentMultiplier * (1 + bmTapBonus); }
-    function getEffectiveAutoInterval() { return Math.max(250, Math.round(autoInterval * Math.max(0.25, 1 - bmAutoSpeedBonus))); }
+    function getEffectiveTapValue() { return tapValue * currentMultiplier; }
+    function getEffectiveAutoInterval() { return autoInterval; }
 
     function save() {
       safeStorage.setItem('potatoBalance', balance.toFixed(3));
@@ -1320,11 +1416,9 @@
       safeStorage.setItem('equippedSkin', equippedSkin);
       safeStorage.setItem('lastGiftTime', lastGiftTime);
 
-      safeStorage.setItem('bmTapBonus', bmTapBonus);
-      safeStorage.setItem('bmAutoSpeedBonus', bmAutoSpeedBonus);
       safeStorage.setItem('hasMoaiAmulet', hasMoaiAmulet);
+      safeStorage.setItem('moaiEquipped', moaiEquipped);
       safeStorage.setItem('lastMoaiSaveDate', lastMoaiSaveDate);
-      safeStorage.setItem('activeBuffs', JSON.stringify(activeBuffs));
 
       safeStorage.setItem('manualEventsDisabled', manualEventsDisabled);
       safeStorage.setItem('bmCycleId', bmCycleId);
@@ -1368,6 +1462,22 @@
         });
         addBadge('newyear_2026');
       }
+      if (activeEvents.valentine) {
+        recordEventParticipation({
+          id: 'valentine_' + year, badgeKey: 'valentine_2026',
+          nameRu: '💘 День святого Валентина ' + year, nameEn: '💘 Valentine\'s Day ' + year,
+          start: new Date(year, 1, 14).getTime(), end: new Date(year, 1, 14, 23, 59, 59).getTime(), active: true
+        });
+        addBadge('valentine_2026');
+      }
+      if (activeEvents.april) {
+        recordEventParticipation({
+          id: 'april_' + year, badgeKey: 'april_2026',
+          nameRu: '🤡 1 апреля ' + year, nameEn: '🤡 April Fools ' + year,
+          start: new Date(year, 3, 1).getTime(), end: new Date(year, 3, 1, 23, 59, 59).getTime(), active: true
+        });
+        addBadge('april_2026');
+      }
       if (activeEvents.blackMarket) {
         recordEventParticipation({
           id: 'black_market_' + bmCycleId, badgeKey: 'bm_regular',
@@ -1402,6 +1512,12 @@
       } else if (eventType === 'newYear') {
         text.innerText = t.evt_newyear;
         banner.style.background = 'linear-gradient(90deg, #065f46, #047857)';
+      } else if (eventType === 'valentine') {
+        text.innerText = t.evt_valentine;
+        banner.style.background = 'linear-gradient(90deg, #be185d, #831843)';
+      } else if (eventType === 'april') {
+        text.innerText = t.evt_april;
+        banner.style.background = 'linear-gradient(90deg, #a16207, #713f12)';
       } else {
         hideEventBanner();
         return;
@@ -1425,6 +1541,8 @@
       if (!manualEventsDisabled) {
         activeEvents.halloween = (month === 10 && day >= 25) || (month === 11 && day <= 5);
         activeEvents.newYear = (month === 12 && day >= 20) || (month === 1 && day <= 10);
+        activeEvents.valentine = (month === 2 && day === 14);
+        activeEvents.april = (month === 4 && day === 1);
 
         if (now < blackMarketEnd) {
           activeEvents.blackMarket = true;
@@ -1433,17 +1551,14 @@
             recordEventParticipation({ id: 'black_market_' + bmCycleId, active: false, itemsBought: bmBoughtInCycle.length });
           }
           activeEvents.blackMarket = false;
-          var cooldownMs = 6 * 24 * 60 * 60 * 1000;
-          if (!lastBlackMarket || (now - lastBlackMarket >= cooldownMs)) {
-            if (!lastBlackMarket || Math.random() < 0.75) {
-              bmCycleId += 1;
-              var durationHours = 48 + (Math.random() * 24 - 12);
-              lastBlackMarket = now;
-              blackMarketEnd = now + Math.round(durationHours * 60 * 60 * 1000);
-              bmBoughtInCycle = [];
-              activeEvents.blackMarket = true;
-              save();
-            }
+          var thirtyDaysMs = 30 * 24 * 60 * 60 * 1000;
+          if (!lastBlackMarket || (now - lastBlackMarket >= thirtyDaysMs)) {
+            bmCycleId += 1;
+            lastBlackMarket = now;
+            blackMarketEnd = now + (3 * 24 * 60 * 60 * 1000);
+            bmBoughtInCycle = [];
+            activeEvents.blackMarket = true;
+            save();
           }
         }
       }
@@ -1453,6 +1568,7 @@
       updateShopEventUI();
 
       if (showPopups && !manualEventsDisabled) {
+        var yr = date.getFullYear();
         if (activeEvents.blackMarket) {
           triggerBannerFor5Sec('blackMarket');
           var hoursLeft = Math.max(1, Math.ceil((blackMarketEnd - now) / (1000 * 60 * 60)));
@@ -1463,22 +1579,33 @@
             bmNotifiedCloseCycle = bmCycleId; save();
             showEventNotice(t.bm_closing_title, t.bm_closing_text);
           }
-        }
-        var yr = date.getFullYear();
-        if (activeEvents.halloween) {
-          if (!activeEvents.blackMarket) triggerBannerFor5Sec('halloween');
+        } else if (activeEvents.halloween) {
+          triggerBannerFor5Sec('halloween');
           var hKey = 'halloween_' + yr;
           if (notifiedSeasons.indexOf(hKey) === -1) {
             notifiedSeasons.push(hKey); save();
             showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_halloween));
           }
-        }
-        if (activeEvents.newYear) {
-          if (!activeEvents.blackMarket && !activeEvents.halloween) triggerBannerFor5Sec('newYear');
+        } else if (activeEvents.newYear) {
+          triggerBannerFor5Sec('newYear');
           var nyKey = 'newyear_' + yr;
           if (notifiedSeasons.indexOf(nyKey) === -1) {
             notifiedSeasons.push(nyKey); save();
             showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_newyear));
+          }
+        } else if (activeEvents.valentine) {
+          triggerBannerFor5Sec('valentine');
+          var vdKey = 'valentine_' + yr;
+          if (notifiedSeasons.indexOf(vdKey) === -1) {
+            notifiedSeasons.push(vdKey); save();
+            showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_valentine));
+          }
+        } else if (activeEvents.april) {
+          triggerBannerFor5Sec('april');
+          var afKey = 'april_' + yr;
+          if (notifiedSeasons.indexOf(afKey) === -1) {
+            notifiedSeasons.push(afKey); save();
+            showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_april));
           }
         }
       }
@@ -1486,9 +1613,11 @@
 
     function updateSeasonVisuals() {
       if (!document.body) return;
-      document.body.classList.remove('season-halloween', 'season-newyear', 'season-blackmarket');
+      document.body.classList.remove('season-halloween', 'season-newyear', 'season-valentine', 'season-april', 'season-blackmarket');
       if (activeEvents.halloween) document.body.classList.add('season-halloween');
       else if (activeEvents.newYear) document.body.classList.add('season-newyear');
+      else if (activeEvents.valentine) document.body.classList.add('season-valentine');
+      else if (activeEvents.april) document.body.classList.add('season-april');
       else if (activeEvents.blackMarket) document.body.classList.add('season-blackmarket');
     }
 
@@ -1509,9 +1638,13 @@
       if (bmTab) bmTab.classList.toggle('visible', !!activeEvents.blackMarket);
 
       if (shopBadge) {
-        if (activeEvents.blackMarket || activeEvents.halloween || activeEvents.newYear) {
+        if (activeEvents.blackMarket || activeEvents.halloween || activeEvents.newYear || activeEvents.valentine || activeEvents.april) {
           shopBadge.style.display = 'block';
-          shopBadge.innerText = activeEvents.blackMarket ? '🌑' : (activeEvents.halloween ? '🎃' : '🎄');
+          if (activeEvents.blackMarket) shopBadge.innerText = '🌑';
+          else if (activeEvents.halloween) shopBadge.innerText = '🎃';
+          else if (activeEvents.newYear) shopBadge.innerText = '🎄';
+          else if (activeEvents.valentine) shopBadge.innerText = '💘';
+          else if (activeEvents.april) shopBadge.innerText = '🤡';
         } else {
           shopBadge.style.display = 'none';
         }
@@ -1542,6 +1675,8 @@
       activeEvents.blackMarket = false;
       activeEvents.halloween = false;
       activeEvents.newYear = false;
+      activeEvents.valentine = false;
+      activeEvents.april = false;
       hideEventBanner();
 
       if (eventName === 'none') {
@@ -1554,11 +1689,17 @@
         } else if (eventName === 'newYear') {
           activeEvents.newYear = true;
           triggerBannerFor5Sec('newYear');
+        } else if (eventName === 'valentine') {
+          activeEvents.valentine = true;
+          triggerBannerFor5Sec('valentine');
+        } else if (eventName === 'april') {
+          activeEvents.april = true;
+          triggerBannerFor5Sec('april');
         } else if (eventName === 'blackMarket') {
           activeEvents.blackMarket = true;
           bmCycleId += 1;
           lastBlackMarket = Date.now();
-          blackMarketEnd = Date.now() + (24 * 60 * 60 * 1000);
+          blackMarketEnd = Date.now() + (3 * 24 * 60 * 60 * 1000);
           bmBoughtInCycle = [];
           triggerBannerFor5Sec('blackMarket');
         }
@@ -1567,6 +1708,7 @@
       syncEventHistoryWithActive();
       updateSeasonVisuals();
       updateShopEventUI();
+      if (currentShopTab === 'skins') renderShop();
       if (currentShopTab === 'blackmarket') renderBlackMarket();
       save();
       closeTestEventMenu();
@@ -1614,6 +1756,7 @@
       updateSettingsUI();
       renderShop();
       renderBlackMarket();
+      renderInventory();
       updateGiftUI();
       updateAutoInfo();
       updateBuffsInfo();
@@ -1637,6 +1780,7 @@
         if (scrName === 'rating') renderRating();
         if (scrName === 'achievements') renderAchievements();
         if (scrName === 'events-history') renderEventsHistory();
+        if (scrName === 'inventory') renderInventory();
       }
     }
 
@@ -1675,18 +1819,13 @@
 
       currentMultiplier = rankMultipliers[rankIndex];
       if (profileRankEl) profileRankEl.innerText = t.title_rank + t.ranks[rankIndex] + " (x" + currentMultiplier + ")";
-      var permPct = Math.round(bmTapBonus * 100);
-      if (tapBoostDisplay) tapBoostDisplay.innerText = "(x" + currentMultiplier + (permPct > 0 ? " +" + permPct + "%" : "") + ")";
+      if (tapBoostDisplay) tapBoostDisplay.innerText = "(x" + currentMultiplier + ")";
     }
 
     function updateBuffsInfo() {
       if (!activeBuffsInfo) return;
       var lines = [];
-      if (hasActiveCasinoBoost()) {
-        var hoursLeft = Math.max(1, Math.ceil((activeBuffs.casinoBoostUntil - Date.now()) / (1000 * 60 * 60)));
-        lines.push(t.contract_active.replace('{hours}', hoursLeft));
-      }
-      if (hasMoaiAmulet) {
+      if (hasMoaiAmulet && moaiEquipped) {
         lines.push("🗿 " + (lastMoaiSaveDate === getTodayKey() ? t.amulet_used_today : t.amulet_ready_today));
       }
       if (lines.length > 0) { activeBuffsInfo.style.display = 'block'; activeBuffsInfo.innerHTML = lines.join('<br>'); }
@@ -1817,10 +1956,12 @@
       for (var i = 0; i < blackMarketItemsData.length; i++) {
         var item = blackMarketItemsData[i];
         var loc = t.bm_items[item.id] || { name: item.id, desc: '', rarity: '' };
-        var alreadyBought = (item.kind === 'skin' && ownedSkins.indexOf(item.skinId) !== -1) || (bmBoughtInCycle.indexOf(item.id) !== -1);
+        var alreadyBought = (item.kind === 'skin' && ownedSkins.indexOf(item.skinId) !== -1) ||
+                            (item.kind === 'moai_amulet' && hasMoaiAmulet) ||
+                            (bmBoughtInCycle.indexOf(item.id) !== -1);
 
         var card = document.createElement('div');
-        card.className = 'card' + ((item.kind === 'casino_boost' || item.kind === 'moai_amulet') ? ' rgb-glow' : '');
+        card.className = 'card' + (item.kind === 'moai_amulet' ? ' rgb-glow' : '');
         card.innerHTML =
           '<div class="card-icon">' + item.icon + '</div>' +
           '<div class="card-content">' +
@@ -1841,18 +1982,19 @@
             return function() {
               if (balance < lot.price) { playHaptic('error'); alert(t.not_enough_money); return; }
               balance -= lot.price;
-              if (lot.kind === 'tap_perm') bmTapBonus += lot.tapBonus;
-              else if (lot.kind === 'chaos_perm') { bmTapBonus += lot.tapBonus; bmAutoSpeedBonus += lot.autoSpeedBonus; if (hasAutoclicker) startAutoclicker(); }
-              else if (lot.kind === 'moai_amulet') hasMoaiAmulet = true;
-              else if (lot.kind === 'skin' && ownedSkins.indexOf(lot.skinId) === -1) ownedSkins.push(lot.skinId);
-              else if (lot.kind === 'casino_boost') activeBuffs.casinoBoostUntil = Date.now() + lot.durationMs;
+              if (lot.kind === 'moai_amulet') {
+                hasMoaiAmulet = true;
+                moaiEquipped = true;
+              } else if (lot.kind === 'skin' && ownedSkins.indexOf(lot.skinId) === -1) {
+                ownedSkins.push(lot.skinId);
+              }
 
               if (bmBoughtInCycle.indexOf(lot.id) === -1) bmBoughtInCycle.push(lot.id);
               addBadge('bm_regular');
               recordEventParticipation({ id: 'black_market_' + bmCycleId, itemsBought: bmBoughtInCycle.length });
 
               playSound('buy_gold'); playHaptic('success');
-              updateUI(); updateAutoInfo(); renderShop(); renderBlackMarket();
+              updateUI(); renderShop(); renderBlackMarket(); renderInventory();
             };
           })(item);
         }
@@ -1863,7 +2005,7 @@
     function applyCasinoOutcome(rawDelta) {
       if (rawDelta < 0) {
         var todayKey = getTodayKey();
-        if (hasMoaiAmulet && lastMoaiSaveDate !== todayKey) {
+        if (hasMoaiAmulet && moaiEquipped && lastMoaiSaveDate !== todayKey) {
           lastMoaiSaveDate = todayKey; updateUI();
           playSound('quest_claim'); playHaptic('success');
           alert(t.amulet_saved.replace('{amount}', formatMoney(Math.abs(rawDelta), 0)));
@@ -1871,8 +2013,7 @@
         }
         balance += rawDelta; updateUI(); return rawDelta;
       } else if (rawDelta > 0) {
-        var finalWin = rawDelta * getCasinoWinMultiplier();
-        balance += finalWin; updateUI(); return finalWin;
+        balance += rawDelta; updateUI(); return rawDelta;
       }
       return 0;
     }
@@ -1940,7 +2081,7 @@
           } else if (winItem.type === 'fries') {
             var boosted = applyCasinoOutcome(5000);
             playSound('quest_claim_10'); playHaptic('heavy');
-            alert(t.box_jackpot + (hasActiveCasinoBoost() ? ' (' + formatMoney(boosted, 0) + ' ₽)' : ''));
+            alert(t.box_jackpot + ' (' + formatMoney(boosted, 0) + ' ₽)');
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
           } else {
             var applied = applyCasinoOutcome(parseFloat(winItem.value));
@@ -2133,6 +2274,8 @@
       for (var i = 0; i < skinsData.length; i++) {
         var skin = skinsData[i]; var isOwned = ownedSkins.indexOf(skin.id) !== -1; var isEquipped = equippedSkin === skin.id;
         if (skin.fromBlackMarket && !isOwned) continue;
+        if (skin.eventOnly && !isOwned && !activeEvents[skin.eventOnly]) continue;
+
         var card = document.createElement('div'); card.className = 'card shop-card';
         var isLocked = (!isOwned && skin.id !== 0);
         
@@ -2168,6 +2311,50 @@
     };
 
     window.equipSkin = function(id) { equippedSkin = id; updatePotatoSkin(); save(); renderShop(); playHaptic('medium'); };
+
+    window.toggleMoaiWear = function() {
+      if (!hasMoaiAmulet) return;
+      moaiEquipped = !moaiEquipped;
+      updateBuffsInfo();
+      save();
+      renderInventory();
+      playHaptic('medium');
+    };
+
+    function renderInventory() {
+      if (!inventoryList) return;
+      inventoryList.innerHTML = '';
+
+      if (hasMoaiAmulet) {
+        var loc = t.bm_items.moai_amulet;
+        var statusText = moaiEquipped ? t.worn_status : t.unworn_status;
+        var card = document.createElement('div');
+        card.className = 'card rgb-glow';
+        card.innerHTML =
+          '<div class="card-icon">🗿</div>' +
+          '<div class="card-content">' +
+            '<div class="card-title">' + loc.name + ' (' + statusText + ')</div>' +
+            '<div class="card-desc">' + t.amulet_inv_desc + '</div>' +
+          '</div>';
+        var btn = document.createElement('button');
+        btn.className = 'btn ' + (moaiEquipped ? 'btn-grey' : 'btn-green');
+        btn.style.cssText = 'width:auto;margin-bottom:0;padding:8px 10px;font-size:8px;';
+        btn.innerText = moaiEquipped ? t.unequip_btn : t.wear_btn;
+        btn.onclick = window.toggleMoaiWear;
+        card.appendChild(btn);
+        inventoryList.appendChild(card);
+      } else {
+        var emptyCard = document.createElement('div');
+        emptyCard.className = 'card';
+        emptyCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;">' + t.amulet_empty + '</div></div>';
+        inventoryList.appendChild(emptyCard);
+      }
+
+      var noteCard = document.createElement('div');
+      noteCard.className = 'card';
+      noteCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;">' + t.amulet_future_note + '</div></div>';
+      inventoryList.appendChild(noteCard);
+    }
 
     function makeActionButton(text, disabled, onClick) {
       var btn = document.createElement('button');
@@ -2337,17 +2524,18 @@
       for (var m = 0; m < menuItems.length; m++) {
         menuItems[m].classList.toggle('active', menuItems[m].getAttribute('data-screen') === name);
       }
-      if (['achievements', 'events-history', 'shop', 'casino', 'casino-box', 'casino-slots', 'casino-wheel', 'settings'].indexOf(name) !== -1) {
+      if (['inventory', 'achievements', 'events-history', 'shop', 'casino', 'casino-box', 'casino-slots', 'casino-wheel', 'settings'].indexOf(name) !== -1) {
         for (var k = 0; k < menuItems.length; k++) menuItems[k].classList.remove('active'); 
       }
 
       if (topBalanceBar) {
-        topBalanceBar.style.display = ['quests', 'rating', 'achievements', 'events-history', 'settings'].indexOf(name) !== -1 ? 'none' : 'flex';
+        topBalanceBar.style.display = ['quests', 'rating', 'inventory', 'achievements', 'events-history', 'settings'].indexOf(name) !== -1 ? 'none' : 'flex';
       }
 
       if (name === 'upgrades') renderUpgrades();
       if (name === 'quests') renderQuests();
       if (name === 'profile') { loadUser(); updateRank(); updateProfileBadges(); }
+      if (name === 'inventory') renderInventory();
       if (name === 'rating') renderRating();
       if (name === 'achievements') renderAchievements();
       if (name === 'events-history') renderEventsHistory();
@@ -2395,6 +2583,7 @@
       };
     }
 
+    initSnowflakes();
     applyTranslations();
     checkEvents(true);
     loadUser();
