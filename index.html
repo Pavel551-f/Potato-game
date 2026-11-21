@@ -103,6 +103,7 @@
     body.has-event-banner .top-balance,
     body.has-event-banner .btn-top-back { top: 54px; }
     body.has-event-banner .main-btns-container { top: 116px; }
+    body.has-event-banner .right-btns-container { top: 168px; }
     body.has-event-banner .tabs,
     body.has-event-banner .shop-tabs { padding-top: 120px; }
     body.has-event-banner .main-content,
@@ -119,9 +120,9 @@
     body.has-event-banner #screen-rating .rating-container { padding-top: 52px; }
 
     /* Баланс в верхнем левом углу */
-    .top-balance { 
-      position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px; 
-      background: rgba(0,0,0,0.45); padding: 4px 10px 4px 4px; z-index: 60; cursor: pointer; 
+    .top-balance {
+      position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px;
+      background: rgba(0,0,0,0.45); padding: 4px 10px 4px 4px; z-index: 60; cursor: pointer;
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
       transition: top 0.2s ease;
     }
@@ -129,12 +130,12 @@
     .top-balance-text { display: flex; flex-direction: column; align-items: flex-start; order: 2; }
     .top-balance-label { font-size: 8px; color: #c4b5fd; margin-bottom: 4px; }
     .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; transition: color 0.3s; }
-    .top-balance-value.negative { color: #ef4444; } 
+    .top-balance-value.negative { color: #ef4444; }
 
     .btn-top-back {
       position: absolute; top: 14px; left: 14px; z-index: 70;
       background: rgba(76, 29, 149, 0.7);
-      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; 
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
       color: white; padding: 8px 12px;
       font-family: inherit; font-size: 12px; cursor: pointer;
       transition: top 0.2s ease;
@@ -144,23 +145,30 @@
     .btn-info {
       position: fixed; bottom: 90px; right: 20px; z-index: 80;
       background: rgba(59, 130, 246, 0.8);
-      border: 3px solid; border-color: #93c5fd #1e40af #1e40af #93c5fd; 
+      border: 3px solid; border-color: #93c5fd #1e40af #1e40af #93c5fd;
       color: white; width: 40px; height: 40px; border-radius: 50%;
       font-family: inherit; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
     .btn-info:active { border-color: #1e40af #93c5fd #93c5fd #1e40af; transform: scale(0.95); }
 
-    /* Кнопки меню ниже баланса в левом углу */
+    /* Левая колонка кнопок: Инвентарь, Магазин, Казино */
     .main-btns-container {
       position: absolute; top: 76px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
       transition: top 0.2s ease;
     }
-    .inventory-btn-main, .shop-btn-main, .casino-btn-main {
+
+    /* Правая колонка кнопок: Друзья, Кланы, Календарь (ниже паутинки и паучка) */
+    .right-btns-container {
+      position: absolute; top: 128px; right: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
+      transition: top 0.2s ease;
+    }
+
+    .inventory-btn-main, .shop-btn-main, .casino-btn-main, .side-menu-btn {
       position: relative;
       display: flex; align-items: center; justify-content: center; gap: 6px;
       padding: 6px 10px; cursor: pointer;
-      border: 3px solid; 
+      border: 3px solid;
     }
     .inventory-btn-main { background: rgba(139, 92, 246, 0.18); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
     .inventory-btn-main:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
@@ -179,13 +187,39 @@
     }
     .casino-btn-main { background: rgba(234, 179, 8, 0.15); border-color: #fde047 #a16207 #a16207 #fde047; }
     .casino-btn-main:active { border-color: #a16207 #fde047 #fde047 #a16207; }
-    .inventory-btn-main span, .shop-btn-main span, .casino-btn-main span { font-size: 9px; color: #fff; text-transform: uppercase; }
+
+    .side-menu-btn {
+      background: rgba(59, 130, 246, 0.18);
+      border-color: #93c5fd #1e3a8a #1e3a8a #93c5fd;
+    }
+    .side-menu-btn:active {
+      border-color: #1e3a8a #93c5fd #93c5fd #1e3a8a;
+    }
+    .calendar-btn {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #6ee7b7 #065f46 #065f46 #6ee7b7;
+    }
+    .calendar-btn:active {
+      border-color: #065f46 #6ee7b7 #6ee7b7 #065f46;
+    }
+    .calendar-day-pill {
+      background: #fde047;
+      color: #000;
+      text-shadow: none;
+      font-size: 8px;
+      padding: 2px 4px;
+      border: 1px solid #000;
+    }
+
+    .inventory-btn-main span, .shop-btn-main span, .casino-btn-main span, .side-menu-btn span.btn-label {
+      font-size: 9px; color: #fff; text-transform: uppercase;
+    }
 
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; position: relative; }
     .screen.active { display: flex; }
 
     .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 90px; transition: padding-top 0.2s ease; }
-    
+
     .potato-wrap {
       width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center;
       position: relative; z-index: 10; border-radius: 24px; transition: transform 0.1s ease;
@@ -194,7 +228,7 @@
     .potato-emoji { font-size: 120px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
     .potato-wrap:active .potato-emoji { animation: shake 0.1s; }
     @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
-    
+
     .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; image-rendering: pixelated; filter: drop-shadow(0 0 6px rgba(255,255,255,0.22)) drop-shadow(0 10px 15px rgba(0,0,0,0.55)); }
     .potato-wrap:active img { animation: shake 0.1s; }
 
@@ -204,19 +238,19 @@
     .active-buffs-info { margin-top: 8px; font-size: 8px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
 
     .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; transition: padding-top 0.2s ease; }
-    .tab-btn { 
-      flex: 1; padding: 12px 6px; font-size: 10px; 
-      background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer; 
-      border: 4px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; 
+    .tab-btn {
+      flex: 1; padding: 12px 6px; font-size: 10px;
+      background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer;
+      border: 4px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
       text-shadow: 2px 2px 0 #000; font-family: 'Press Start 2P', monospace; text-transform: uppercase;
     }
     .tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; transform: translateY(2px); }
 
     .shop-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; padding: 80px 16px 0; transition: padding-top 0.2s ease; }
-    .shop-tab-btn { 
-      flex: 1 1 30%; padding: 10px 6px; font-size: 8px; 
-      background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer; 
-      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; 
+    .shop-tab-btn {
+      flex: 1 1 30%; padding: 10px 6px; font-size: 8px;
+      background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer;
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
       text-shadow: 1px 1px 0 #000; font-family: inherit;
     }
     .shop-tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; }
@@ -234,14 +268,14 @@
 
     .list-content { padding: 0 16px 30px; }
     #screen-achievements .list-content,
-    #screen-events-history .list-content { padding-top: 75px; transition: padding-top 0.2s ease; } 
+    #screen-events-history .list-content { padding-top: 75px; transition: padding-top 0.2s ease; }
     #screen-quests .list-content { padding-top: 20px; transition: padding-top 0.2s ease; }
     #screen-rating .rating-container { padding-top: 20px; transition: padding-top 0.2s ease; }
     #screen-upgrades .list-content { padding-top: 0; }
     #screen-shop .list-content { padding-top: 10px; }
-    
-    .card { 
-      background: rgba(255,255,255,0.09); padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px; 
+
+    .card {
+      background: rgba(255,255,255,0.09); padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px;
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
     }
     .card-icon { font-size: 24px; flex-shrink: 0; width: 35px; text-align: center; filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5)); }
@@ -252,7 +286,7 @@
     .card-status { font-size: 9px; font-weight: 700; }
     .status-locked { color: #6b7280; }
     .status-unlocked { color: #10b981; }
-    
+
     .rgb-glow {
       background-color: rgba(255, 255, 255, 0.09) !important;
       animation: borderRGB 3s linear infinite !important;
@@ -266,9 +300,9 @@
     }
 
     .section-title { font-size: 10px; color: #a78bfa; margin: 14px 0 10px; }
-    
-    .btn { 
-      background: #8b5cf6; color: white; padding: 10px; font-size: 9px; cursor: pointer; margin-bottom: 10px; 
+
+    .btn {
+      background: #8b5cf6; color: white; padding: 10px; font-size: 9px; cursor: pointer; margin-bottom: 10px;
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-family: inherit;
       flex-shrink: 0;
     }
@@ -306,6 +340,33 @@
     .gift-btn-bottom:active { background: #1f2937; }
     .gift-btn-bottom:disabled { background: #4b5563; color: #e5e7eb; cursor: not-allowed; }
     .gift-lock-inline { font-size: 13px; flex-shrink: 0; }
+
+    /* Карточка календаря дней подряд */
+    .calendar-card {
+      width: 100%; max-width: 340px;
+      background: rgba(255,255,255,0.09);
+      border: 3px solid; border-color: #6ee7b7 #065f46 #065f46 #6ee7b7;
+      padding: 16px; text-align: center;
+    }
+    .calendar-streak-badge {
+      font-size: 12px; color: #fde047; margin-bottom: 10px; line-height: 1.5;
+    }
+    .calendar-timer-text {
+      font-size: 9px; color: #c4b5fd; margin-bottom: 12px; line-height: 1.6;
+    }
+    .calendar-last-reward {
+      font-size: 9px; color: #10b981; margin-bottom: 12px; min-height: 14px;
+    }
+    .calendar-values-wrap {
+      display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 14px;
+    }
+    .calendar-val-chip {
+      padding: 5px 7px; font-size: 8px;
+      background: rgba(0,0,0,0.35); border: 2px solid #10b981; color: #e9d5ff;
+    }
+    .calendar-val-chip.jackpot {
+      border-color: #fde047; color: #fde047;
+    }
 
     .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 80px 16px 30px; gap: 20px; transition: padding-top 0.2s ease; }
     .casino-title { font-size: 16px; color: #fde047; margin-bottom: 20px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
@@ -376,7 +437,7 @@
     #rocket-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
     .rocket { position: absolute; font-size: 30px; opacity: 0.3; }
     .settings-content { position: relative; z-index: 10; padding: 80px 20px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; transition: padding-top 0.2s ease; }
-    .settings-title { font-size: 16px; color: white; margin-bottom: 30px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; }
+    .settings-title { font-size: 16px; color: white; margin-bottom: 30px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
     .setting-row { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: rgba(255,255,255,0.1); padding: 15px; border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
     .setting-label { font-size: 10px; color: #fff; }
     .toggle-btn { background: #4b5563; color: #fff; border: 3px solid #374151; padding: 8px 12px; font-size: 10px; font-family: inherit; cursor: pointer; border-radius: 8px; width: 80px; text-align: center; }
@@ -400,15 +461,15 @@
     @keyframes floatUp { 0% { opacity: 1; transform: translate(-50%, -50%) scale(1); } 100% { opacity: 0; transform: translate(-50%, -150%) scale(1.5); } }
 
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; }
-    .modal-content { 
-      background: #2e1065; padding: 20px; width: 90%; max-width: 340px; text-align: left; 
-      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; max-height: 80vh; overflow-y: auto; 
+    .modal-content {
+      background: #2e1065; padding: 20px; width: 90%; max-width: 340px; text-align: left;
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; max-height: 80vh; overflow-y: auto;
     }
     .modal-content h3 { margin-bottom: 15px; font-size: 12px; color: #fde047; line-height: 1.5; text-align: center;}
     .modal-content p { font-size: 9px; margin-bottom: 10px; line-height: 1.6; color: #e9d5ff; }
     .modal-content hr { border-color: #4c1d95; margin: 15px 0; }
-    .modal-btn { 
-      background: #8b5cf6; border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; color: white; padding: 10px; width: 100%; margin-top: 15px; font-size: 9px; cursor: pointer; 
+    .modal-btn {
+      background: #8b5cf6; border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; color: white; padding: 10px; width: 100%; margin-top: 15px; font-size: 9px; cursor: pointer;
       text-shadow: 2px 2px 0 #000; font-family: 'Press Start 2P', monospace; text-align: center;
     }
     .modal-btn:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
@@ -472,6 +533,7 @@
     </div>
   </div>
 
+  <!-- Баланс в верхнем левом углу -->
   <div class="top-balance" id="openProfile">
     <img class="top-avatar" id="topAvatar" src="" alt="">
     <div class="top-balance-text">
@@ -481,6 +543,7 @@
   </div>
 
   <div class="screen active" id="screen-main">
+    <!-- Левая колонка: Инвентарь, Магазин, Казино -->
     <div class="main-btns-container">
       <div class="inventory-btn-main" id="mainInventoryBtn" onclick="showScreen('inventory')">
         🎒 <span data-i18n="inventory_main_btn">инвентарь</span>
@@ -494,16 +557,75 @@
       </div>
     </div>
 
+    <!-- Правая колонка: Друзья, Кланы, Ежедневный календарь -->
+    <div class="right-btns-container">
+      <div class="side-menu-btn" onclick="showScreen('friends')">
+        🫂 <span class="btn-label" data-i18n="friends_btn">Друзья</span>
+      </div>
+      <div class="side-menu-btn" onclick="showScreen('clans')">
+        <span id="clanBtnIcon">🏰</span> <span class="btn-label" data-i18n="clans_btn">Кланы</span>
+      </div>
+      <div class="side-menu-btn calendar-btn" onclick="showScreen('calendar')">
+        📅 <span class="btn-label" data-i18n="calendar_btn">Календарь</span>
+        <span class="calendar-day-pill" id="calendarBtnDay">1</span>
+      </div>
+    </div>
+
     <div class="main-content">
       <div class="potato-wrap" id="potatoBtn">
         <div id="potatoDisplay" class="potato-emoji">🥔</div>
       </div>
       <div class="tap-power">
-        <span data-i18n="tap_label">Тап</span>: <span id="tapPower">0.001</span> ₽ 
+        <span data-i18n="tap_label">Тап</span>: <span id="tapPower">0.001</span> ₽
         <span id="tapBoostDisplay" class="tap-boost"></span>
       </div>
       <div class="auto-info" id="autoInfo" style="display:none;"></div>
       <div class="active-buffs-info" id="activeBuffsInfo" style="display:none;"></div>
+    </div>
+  </div>
+
+  <!-- Экран: Друзья (заглушка) -->
+  <div class="screen" id="screen-friends">
+    <button class="btn-top-back" onclick="showScreen('main')">✖</button>
+    <div class="inventory-content">
+      <div class="settings-title">🫂 <span data-i18n="friends_btn">Друзья</span></div>
+      <div class="card" style="width: 100%; max-width: 340px;">
+        <div class="card-content">
+          <div class="card-title" data-i18n="soon_title">Скоро появится</div>
+          <div class="card-desc" style="margin-bottom: 0;" data-i18n="friends_soon_desc">Раздел «Друзья» ещё в разработке. Следите за обновлениями!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Экран: Кланы (заглушка) -->
+  <div class="screen" id="screen-clans">
+    <button class="btn-top-back" onclick="showScreen('main')">✖</button>
+    <div class="inventory-content">
+      <div class="settings-title"><span id="clanScreenIcon">🏰</span> <span data-i18n="clans_btn">Кланы</span></div>
+      <div class="card" style="width: 100%; max-width: 340px;">
+        <div class="card-content">
+          <div class="card-title" data-i18n="soon_title">Скоро появится</div>
+          <div class="card-desc" style="margin-bottom: 0;" data-i18n="clans_soon_desc">Раздел «Кланы» ещё в разработке. Скоро добавим кланы и битвы!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Экран: Ежедневный календарь наград -->
+  <div class="screen" id="screen-calendar">
+    <button class="btn-top-back" onclick="showScreen('main')">✖</button>
+    <div class="inventory-content">
+      <div class="settings-title">📅 <span data-i18n="calendar_title">Ежедневный календарь</span></div>
+      <div class="calendar-card">
+        <div class="calendar-streak-badge">
+          <span data-i18n="calendar_day_label">День подряд</span>: <span id="calendarStreakNum">1</span>
+        </div>
+        <div class="calendar-timer-text" id="calendarTimerText"></div>
+        <div class="calendar-last-reward" id="calendarLastRewardText"></div>
+        <div class="calendar-values-wrap" id="calendarValuesWrap"></div>
+        <button class="btn btn-green" style="width: 100%; margin-bottom: 0;" id="claimCalendarBtn" onclick="claimCalendarReward()"></button>
+      </div>
     </div>
   </div>
 
@@ -538,7 +660,7 @@
               <div class="gift-reward-sub" id="giftBalanceNote"></div>
               <div id="jackpotText" style="display: none; color: #fde047; font-size: 10px; margin-top: 8px; text-shadow: 2px 2px 0 #000;">ДЖЕКПОТ!</div>
             </div>
-            
+
             <div id="giftQuestion" style="font-size: 60px; text-shadow: 4px 4px 0 #000; z-index: 2; position: relative;">?</div>
           </div>
           <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()">
@@ -562,7 +684,7 @@
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="casino-menu-container">
       <div class="casino-title" data-i18n="casino_title">🎰 КАЗИНО 🎰</div>
-      
+
       <div class="casino-game-card" onclick="showScreen('casino-box')">
         <div class="card-icon">📦</div>
         <div class="card-content">
@@ -669,12 +791,12 @@
     <div class="settings-content">
       <button class="btn-top-back" onclick="showScreen('profile')">◀</button>
       <div class="settings-title" data-i18n="settings_title">Настройки</div>
-      
+
       <div class="setting-row">
         <div class="setting-label" data-i18n="sound_effects">Звуковые эффекты</div>
         <button class="toggle-btn" id="soundToggle" onclick="toggleSound()">ВКЛ</button>
       </div>
-      
+
       <div class="setting-row">
         <div class="setting-label" data-i18n="vibration">Вибрация</div>
         <button class="toggle-btn" id="vibrationToggle" onclick="toggleVibration()">ВКЛ</button>
@@ -692,7 +814,7 @@
       <div class="profile-name" id="profileName" data-i18n="player">Игрок</div>
       <div class="profile-rank" id="profileRank"></div>
       <div class="profile-badges-bar" id="profileBadgesBar" onclick="showScreen('events-history')"></div>
-      
+
       <div class="profile-bottom">
         <button class="btn btn-grey" onclick="showScreen('events-history')" data-i18n="events_history_btn">🗓️ События и бейджи</button>
         <button class="btn btn-grey" onclick="showScreen('achievements')" data-i18n="achievements_btn">🏆 Достижения</button>
@@ -744,6 +866,15 @@
         balance_label: "Баланс", tap_label: "Тап", tab_tap: "Ул. тапа", tab_auto: "Ул. авто",
         rating_leader: "🏆 Лидер проекта!", player: "Игрок", legend: "Легенда", total_taps: "Всего тапов", taps_hint: "Число тапов, чтобы друзья могли посмотреть",
         withdraw: "Вывести средства", dev_btn: "Нажми 5 раз для теста", menu_main: "Главная", menu_upgrades: "Улучшения", menu_rating: "Рейтинг", menu_quests: "Квесты",
+        friends_btn: "Друзья", clans_btn: "Кланы", calendar_btn: "Календарь",
+        calendar_title: "Ежедневный календарь", calendar_day_label: "День подряд",
+        calendar_claim_btn: "Забрать награду дня {day}", calendar_claimed_btn: "День {day} забран",
+        calendar_ready_now: "Награда дня {day} доступна сейчас!",
+        calendar_next_in: "Следующий день через: {h}ч {m}м {s}с",
+        calendar_last_reward: "Последняя награда: +{val} ₽",
+        soon_title: "Скоро появится",
+        friends_soon_desc: "Раздел «Друзья» ещё в разработке. Скоро добавим!",
+        clans_soon_desc: "Раздел «Кланы» ещё в разработке. Скоро добавим!",
         lang_title: "Выберите язык", cancel: "Отмена", bought: "Куплено", buy_for: "Купить за", buy_prev: "Сначала купи предыдущее", not_enough_money: "Недостаточно средств!", auto_buy: "Купить автокликер", auto_desc: "Даёт +0.0001 ₽ каждые 50 сек",
         auto_power: "Сила авто", auto_speed: "Скорость авто", gives: "Даёт", interval: "Интервал", sec: "сек", balance: "Баланс", make_taps: "Сделай", taps_word: "тапов", progress: "Прогресс",
         claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено", title_rank: "Ранг: ",
@@ -863,6 +994,15 @@
         balance_label: "Balance", tap_label: "Tap", tab_tap: "Tap Upg.", tab_auto: "Auto Upg.",
         rating_leader: "🏆 Leader!", player: "Player", legend: "Legend", total_taps: "Total taps", taps_hint: "Total taps for friends to see",
         withdraw: "Withdraw funds", dev_btn: "Press 5 times to test", menu_main: "Main", menu_upgrades: "Upgrades", menu_rating: "Rating", menu_quests: "Quests",
+        friends_btn: "Friends", clans_btn: "Clans", calendar_btn: "Calendar",
+        calendar_title: "Daily Calendar", calendar_day_label: "Streak Day",
+        calendar_claim_btn: "Claim Day {day}", calendar_claimed_btn: "Day {day} Claimed",
+        calendar_ready_now: "Day {day} reward is ready now!",
+        calendar_next_in: "Next day in: {h}h {m}m {s}s",
+        calendar_last_reward: "Last reward: +{val} ₽",
+        soon_title: "Coming Soon",
+        friends_soon_desc: "Friends section is under development. Coming soon!",
+        clans_soon_desc: "Clans section is under development. Coming soon!",
         lang_title: "Choose language", cancel: "Cancel", bought: "Bought", buy_for: "Buy for", buy_prev: "Buy prev first", not_enough_money: "Not enough funds!", auto_buy: "Buy Autoclicker", auto_desc: "Gives +0.0001 ₽ every 50s",
         auto_power: "Auto Power", auto_speed: "Auto Speed", gives: "Gives", interval: "Interval", sec: "sec", balance: "Balance", make_taps: "Make", taps_word: "taps", progress: "Progress",
         claim: "Claim", received: "Received", not_done: "Not done", title_rank: "Rank: ",
@@ -1098,7 +1238,7 @@
       var osc = audioCtx.createOscillator(); var gain = audioCtx.createGain();
       osc.connect(gain); gain.connect(audioCtx.destination);
       var now = audioCtx.currentTime;
-      
+
       if (type === 'upgrade') {
         osc.type = 'sine'; osc.frequency.setValueAtTime(440, now); osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
         gain.gain.setValueAtTime(0.3, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.3);
@@ -1111,15 +1251,15 @@
         osc.type = 'square'; osc.frequency.setValueAtTime(987.77, now); osc.frequency.setValueAtTime(1318.51, now + 0.1);
         gain.gain.setValueAtTime(0.1, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 0.4);
         osc.start(now); osc.stop(now + 0.4);
-      } else if (type === 'quest_claim_10') { 
-        osc.type = 'sawtooth'; osc.frequency.setValueAtTime(523.25, now); osc.frequency.setValueAtTime(659.25, now + 0.15); osc.frequency.setValueAtTime(783.99, now + 0.3); osc.frequency.setValueAtTime(1046.50, now + 0.45); 
+      } else if (type === 'quest_claim_10') {
+        osc.type = 'sawtooth'; osc.frequency.setValueAtTime(523.25, now); osc.frequency.setValueAtTime(659.25, now + 0.15); osc.frequency.setValueAtTime(783.99, now + 0.3); osc.frequency.setValueAtTime(1046.50, now + 0.45);
         gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.8);
         osc.start(now); osc.stop(now + 0.8);
-      } else if (type === 'quest_claim_11') { 
+      } else if (type === 'quest_claim_11') {
         osc.type = 'square'; osc.frequency.setValueAtTime(400, now); osc.frequency.linearRampToValueAtTime(800, now + 0.2); osc.frequency.setValueAtTime(800, now + 0.3); osc.frequency.linearRampToValueAtTime(1600, now + 0.6);
         gain.gain.setValueAtTime(0.1, now); gain.gain.linearRampToValueAtTime(0.2, now + 0.3); gain.gain.exponentialRampToValueAtTime(0.01, now + 1.0);
         osc.start(now); osc.stop(now + 1.0);
-      } else if (type === 'quest_claim_15') { 
+      } else if (type === 'quest_claim_15') {
         osc.type = 'sawtooth'; osc.frequency.setValueAtTime(300, now); osc.frequency.linearRampToValueAtTime(1500, now + 0.5);
         gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
         osc.start(now); osc.stop(now + 1.2);
@@ -1148,16 +1288,16 @@
       if (!audioCtx) return;
       var now = audioCtx.currentTime;
       var time = now;
-      var interval = 0.05; 
+      var interval = 0.05;
       while (time < now + totalDuration) {
         var osc = audioCtx.createOscillator(); var gain = audioCtx.createGain();
         osc.connect(gain); gain.connect(audioCtx.destination);
         osc.type = 'square'; osc.frequency.setValueAtTime(800, time);
         gain.gain.setValueAtTime(0.03, time); gain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
         osc.start(time); osc.stop(time + 0.03);
-        time += interval; interval *= 1.03; 
+        time += interval; interval *= 1.03;
       }
-      var stopTimes = [1.5, 2.2, 3.0]; 
+      var stopTimes = [1.5, 2.2, 3.0];
       for (var i = 0; i < stopTimes.length; i++) {
         var stopOsc = audioCtx.createOscillator(); var stopGain = audioCtx.createGain();
         stopOsc.connect(stopGain); stopGain.connect(audioCtx.destination);
@@ -1173,14 +1313,14 @@
       if (!audioCtx) return;
       var now = audioCtx.currentTime;
       var time = now;
-      var interval = 0.04; 
+      var interval = 0.04;
       while (time < now + totalDuration) {
         var osc = audioCtx.createOscillator(); var gain = audioCtx.createGain();
         osc.connect(gain); gain.connect(audioCtx.destination);
         osc.type = 'triangle'; osc.frequency.setValueAtTime(1200, time);
         gain.gain.setValueAtTime(0.05, time); gain.gain.exponentialRampToValueAtTime(0.001, time + 0.02);
         osc.start(time); osc.stop(time + 0.03);
-        time += interval; interval *= 1.02; 
+        time += interval; interval *= 1.02;
       }
       var finalOsc = audioCtx.createOscillator(); var finalGain = audioCtx.createGain();
       finalOsc.connect(finalGain); finalGain.connect(audioCtx.destination);
@@ -1190,7 +1330,7 @@
     }
 
     function playHaptic(type) {
-      if (!isVibrationEnabled) return; 
+      if (!isVibrationEnabled) return;
       if (tg && tg.HapticFeedback && typeof tg.HapticFeedback.impactOccurred === 'function') {
         try {
           if (type === 'light') tg.HapticFeedback.impactOccurred('light');
@@ -1198,9 +1338,9 @@
           else if (type === 'heavy') tg.HapticFeedback.impactOccurred('heavy');
           else if (type === 'success') tg.HapticFeedback.notificationOccurred('success');
           else if (type === 'error') tg.HapticFeedback.notificationOccurred('error');
-          return; 
+          return;
         } catch(e) {}
-      } 
+      }
       if (navigator.vibrate) {
         try {
           if (type === 'light') navigator.vibrate(15);
@@ -1298,24 +1438,24 @@
       { nameIdx: 36, desc: 350.0, cost: 85000, value: 350.0 }, { nameIdx: 37, desc: 400.0, cost: 100000, value: 400.0 }, { nameIdx: 38, desc: 450.0, cost: 120000, value: 450.0 },
       { nameIdx: 39, desc: 500.0, cost: 150000, value: 500.0 }
     ];
-    
+
     var autoValueData = [
       { level: 1, cost: 50, value: 0.0002 }, { level: 2, cost: 60, value: 0.0003 }, { level: 3, cost: 70, value: 0.0004 }, { level: 4, cost: 80, value: 0.0005 },
       { level: 5, cost: 160, value: 0.001 }, { level: 6, cost: 180, value: 0.002 }, { level: 7, cost: 200, value: 0.003 }, { level: 8, cost: 225, value: 0.004 },
-      { level: 9, cost: 250, value: 0.005 }, { level: 10, cost: 500, value: 0.01 }, { level: 11, cost: 600, value: 0.02 }, { level: 12, cost: 700, value: 0.03 }, 
-      { level: 13, cost: 800, value: 0.04 }, { level: 14, cost: 900, value: 0.05 }, { level: 15, cost: 1000, value: 0.1 }, { level: 16, cost: 1500, value: 0.2 }, 
+      { level: 9, cost: 250, value: 0.005 }, { level: 10, cost: 500, value: 0.01 }, { level: 11, cost: 600, value: 0.02 }, { level: 12, cost: 700, value: 0.03 },
+      { level: 13, cost: 800, value: 0.04 }, { level: 14, cost: 900, value: 0.05 }, { level: 15, cost: 1000, value: 0.1 }, { level: 16, cost: 1500, value: 0.2 },
       { level: 17, cost: 2000, value: 0.3 }, { level: 18, cost: 2500, value: 0.4 }, { level: 19, cost: 3000, value: 0.5 }, { level: 20, cost: 4000, value: 1.0 },
       { level: 21, cost: 5000, value: 2.0 }, { level: 22, cost: 6000, value: 3.0 }, { level: 23, cost: 8000, value: 5.0 }, { level: 24, cost: 10000, value: 10.0 }, { level: 25, cost: 15000, value: 25.0 },
       { level: 26, cost: 20000, value: 35.0 }, { level: 27, cost: 25000, value: 50.0 }, { level: 28, cost: 30000, value: 70.0 }, { level: 29, cost: 38000, value: 90.0 }, { level: 30, cost: 45000, value: 120.0 },
       { level: 31, cost: 55000, value: 150.0 }, { level: 32, cost: 65000, value: 185.0 }, { level: 33, cost: 80000, value: 225.0 }, { level: 34, cost: 95000, value: 270.0 }, { level: 35, cost: 120000, value: 350.0 }
     ];
-    
+
     var autoSpeedData = [
       { level: 1, cost: 55, interval: 45000 }, { level: 2, cost: 65, interval: 40000 }, { level: 3, cost: 75, interval: 35000 }, { level: 4, cost: 100, interval: 30000 },
       { level: 5, cost: 150, interval: 25000 }, { level: 6, cost: 200, interval: 20000 }, { level: 7, cost: 250, interval: 15000 }, { level: 8, cost: 300, interval: 10000 },
       { level: 9, cost: 375, interval: 5000 }, { level: 10, cost: 500, interval: 1000 }
     ];
-    
+
     var questsData = [
       { id: 1, need: 1000, reward: 0.5 }, { id: 2, need: 5000, reward: 1 }, { id: 3, need: 10000, reward: 2 }, { id: 4, need: 15000, reward: 5 }, { id: 5, need: 20000, reward: 10 },
       { id: 6, need: 25000, reward: 15 }, { id: 7, need: 30000, reward: 20 }, { id: 8, need: 35000, reward: 25 }, { id: 9, need: 40000, reward: 30 }, { id: 10, need: 50000, reward: 50 },
@@ -1342,6 +1482,8 @@
       { id: "skin_chaos_eye", icon: "👁️", price: 3000000, kind: "skin", skinId: 4 }
     ];
 
+    var CALENDAR_REWARDS_POOL = [0.01, 0.1, 0.25, 0.5, 1, 5, 10, 25, 50, 100, 250, 1000];
+
     var balance = parseFloat(safeStorage.getItem('potatoBalance')) || 0;
     var tapValue = parseFloat(safeStorage.getItem('tapValue')) || 0.001;
     var maxUpgrade = parseInt(safeStorage.getItem('maxUpgrade'), 10) || 0;
@@ -1355,6 +1497,10 @@
     var autoSpeedLevel = parseInt(safeStorage.getItem('autoSpeedLevel'), 10) || 0;
     var ownedSkins = safeJsonParse(safeStorage.getItem('ownedSkins'), [0]);
     var equippedSkin = parseInt(safeStorage.getItem('equippedSkin'), 10) || 0;
+
+    var streakDays = parseInt(safeStorage.getItem('streakDays'), 10) || 0;
+    var lastCalendarClaimDate = safeStorage.getItem('lastCalendarClaimDate') || '';
+    var lastCalendarReward = safeStorage.getItem('lastCalendarReward') || null;
 
     var hasMoaiAmulet = safeStorage.getItem('hasMoaiAmulet') === 'true';
     var moaiEquipped = safeStorage.getItem('moaiEquipped') !== 'false';
@@ -1384,7 +1530,7 @@
     var giftCooldown = 24 * 60 * 60 * 1000; var giftTimerInterval = null;
     var lastGiftRewardShown = null;
 
-    var isSpinning = false; var spinCost = 5; var forceMoai = false; var SPIN_DURATION = 9000; 
+    var isSpinning = false; var spinCost = 5; var forceMoai = false; var SPIN_DURATION = 9000;
     var isSlotsSpinning = false; var slotsCost = 100;
     var isWheelSpinning = false; var wheelCost = 500;
     var currentWheelRotation = 0;
@@ -1414,10 +1560,106 @@
       layer.innerHTML = html;
     }
 
-    function getTodayKey() {
-      var d = new Date();
+    function getDateKeyByOffset(offsetDays) {
+      var d = new Date(Date.now() + offsetDays * 86400000);
       return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
     }
+
+    function getTodayKey() {
+      return getDateKeyByOffset(0);
+    }
+
+    function rollCalendarReward() {
+      var r = Math.random();
+      if (r < 0.002) return 1000;
+      if (r < 0.012) return 250;
+      if (r < 0.032) return 100;
+      if (r < 0.067) return 50;
+      if (r < 0.127) return 25;
+      if (r < 0.217) return 10;
+      if (r < 0.347) return 5;
+      if (r < 0.507) return 1;
+      if (r < 0.677) return 0.5;
+      if (r < 0.807) return 0.25;
+      if (r < 0.917) return 0.1;
+      return 0.01;
+    }
+
+    function formatCalendarChipVal(val) {
+      return val === 1000 ? '1.000 ★' : formatMoney(val, val < 1 ? 2 : 0);
+    }
+
+    function updateCalendarUI() {
+      var todayKey = getTodayKey();
+      var claimedToday = (lastCalendarClaimDate === todayKey);
+      var displayDay = claimedToday ? Math.max(1, streakDays) : (streakDays + 1);
+
+      var btnDayEl = getEl('calendarBtnDay');
+      if (btnDayEl) btnDayEl.innerText = displayDay;
+
+      var streakNumEl = getEl('calendarStreakNum');
+      if (streakNumEl) streakNumEl.innerText = displayDay;
+
+      var valuesWrap = getEl('calendarValuesWrap');
+      if (valuesWrap && !valuesWrap.dataset.ready) {
+        valuesWrap.innerHTML = CALENDAR_REWARDS_POOL.map(function(val) {
+          return '<div class="calendar-val-chip' + (val === 1000 ? ' jackpot' : '') + '">' + formatCalendarChipVal(val) + '</div>';
+        }).join('');
+        valuesWrap.dataset.ready = '1';
+      }
+
+      var lastRewardEl = getEl('calendarLastRewardText');
+      if (lastRewardEl) {
+        lastRewardEl.innerText = lastCalendarReward !== null
+          ? t.calendar_last_reward.replace('{val}', formatMoney(parseFloat(lastCalendarReward), 2))
+          : '';
+      }
+
+      var now = new Date();
+      var nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
+      var msLeft = Math.max(0, nextMidnight.getTime() - now.getTime());
+      var h = Math.floor(msLeft / 3600000);
+      var m = Math.floor((msLeft % 3600000) / 60000);
+      var s = Math.floor((msLeft % 60000) / 1000);
+
+      var timerEl = getEl('calendarTimerText');
+      if (timerEl) {
+        timerEl.innerText = claimedToday
+          ? t.calendar_next_in.replace('{h}', h).replace('{m}', m).replace('{s}', s)
+          : t.calendar_ready_now.replace('{day}', displayDay);
+      }
+
+      var claimBtn = getEl('claimCalendarBtn');
+      if (claimBtn) {
+        claimBtn.disabled = claimedToday;
+        claimBtn.innerText = claimedToday
+          ? t.calendar_claimed_btn.replace('{day}', displayDay)
+          : t.calendar_claim_btn.replace('{day}', displayDay);
+      }
+    }
+
+    window.claimCalendarReward = function() {
+      var todayKey = getTodayKey();
+      if (lastCalendarClaimDate === todayKey) return;
+
+      var yesterdayKey = getDateKeyByOffset(-1);
+      if (lastCalendarClaimDate === yesterdayKey || streakDays === 0) {
+        streakDays += 1;
+      } else {
+        streakDays = 1;
+      }
+
+      var reward = rollCalendarReward();
+      balance += reward;
+      lastCalendarClaimDate = todayKey;
+      lastCalendarReward = reward.toFixed(3);
+
+      save();
+      playSound(reward === 1000 ? 'quest_claim_15' : 'quest_claim');
+      playHaptic(reward === 1000 ? 'heavy' : 'success');
+      updateUI();
+      updateCalendarUI();
+    };
 
     function getEffectiveTapValue() { return tapValue * currentMultiplier; }
     function getEffectiveAutoInterval() { return autoInterval; }
@@ -1437,6 +1679,10 @@
       safeStorage.setItem('ownedSkins', JSON.stringify(ownedSkins));
       safeStorage.setItem('equippedSkin', equippedSkin);
       safeStorage.setItem('lastGiftTime', lastGiftTime);
+
+      safeStorage.setItem('streakDays', streakDays);
+      safeStorage.setItem('lastCalendarClaimDate', lastCalendarClaimDate);
+      if (lastCalendarReward !== null) safeStorage.setItem('lastCalendarReward', lastCalendarReward);
 
       safeStorage.setItem('hasMoaiAmulet', hasMoaiAmulet);
       safeStorage.setItem('moaiEquipped', moaiEquipped);
@@ -1708,7 +1954,7 @@
       if (modal) modal.style.display = 'none';
       playHaptic('light');
     };
-    
+
     window.forceEvent = function(eventName) {
       activeEvents.blackMarket = false;
       activeEvents.halloween = false;
@@ -1744,7 +1990,7 @@
           triggerBannerFor5Sec('blackMarket');
         }
       }
-      
+
       syncEventHistoryWithActive();
       updateSeasonVisuals();
       updateShopEventUI();
@@ -1799,6 +2045,7 @@
       renderBlackMarket();
       renderInventory();
       updateGiftUI();
+      updateCalendarUI();
       updateAutoInfo();
       updateBuffsInfo();
       updateRank();
@@ -1882,12 +2129,12 @@
 
     function updateUI() {
       if (balanceEl) {
-        balanceEl.innerText = formatMainBalance(balance); 
+        balanceEl.innerText = formatMainBalance(balance);
         balanceEl.classList.toggle('negative', balance < 0);
       }
-      updateRank(); 
-      if (tapPowerEl) tapPowerEl.innerText = formatMoney(getEffectiveTapValue()); 
-      if (totalTapsText) totalTapsText.innerText = formatMoney(totalTaps, 0); 
+      updateRank();
+      if (tapPowerEl) tapPowerEl.innerText = formatMoney(getEffectiveTapValue());
+      if (totalTapsText) totalTapsText.innerText = formatMoney(totalTaps, 0);
       if (progressFill) progressFill.style.width = Math.min(100, (totalTaps / 50000000) * 100) + '%';
       updateBuffsInfo();
       updateProfileBadges();
@@ -1935,27 +2182,27 @@
     window.claimGift = function() {
       if (Date.now() - lastGiftTime < giftCooldown) return;
       var roll = Math.random(); var reward = 0; var isJackpot = false;
-      if (roll < 0.01) { reward = 300; isJackpot = true; } 
-      else if (roll < 0.10) { reward = Math.random() * (50 - 10) + 10; } 
-      else if (roll < 0.40) { reward = Math.random() * (10 - 1) + 1; } 
+      if (roll < 0.01) { reward = 300; isJackpot = true; }
+      else if (roll < 0.10) { reward = Math.random() * (50 - 10) + 10; }
+      else if (roll < 0.40) { reward = Math.random() * (10 - 1) + 1; }
       else { reward = Math.random() * (1 - 0.001) + 0.001; }
-      
+
       reward = parseFloat(reward.toFixed(3));
       balance += reward; lastGiftTime = Date.now();
       lastGiftRewardShown = { amount: reward, isJackpot: isJackpot };
       save(); updateUI();
-      
+
       var questionEl = getEl('giftQuestion'); var rewardDisplayEl = getEl('giftRewardDisplay');
       var rewardTextEl = getEl('giftRewardText'); var rewardNoteEl = getEl('giftBalanceNote'); var jackpotEl = getEl('jackpotText');
       if (questionEl) questionEl.style.display = 'none';
       if (rewardDisplayEl) rewardDisplayEl.style.display = 'flex';
       if (rewardTextEl) rewardTextEl.innerText = '+' + formatMoney(reward) + ' ₽';
       if (rewardNoteEl) rewardNoteEl.innerText = t.gift_added_note;
-      
+
       if (isJackpot) {
         if (rewardTextEl) rewardTextEl.classList.add('jackpot');
         if (jackpotEl) { jackpotEl.style.display = 'block'; jackpotEl.innerText = t.jackpot; }
-        playSound('quest_claim_10'); playHaptic('heavy'); 
+        playSound('quest_claim_10'); playHaptic('heavy');
         if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); setTimeout(function() { playSound('achievement'); }, 500); }
       } else {
         if (rewardTextEl) rewardTextEl.classList.remove('jackpot');
@@ -1964,13 +2211,13 @@
       }
       updateGiftUI();
       if (giftTimerInterval) clearInterval(giftTimerInterval);
-      giftTimerInterval = setInterval(function() { updateGiftUI(); checkEvents(false); updateBuffsInfo(); }, 1000); 
+      giftTimerInterval = setInterval(function() { updateGiftUI(); updateCalendarUI(); checkEvents(false); updateBuffsInfo(); }, 1000);
     };
 
     window.switchShopTab = function(tab) {
       if (tab === 'blackmarket' && !activeEvents.blackMarket) return;
       currentShopTab = tab;
-      playHaptic('medium'); 
+      playHaptic('medium');
       var tabs = document.querySelectorAll('.shop-tab-btn');
       for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
 
@@ -2071,9 +2318,9 @@
 
     function addReelItem(item) {
       if (!casinoReel) return; var div = document.createElement('div'); div.className = 'reel-item';
-      if (item.type === 'fries') { div.classList.add('fries'); div.innerText = '🍟'; } 
-      else if (item.type === 'moai') { div.classList.add('moai'); div.innerText = '🗿'; } 
-      else if (item.type === 'money' && item.value < 0) { div.classList.add('negative'); div.innerText = '₽ ' + formatMoney(item.value, 0); } 
+      if (item.type === 'fries') { div.classList.add('fries'); div.innerText = '🍟'; }
+      else if (item.type === 'moai') { div.classList.add('moai'); div.innerText = '🗿'; }
+      else if (item.type === 'money' && item.value < 0) { div.classList.add('negative'); div.innerText = '₽ ' + formatMoney(item.value, 0); }
       else { div.innerText = '₽ ' + formatMoney(item.value, 0); }
       casinoReel.appendChild(div);
     }
@@ -2083,20 +2330,20 @@
     window.spinCasino = function() {
       if (isSpinning || !casinoReel || !spinBtn) return;
       if (balance < spinCost) { playHaptic('error'); alert(t.not_enough_money); return; }
-      
+
       isSpinning = true; balance -= spinCost; updateUI();
-      spinBtn.disabled = true; playHaptic('medium'); 
+      spinBtn.disabled = true; playHaptic('medium');
       playCaseOpenSound(SPIN_DURATION / 1000);
-      
+
       var winItem = null;
-      if (forceMoai) { winItem = { type: 'moai' }; forceMoai = false; } 
+      if (forceMoai) { winItem = { type: 'moai' }; forceMoai = false; }
       else if (Math.random() < 0.0001) { winItem = { type: 'moai' }; }
-      else if (Math.random() < 0.001) { winItem = { type: 'fries' }; } 
+      else if (Math.random() < 0.001) { winItem = { type: 'fries' }; }
       else {
         var isNegative = Math.random() < 0.5; var val = 0; var r2 = Math.random();
-        if (r2 < 0.6) val = Math.floor(Math.random() * 5 + 1); 
-        else if (r2 < 0.9) val = Math.floor(Math.random() * 45 + 5); 
-        else val = Math.floor(Math.random() * 900 + 100); 
+        if (r2 < 0.6) val = Math.floor(Math.random() * 5 + 1);
+        else if (r2 < 0.9) val = Math.floor(Math.random() * 45 + 5);
+        else val = Math.floor(Math.random() * 900 + 100);
         if (isNegative) val = -val; winItem = { type: 'money', value: val };
       }
 
@@ -2107,10 +2354,10 @@
 
       setTimeout(function() {
         casinoReel.style.transition = 'transform ' + (SPIN_DURATION/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
-        var reelWindow = document.querySelector('.reel-window'); var containerWidth = reelWindow ? reelWindow.offsetWidth : 320; 
+        var reelWindow = document.querySelector('.reel-window'); var containerWidth = reelWindow ? reelWindow.offsetWidth : 320;
         var itemWidth = 90; var centerOffset = (containerWidth / 2) - (itemWidth / 2); var targetPosition = (40 * itemWidth) - centerOffset;
         casinoReel.style.transform = 'translateX(-' + targetPosition + 'px)';
-        
+
         setTimeout(function() {
           isSpinning = false;
           if (CASE_AUDIO_CONFIG.stopWhenReelFinishes) stopCaseOpenSound();
@@ -2126,11 +2373,11 @@
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
           } else {
             var applied = applyCasinoOutcome(parseFloat(winItem.value));
-            if (applied < 0) { playHaptic('error'); alert(t.you_lost_val + formatMoney(Math.abs(applied), 0) + ' ₽'); } 
+            if (applied < 0) { playHaptic('error'); alert(t.you_lost_val + formatMoney(Math.abs(applied), 0) + ' ₽'); }
             else if (applied > 0) { playSound('casino_win'); playHaptic('success'); alert(t.you_won_val + formatMoney(applied, 0) + ' ₽'); }
             if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
           }
-        }, SPIN_DURATION); 
+        }, SPIN_DURATION);
       }, 50);
     };
 
@@ -2160,12 +2407,12 @@
       playSlotSpinSound(dur3 / 1000);
 
       var roll = Math.random(), winType = 'none', winAmount = 0, finalSymbols = ['🥔', '🥔', '🥔'];
-      if (roll < 0.0001) { finalSymbols = ['🍟', '🍟', '🍟']; winAmount = 10000; winType = 'jackpot'; } 
-      else if (roll < 0.0101) { finalSymbols = ['🍟', '🍟', Math.random() < 0.5 ? '🥔' : '👻']; winAmount = 1000; winType = 'win'; } 
-      else if (roll < 0.0151) { finalSymbols = ['👻', '👻', '👻']; winAmount = 5000; winType = 'win'; } 
-      else if (roll < 0.0351) { finalSymbols = ['🥔', '🥔', '🥔']; winAmount = 3000; winType = 'win'; } 
-      else if (roll < 0.0651) { finalSymbols = ['👻', '👻', Math.random() < 0.5 ? '🥔' : '🍟']; winAmount = 500; winType = 'win'; } 
-      else if (roll < 0.2151) { finalSymbols = ['🥔', '🥔', Math.random() < 0.5 ? '🍟' : '👻']; winAmount = 100; winType = 'win'; } 
+      if (roll < 0.0001) { finalSymbols = ['🍟', '🍟', '🍟']; winAmount = 10000; winType = 'jackpot'; }
+      else if (roll < 0.0101) { finalSymbols = ['🍟', '🍟', Math.random() < 0.5 ? '🥔' : '👻']; winAmount = 1000; winType = 'win'; }
+      else if (roll < 0.0151) { finalSymbols = ['👻', '👻', '👻']; winAmount = 5000; winType = 'win'; }
+      else if (roll < 0.0351) { finalSymbols = ['🥔', '🥔', '🥔']; winAmount = 3000; winType = 'win'; }
+      else if (roll < 0.0651) { finalSymbols = ['👻', '👻', Math.random() < 0.5 ? '🥔' : '🍟']; winAmount = 500; winType = 'win'; }
+      else if (roll < 0.2151) { finalSymbols = ['🥔', '🥔', Math.random() < 0.5 ? '🍟' : '👻']; winAmount = 100; winType = 'win'; }
       else { var arr = ['🥔', '🍟', '👻']; arr.sort(function() { return Math.random() - 0.5; }); finalSymbols = arr; }
 
       buildStrip('strip1', finalSymbols[0], dur1);
@@ -2188,7 +2435,7 @@
           } else { alert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽'); }
           if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
         } else { playHaptic('error'); alert(t.nothing_won); }
-      }, dur3 + 100); 
+      }, dur3 + 100);
     };
 
     window.spinWheel = function() {
@@ -2203,17 +2450,17 @@
       playWheelSpinSound(spinDuration / 1000);
 
       var roll = Math.random(), winType = 'none', winAmount = 0, targetSectorIndex = 0;
-      if (roll < 0.65) { 
+      if (roll < 0.65) {
         winType = 'loss'; winAmount = 0;
         var lossSectors = [0, 1, 3, 4, 6, 7, 9, 11, 14];
         targetSectorIndex = lossSectors[Math.floor(Math.random() * lossSectors.length)];
-      } else if (roll < 0.85) { 
+      } else if (roll < 0.85) {
         winType = 'win'; winAmount = 750;
         var greenSectors = [2, 8, 12];
         targetSectorIndex = greenSectors[Math.floor(Math.random() * greenSectors.length)];
-      } else if (roll < 0.95) { winType = 'win'; winAmount = 1000; targetSectorIndex = 5; } 
-      else if (roll < 0.98) { winType = 'win'; winAmount = 2500; targetSectorIndex = 10; } 
-      else if (roll < 0.995) { winType = 'win'; winAmount = 5000; targetSectorIndex = 13; } 
+      } else if (roll < 0.95) { winType = 'win'; winAmount = 1000; targetSectorIndex = 5; }
+      else if (roll < 0.98) { winType = 'win'; winAmount = 2500; targetSectorIndex = 10; }
+      else if (roll < 0.995) { winType = 'win'; winAmount = 5000; targetSectorIndex = 13; }
       else { winType = 'jackpot'; winAmount = 25000; targetSectorIndex = 15; }
 
       var sectorAngle = 22.5;
@@ -2222,7 +2469,7 @@
       var currentRotationMod = ((currentWheelRotation % 360) + 360) % 360;
       var rotationToAdd = (absoluteTargetAngle - currentRotationMod + 360) % 360;
       currentWheelRotation += (360 * 5) + rotationToAdd;
-      
+
       if (wheel) {
         wheel.style.transition = 'transform ' + (spinDuration/1000) + 's cubic-bezier(0.1, 0.8, 0.1, 1)';
         wheel.style.transform = 'rotate(' + currentWheelRotation + 'deg)';
@@ -2299,7 +2546,7 @@
       balance += effectiveTapValue; totalTaps += 1; updateUI();
 
       if (!document.body) return;
-      var float = document.createElement('div'); float.className = 'float-text'; float.innerText = '+' + formatMoney(effectiveTapValue); 
+      var float = document.createElement('div'); float.className = 'float-text'; float.innerText = '+' + formatMoney(effectiveTapValue);
       var clientX = window.innerWidth / 2, clientY = window.innerHeight / 2;
       if (e && e.touches && e.touches[0]) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; }
       else if (e && e.clientX) { clientX = e.clientX; clientY = e.clientY; }
@@ -2319,7 +2566,7 @@
 
         var card = document.createElement('div'); card.className = 'card shop-card';
         var isLocked = (!isOwned && skin.id !== 0);
-        
+
         var previewBox = document.createElement('div'); previewBox.className = 'shop-preview';
         var img = document.createElement('img'); img.src = skin.image;
         if (isLocked) img.style.filter = 'grayscale(100%) opacity(0.5)';
@@ -2470,10 +2717,10 @@
         var titleText = currentLang === 'ru' ? 'Натапать ' + formatMoney(q.need, 0) + ' раз' : 'Tap ' + formatMoney(q.need, 0) + ' times';
         var descText = t.make_taps + ' ' + formatMoney(q.need, 0) + ' ' + t.taps_word;
         var progText = t.progress + ': ' + formatMoney(Math.min(totalTaps, q.need), 0) + ' / ' + formatMoney(q.need, 0);
-        
+
         var card = document.createElement('div'); card.className = 'card';
         card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-top:8px;margin-bottom:0;color:#a78bfa;font-size:9px;line-height:1.6;word-break:break-word;">' + progText + '</div></div>';
-        
+
         var btnText = isClaimed ? t.received : (canClaim ? t.claim + ' (+' + formatMoney(q.reward, 1) + ' ₽)' : t.not_done);
         var btn = makeActionButton(btnText, !canClaim, (function(quest) {
           return function() {
@@ -2497,11 +2744,11 @@
         var card = document.createElement('div'); card.className = 'card';
         if (isUnlocked) card.classList.add('rgb-glow');
         else { card.style.opacity = '0.5'; card.style.filter = 'grayscale(100%)'; }
-        
-        var iconHtml = ach.icon === 'wood' 
-          ? '<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/><ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/><ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/><ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/><ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/><path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>' 
+
+        var iconHtml = ach.icon === 'wood'
+          ? '<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/><ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/><ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/><ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/><ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/><path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>'
           : '<div class="card-icon">' + ach.icon + '</div>';
-        
+
         var statusHtml = isUnlocked ? '<div class="card-status status-unlocked">' + t.ach_unlocked + '</div>' : '<div class="card-status status-locked">' + t.ach_locked + '</div>';
         card.innerHTML = iconHtml + '<div class="card-content"><div class="card-title">' + ach.title + '</div><div class="card-desc">' + ach.desc + '</div>' + statusHtml + '</div>';
         achievementsList.appendChild(card);
@@ -2556,7 +2803,7 @@
     }
 
     function showScreen(name) {
-      playHaptic('medium'); 
+      playHaptic('medium');
       var screens = document.querySelectorAll('.screen');
       for (var s = 0; s < screens.length; s++) screens[s].classList.remove('active');
       var target = getEl('screen-' + name); if (target) target.classList.add('active');
@@ -2565,8 +2812,8 @@
       for (var m = 0; m < menuItems.length; m++) {
         menuItems[m].classList.toggle('active', menuItems[m].getAttribute('data-screen') === name);
       }
-      if (['inventory', 'achievements', 'events-history', 'shop', 'casino', 'casino-box', 'casino-slots', 'casino-wheel', 'settings'].indexOf(name) !== -1) {
-        for (var k = 0; k < menuItems.length; k++) menuItems[k].classList.remove('active'); 
+      if (['friends', 'clans', 'calendar', 'inventory', 'achievements', 'events-history', 'shop', 'casino', 'casino-box', 'casino-slots', 'casino-wheel', 'settings'].indexOf(name) !== -1) {
+        for (var k = 0; k < menuItems.length; k++) menuItems[k].classList.remove('active');
       }
 
       if (topBalanceBar) {
@@ -2577,6 +2824,7 @@
       if (name === 'quests') renderQuests();
       if (name === 'profile') { loadUser(); updateRank(); updateProfileBadges(); }
       if (name === 'inventory') renderInventory();
+      if (name === 'calendar') updateCalendarUI();
       if (name === 'rating') renderRating();
       if (name === 'achievements') renderAchievements();
       if (name === 'events-history') renderEventsHistory();
@@ -2586,7 +2834,7 @@
     }
 
     var openProfileBtn = getEl('openProfile'); if (openProfileBtn) openProfileBtn.onclick = function() { showScreen('profile'); };
-    
+
     var menuItems = document.querySelectorAll('.menu-item');
     for (var i = 0; i < menuItems.length; i++) {
       menuItems[i].onclick = function() { var scr = this.getAttribute('data-screen'); if (scr) showScreen(scr); };
@@ -2631,7 +2879,7 @@
     updateUI();
     updatePotatoSkin();
     if (giftTimerInterval) clearInterval(giftTimerInterval);
-    giftTimerInterval = setInterval(function() { updateGiftUI(); checkEvents(false); updateBuffsInfo(); }, 1000); 
+    giftTimerInterval = setInterval(function() { updateGiftUI(); updateCalendarUI(); checkEvents(false); updateBuffsInfo(); }, 1000);
     if (hasAutoclicker) startAutoclicker();
   </script>
 </body>
