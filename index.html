@@ -21,12 +21,11 @@
       transition: background 0.35s ease;
     }
 
-    /* Темы событий (явно переопределяем background на body) */
+    /* Темы событий */
     body.season-halloween { background: linear-gradient(180deg, #3b1208, #7c2d12) !important; }
     body.season-newyear { background: linear-gradient(180deg, #0b2545, #134e4a) !important; }
     body.season-valentine { background: linear-gradient(180deg, #500724, #9d174d) !important; }
     body.season-april { background: linear-gradient(180deg, #3f2e05, #854d0e) !important; }
-    /* Чёрный рынок оставляет классический фон и классическую картошку */
     body.season-blackmarket { background: linear-gradient(180deg, #2e1065, #1e1b4b) !important; }
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; overflow-y: auto; }
@@ -103,12 +102,12 @@
 
     body.has-event-banner .top-balance,
     body.has-event-banner .btn-top-back { top: 54px; }
-    body.has-event-banner .main-btns-container { top: 54px; }
+    body.has-event-banner .main-btns-container { top: 116px; }
     body.has-event-banner .tabs,
     body.has-event-banner .shop-tabs { padding-top: 120px; }
     body.has-event-banner .main-content,
     body.has-event-banner .profile-content,
-    body.has-event-banner .inventory-content { padding-top: 110px; }
+    body.has-event-banner .inventory-content { padding-top: 130px; }
     body.has-event-banner .casino-menu-container,
     body.has-event-banner .casino-container,
     body.has-event-banner .slots-container,
@@ -119,14 +118,15 @@
     body.has-event-banner #screen-quests .list-content,
     body.has-event-banner #screen-rating .rating-container { padding-top: 52px; }
 
+    /* Баланс в верхнем левом углу */
     .top-balance { 
-      position: absolute; top: 14px; right: 14px; display: flex; align-items: center; gap: 10px; 
-      background: rgba(0,0,0,0.45); padding: 4px 4px 4px 10px; z-index: 60; cursor: pointer; 
+      position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px; 
+      background: rgba(0,0,0,0.45); padding: 4px 10px 4px 4px; z-index: 60; cursor: pointer; 
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
       transition: top 0.2s ease;
     }
-    .top-avatar { width: 30px; height: 30px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; order: 2; }
-    .top-balance-text { display: flex; flex-direction: column; align-items: flex-end; order: 1; }
+    .top-avatar { width: 30px; height: 30px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; order: 1; }
+    .top-balance-text { display: flex; flex-direction: column; align-items: flex-start; order: 2; }
     .top-balance-label { font-size: 8px; color: #c4b5fd; margin-bottom: 4px; }
     .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; transition: color 0.3s; }
     .top-balance-value.negative { color: #ef4444; } 
@@ -151,8 +151,9 @@
     }
     .btn-info:active { border-color: #1e40af #93c5fd #93c5fd #1e40af; transform: scale(0.95); }
 
+    /* Кнопки меню ниже баланса в левом углу */
     .main-btns-container {
-      position: absolute; top: 14px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
+      position: absolute; top: 76px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
       transition: top 0.2s ease;
     }
     .inventory-btn-main, .shop-btn-main, .casino-btn-main {
@@ -183,7 +184,7 @@
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; position: relative; }
     .screen.active { display: flex; }
 
-    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 70px; transition: padding-top 0.2s ease; }
+    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 90px; transition: padding-top 0.2s ease; }
     
     .potato-wrap {
       width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center;
@@ -194,7 +195,7 @@
     .potato-wrap:active .potato-emoji { animation: shake 0.1s; }
     @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
     
-    .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; image-rendering: pixelated; }
+    .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; image-rendering: pixelated; filter: drop-shadow(0 0 6px rgba(255,255,255,0.22)) drop-shadow(0 10px 15px rgba(0,0,0,0.55)); }
     .potato-wrap:active img { animation: shake 0.1s; }
 
     .tap-power { margin-top: 16px; font-size: 11px; color: #c4b5fd; text-align: center; }
@@ -280,7 +281,7 @@
 
     .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 14px; gap: 8px; }
     .shop-preview { font-size: 56px; margin-bottom: 4px; height: 66px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
-    .shop-preview img { width: 66px; height: 66px; object-fit: contain; image-rendering: pixelated; }
+    .shop-preview img { width: 66px; height: 66px; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(0 0 4px rgba(255,255,255,0.22)); }
     .shop-card .btn { width: 100%; margin-bottom: 0; font-size: 8px; }
 
     .gift-wrapper { display: flex; flex-direction: column; align-items: center; padding: 10px 16px 30px; }
@@ -747,7 +748,12 @@
         auto_power: "Сила авто", auto_speed: "Скорость авто", gives: "Даёт", interval: "Интервал", sec: "сек", balance: "Баланс", make_taps: "Сделай", taps_word: "тапов", progress: "Прогресс",
         claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено", title_rank: "Ранг: ",
         ranks: ["Новичок", "Тапатель", "Фермер", "Агроном", "Мастер клика", "Гуру тапов", "Магнат", "Повелитель", "Легенда", "Бог Картофеля"],
-        upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель", "Архитектор", "Сингулярность", "Бесконечный", "Запредельный", "Трансцендентный", "Всемогущий", "Изначальный", "Апофеоз", "Вечный", "Тап Богов"],
+        upg_names: [
+          "Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.",
+          "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель",
+          "Архитектор", "Сингулярность", "Бесконечный", "Запредельный", "Трансцендентный", "Всемогущий", "Изначальный", "Апофеоз", "Вечный", "Тап Богов",
+          "Сверхновый", "Гипер-Бог", "Абсолют+", "Квантовый Бог", "Владыка Пустоты", "Космо-Творец", "Вечный Властелин", "Омега-Тап", "Бесконечный Бог", "Абсолютный Тап Богов"
+        ],
         upg_desc: "Тап даёт", achievements_btn: "🏆 Достижения", inventory_main_btn: "инвентарь", inventory_title: "🎒 Инвентарь", events_history_btn: "🗓️ События и бейджи", ach_unlocked: "Получено", ach_locked: "Заблокировано",
         shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить", shop_tab_skins: "Скины", shop_tab_gifts: "Подарки", shop_tab_bm: "🌑 Чёрный рынок",
         bm_subtitle: "Редкие лоты тени", bm_left: "Осталось: {hours}ч {mins}м",
@@ -805,7 +811,7 @@
         evt_april: "🤡 1 апреля — время розыгрышей!",
         support_msg: "Если у вас возникли проблемы, напишите нам в Telegram: @negaduushchiyXD",
         min_withdraw: "Минимум 10 ₽", withdraw_msg: "Вывод {amount} ₽ (test)",
-        dev_bonus_msg: "+200 000 ₽ и +50 000 тапов!",
+        dev_bonus_msg: "+5 000 000 ₽ и +10 000 000 тапов!",
         info_box_html: `
           <p><b>Стоимость:</b> 5 ₽ за прокрутку.</p>
           <p><b>Как играть:</b> Стрелка указывает на выигрыш. Если выпадают отрицательные числа (красные), вы теряете эти деньги. Если положительные (желтые), получаете.</p>
@@ -861,7 +867,12 @@
         auto_power: "Auto Power", auto_speed: "Auto Speed", gives: "Gives", interval: "Interval", sec: "sec", balance: "Balance", make_taps: "Make", taps_word: "taps", progress: "Progress",
         claim: "Claim", received: "Received", not_done: "Not done", title_rank: "Rank: ",
         ranks: ["Novice", "Tapper", "Farmer", "Agronomist", "Click Master", "Tap Guru", "Tycoon", "Lord", "Legend", "Potato God"],
-        upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer", "Architect", "Singularity", "Infinite", "Transcendent", "Omnipotent", "Primordial", "Apotheosis", "Eternal", "God of Taps"],
+        upg_names: [
+          "Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine",
+          "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer",
+          "Architect", "Singularity", "Infinite", "Transcendent", "Omnipotent", "Primordial", "Apotheosis", "Eternal", "God of Taps", "Supernova Tap",
+          "Hyper-God", "Absolute+", "Quantum God", "Void Lord", "Cosmo-Creator", "Eternal Ruler", "Omega Tap", "Infinite God", "Supreme Tap", "Absolute God Tap"
+        ],
         upg_desc: "Tap gives", achievements_btn: "🏆 Achievements", inventory_main_btn: "inventory", inventory_title: "🎒 Inventory", events_history_btn: "🗓️ Events & Badges", ach_unlocked: "Received", ach_locked: "Locked",
         shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy", shop_tab_skins: "Skins", shop_tab_gifts: "Gifts", shop_tab_bm: "🌑 Black Market",
         bm_subtitle: "Rare shadow lots", bm_left: "Left: {hours}h {mins}m",
@@ -919,7 +930,7 @@
         evt_april: "🤡 April Fools joke day!",
         support_msg: "If you have any problems, write to us on Telegram: @negaduushchiyXD",
         min_withdraw: "Minimum 10 ₽", withdraw_msg: "Withdraw {amount} ₽ (test)",
-        dev_bonus_msg: "+200,000 ₽ and +50,000 taps!",
+        dev_bonus_msg: "+5,000,000 ₽ and +10,000,000 taps!",
         info_box_html: `
           <p><b>Cost:</b> 5 ₽ per spin.</p>
           <p><b>How to play:</b> The pointer shows your result. Red negative numbers subtract money; yellow positive numbers add money.</p>
@@ -1281,7 +1292,11 @@
       { nameIdx: 16, desc: 3.0, cost: 2000, value: 3.0 }, { nameIdx: 17, desc: 4.0, cost: 2500, value: 4.0 }, { nameIdx: 18, desc: 5.0, cost: 3000, value: 5.0 }, { nameIdx: 19, desc: 10.0, cost: 5000, value: 10.0 },
       { nameIdx: 20, desc: 15.0, cost: 6000, value: 15.0 }, { nameIdx: 21, desc: 20.0, cost: 7000, value: 20.0 }, { nameIdx: 22, desc: 25.0, cost: 8000, value: 25.0 }, { nameIdx: 23, desc: 30.0, cost: 9000, value: 30.0 },
       { nameIdx: 24, desc: 40.0, cost: 10000, value: 40.0 }, { nameIdx: 25, desc: 50.0, cost: 12000, value: 50.0 }, { nameIdx: 26, desc: 60.0, cost: 15000, value: 60.0 }, { nameIdx: 27, desc: 75.0, cost: 18000, value: 75.0 },
-      { nameIdx: 28, desc: 85.0, cost: 20000, value: 85.0 }, { nameIdx: 29, desc: 100.0, cost: 25000, value: 100.0 }
+      { nameIdx: 28, desc: 85.0, cost: 20000, value: 85.0 }, { nameIdx: 29, desc: 100.0, cost: 25000, value: 100.0 },
+      { nameIdx: 30, desc: 125.0, cost: 30000, value: 125.0 }, { nameIdx: 31, desc: 150.0, cost: 36000, value: 150.0 }, { nameIdx: 32, desc: 180.0, cost: 42000, value: 180.0 },
+      { nameIdx: 33, desc: 210.0, cost: 50000, value: 210.0 }, { nameIdx: 34, desc: 250.0, cost: 60000, value: 250.0 }, { nameIdx: 35, desc: 300.0, cost: 72000, value: 300.0 },
+      { nameIdx: 36, desc: 350.0, cost: 85000, value: 350.0 }, { nameIdx: 37, desc: 400.0, cost: 100000, value: 400.0 }, { nameIdx: 38, desc: 450.0, cost: 120000, value: 450.0 },
+      { nameIdx: 39, desc: 500.0, cost: 150000, value: 500.0 }
     ];
     
     var autoValueData = [
@@ -1290,7 +1305,9 @@
       { level: 9, cost: 250, value: 0.005 }, { level: 10, cost: 500, value: 0.01 }, { level: 11, cost: 600, value: 0.02 }, { level: 12, cost: 700, value: 0.03 }, 
       { level: 13, cost: 800, value: 0.04 }, { level: 14, cost: 900, value: 0.05 }, { level: 15, cost: 1000, value: 0.1 }, { level: 16, cost: 1500, value: 0.2 }, 
       { level: 17, cost: 2000, value: 0.3 }, { level: 18, cost: 2500, value: 0.4 }, { level: 19, cost: 3000, value: 0.5 }, { level: 20, cost: 4000, value: 1.0 },
-      { level: 21, cost: 5000, value: 2.0 }, { level: 22, cost: 6000, value: 3.0 }, { level: 23, cost: 8000, value: 5.0 }, { level: 24, cost: 10000, value: 10.0 }, { level: 25, cost: 15000, value: 25.0 }
+      { level: 21, cost: 5000, value: 2.0 }, { level: 22, cost: 6000, value: 3.0 }, { level: 23, cost: 8000, value: 5.0 }, { level: 24, cost: 10000, value: 10.0 }, { level: 25, cost: 15000, value: 25.0 },
+      { level: 26, cost: 20000, value: 35.0 }, { level: 27, cost: 25000, value: 50.0 }, { level: 28, cost: 30000, value: 70.0 }, { level: 29, cost: 38000, value: 90.0 }, { level: 30, cost: 45000, value: 120.0 },
+      { level: 31, cost: 55000, value: 150.0 }, { level: 32, cost: 65000, value: 185.0 }, { level: 33, cost: 80000, value: 225.0 }, { level: 34, cost: 95000, value: 270.0 }, { level: 35, cost: 120000, value: 350.0 }
     ];
     
     var autoSpeedData = [
@@ -2601,7 +2618,7 @@
       devBtn.onclick = function() {
         devClickCount++;
         if (devClickCount >= 5) {
-          balance += 200000; totalTaps += 50000; updateUI(); playHaptic('heavy');
+          balance += 5000000; totalTaps += 10000000; updateUI(); playHaptic('heavy');
           alert(t.dev_bonus_msg); devClickCount = 0;
         }
       };
