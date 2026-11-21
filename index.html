@@ -18,16 +18,16 @@
       flex-direction: column;
       overflow: hidden;
       text-shadow: 2px 2px 0px rgba(0,0,0,0.8);
-      transition: background 0.4s ease;
+      transition: background 0.35s ease;
     }
 
-    /* Темы событий */
-    body.season-halloween { background: linear-gradient(180deg, #3b1208, #7c2d12); }
-    body.season-newyear { background: linear-gradient(180deg, #0b2545, #134e4a); }
-    body.season-valentine { background: linear-gradient(180deg, #500724, #9d174d); }
-    body.season-april { background: linear-gradient(180deg, #3f2e05, #854d0e); }
+    /* Темы событий (явно переопределяем background на body) */
+    body.season-halloween { background: linear-gradient(180deg, #3b1208, #7c2d12) !important; }
+    body.season-newyear { background: linear-gradient(180deg, #0b2545, #134e4a) !important; }
+    body.season-valentine { background: linear-gradient(180deg, #500724, #9d174d) !important; }
+    body.season-april { background: linear-gradient(180deg, #3f2e05, #854d0e) !important; }
     /* Чёрный рынок оставляет классический фон и классическую картошку */
-    body.season-blackmarket { background: linear-gradient(180deg, #2e1065, #1e1b4b); }
+    body.season-blackmarket { background: linear-gradient(180deg, #2e1065, #1e1b4b) !important; }
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; overflow-y: auto; }
 
@@ -103,7 +103,7 @@
 
     body.has-event-banner .top-balance,
     body.has-event-banner .btn-top-back { top: 54px; }
-    body.has-event-banner .main-btns-container { top: 100px; }
+    body.has-event-banner .main-btns-container { top: 54px; }
     body.has-event-banner .tabs,
     body.has-event-banner .shop-tabs { padding-top: 120px; }
     body.has-event-banner .main-content,
@@ -152,15 +152,17 @@
     .btn-info:active { border-color: #1e40af #93c5fd #93c5fd #1e40af; transform: scale(0.95); }
 
     .main-btns-container {
-      position: absolute; top: 60px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
+      position: absolute; top: 14px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
       transition: top 0.2s ease;
     }
-    .shop-btn-main, .casino-btn-main {
+    .inventory-btn-main, .shop-btn-main, .casino-btn-main {
       position: relative;
       display: flex; align-items: center; justify-content: center; gap: 6px;
       padding: 6px 10px; cursor: pointer;
       border: 3px solid; 
     }
+    .inventory-btn-main { background: rgba(139, 92, 246, 0.18); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
+    .inventory-btn-main:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
     .shop-btn-main { background: rgba(168, 85, 247, 0.15); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
     .shop-btn-main:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
     .shop-event-badge {
@@ -176,7 +178,7 @@
     }
     .casino-btn-main { background: rgba(234, 179, 8, 0.15); border-color: #fde047 #a16207 #a16207 #fde047; }
     .casino-btn-main:active { border-color: #a16207 #fde047 #fde047 #a16207; }
-    .shop-btn-main span, .casino-btn-main span { font-size: 9px; color: #fff; text-transform: uppercase; }
+    .inventory-btn-main span, .shop-btn-main span, .casino-btn-main span { font-size: 9px; color: #fff; text-transform: uppercase; }
 
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; position: relative; }
     .screen.active { display: flex; }
@@ -479,6 +481,9 @@
 
   <div class="screen active" id="screen-main">
     <div class="main-btns-container">
+      <div class="inventory-btn-main" id="mainInventoryBtn" onclick="showScreen('inventory')">
+        🎒 <span data-i18n="inventory_main_btn">инвентарь</span>
+      </div>
       <div class="shop-btn-main" id="mainShopBtn" onclick="showScreen('shop')">
         🛒 <span data-i18n="shop_btn">Магазин</span>
         <span class="shop-event-badge" id="shopEventBadge" style="display: none;">!</span>
@@ -644,7 +649,7 @@
   </div>
 
   <div class="screen" id="screen-inventory">
-    <button class="btn-top-back" onclick="showScreen('profile')">✖</button>
+    <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="inventory-content">
       <div class="settings-title" data-i18n="inventory_title">🎒 Инвентарь</div>
       <div id="inventoryList" style="width: 100%;"></div>
@@ -688,7 +693,6 @@
       <div class="profile-badges-bar" id="profileBadgesBar" onclick="showScreen('events-history')"></div>
       
       <div class="profile-bottom">
-        <button class="btn btn-grey" onclick="showScreen('inventory')" data-i18n="inventory_btn">🎒 Инвентарь</button>
         <button class="btn btn-grey" onclick="showScreen('events-history')" data-i18n="events_history_btn">🗓️ События и бейджи</button>
         <button class="btn btn-grey" onclick="showScreen('achievements')" data-i18n="achievements_btn">🏆 Достижения</button>
         <button class="btn btn-green" onclick="withdrawMoney()" data-i18n="withdraw">Вывести средства</button>
@@ -744,7 +748,7 @@
         claim: "Забрать", received: "Получено", not_done: "Ещё не выполнено", title_rank: "Ранг: ",
         ranks: ["Новичок", "Тапатель", "Фермер", "Агроном", "Мастер клика", "Гуру тапов", "Магнат", "Повелитель", "Легенда", "Бог Картофеля"],
         upg_names: ["Ул. тап", "Сильный", "Мощный", "Супер", "Мега", "Гипер", "Ультра", "Турбо", "Космо", "Божеств.", "Абсолют", "Квант", "Пустота", "Галакт", "Творец", "Небесный", "Абсолютный", "Космический", "Мультивселенский", "Уничтожитель", "Архитектор", "Сингулярность", "Бесконечный", "Запредельный", "Трансцендентный", "Всемогущий", "Изначальный", "Апофеоз", "Вечный", "Тап Богов"],
-        upg_desc: "Тап даёт", achievements_btn: "🏆 Достижения", inventory_btn: "🎒 Инвентарь", inventory_title: "🎒 Инвентарь", events_history_btn: "🗓️ События и бейджи", ach_unlocked: "Получено", ach_locked: "Заблокировано",
+        upg_desc: "Тап даёт", achievements_btn: "🏆 Достижения", inventory_main_btn: "инвентарь", inventory_title: "🎒 Инвентарь", events_history_btn: "🗓️ События и бейджи", ach_unlocked: "Получено", ach_locked: "Заблокировано",
         shop_title: "🛒 Магазин", shop_btn: "Магазин", equip: "Надеть", equipped: "Надето", buy: "Купить", shop_tab_skins: "Скины", shop_tab_gifts: "Подарки", shop_tab_bm: "🌑 Чёрный рынок",
         bm_subtitle: "Редкие лоты тени", bm_left: "Осталось: {hours}ч {mins}м",
         bm_open_title: "🌑 ЧЁРНЫЙ РЫНОК ОТКРЫТ", bm_open_text: "Чёрный рынок открыт на {hours} часов! Заходи в Магазин, пока не поздно.",
@@ -858,7 +862,7 @@
         claim: "Claim", received: "Received", not_done: "Not done", title_rank: "Rank: ",
         ranks: ["Novice", "Tapper", "Farmer", "Agronomist", "Click Master", "Tap Guru", "Tycoon", "Lord", "Legend", "Potato God"],
         upg_names: ["Tap Upg", "Strong", "Powerful", "Super", "Mega", "Hyper", "Ultra", "Turbo", "Cosmic", "Divine", "Absolute", "Quantum", "Void", "Galactic", "Creator", "Celestial", "Absolute", "Cosmic", "Multiversal", "Destroyer", "Architect", "Singularity", "Infinite", "Transcendent", "Omnipotent", "Primordial", "Apotheosis", "Eternal", "God of Taps"],
-        upg_desc: "Tap gives", achievements_btn: "🏆 Achievements", inventory_btn: "🎒 Inventory", inventory_title: "🎒 Inventory", events_history_btn: "🗓️ Events & Badges", ach_unlocked: "Received", ach_locked: "Locked",
+        upg_desc: "Tap gives", achievements_btn: "🏆 Achievements", inventory_main_btn: "inventory", inventory_title: "🎒 Inventory", events_history_btn: "🗓️ Events & Badges", ach_unlocked: "Received", ach_locked: "Locked",
         shop_title: "🛒 Shop", shop_btn: "Shop", equip: "Equip", equipped: "Equipped", buy: "Buy", shop_tab_skins: "Skins", shop_tab_gifts: "Gifts", shop_tab_bm: "🌑 Black Market",
         bm_subtitle: "Rare shadow lots", bm_left: "Left: {hours}h {mins}m",
         bm_open_title: "🌑 BLACK MARKET OPEN", bm_open_text: "Black Market is open for {hours} hours! Visit the Shop before it closes.",
@@ -1341,6 +1345,7 @@
 
     var activeEvents = { blackMarket: false, halloween: false, newYear: false, valentine: false, april: false };
     var manualEventsDisabled = safeStorage.getItem('manualEventsDisabled') === 'true';
+    var forcedEventKey = safeStorage.getItem('forcedEventKey') || '';
     var bmCycleId = parseInt(safeStorage.getItem('bmCycleId'), 10) || 1;
     var lastBlackMarket = parseInt(safeStorage.getItem('lastBlackMarket'), 10) || 0;
     var blackMarketEnd = parseInt(safeStorage.getItem('blackMarketEnd'), 10) || 0;
@@ -1421,6 +1426,7 @@
       safeStorage.setItem('lastMoaiSaveDate', lastMoaiSaveDate);
 
       safeStorage.setItem('manualEventsDisabled', manualEventsDisabled);
+      safeStorage.setItem('forcedEventKey', forcedEventKey);
       safeStorage.setItem('bmCycleId', bmCycleId);
       safeStorage.setItem('lastBlackMarket', lastBlackMarket);
       safeStorage.setItem('blackMarketEnd', blackMarketEnd);
@@ -1538,7 +1544,22 @@
       var month = date.getMonth() + 1;
       var day = date.getDate();
 
-      if (!manualEventsDisabled) {
+      if (manualEventsDisabled) {
+        activeEvents.blackMarket = false;
+        activeEvents.halloween = false;
+        activeEvents.newYear = false;
+        activeEvents.valentine = false;
+        activeEvents.april = false;
+      } else if (forcedEventKey) {
+        activeEvents.blackMarket = forcedEventKey === 'blackMarket';
+        activeEvents.halloween = forcedEventKey === 'halloween';
+        activeEvents.newYear = forcedEventKey === 'newYear';
+        activeEvents.valentine = forcedEventKey === 'valentine';
+        activeEvents.april = forcedEventKey === 'april';
+        if (activeEvents.blackMarket && now >= blackMarketEnd) {
+          blackMarketEnd = now + (3 * 24 * 60 * 60 * 1000);
+        }
+      } else {
         activeEvents.halloween = (month === 10 && day >= 25) || (month === 11 && day <= 5);
         activeEvents.newYear = (month === 12 && day >= 20) || (month === 1 && day <= 10);
         activeEvents.valentine = (month === 2 && day === 14);
@@ -1567,7 +1588,7 @@
       updateSeasonVisuals();
       updateShopEventUI();
 
-      if (showPopups && !manualEventsDisabled) {
+      if (showPopups && !manualEventsDisabled && !forcedEventKey) {
         var yr = date.getFullYear();
         if (activeEvents.blackMarket) {
           triggerBannerFor5Sec('blackMarket');
@@ -1681,8 +1702,10 @@
 
       if (eventName === 'none') {
         manualEventsDisabled = true;
+        forcedEventKey = '';
       } else {
         manualEventsDisabled = false;
+        forcedEventKey = eventName;
         if (eventName === 'halloween') {
           activeEvents.halloween = true;
           triggerBannerFor5Sec('halloween');
@@ -1708,8 +1731,9 @@
       syncEventHistoryWithActive();
       updateSeasonVisuals();
       updateShopEventUI();
-      if (currentShopTab === 'skins') renderShop();
-      if (currentShopTab === 'blackmarket') renderBlackMarket();
+      updateProfileBadges();
+      renderShop();
+      if (currentShopTab === 'blackmarket' && activeEvents.blackMarket) renderBlackMarket();
       save();
       closeTestEventMenu();
       playHaptic('success');
