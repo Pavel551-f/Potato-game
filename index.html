@@ -102,8 +102,8 @@
 
     body.has-event-banner .btn-top-back { top: 54px; }
     body.has-event-banner .top-balance { top: 106px; }
-    body.has-event-banner .main-btns-container { top: 168px; }
-    body.has-event-banner .right-btns-container { top: 168px; }
+    body.has-event-banner .main-btns-container { top: 166px; }
+    body.has-event-banner .right-btns-container { top: 166px; }
     body.has-event-banner .tabs,
     body.has-event-banner .shop-tabs { padding-top: 120px; }
     body.has-event-banner .main-content,
@@ -119,59 +119,59 @@
     body.has-event-banner #screen-quests .list-content,
     body.has-event-banner #screen-rating .rating-container { padding-top: 52px; }
 
-    /* Крестик всегда сверху слева, баланс опускается ниже, чтобы никогда не пересекаться */
+    /* Крестик сверху слева, баланс опускается ниже */
     .btn-top-back {
       position: absolute; top: 14px; left: 14px; z-index: 70;
       background: rgba(76, 29, 149, 0.85);
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
-      color: white; padding: 7px 11px;
-      font-family: inherit; font-size: 11px; cursor: pointer;
+      color: white; padding: 6px 10px;
+      font-family: inherit; font-size: 10px; cursor: pointer;
       transition: top 0.2s ease;
     }
     .btn-top-back:active { border-color: #4c1d95 #a855f7 #a855f7 #4c1d95; }
 
     .top-balance {
-      position: absolute; top: 66px; left: 14px; display: flex; align-items: center; gap: 10px;
-      background: rgba(0,0,0,0.45); padding: 4px 10px 4px 4px; z-index: 60; cursor: pointer;
+      position: absolute; top: 66px; left: 14px; display: flex; align-items: center; gap: 8px;
+      background: rgba(0,0,0,0.45); padding: 4px 9px 4px 4px; z-index: 60; cursor: pointer;
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
       transition: top 0.2s ease;
     }
     .top-balance.no-back-offset { top: 14px; }
     body.has-event-banner .top-balance.no-back-offset { top: 54px; }
 
-    .top-avatar { width: 30px; height: 30px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; order: 1; }
+    .top-avatar { width: 28px; height: 28px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; order: 1; }
     .top-balance-text { display: flex; flex-direction: column; align-items: flex-start; order: 2; }
-    .top-balance-label { font-size: 8px; color: #c4b5fd; margin-bottom: 4px; }
-    .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; transition: color 0.3s; }
+    .top-balance-label { font-size: 7px; color: #c4b5fd; margin-bottom: 3px; }
+    .top-balance-value { font-size: 11px; font-weight: bold; color: #fff; transition: color 0.3s; }
     .top-balance-value.negative { color: #ef4444; }
 
     .btn-info {
       position: fixed; bottom: 90px; right: 20px; z-index: 80;
       background: rgba(59, 130, 246, 0.8);
       border: 3px solid; border-color: #93c5fd #1e40af #1e40af #93c5fd;
-      color: white; width: 40px; height: 40px; border-radius: 50%;
-      font-family: inherit; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: white; width: 38px; height: 38px; border-radius: 50%;
+      font-family: inherit; font-size: 15px; cursor: pointer; display: flex; align-items: center; justify-content: center;
       box-shadow: 0 4px 10px rgba(0,0,0,0.5);
     }
     .btn-info:active { border-color: #1e40af #93c5fd #93c5fd #1e40af; transform: scale(0.95); }
 
     /* Левая колонка кнопок: Инвентарь, Магазин, Казино */
     .main-btns-container {
-      position: absolute; top: 128px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
+      position: absolute; top: 126px; left: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 60;
       transition: top 0.2s ease;
     }
 
-    /* Правая колонка компактных кнопок в стиле скриншота */
+    /* Правая колонка уменьшенных кнопок */
     .right-btns-container {
-      position: absolute; top: 128px; right: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 60;
-      width: 92px;
+      position: absolute; top: 126px; right: 14px; display: flex; flex-direction: column; gap: 7px; z-index: 60;
+      width: 78px;
       transition: top 0.2s ease;
     }
 
     .inventory-btn-main, .shop-btn-main, .casino-btn-main {
       position: relative;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      padding: 6px 10px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 5px;
+      padding: 5px 8px; cursor: pointer;
       border: 3px solid;
     }
     .inventory-btn-main { background: rgba(139, 92, 246, 0.18); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
@@ -181,7 +181,7 @@
     .shop-event-badge {
       position: absolute; top: -6px; right: -6px;
       background: #ef4444; color: #fff;
-      font-size: 8px; padding: 2px 4px;
+      font-size: 7px; padding: 2px 3px;
       border: 2px solid #000;
       animation: badgePulse 1.4s infinite;
     }
@@ -194,43 +194,46 @@
 
     .side-tile-btn {
       width: 100%;
-      background: rgba(30, 41, 59, 0.88);
-      border: 3px solid;
+      background: rgba(30, 41, 59, 0.9);
+      border: 2px solid;
       border-color: #94a3b8 #0f172a #0f172a #94a3b8;
-      border-radius: 6px;
-      padding: 6px 4px;
+      border-radius: 5px;
+      padding: 3px 3px 5px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      gap: 3px;
+      justify-content: flex-start;
+      gap: 2px;
       cursor: pointer;
-      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.65);
+      box-shadow: 0 2px 0 rgba(0, 0, 0, 0.65);
     }
     .side-tile-btn:active {
       transform: translateY(2px);
       border-color: #0f172a #94a3b8 #94a3b8 #0f172a;
     }
     .side-tile-icon {
-      font-size: 18px;
-      line-height: 1.1;
-      filter: drop-shadow(0 2px 0 rgba(0,0,0,0.6));
+      font-size: 16px;
+      line-height: 1;
+      margin-top: -1px;
+      filter: drop-shadow(0 1px 0 rgba(0,0,0,0.65));
     }
     .side-tile-label {
-      font-size: 7px;
+      font-size: 6px;
       color: #fff;
       text-transform: uppercase;
-      letter-spacing: -0.3px;
+      letter-spacing: -0.4px;
       white-space: nowrap;
+      line-height: 1.2;
     }
     .side-tile-sub {
-      font-size: 6px;
+      font-size: 5.5px;
       color: #fde047;
       white-space: nowrap;
+      line-height: 1.1;
     }
 
     .inventory-btn-main span, .shop-btn-main span, .casino-btn-main span {
-      font-size: 9px; color: #fff; text-transform: uppercase;
+      font-size: 8px; color: #fff; text-transform: uppercase;
     }
 
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; position: relative; }
@@ -239,11 +242,11 @@
     .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 105px; transition: padding-top 0.2s ease; }
 
     .potato-wrap {
-      width: 190px; height: 190px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      width: 185px; height: 185px; cursor: pointer; display: flex; align-items: center; justify-content: center;
       position: relative; z-index: 10; border-radius: 24px; transition: transform 0.1s ease;
     }
 
-    .potato-emoji { font-size: 110px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
+    .potato-emoji { font-size: 106px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
     .potato-wrap:active .potato-emoji { animation: shake 0.1s; }
     @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
 
@@ -255,23 +258,23 @@
     .auto-info { margin-top: 8px; font-size: 9px; color: #10b981; text-align: center; }
     .active-buffs-info { margin-top: 6px; font-size: 8px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
 
-    /* Экран Ежедневной серии в стиле референса */
+    /* Экран Ежедневной серии */
     .streak-screen-wrap {
       flex: 1;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: 64px 14px 24px;
+      padding: 64px 12px 24px;
     }
     .streak-board {
       position: relative;
       width: 100%;
-      max-width: 520px;
+      max-width: 500px;
       margin: 0 auto;
       background: linear-gradient(135deg, #f97316 0%, #db2777 45%, #7e22ce 100%);
-      border: 4px solid #fde047;
-      border-radius: 14px;
-      padding: 14px 12px 16px;
+      border: 3px solid #fde047;
+      border-radius: 12px;
+      padding: 12px 10px 14px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.65);
     }
     .streak-top-row {
@@ -279,10 +282,10 @@
       align-items: center;
       justify-content: space-between;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
     .streak-heading {
-      font-size: 12px;
+      font-size: 11px;
       color: #fde047;
       text-transform: uppercase;
       text-shadow: 2px 2px 0 #000;
@@ -291,11 +294,11 @@
     .streak-close-btn {
       background: #ef4444;
       color: #fff;
-      border: 3px solid #fca5a5;
-      border-radius: 6px;
-      padding: 5px 9px;
+      border: 2px solid #fca5a5;
+      border-radius: 5px;
+      padding: 4px 8px;
       font-family: inherit;
-      font-size: 10px;
+      font-size: 9px;
       cursor: pointer;
       flex-shrink: 0;
     }
@@ -304,31 +307,31 @@
     .streak-body {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
     .streak-counter-card {
-      width: 78px;
+      width: 68px;
       flex-shrink: 0;
       background: #fff;
       color: #111827;
       text-shadow: none;
-      border: 3px solid #1e1b4b;
-      border-radius: 10px;
+      border: 2px solid #1e1b4b;
+      border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 4px 0 rgba(0,0,0,0.45);
+      box-shadow: 0 3px 0 rgba(0,0,0,0.45);
     }
     .streak-counter-top {
       background: #eab308;
-      padding: 4px 0;
+      padding: 3px 0;
       text-align: center;
-      font-size: 7px;
+      font-size: 6.5px;
       font-weight: bold;
       border-bottom: 2px solid #1e1b4b;
     }
     .streak-counter-num {
-      padding: 12px 4px;
+      padding: 10px 4px;
       text-align: center;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: bold;
     }
 
@@ -340,31 +343,31 @@
       display: inline-block;
       background: rgba(0, 0, 0, 0.55);
       border: 2px solid #fde047;
-      border-radius: 6px;
-      padding: 4px 7px;
-      font-size: 7px;
+      border-radius: 5px;
+      padding: 3px 6px;
+      font-size: 6.5px;
       color: #fde047;
-      margin-bottom: 8px;
+      margin-bottom: 7px;
     }
     .streak-cards-row {
       display: flex;
-      gap: 6px;
+      gap: 5px;
       overflow-x: auto;
-      padding-bottom: 4px;
+      padding-bottom: 3px;
     }
     .streak-reward-slot {
-      min-width: 64px;
+      min-width: 56px;
       flex: 1;
       background: linear-gradient(180deg, #38bdf8, #1d4ed8);
-      border: 3px solid #bae6fd;
-      border-radius: 8px;
-      padding: 8px 4px;
+      border: 2px solid #bae6fd;
+      border-radius: 7px;
+      padding: 6px 3px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      gap: 6px;
-      box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+      gap: 4px;
+      box-shadow: 0 2px 0 rgba(0,0,0,0.4);
     }
     .streak-reward-slot.claimed-slot {
       opacity: 0.6;
@@ -372,47 +375,47 @@
     }
     .streak-reward-slot.current-slot {
       border-color: #fde047;
-      box-shadow: 0 0 10px rgba(253, 224, 71, 0.8);
+      box-shadow: 0 0 8px rgba(253, 224, 71, 0.8);
     }
     .streak-slot-day {
-      font-size: 6px;
+      font-size: 5.5px;
       color: #e0f2fe;
     }
     .streak-slot-icon {
-      font-size: 18px;
+      font-size: 15px;
     }
     .streak-slot-val {
-      font-size: 7px;
+      font-size: 6.5px;
       color: #fde047;
       text-align: center;
       white-space: nowrap;
     }
     .streak-footer-row {
-      margin-top: 12px;
+      margin-top: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
     .streak-last-note {
-      font-size: 8px;
+      font-size: 7.5px;
       color: #fef08a;
       text-align: center;
-      min-height: 12px;
+      min-height: 11px;
     }
 
-    .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; transition: padding-top 0.2s ease; }
+    .tabs { display: flex; gap: 8px; padding: 80px 14px 10px; transition: padding-top 0.2s ease; }
     .tab-btn {
-      flex: 1; padding: 12px 6px; font-size: 10px;
+      flex: 1; padding: 10px 6px; font-size: 9px;
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer;
-      border: 4px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
       text-shadow: 2px 2px 0 #000; font-family: 'Press Start 2P', monospace; text-transform: uppercase;
     }
     .tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; transform: translateY(2px); }
 
-    .shop-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; padding: 80px 16px 0; transition: padding-top 0.2s ease; }
+    .shop-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; padding: 80px 14px 0; transition: padding-top 0.2s ease; }
     .shop-tab-btn {
-      flex: 1 1 30%; padding: 10px 6px; font-size: 8px;
+      flex: 1 1 30%; padding: 8px 5px; font-size: 7.5px;
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer;
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
       text-shadow: 1px 1px 0 #000; font-family: inherit;
@@ -423,31 +426,32 @@
     .shop-tab-btn.blackmarket-tab.active { background: #4c1d95; color: #fde047; }
 
     .bm-header-box {
-      margin: 0 16px 12px; padding: 10px 12px;
+      margin: 0 14px 10px; padding: 8px 10px;
       background: rgba(15, 10, 30, 0.75); border: 2px solid #a855f7;
-      font-size: 8px; line-height: 1.6; color: #e9d5ff;
+      font-size: 7.5px; line-height: 1.5; color: #e9d5ff;
       display: flex; justify-content: space-between; align-items: center; gap: 8px;
     }
     .bm-timer { color: #fde047; white-space: nowrap; }
 
-    .list-content { padding: 0 16px 30px; }
+    .list-content { padding: 0 14px 26px; }
     #screen-achievements .list-content,
     #screen-events-history .list-content { padding-top: 75px; transition: padding-top 0.2s ease; }
-    #screen-quests .list-content { padding-top: 20px; transition: padding-top 0.2s ease; }
-    #screen-rating .rating-container { padding-top: 20px; transition: padding-top 0.2s ease; }
+    #screen-quests .list-content { padding-top: 18px; transition: padding-top 0.2s ease; }
+    #screen-rating .rating-container { padding-top: 18px; transition: padding-top 0.2s ease; }
     #screen-upgrades .list-content { padding-top: 0; }
-    #screen-shop .list-content { padding-top: 10px; }
+    #screen-shop .list-content { padding-top: 8px; }
 
+    /* Уменьшенные карточки */
     .card {
-      background: rgba(255,255,255,0.09); padding: 12px; margin-bottom: 12px; display: flex; align-items: center; gap: 15px;
-      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
+      background: rgba(255,255,255,0.09); padding: 9px 10px; margin-bottom: 9px; display: flex; align-items: center; gap: 10px;
+      border: 2px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
     }
-    .card-icon { font-size: 24px; flex-shrink: 0; width: 35px; text-align: center; filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5)); }
+    .card-icon { font-size: 20px; flex-shrink: 0; width: 28px; text-align: center; filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.5)); }
     .card-content { flex: 1; min-width: 0; }
-    .card-title { font-size: 10px; margin-bottom: 8px; color: #fff; line-height: 1.5; word-break: break-word; }
-    .card-desc { font-size: 8px; color: #c4b5fd; margin-bottom: 8px; line-height: 1.6; word-break: break-word; }
-    .card-rarity { font-size: 8px; margin-bottom: 6px; color: #fde047; }
-    .card-status { font-size: 9px; font-weight: 700; }
+    .card-title { font-size: 9px; margin-bottom: 5px; color: #fff; line-height: 1.4; word-break: break-word; }
+    .card-desc { font-size: 7.5px; color: #c4b5fd; margin-bottom: 5px; line-height: 1.5; word-break: break-word; }
+    .card-rarity { font-size: 7.5px; margin-bottom: 4px; color: #fde047; }
+    .card-status { font-size: 8px; font-weight: 700; }
     .status-locked { color: #6b7280; }
     .status-unlocked { color: #10b981; }
 
@@ -463,11 +467,11 @@
       100% { border-color: #ff0055 !important; box-shadow: 0 0 10px rgba(255, 0, 85, 0.5); }
     }
 
-    .section-title { font-size: 10px; color: #a78bfa; margin: 14px 0 10px; }
+    .section-title { font-size: 9px; color: #a78bfa; margin: 12px 0 8px; }
 
     .btn {
-      background: #8b5cf6; color: white; padding: 10px; font-size: 9px; cursor: pointer; margin-bottom: 10px;
-      border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-family: inherit;
+      background: #8b5cf6; color: white; padding: 8px 9px; font-size: 8px; cursor: pointer; margin-bottom: 8px;
+      border: 2px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; text-shadow: 2px 2px 0 rgba(0,0,0,0.5); font-family: inherit;
       flex-shrink: 0;
     }
     .btn:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
@@ -477,39 +481,64 @@
     .btn-grey { background: rgba(255,255,255,0.1); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
     .btn-gold { background: #eab308; border-color: #fde047 #854d0e #854d0e #fde047; color: #000; text-shadow: none; }
 
-    .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 14px; gap: 8px; }
-    .shop-preview { font-size: 56px; margin-bottom: 4px; height: 66px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
-    .shop-preview img { width: 66px; height: 66px; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(0 0 4px rgba(255,255,255,0.22)); }
-    .shop-card .btn { width: 100%; margin-bottom: 0; font-size: 8px; }
+    .shop-card { flex-direction: column; text-align: center; justify-content: center; padding: 10px; gap: 6px; }
+    .shop-preview { font-size: 46px; margin-bottom: 2px; height: 54px; display: flex; align-items: center; justify-content: center; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5)); }
+    .shop-preview img { width: 54px; height: 54px; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(0 0 4px rgba(255,255,255,0.22)); }
+    .shop-card .btn { width: 100%; margin-bottom: 0; font-size: 7.5px; }
 
-    .gift-wrapper { display: flex; flex-direction: column; align-items: center; padding: 10px 16px 30px; }
-    .gift-card { width: 100%; max-width: 280px; background: #1a1625; border: 4px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; padding: 10px; display: flex; flex-direction: column; align-items: center; position: relative; }
-    .gift-title { font-size: 12px; color: #fff; margin-bottom: 15px; text-shadow: 2px 2px 0 #000; }
+    /* Карточка подарка в магазине */
+    .gift-wrapper { display: flex; flex-direction: column; align-items: center; padding: 6px 14px 24px; }
+    .gift-card { width: 100%; max-width: 245px; background: #1a1625; border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; padding: 8px; display: flex; flex-direction: column; align-items: center; position: relative; }
+    .gift-title { font-size: 10px; color: #fff; margin-bottom: 10px; text-shadow: 2px 2px 0 #000; }
     .gift-box-inner {
-      width: 100%; aspect-ratio: 1/1; background: #ff00ff; border: 4px solid #000;
+      width: 100%; aspect-ratio: 1/1; background: #ff00ff; border: 3px solid #000;
       display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; overflow: hidden;
       background-image: radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%), radial-gradient(circle, rgba(255,255,255,0.2) 10%, transparent 10%);
-      background-size: 30px 30px; background-position: 0 0, 15px 15px;
+      background-size: 26px 26px; background-position: 0 0, 13px 13px;
     }
-    .bg-potato { position: absolute; font-size: 35px; opacity: 0.15; z-index: 1; pointer-events: none; }
-    .gift-reward-text { font-size: 20px; color: #fff; text-shadow: 3px 3px 0 #000; margin-top: 6px; z-index: 2; position: relative; text-align: center; padding: 0 8px; }
-    .gift-reward-sub { font-size: 9px; color: #e9d5ff; text-shadow: 2px 2px 0 #000; margin-top: 8px; z-index: 2; position: relative; text-align: center; line-height: 1.5; }
+    .bg-potato { position: absolute; font-size: 28px; opacity: 0.15; z-index: 1; pointer-events: none; }
+    .gift-reward-text { font-size: 17px; color: #fff; text-shadow: 3px 3px 0 #000; margin-top: 4px; z-index: 2; position: relative; text-align: center; padding: 0 6px; }
+    .gift-reward-sub { font-size: 8px; color: #e9d5ff; text-shadow: 2px 2px 0 #000; margin-top: 6px; z-index: 2; position: relative; text-align: center; line-height: 1.4; }
     .gift-reward-text.jackpot { color: #fde047; animation: pulse 1s infinite alternate; }
     @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
-    .gift-btn-bottom {
-      width: 100%; background: #374151; padding: 13px 10px; margin-top: -4px; border: 4px solid #000;
-      font-size: 10px; line-height: 1.4; color: #fff; text-align: center; cursor: pointer; font-family: inherit;
-      display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
-    .gift-btn-bottom:active { background: #1f2937; }
-    .gift-btn-bottom:disabled { background: #4b5563; color: #e5e7eb; cursor: not-allowed; }
-    .gift-lock-inline { font-size: 13px; flex-shrink: 0; }
 
-    .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 80px 16px 30px; gap: 20px; transition: padding-top 0.2s ease; }
-    .casino-title { font-size: 16px; color: #fde047; margin-bottom: 20px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
-    .casino-game-card { width: 100%; max-width: 320px; cursor: pointer; background: rgba(255,255,255,0.09); padding: 20px; display: flex; align-items: center; gap: 15px; border: 3px solid; border-color: #fde047 #a16207 #a16207 #fde047; transition: transform 0.1s; }
+    .gift-btn-bottom {
+      width: 100%;
+      background: #10b981;
+      padding: 11px 8px;
+      margin-top: -3px;
+      border: 3px solid;
+      border-color: #6ee7b7 #065f46 #065f46 #6ee7b7;
+      font-size: 9px;
+      line-height: 1.3;
+      color: #fff;
+      text-align: center;
+      cursor: pointer;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
+    }
+    .gift-btn-bottom:active:not(:disabled) {
+      transform: translateY(2px);
+      border-color: #065f46 #6ee7b7 #6ee7b7 #065f46;
+    }
+    .gift-btn-bottom:disabled {
+      background: #4b5563;
+      border-color: #6b7280 #1f2937 #1f2937 #6b7280;
+      color: #e5e7eb;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .gift-lock-inline { font-size: 12px; flex-shrink: 0; }
+
+    .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 78px 14px 24px; gap: 12px; transition: padding-top 0.2s ease; }
+    .casino-title { font-size: 14px; color: #fde047; margin-bottom: 10px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
+    .casino-game-card { width: 100%; max-width: 290px; cursor: pointer; background: rgba(255,255,255,0.09); padding: 12px 14px; display: flex; align-items: center; gap: 12px; border: 2px solid; border-color: #fde047 #a16207 #a16207 #fde047; transition: transform 0.1s; }
     .casino-game-card:active { transform: scale(0.98); border-color: #a16207 #fde047 #fde047 #a16207; }
-    .casino-game-card .card-icon { font-size: 40px; }
+    .casino-game-card .card-icon { font-size: 28px; width: 34px; text-align: center; }
 
     .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
     .reel-window { width: 100%; max-width: 320px; height: 90px; overflow: hidden; position: relative; background: rgba(0,0,0,0.5); border: 4px solid #a855f7; margin-bottom: 30px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
@@ -555,39 +584,39 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    .profile-content, .inventory-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 112px 20px 30px; position: relative; transition: padding-top 0.2s ease; }
-    .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 14px; image-rendering: pixelated; background: #4c1d95;}
-    .profile-name { font-size: 12px; margin-bottom: 5px; text-align: center; color: #fff; }
-    .profile-rank { font-size: 9px; color: #fde047; margin-bottom: 10px; text-align: center; text-shadow: 1px 1px 0 #000; }
+    .profile-content, .inventory-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 112px 18px 26px; position: relative; transition: padding-top 0.2s ease; }
+    .profile-avatar { width: 92px; height: 92px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 12px; image-rendering: pixelated; background: #4c1d95;}
+    .profile-name { font-size: 11px; margin-bottom: 5px; text-align: center; color: #fff; }
+    .profile-rank { font-size: 8.5px; color: #fde047; margin-bottom: 9px; text-align: center; text-shadow: 1px 1px 0 #000; }
     .profile-badges-bar {
       width: 100%; background: rgba(0,0,0,0.35); border: 2px solid #a855f7;
-      padding: 8px 10px; margin-bottom: 14px; font-size: 8px; line-height: 1.6;
+      padding: 7px 9px; margin-bottom: 12px; font-size: 7.5px; line-height: 1.5;
       color: #fde047; text-align: center; cursor: pointer;
     }
     .profile-bottom { width: 100%; margin-top: auto; }
-    .progress-label { font-size: 9px; color: #c4b5fd; margin-bottom: 8px; display: flex; justify-content: space-between; }
-    .progress-bar { height: 16px; background: rgba(0,0,0,0.5); border: 2px solid #a855f7; overflow: hidden; }
+    .progress-label { font-size: 8.5px; color: #c4b5fd; margin-bottom: 7px; display: flex; justify-content: space-between; }
+    .progress-bar { height: 14px; background: rgba(0,0,0,0.5); border: 2px solid #a855f7; overflow: hidden; }
     .progress-fill { height: 100%; background: #10b981; width: 0%; transition: width 0.3s; }
-    .progress-hint { font-size: 8px; color: #9ca3af; margin-top: 10px; text-align: center; line-height: 1.5; }
+    .progress-hint { font-size: 7.5px; color: #9ca3af; margin-top: 8px; text-align: center; line-height: 1.5; }
 
     #screen-settings { background: linear-gradient(180deg, #2e1065, #1e1b4b); overflow: hidden; }
     #rocket-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
     .rocket { position: absolute; font-size: 30px; opacity: 0.3; }
-    .settings-content { position: relative; z-index: 10; padding: 80px 20px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; transition: padding-top 0.2s ease; }
-    .settings-title { font-size: 16px; color: white; margin-bottom: 24px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
-    .setting-row { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: rgba(255,255,255,0.1); padding: 15px; border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
-    .setting-label { font-size: 10px; color: #fff; }
-    .toggle-btn { background: #4b5563; color: #fff; border: 3px solid #374151; padding: 8px 12px; font-size: 10px; font-family: inherit; cursor: pointer; border-radius: 8px; width: 80px; text-align: center; }
+    .settings-content { position: relative; z-index: 10; padding: 78px 18px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; transition: padding-top 0.2s ease; }
+    .settings-title { font-size: 14px; color: white; margin-bottom: 18px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
+    .setting-row { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; background: rgba(255,255,255,0.1); padding: 11px 13px; border: 2px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
+    .setting-label { font-size: 9px; color: #fff; }
+    .toggle-btn { background: #4b5563; color: #fff; border: 2px solid #374151; padding: 6px 10px; font-size: 9px; font-family: inherit; cursor: pointer; border-radius: 7px; width: 72px; text-align: center; }
     .toggle-btn.active { background: #10b981; border-color: #6ee7b7; }
 
-    .rating-container { flex: 1; overflow-y: auto; padding: 20px 16px 100px; }
-    .rating-row { display: flex; align-items: center; padding: 12px; margin-bottom: 12px; background: rgba(255,255,255,0.09); border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
-    .rating-rank { width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; font-size: 10px; margin-right: 12px; background: #eab308; color: #000; flex-shrink: 0; border: 2px solid #000; }
-    .rating-avatar { width: 40px; height: 40px; margin-right: 12px; object-fit: cover; background: #333; border: 2px solid #a855f7; flex-shrink: 0; image-rendering: pixelated; }
+    .rating-container { flex: 1; overflow-y: auto; padding: 18px 14px 96px; }
+    .rating-row { display: flex; align-items: center; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.09); border: 2px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
+    .rating-rank { width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; font-size: 9px; margin-right: 10px; background: #eab308; color: #000; flex-shrink: 0; border: 2px solid #000; }
+    .rating-avatar { width: 34px; height: 34px; margin-right: 10px; object-fit: cover; background: #333; border: 2px solid #a855f7; flex-shrink: 0; image-rendering: pixelated; }
     .rating-info { flex: 1; display: flex; flex-direction: column; }
-    .rating-name { font-size: 10px; }
-    .rating-score { font-size: 9px; color: #fde047; margin-top: 6px; }
-    .my-rating-box { position: fixed; bottom: 70px; left: 0; right: 0; background: #1a1625; padding: 12px 16px; display: flex; align-items: center; z-index: 50; justify-content: center; font-size: 10px; font-weight: bold; border-top: 3px solid #c084fc; }
+    .rating-name { font-size: 9px; }
+    .rating-score { font-size: 8px; color: #fde047; margin-top: 5px; }
+    .my-rating-box { position: fixed; bottom: 70px; left: 0; right: 0; background: #1a1625; padding: 10px 14px; display: flex; align-items: center; z-index: 50; justify-content: center; font-size: 9px; font-weight: bold; border-top: 3px solid #c084fc; }
 
     .bottom-menu { height: 70px; background: #1a1625; display: flex; border-top: 3px solid #c084fc; z-index: 100; }
     .menu-item { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; font-size: 8px; color: #9ca3af; cursor: pointer; }
@@ -599,20 +628,20 @@
 
     .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; }
     .modal-content {
-      background: #2e1065; padding: 20px; width: 90%; max-width: 340px; text-align: left;
+      background: #2e1065; padding: 18px; width: 90%; max-width: 320px; text-align: left;
       border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; max-height: 80vh; overflow-y: auto;
     }
-    .modal-content h3 { margin-bottom: 15px; font-size: 12px; color: #fde047; line-height: 1.5; text-align: center;}
-    .modal-content p { font-size: 9px; margin-bottom: 10px; line-height: 1.6; color: #e9d5ff; }
-    .modal-content hr { border-color: #4c1d95; margin: 15px 0; }
+    .modal-content h3 { margin-bottom: 12px; font-size: 11px; color: #fde047; line-height: 1.4; text-align: center;}
+    .modal-content p { font-size: 8.5px; margin-bottom: 8px; line-height: 1.5; color: #e9d5ff; }
+    .modal-content hr { border-color: #4c1d95; margin: 12px 0; }
     .modal-btn {
-      background: #8b5cf6; border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; color: white; padding: 10px; width: 100%; margin-top: 15px; font-size: 9px; cursor: pointer;
+      background: #8b5cf6; border: 2px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc; color: white; padding: 9px; width: 100%; margin-top: 10px; font-size: 8.5px; cursor: pointer;
       text-shadow: 2px 2px 0 #000; font-family: 'Press Start 2P', monospace; text-align: center;
     }
     .modal-btn:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
 
-    .wood-medal-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 40px; }
-    .wood-medal { width: 35px; height: 35px; image-rendering: pixelated; }
+    .wood-medal-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 34px; }
+    .wood-medal { width: 30px; height: 30px; image-rendering: pixelated; }
   </style>
 </head>
 <body>
@@ -666,11 +695,11 @@
       <button class="modal-btn" onclick="forceEvent('april')" style="background: #a16207; border-color: #fde047 #713f12 #713f12 #fde047;" data-i18n="evt_force_april">🤡 Включить 1 апреля</button>
       <button class="modal-btn" onclick="forceEvent('blackMarket')" style="background: #1e1b4b; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;" data-i18n="evt_force_blackmarket">🌑 Включить Чёрный Рынок (3 дня)</button>
       <button class="modal-btn" onclick="forceEvent('none')" style="background: #4b5563; border-color: #9ca3af #374151 #374151 #9ca3af;" data-i18n="evt_force_none">❌ Выключить все (Классика)</button>
-      <button class="modal-btn" onclick="closeTestEventMenu()" style="margin-top: 20px; background: #ef4444; border-color: #fca5a5 #7f1d1d #7f1d1d #fca5a5;" data-i18n="close_btn">Закрыть</button>
+      <button class="modal-btn" onclick="closeTestEventMenu()" style="margin-top: 16px; background: #ef4444; border-color: #fca5a5 #7f1d1d #7f1d1d #fca5a5;" data-i18n="close_btn">Закрыть</button>
     </div>
   </div>
 
-  <!-- Баланс (опущен ниже крестика, чтобы ничего не пересекалось) -->
+  <!-- Баланс (опущен ниже крестика) -->
   <div class="top-balance" id="openProfile">
     <img class="top-avatar" id="topAvatar" src="" alt="">
     <div class="top-balance-text">
@@ -680,7 +709,7 @@
   </div>
 
   <div class="screen active" id="screen-main">
-    <!-- Левая колонка: Инвентарь, Магазин, Казино -->
+    <!-- Левая колонка -->
     <div class="main-btns-container">
       <div class="inventory-btn-main" id="mainInventoryBtn" onclick="showScreen('inventory')">
         🎒 <span data-i18n="inventory_main_btn">инвентарь</span>
@@ -694,7 +723,7 @@
       </div>
     </div>
 
-    <!-- Правая колонка компактных кнопок: Друзья, Кланы, Календарь -->
+    <!-- Правая колонка уменьшенных кнопок с приподнятыми эмодзи -->
     <div class="right-btns-container">
       <div class="side-tile-btn" onclick="showScreen('friends')">
         <div class="side-tile-icon">🫂</div>
@@ -729,7 +758,7 @@
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="inventory-content">
       <div class="settings-title">🫂 <span data-i18n="friends_btn">Друзья</span></div>
-      <div class="card" style="width: 100%; max-width: 340px;">
+      <div class="card" style="width: 100%; max-width: 300px;">
         <div class="card-content">
           <div class="card-title" data-i18n="soon_title">Скоро появится</div>
           <div class="card-desc" style="margin-bottom: 0;" data-i18n="friends_soon_desc">Раздел «Друзья» ещё в разработке. Скоро добавим!</div>
@@ -743,7 +772,7 @@
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="inventory-content">
       <div class="settings-title">🏰 <span data-i18n="clans_btn">Кланы</span></div>
-      <div class="card" style="width: 100%; max-width: 340px;">
+      <div class="card" style="width: 100%; max-width: 300px;">
         <div class="card-content">
           <div class="card-title" data-i18n="soon_title">Скоро появится</div>
           <div class="card-desc" style="margin-bottom: 0;" data-i18n="clans_soon_desc">Раздел «Кланы» ещё в разработке. Скоро добавим!</div>
@@ -752,7 +781,7 @@
     </div>
   </div>
 
-  <!-- Экран: Ежедневный календарь (в стиле референса) -->
+  <!-- Экран: Ежедневный календарь -->
   <div class="screen" id="screen-calendar">
     <div class="streak-screen-wrap">
       <div class="streak-board">
@@ -775,7 +804,7 @@
 
         <div class="streak-footer-row">
           <div class="streak-last-note" id="calendarLastRewardText"></div>
-          <button class="btn btn-green" style="width: 100%; max-width: 320px; margin-bottom: 0;" id="claimCalendarBtn" onclick="claimCalendarReward()"></button>
+          <button class="btn btn-green" style="width: 100%; max-width: 300px; margin-bottom: 0;" id="claimCalendarBtn" onclick="claimCalendarReward()"></button>
         </div>
       </div>
     </div>
@@ -790,7 +819,7 @@
     </div>
 
     <div id="shopContentSkins" style="display: block;">
-      <div class="list-content" id="shopList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;"></div>
+      <div class="list-content" id="shopList" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;"></div>
     </div>
 
     <div id="shopContentGifts" style="display: none;">
@@ -810,10 +839,10 @@
             <div id="giftRewardDisplay" style="display: none; flex-direction: column; align-items: center; z-index: 2; position: relative;">
               <div class="gift-reward-text" id="giftRewardText">+10.000 ₽</div>
               <div class="gift-reward-sub" id="giftBalanceNote"></div>
-              <div id="jackpotText" style="display: none; color: #fde047; font-size: 10px; margin-top: 8px; text-shadow: 2px 2px 0 #000;">ДЖЕКПОТ!</div>
+              <div id="jackpotText" style="display: none; color: #fde047; font-size: 9px; margin-top: 6px; text-shadow: 2px 2px 0 #000;">ДЖЕКПОТ!</div>
             </div>
 
-            <div id="giftQuestion" style="font-size: 60px; text-shadow: 4px 4px 0 #000; z-index: 2; position: relative;">?</div>
+            <div id="giftQuestion" style="font-size: 50px; text-shadow: 4px 4px 0 #000; z-index: 2; position: relative;">?</div>
           </div>
           <button class="gift-btn-bottom" id="giftBtn" onclick="claimGift()">
             <span class="gift-lock-inline" id="giftLockIcon" style="display: none;">🔒</span>
@@ -927,7 +956,7 @@
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="inventory-content">
       <div class="settings-title" data-i18n="inventory_title">🎒 Инвентарь</div>
-      <div id="inventoryList" style="width: 100%;"></div>
+      <div id="inventoryList" style="width: 100%; max-width: 320px;"></div>
     </div>
   </div>
 
@@ -954,7 +983,7 @@
         <button class="toggle-btn" id="vibrationToggle" onclick="toggleVibration()">ВКЛ</button>
       </div>
 
-      <button class="btn btn-blue" style="width: 100%; margin-top: 10px;" onclick="openLangMenu()" data-i18n="lang_btn">🌐 Язык / Language</button>
+      <button class="btn btn-blue" style="width: 100%; margin-top: 8px;" onclick="openLangMenu()" data-i18n="lang_btn">🌐 Язык / Language</button>
       <button class="btn" style="width: 100%; background: #8b5cf6; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;" onclick="openTestEventMenu()" data-i18n="test_events_btn">🧪 Тест Событий</button>
       <button class="btn btn-grey" style="width: 100%; background: #f59e0b; border-color: #fbbf24 #b45309 #b45309 #fbbf24;" onclick="openSupport()" data-i18n="support_btn">📢 Помощь и поддержка</button>
     </div>
@@ -972,12 +1001,12 @@
         <button class="btn btn-grey" onclick="showScreen('events-history')" data-i18n="events_history_btn">🗓️ События и бейджи</button>
         <button class="btn btn-grey" onclick="showScreen('achievements')" data-i18n="achievements_btn">🏆 Достижения</button>
         <button class="btn btn-green" onclick="withdrawMoney()" data-i18n="withdraw">Вывести средства</button>
-        <button class="btn btn-blue" style="margin-top: 10px;" onclick="showScreen('settings')" data-i18n="settings_btn">⚙️ Настройки</button>
+        <button class="btn btn-blue" style="margin-top: 8px;" onclick="showScreen('settings')" data-i18n="settings_btn">⚙️ Настройки</button>
 
-        <div class="progress-label" style="margin-top: 20px;"><span data-i18n="total_taps">Всего тапов</span><span id="totalTapsText">0</span></div>
+        <div class="progress-label" style="margin-top: 16px;"><span data-i18n="total_taps">Всего тапов</span><span id="totalTapsText">0</span></div>
         <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
         <div class="progress-hint" data-i18n="taps_hint">Число тапов, чтобы друзья могли посмотреть</div>
-        <div id="devBtn" style="margin-top: 20px; font-size: 8px; color: #6b7280; text-align: center; cursor: pointer;" data-i18n="dev_btn">Нажми 5 раз для теста</div>
+        <div id="devBtn" style="margin-top: 16px; font-size: 7.5px; color: #6b7280; text-align: center; cursor: pointer;" data-i18n="dev_btn">Нажми 5 раз для теста</div>
       </div>
     </div>
   </div>
@@ -2259,7 +2288,7 @@
     function updatePotatoSkin() {
       var skin = skinsData.find(function(s) { return s.id === equippedSkin; });
       if (potatoDisplay && skin) {
-        potatoDisplay.style.fontSize = '110px';
+        potatoDisplay.style.fontSize = '106px';
         potatoDisplay.innerHTML = '';
         var img = document.createElement('img');
         img.src = skin.image; img.draggable = false;
@@ -2432,7 +2461,7 @@
 
         var btn = document.createElement('button');
         btn.className = 'btn btn-gold';
-        btn.style.cssText = 'width:auto;margin-bottom:0;padding:8px 10px;font-size:8px;';
+        btn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
 
         if (alreadyBought) {
           btn.innerText = t.bought; btn.disabled = true;
@@ -2747,7 +2776,7 @@
         })(img, skin.emoji, isLocked);
         previewBox.appendChild(img);
 
-        var titleDiv = document.createElement('div'); titleDiv.className = 'card-title'; titleDiv.style.marginBottom = '8px';
+        var titleDiv = document.createElement('div'); titleDiv.className = 'card-title'; titleDiv.style.marginBottom = '6px';
         titleDiv.innerText = currentLang === 'en' ? skin.en_name : skin.name;
 
         var btn = document.createElement('button'); btn.className = 'btn';
@@ -2798,7 +2827,7 @@
           '</div>';
         var btn = document.createElement('button');
         btn.className = 'btn ' + (moaiEquipped ? 'btn-grey' : 'btn-green');
-        btn.style.cssText = 'width:auto;margin-bottom:0;padding:8px 10px;font-size:8px;';
+        btn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
         btn.innerText = moaiEquipped ? t.unequip_btn : t.wear_btn;
         btn.onclick = window.toggleMoaiWear;
         card.appendChild(btn);
@@ -2819,7 +2848,7 @@
     function makeActionButton(text, disabled, onClick) {
       var btn = document.createElement('button');
       btn.className = 'btn';
-      btn.style.cssText = 'width:auto;margin-bottom:0;padding:8px 12px;font-size:9px;';
+      btn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 10px;font-size:8px;';
       btn.innerText = text;
       btn.disabled = !!disabled;
       if (!disabled && onClick) btn.onclick = onClick;
@@ -2891,7 +2920,7 @@
         var progText = t.progress + ': ' + formatMoney(Math.min(totalTaps, q.need), 0) + ' / ' + formatMoney(q.need, 0);
 
         var card = document.createElement('div'); card.className = 'card';
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-top:8px;margin-bottom:0;color:#a78bfa;font-size:9px;line-height:1.6;word-break:break-word;">' + progText + '</div></div>';
+        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-top:6px;margin-bottom:0;color:#a78bfa;font-size:8px;line-height:1.5;word-break:break-word;">' + progText + '</div></div>';
 
         var btnText = isClaimed ? t.received : (canClaim ? t.claim + ' (+' + formatMoney(q.reward, 1) + ' ₽)' : t.not_done);
         var btn = makeActionButton(btnText, !canClaim, (function(quest) {
