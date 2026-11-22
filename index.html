@@ -72,8 +72,8 @@
     body.has-event-banner .btn-top-back { top: 54px; }
     body.has-event-banner .top-balance { top: 106px; }
     body.has-event-banner .top-balance.no-back-offset { top: 54px; }
-    body.has-event-banner .main-btns-container { top: 108px; }
-    body.has-event-banner .right-btns-container { top: 158px; }
+    body.has-event-banner .main-btns-container { top: 112px; }
+    body.has-event-banner .right-btns-container { top: 112px; }
     body.has-event-banner .tabs { padding-top: 120px; }
     body.has-event-banner .shop-tabs { padding-top: 154px; }
     body.has-event-banner .main-content { padding-top: 132px; }
@@ -124,13 +124,13 @@
     .btn-info:active { border-color: #1e40af #93c5fd #93c5fd #1e40af; transform: scale(0.95); }
 
     .main-btns-container {
-      position: absolute; top: 68px; left: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 60;
+      position: absolute; top: 72px; left: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 60;
       width: 116px;
       transition: top 0.2s ease;
     }
 
     .right-btns-container {
-      position: absolute; top: 118px; right: 14px; display: flex; flex-direction: column; gap: 5px; z-index: 60;
+      position: absolute; top: 72px; right: 14px; display: flex; flex-direction: column; gap: 5px; z-index: 60;
       width: 62px;
       transition: top 0.2s ease;
     }
@@ -216,7 +216,7 @@
     .auto-info { margin-top: 8px; font-size: 9px; color: #10b981; text-align: center; }
     .active-buffs-info { margin-top: 6px; font-size: 8px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
 
-    .streak-screen-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 64px 12px 24px; }
+    .streak-screen-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 118px 12px 24px; }
     .streak-board {
       position: relative; width: 100%; max-width: 500px; margin: 0 auto;
       background: linear-gradient(135deg, #f97316 0%, #db2777 45%, #7e22ce 100%);
@@ -529,6 +529,11 @@
 
     .wood-medal-container { display: flex; flex-direction: column; align-items: center; justify-content: center; width: 34px; }
     .wood-medal { width: 30px; height: 30px; image-rendering: pixelated; }
+
+    .game-alert-icon { font-size: 28px; text-align: center; margin-bottom: 8px; }
+    #gameAlertModal .modal-content { border-color: #fde047 #a16207 #a16207 #fde047; }
+    #gameAlertModal.alert-error .modal-content { border-color: #fca5a5 #991b1b #991b1b #fca5a5; }
+    #gameAlertModal.alert-success .modal-content { border-color: #6ee7b7 #065f46 #065f46 #6ee7b7; }
   </style>
 </head>
 <body>
@@ -569,6 +574,15 @@
       <h3 id="eventNoticeTitle"></h3>
       <p id="eventNoticeText" style="text-align: center;"></p>
       <button class="modal-btn" onclick="closeEventNotice()" data-i18n="info_close">ПОНЯТНО</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="gameAlertModal" style="z-index: 10050;">
+    <div class="modal-content" style="text-align: center;">
+      <div class="game-alert-icon" id="gameAlertIcon">💬</div>
+      <h3 id="gameAlertTitle" style="display: none;"></h3>
+      <p id="gameAlertText" style="text-align: center; white-space: pre-line;"></p>
+      <button class="modal-btn" id="gameAlertCloseBtn" onclick="closeGameAlert()" data-i18n="info_close">ПОНЯТНО</button>
     </div>
   </div>
 
@@ -666,6 +680,7 @@
   </div>
 
   <div class="screen" id="screen-calendar">
+    <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="streak-screen-wrap">
       <div class="streak-board">
         <div class="streak-top-row">
@@ -1519,7 +1534,7 @@
       else if (isVibrationEnabled && tg && tg.HapticFeedback) tg.HapticFeedback.impactOccurred('medium');
     };
 
-    window.openSupport = function() { playHaptic('medium'); alert(t.support_msg); };
+    window.openSupport = function() { playHaptic('medium'); showGameAlert(t.support_msg, { icon: '📢', title: t.support_btn }); };
 
     var activeInfoGame = null;
     function renderInfoModalContent(game) {
@@ -1557,6 +1572,35 @@
 
     window.closeEventNotice = function() {
       var modal = getEl('eventNoticeModal');
+      if (modal) modal.style.display = 'none';
+      playHaptic('light');
+    };
+
+    window.showGameAlert = function(message, options) {
+      options = options || {};
+      var modal = getEl('gameAlertModal');
+      var iconEl = getEl('gameAlertIcon');
+      var titleEl = getEl('gameAlertTitle');
+      var textEl = getEl('gameAlertText');
+      var btnEl = getEl('gameAlertCloseBtn');
+      if (!modal || !textEl) return;
+
+      modal.classList.remove('alert-error', 'alert-success');
+      if (options.type === 'error') modal.classList.add('alert-error');
+      else if (options.type === 'success') modal.classList.add('alert-success');
+
+      if (iconEl) iconEl.innerText = options.icon || (options.type === 'error' ? '⚠️' : (options.type === 'success' ? '🎉' : '💬'));
+      if (titleEl) {
+        if (options.title) { titleEl.style.display = 'block'; titleEl.innerText = options.title; }
+        else { titleEl.style.display = 'none'; titleEl.innerText = ''; }
+      }
+      textEl.innerText = String(message || '');
+      if (btnEl) btnEl.innerText = t.info_close;
+      modal.style.display = 'flex';
+    };
+
+    window.closeGameAlert = function() {
+      var modal = getEl('gameAlertModal');
       if (modal) modal.style.display = 'none';
       playHaptic('light');
     };
@@ -1701,10 +1745,10 @@
 
     var currentTab = 'tap'; var currentShopTab = 'skins';
     var autoTimer = null; var lastTapTime = 0;
-    var userPhoto = ''; var userName = t.player; var hasUnclaimedQuest = false;
+    var userPhoto = ''; var userName = t.player; var lastNotifiedQuestCount = 0;
 
     var lastGiftTime = parseInt(safeStorage.getItem('lastGiftTime'), 10) || 0;
-    var giftCooldown = 24 * 60 * 60 * 1000; var giftTimerInterval = null;
+    var giftCooldown = 24 * 60 * 60 * 1000;
     var lastGiftRewardShown = null;
 
     var isSpinning = false; var spinCost = 5; var forceMoai = false; var SPIN_DURATION = 9000;
@@ -1816,7 +1860,7 @@
           : '';
       }
 
-      var now = Date.now();
+      var now = new Date();
       var nextMidnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0, 0);
       var msLeft = Math.max(0, nextMidnight.getTime() - now.getTime());
       var h = Math.floor(msLeft / 3600000);
@@ -2409,8 +2453,6 @@
         playSound('quest_claim'); playHaptic('success');
       }
       updateGiftUI();
-      if (giftTimerInterval) clearInterval(giftTimerInterval);
-      giftTimerInterval = setInterval(function() { updateGiftUI(); updateCalendarUI(); checkEvents(false); updateBuffsInfo(); }, 1000);
     };
 
     window.switchShopTab = function(tab) {
@@ -2466,7 +2508,7 @@
           btn.innerText = t.buy + ' (' + formatMoney(item.price, 0) + ' ₽)';
           btn.onclick = (function(lot) {
             return function() {
-              if (balance < lot.price) { playHaptic('error'); alert(t.not_enough_money); return; }
+              if (balance < lot.price) { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); return; }
               balance -= lot.price;
               if (lot.kind === 'moai_amulet') { hasMoaiAmulet = true; moaiEquipped = true; }
               else if (lot.kind === 'skin' && ownedSkins.indexOf(lot.skinId) === -1) { ownedSkins.push(lot.skinId); }
@@ -2490,7 +2532,7 @@
         if (hasMoaiAmulet && moaiEquipped && lastMoaiSaveDate !== todayKey) {
           lastMoaiSaveDate = todayKey; updateUI();
           playSound('quest_claim'); playHaptic('success');
-          alert(t.amulet_saved.replace('{amount}', formatMoney(Math.abs(rawDelta), 0)));
+          showGameAlert(t.amulet_saved.replace('{amount}', formatMoney(Math.abs(rawDelta), 0)), { type: 'success', icon: '🗿' });
           return 0;
         }
         balance += rawDelta; updateUI(); return rawDelta;
@@ -2519,11 +2561,11 @@
       casinoReel.appendChild(div);
     }
 
-    window.activateMoaiTest = function() { forceMoai = true; playHaptic('medium'); alert(t.test_moai_alert); };
+    window.activateMoaiTest = function() { forceMoai = true; playHaptic('medium'); showGameAlert(t.test_moai_alert, { icon: '🗿' }); };
 
     window.spinCasino = function() {
       if (isSpinning || !casinoReel || !spinBtn) return;
-      if (balance < spinCost) { playHaptic('error'); alert(t.not_enough_money); return; }
+      if (balance < spinCost) { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); return; }
 
       isSpinning = true; balance -= spinCost; updateUI();
       spinBtn.disabled = true; playHaptic('medium');
@@ -2562,18 +2604,18 @@
           spinBtn.disabled = false;
 
           if (winItem.type === 'moai') {
-            balance = 0; updateUI(); playSound('quest_claim_10'); playHaptic('heavy'); alert(t.moai_win);
+            balance = 0; updateUI(); playSound('quest_claim_10'); playHaptic('heavy'); showGameAlert(t.moai_win, { type: 'error', icon: '🗿' });
             if (unlockedAch.indexOf(19) === -1) { unlockedAch.push(19); playSound('achievement'); save(); }
           } else if (winItem.type === 'fries') {
             var boosted = applyCasinoOutcome(35);
             playSound('quest_claim_10'); playHaptic('heavy');
-            alert(t.box_jackpot + ' (' + formatMoney(boosted, 0) + ' ₽)');
+            showGameAlert(t.box_jackpot + ' (' + formatMoney(boosted, 0) + ' ₽)', { type: 'success', icon: '🍟' });
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
           } else {
             var applied = applyCasinoOutcome(parseFloat(winItem.value));
             var dec = Math.abs(applied) < 1 && applied !== 0 ? 1 : 0;
-            if (applied < 0) { playHaptic('error'); alert(t.you_lost_val + formatMoney(Math.abs(applied), dec) + ' ₽'); }
-            else if (applied > 0) { playSound('casino_win'); playHaptic('success'); alert(t.you_won_val + formatMoney(applied, dec) + ' ₽'); }
+            if (applied < 0) { playHaptic('error'); showGameAlert(t.you_lost_val + formatMoney(Math.abs(applied), dec) + ' ₽', { type: 'error', icon: '📉' }); }
+            else if (applied > 0) { playSound('casino_win'); playHaptic('success'); showGameAlert(t.you_won_val + formatMoney(applied, dec) + ' ₽', { type: 'success', icon: '💰' }); }
             if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
           }
         }, SPIN_DURATION);
@@ -2609,7 +2651,7 @@
       if (isSlotsSpinning) return;
       var spinBtnEl = getEl('spinSlotsBtn');
       var leverEl = getEl('slotLever');
-      if (balance < slotsCost) { playHaptic('error'); alert(t.not_enough_money); return; }
+      if (balance < slotsCost) { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); return; }
       isSlotsSpinning = true; balance -= slotsCost; updateUI();
       if (spinBtnEl) spinBtnEl.disabled = true;
       if (leverEl) {
@@ -2645,18 +2687,18 @@
           triggerSirenLamp();
           playSound('quest_claim_10'); playHaptic('heavy');
           if (winType === 'jackpot') {
-            alert(t.slot_jackpot.replace('{amount}', formatMoney(finalWin, 0)));
+            showGameAlert(t.slot_jackpot.replace('{amount}', formatMoney(finalWin, 0)), { type: 'success', icon: '🎰' });
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
-          } else { alert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽'); }
+          } else { showGameAlert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽', { type: 'success', icon: '💰' }); }
           if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
-        } else { playHaptic('error'); alert(t.nothing_won); }
+        } else { playHaptic('error'); showGameAlert(t.nothing_won, { type: 'error', icon: '🎲' }); }
       }, dur3 + 100);
     };
 
     window.spinWheel = function() {
       if (isWheelSpinning) return;
       var spinBtnEl = getEl('spinWheelBtn');
-      if (balance < wheelCost) { playHaptic('error'); alert(t.not_enough_money); return; }
+      if (balance < wheelCost) { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); return; }
       isWheelSpinning = true; balance -= wheelCost; updateUI();
       if (spinBtnEl) spinBtnEl.disabled = true;
       playHaptic('medium');
@@ -2698,19 +2740,21 @@
           var finalWin = applyCasinoOutcome(winAmount);
           playSound('quest_claim_10');
           if (winType === 'jackpot') {
-            alert(t.wheel_jackpot.replace('{amount}', formatMoney(finalWin, 0)));
+            showGameAlert(t.wheel_jackpot.replace('{amount}', formatMoney(finalWin, 0)), { type: 'success', icon: '🎡' });
             if (unlockedAch.indexOf(18) === -1) { unlockedAch.push(18); playSound('achievement'); save(); }
-          } else { alert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽'); }
+          } else { showGameAlert(t.you_won_val + formatMoney(finalWin, 0) + ' ₽', { type: 'success', icon: '💰' }); }
           if (unlockedAch.indexOf(17) === -1) { unlockedAch.push(17); playSound('achievement'); save(); }
-        } else { playHaptic('error'); alert(t.wheel_lost); }
+        } else { playHaptic('error'); showGameAlert(t.wheel_lost, { type: 'error', icon: '🎡' }); }
       }, spinDuration + 100);
     };
 
     function checkQuestReady() {
-      if (hasUnclaimedQuest) return;
+      var readyCount = 0;
       for (var i = 0; i < questsData.length; i++) {
-        if (claimed.indexOf(questsData[i].id) === -1 && totalTaps >= questsData[i].need) { playSound('quest_ready'); hasUnclaimedQuest = true; break; }
+        if (claimed.indexOf(questsData[i].id) === -1 && totalTaps >= questsData[i].need) { readyCount++; }
       }
+      if (readyCount > lastNotifiedQuestCount) { playSound('quest_ready'); }
+      lastNotifiedQuestCount = readyCount;
     }
 
     function checkAchievements() {
@@ -2812,7 +2856,7 @@
         balance -= skin.price; ownedSkins.push(id);
         if (id === 1) playSound('buy_gold'); else if (id === 2) playSound('buy_ghost'); else playSound('upgrade');
         playHaptic('success'); updateUI(); renderShop();
-      } else { playHaptic('error'); alert(t.not_enough_money); }
+      } else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
     };
 
     window.equipSkin = function(id) { equippedSkin = id; updatePotatoSkin(); save(); renderShop(); playHaptic('medium'); };
@@ -2879,7 +2923,7 @@
           card.appendChild(makeActionButton(btnText, !isNext, (function(u, lvl) {
             return function() {
               if (balance >= u.cost) { balance -= u.cost; tapValue = u.value; maxUpgrade = lvl; playSound('upgrade'); playHaptic('success'); updateUI(); renderUpgrades(); }
-              else { playHaptic('error'); alert(t.not_enough_money); }
+              else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
             };
           })(upg, level)));
           upgradesList.appendChild(card);
@@ -2890,7 +2934,7 @@
           card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_buy + '</div><div class="card-desc">' + t.auto_desc + '</div></div>';
           card.appendChild(makeActionButton(t.buy_for + ' ' + formatMoney(autoBuyCost, 0) + ' ₽', false, function() {
             if (balance >= autoBuyCost) { balance -= autoBuyCost; hasAutoclicker = true; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
-            else { playHaptic('error'); alert(t.not_enough_money); }
+            else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
           }));
           upgradesList.appendChild(card);
         } else {
@@ -2902,7 +2946,7 @@
             pCard.appendChild(makeActionButton(isB ? t.bought : (isN ? t.buy_for + ' ' + formatMoney(av.cost, 0) + ' ₽' : t.buy_prev), !isN, (function(a) {
               return function() {
                 if (balance >= a.cost) { balance -= a.cost; autoValue = a.value; autoValueLevel = a.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
-                else { playHaptic('error'); alert(t.not_enough_money); }
+                else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
               };
             })(av)));
             upgradesList.appendChild(pCard);
@@ -2916,7 +2960,7 @@
             sCard.appendChild(makeActionButton(isSB ? t.bought : (isSN ? t.buy_for + ' ' + formatMoney(as.cost, 0) + ' ₽' : t.buy_prev), !isSN, (function(a) {
               return function() {
                 if (balance >= a.cost) { balance -= a.cost; autoInterval = a.interval; autoSpeedLevel = a.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
-                else { playHaptic('error'); alert(t.not_enough_money); }
+                else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
               };
             })(as)));
             upgradesList.appendChild(sCard);
@@ -2941,7 +2985,7 @@
           return function() {
             balance += quest.reward; claimed.push(quest.id);
             playQuestUniqueSound(quest.id);
-            playHaptic('success'); hasUnclaimedQuest = false; updateUI(); renderQuests();
+            playHaptic('success'); lastNotifiedQuestCount = Math.max(0, lastNotifiedQuestCount - 1); updateUI(); renderQuests();
           };
         })(q));
         if (canClaim) btn.style.background = '#10b981';
@@ -3063,11 +3107,12 @@
       if (activeMenu) activeMenu.classList.add('active');
 
       if (topBalanceBar) {
-        if (name === 'main' || name === 'quests' || name === 'rating' || name === 'calendar') {
+        var hideBalanceScreens = ['quests', 'rating', 'achievements', 'events-history', 'settings', 'friends', 'clans'];
+        if (hideBalanceScreens.indexOf(name) !== -1) {
           topBalanceBar.style.display = 'none';
         } else {
           topBalanceBar.style.display = 'flex';
-          topBalanceBar.classList.toggle('no-back-offset', name === 'achievements' || name === 'events-history');
+          topBalanceBar.classList.toggle('no-back-offset', name === 'main');
         }
       }
 
@@ -3097,8 +3142,8 @@
 
     function withdrawMoney() {
       playHaptic('medium');
-      if (balance < 10) { playHaptic('error'); alert(t.min_withdraw); return; }
-      playSound('casino_win'); playHaptic('success'); alert(t.withdraw_msg.replace('{amount}', formatMoney(balance)));
+      if (balance < 10) { playHaptic('error'); showGameAlert(t.min_withdraw, { type: 'error', icon: '💳' }); return; }
+      playSound('casino_win'); playHaptic('success'); showGameAlert(t.withdraw_msg.replace('{amount}', formatMoney(balance)), { type: 'success', icon: '💳' });
     }
 
     var devClicks = 0; var devBtn = getEl('devBtn');
@@ -3106,7 +3151,7 @@
       devClicks++; playHaptic('light');
       if (devClicks >= 5) {
         balance += 5000000; totalTaps += 10000000; updateUI(); playSound('upgrade'); playHaptic('heavy');
-        alert(t.dev_bonus_msg); devClicks = 0;
+        showGameAlert(t.dev_bonus_msg, { type: 'success', icon: '🛠️' }); devClicks = 0;
       }
     });
 
