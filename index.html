@@ -21,7 +21,6 @@
       transition: background 0.35s ease;
     }
 
-    /* Темы событий */
     body.season-halloween { background: linear-gradient(180deg, #3b1208, #7c2d12) !important; }
     body.season-newyear { background: linear-gradient(180deg, #0b2545, #134e4a) !important; }
     body.season-valentine { background: linear-gradient(180deg, #500724, #9d174d) !important; }
@@ -30,57 +29,32 @@
 
     #error-screen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #991b1b; z-index: 9999; padding: 20px; color: white; font-family: monospace; font-size: 14px; overflow-y: auto; }
 
-    /* Паутинка с паучком в углу на Хэллоуин */
     .halloween-corner-web {
-      display: none;
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 120px;
-      height: 120px;
-      pointer-events: none;
-      z-index: 8;
+      display: none; position: fixed; top: 0; right: 0; width: 120px; height: 120px;
+      pointer-events: none; z-index: 8;
     }
     body.season-halloween .halloween-corner-web { display: block; }
     .spider-line {
-      position: absolute;
-      top: 0;
-      right: 26px;
-      width: 2px;
-      height: 44px;
-      background: rgba(255, 255, 255, 0.55);
-      transform-origin: top center;
+      position: absolute; top: 0; right: 26px; width: 2px; height: 44px;
+      background: rgba(255, 255, 255, 0.55); transform-origin: top center;
       animation: spiderSwing 2.8s ease-in-out infinite;
     }
     .spider-icon {
-      position: absolute;
-      top: 40px;
-      right: 17px;
-      font-size: 16px;
-      transform-origin: top center;
-      animation: spiderSwing 2.8s ease-in-out infinite;
+      position: absolute; top: 40px; right: 17px; font-size: 16px;
+      transform-origin: top center; animation: spiderSwing 2.8s ease-in-out infinite;
     }
     @keyframes spiderSwing {
       0%, 100% { transform: rotate(-6deg); }
       50% { transform: rotate(6deg); }
     }
 
-    /* Летящие снежинки на Новый год */
     .snowflakes-layer {
-      display: none;
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 7;
-      overflow: hidden;
+      display: none; position: fixed; inset: 0; pointer-events: none; z-index: 7; overflow: hidden;
     }
     body.season-newyear .snowflakes-layer { display: block; }
     .flake {
-      position: absolute;
-      top: -20px;
-      color: rgba(255, 255, 255, 0.85);
-      text-shadow: none;
-      animation: flakeFall linear infinite;
+      position: absolute; top: -20px; color: rgba(255, 255, 255, 0.85);
+      text-shadow: none; animation: flakeFall linear infinite;
     }
     @keyframes flakeFall {
       0% { transform: translateY(-20px) translateX(0); }
@@ -91,13 +65,8 @@
       display: none; position: fixed; top: 0; left: 0; width: 100%; height: 40px;
       background: #7c3aed; color: white; z-index: 9999;
       text-align: center; font-size: 10px; line-height: 40px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-      text-shadow: 1px 1px 0 #000;
-      padding: 0 10px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5); text-shadow: 1px 1px 0 #000;
+      padding: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;
     }
 
     body.has-event-banner .btn-top-back { top: 54px; }
@@ -119,7 +88,6 @@
     body.has-event-banner #screen-quests .list-content,
     body.has-event-banner #screen-rating .rating-container { padding-top: 52px; }
 
-    /* Крестик сверху слева, баланс опускается ниже */
     .btn-top-back {
       position: absolute; top: 14px; left: 14px; z-index: 70;
       background: rgba(76, 29, 149, 0.85);
@@ -155,13 +123,13 @@
     }
     .btn-info:active { border-color: #1e40af #93c5fd #93c5fd #1e40af; transform: scale(0.95); }
 
-    /* Левая колонка кнопок: Инвентарь, Магазин, Казино */
+    /* Выровненная левая колонка */
     .main-btns-container {
       position: absolute; top: 126px; left: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 60;
+      width: 118px;
       transition: top 0.2s ease;
     }
 
-    /* Правая колонка уменьшенных кнопок */
     .right-btns-container {
       position: absolute; top: 126px; right: 14px; display: flex; flex-direction: column; gap: 7px; z-index: 60;
       width: 78px;
@@ -170,10 +138,12 @@
 
     .inventory-btn-main, .shop-btn-main, .casino-btn-main {
       position: relative;
-      display: flex; align-items: center; justify-content: center; gap: 5px;
-      padding: 5px 8px; cursor: pointer;
+      width: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+      padding: 6px 6px; cursor: pointer;
       border: 3px solid;
     }
+    .side-menu-emoji { font-size: 13px; line-height: 1; }
     .inventory-btn-main { background: rgba(139, 92, 246, 0.18); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
     .inventory-btn-main:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
     .shop-btn-main { background: rgba(168, 85, 247, 0.15); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
@@ -199,11 +169,7 @@
       border-color: #94a3b8 #0f172a #0f172a #94a3b8;
       border-radius: 5px;
       padding: 3px 3px 5px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      gap: 2px;
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start; gap: 2px;
       cursor: pointer;
       box-shadow: 0 2px 0 rgba(0, 0, 0, 0.65);
     }
@@ -212,28 +178,21 @@
       border-color: #0f172a #94a3b8 #94a3b8 #0f172a;
     }
     .side-tile-icon {
-      font-size: 16px;
-      line-height: 1;
-      margin-top: -1px;
+      font-size: 16px; line-height: 1; margin-top: -1px;
       filter: drop-shadow(0 1px 0 rgba(0,0,0,0.65));
     }
     .side-tile-label {
-      font-size: 6px;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: -0.4px;
-      white-space: nowrap;
-      line-height: 1.2;
+      font-size: 6px; color: #fff; text-transform: uppercase;
+      letter-spacing: -0.4px; white-space: nowrap; line-height: 1.2;
     }
     .side-tile-sub {
-      font-size: 5.5px;
-      color: #fde047;
-      white-space: nowrap;
-      line-height: 1.1;
+      font-size: 5.5px; color: #fde047; white-space: nowrap; line-height: 1.1;
     }
 
-    .inventory-btn-main span, .shop-btn-main span, .casino-btn-main span {
-      font-size: 8px; color: #fff; text-transform: uppercase;
+    .inventory-btn-main span:not(.side-menu-emoji),
+    .shop-btn-main span:not(.side-menu-emoji):not(.shop-event-badge),
+    .casino-btn-main span:not(.side-menu-emoji) {
+      font-size: 7.5px; color: #fff; text-transform: uppercase; line-height: 1.2;
     }
 
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; position: relative; }
@@ -258,151 +217,48 @@
     .auto-info { margin-top: 8px; font-size: 9px; color: #10b981; text-align: center; }
     .active-buffs-info { margin-top: 6px; font-size: 8px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
 
-    /* Экран Ежедневной серии */
-    .streak-screen-wrap {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 64px 12px 24px;
-    }
+    .streak-screen-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 64px 12px 24px; }
     .streak-board {
-      position: relative;
-      width: 100%;
-      max-width: 500px;
-      margin: 0 auto;
+      position: relative; width: 100%; max-width: 500px; margin: 0 auto;
       background: linear-gradient(135deg, #f97316 0%, #db2777 45%, #7e22ce 100%);
-      border: 3px solid #fde047;
-      border-radius: 12px;
-      padding: 12px 10px 14px;
+      border: 3px solid #fde047; border-radius: 12px; padding: 12px 10px 14px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.65);
     }
-    .streak-top-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 10px;
-    }
-    .streak-heading {
-      font-size: 11px;
-      color: #fde047;
-      text-transform: uppercase;
-      text-shadow: 2px 2px 0 #000;
-      line-height: 1.3;
-    }
+    .streak-top-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+    .streak-heading { font-size: 11px; color: #fde047; text-transform: uppercase; text-shadow: 2px 2px 0 #000; line-height: 1.3; }
     .streak-close-btn {
-      background: #ef4444;
-      color: #fff;
-      border: 2px solid #fca5a5;
-      border-radius: 5px;
-      padding: 4px 8px;
-      font-family: inherit;
-      font-size: 9px;
-      cursor: pointer;
-      flex-shrink: 0;
+      background: #ef4444; color: #fff; border: 2px solid #fca5a5; border-radius: 5px;
+      padding: 4px 8px; font-family: inherit; font-size: 9px; cursor: pointer; flex-shrink: 0;
     }
     .streak-close-btn:active { transform: translateY(2px); }
 
-    .streak-body {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .streak-body { display: flex; align-items: center; gap: 8px; }
     .streak-counter-card {
-      width: 68px;
-      flex-shrink: 0;
-      background: #fff;
-      color: #111827;
-      text-shadow: none;
-      border: 2px solid #1e1b4b;
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 3px 0 rgba(0,0,0,0.45);
+      width: 68px; flex-shrink: 0; background: #fff; color: #111827; text-shadow: none;
+      border: 2px solid #1e1b4b; border-radius: 8px; overflow: hidden; box-shadow: 0 3px 0 rgba(0,0,0,0.45);
     }
-    .streak-counter-top {
-      background: #eab308;
-      padding: 3px 0;
-      text-align: center;
-      font-size: 6.5px;
-      font-weight: bold;
-      border-bottom: 2px solid #1e1b4b;
-    }
-    .streak-counter-num {
-      padding: 10px 4px;
-      text-align: center;
-      font-size: 13px;
-      font-weight: bold;
-    }
+    .streak-counter-top { background: #eab308; padding: 3px 0; text-align: center; font-size: 6.5px; font-weight: bold; border-bottom: 2px solid #1e1b4b; }
+    .streak-counter-num { padding: 10px 4px; text-align: center; font-size: 13px; font-weight: bold; }
 
-    .streak-track-area {
-      flex: 1;
-      min-width: 0;
-    }
+    .streak-track-area { flex: 1; min-width: 0; }
     .streak-timer-pill {
-      display: inline-block;
-      background: rgba(0, 0, 0, 0.55);
-      border: 2px solid #fde047;
-      border-radius: 5px;
-      padding: 3px 6px;
-      font-size: 6.5px;
-      color: #fde047;
-      margin-bottom: 7px;
+      display: inline-block; background: rgba(0, 0, 0, 0.55); border: 2px solid #fde047;
+      border-radius: 5px; padding: 3px 6px; font-size: 6.5px; color: #fde047; margin-bottom: 7px;
     }
-    .streak-cards-row {
-      display: flex;
-      gap: 5px;
-      overflow-x: auto;
-      padding-bottom: 3px;
-    }
+    .streak-cards-row { display: flex; gap: 5px; overflow-x: auto; padding-bottom: 3px; }
     .streak-reward-slot {
-      min-width: 56px;
-      flex: 1;
-      background: linear-gradient(180deg, #38bdf8, #1d4ed8);
-      border: 2px solid #bae6fd;
-      border-radius: 7px;
-      padding: 6px 3px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      gap: 4px;
+      min-width: 56px; flex: 1; background: linear-gradient(180deg, #38bdf8, #1d4ed8);
+      border: 2px solid #bae6fd; border-radius: 7px; padding: 6px 3px;
+      display: flex; flex-direction: column; align-items: center; justify-content: space-between; gap: 4px;
       box-shadow: 0 2px 0 rgba(0,0,0,0.4);
     }
-    .streak-reward-slot.claimed-slot {
-      opacity: 0.6;
-      filter: grayscale(40%);
-    }
-    .streak-reward-slot.current-slot {
-      border-color: #fde047;
-      box-shadow: 0 0 8px rgba(253, 224, 71, 0.8);
-    }
-    .streak-slot-day {
-      font-size: 5.5px;
-      color: #e0f2fe;
-    }
-    .streak-slot-icon {
-      font-size: 15px;
-    }
-    .streak-slot-val {
-      font-size: 6.5px;
-      color: #fde047;
-      text-align: center;
-      white-space: nowrap;
-    }
-    .streak-footer-row {
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
-    .streak-last-note {
-      font-size: 7.5px;
-      color: #fef08a;
-      text-align: center;
-      min-height: 11px;
-    }
+    .streak-reward-slot.claimed-slot { opacity: 0.6; filter: grayscale(40%); }
+    .streak-reward-slot.current-slot { border-color: #fde047; box-shadow: 0 0 8px rgba(253, 224, 71, 0.8); }
+    .streak-slot-day { font-size: 5.5px; color: #e0f2fe; }
+    .streak-slot-icon { font-size: 15px; }
+    .streak-slot-val { font-size: 6.5px; color: #fde047; text-align: center; white-space: nowrap; }
+    .streak-footer-row { margin-top: 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .streak-last-note { font-size: 7.5px; color: #fef08a; text-align: center; min-height: 11px; }
 
     .tabs { display: flex; gap: 8px; padding: 80px 14px 10px; transition: padding-top 0.2s ease; }
     .tab-btn {
@@ -441,7 +297,6 @@
     #screen-upgrades .list-content { padding-top: 0; }
     #screen-shop .list-content { padding-top: 8px; }
 
-    /* Уменьшенные карточки */
     .card {
       background: rgba(255,255,255,0.09); padding: 9px 10px; margin-bottom: 9px; display: flex; align-items: center; gap: 10px;
       border: 2px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
@@ -486,7 +341,6 @@
     .shop-preview img { width: 54px; height: 54px; object-fit: contain; image-rendering: pixelated; filter: drop-shadow(0 0 4px rgba(255,255,255,0.22)); }
     .shop-card .btn { width: 100%; margin-bottom: 0; font-size: 7.5px; }
 
-    /* Карточка подарка в магазине */
     .gift-wrapper { display: flex; flex-direction: column; align-items: center; padding: 6px 14px 24px; }
     .gift-card { width: 100%; max-width: 245px; background: #1a1625; border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; padding: 8px; display: flex; flex-direction: column; align-items: center; position: relative; }
     .gift-title { font-size: 10px; color: #fff; margin-bottom: 10px; text-shadow: 2px 2px 0 #000; }
@@ -503,34 +357,16 @@
     @keyframes pulse { 0% { transform: scale(1); } 100% { transform: scale(1.1); } }
 
     .gift-btn-bottom {
-      width: 100%;
-      background: #10b981;
-      padding: 11px 8px;
-      margin-top: -3px;
-      border: 3px solid;
-      border-color: #6ee7b7 #065f46 #065f46 #6ee7b7;
-      font-size: 9px;
-      line-height: 1.3;
-      color: #fff;
-      text-align: center;
-      cursor: pointer;
-      font-family: inherit;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+      width: 100%; background: #10b981; padding: 11px 8px; margin-top: -3px;
+      border: 3px solid; border-color: #6ee7b7 #065f46 #065f46 #6ee7b7;
+      font-size: 9px; line-height: 1.3; color: #fff; text-align: center; cursor: pointer;
+      font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 6px;
       box-shadow: 0 3px 0 rgba(0, 0, 0, 0.5);
     }
-    .gift-btn-bottom:active:not(:disabled) {
-      transform: translateY(2px);
-      border-color: #065f46 #6ee7b7 #6ee7b7 #065f46;
-    }
+    .gift-btn-bottom:active:not(:disabled) { transform: translateY(2px); border-color: #065f46 #6ee7b7 #6ee7b7 #065f46; }
     .gift-btn-bottom:disabled {
-      background: #4b5563;
-      border-color: #6b7280 #1f2937 #1f2937 #6b7280;
-      color: #e5e7eb;
-      cursor: not-allowed;
-      box-shadow: none;
+      background: #4b5563; border-color: #6b7280 #1f2937 #1f2937 #6b7280;
+      color: #e5e7eb; cursor: not-allowed; box-shadow: none;
     }
     .gift-lock-inline { font-size: 12px; flex-shrink: 0; }
 
@@ -552,11 +388,51 @@
     .pointer::before { top: 0; border-top: 15px solid #a855f7; }
     .pointer::after { bottom: 0; border-bottom: 15px solid #a855f7; }
 
+    /* Грузовик картошки: сирена + барабаны + рычажок */
     .slots-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
-    .slots-window { display: flex; gap: 10px; margin-bottom: 30px; background: #1a1625; padding: 15px; border: 4px solid #a855f7; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); border-radius: 10px; }
-    .slot-reel { width: 70px; height: 100px; background: #2e1065; border: 3px solid #4c1d95; border-radius: 8px; overflow: hidden; position: relative; }
+    .slots-machine-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; }
+    .siren-lamp {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: #4b5563; border: 3px solid #fde047;
+      margin-bottom: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.6);
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .siren-lamp.active-siren {
+      animation: sirenFlash 0.25s infinite alternate;
+    }
+    @keyframes sirenFlash {
+      0% { background: #ef4444; box-shadow: 0 0 18px #ef4444; transform: scale(1.08); }
+      100% { background: #fde047; box-shadow: 0 0 22px #fde047; transform: scale(1.18); }
+    }
+    .slots-cabinet-row { display: flex; align-items: center; gap: 10px; }
+    .slots-window { display: flex; gap: 10px; background: #1a1625; padding: 15px; border: 4px solid #a855f7; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); border-radius: 10px; }
+    .slot-reel { width: 68px; height: 100px; background: #2e1065; border: 3px solid #4c1d95; border-radius: 8px; overflow: hidden; position: relative; }
     .reel-strip { display: flex; flex-direction: column; align-items: center; position: absolute; top: 0; left: 0; width: 100%; }
-    .slot-item-symbol { width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 40px; flex-shrink: 0; }
+    .slot-item-symbol { width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 38px; flex-shrink: 0; }
+
+    .slot-lever-assembly {
+      display: flex; flex-direction: column; align-items: center; cursor: pointer;
+      padding: 4px; height: 110px; justify-content: flex-start;
+    }
+    .slot-lever-knob {
+      width: 20px; height: 20px; border-radius: 50%;
+      background: #ef4444; border: 2px solid #fca5a5;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+      transition: transform 0.25s ease;
+    }
+    .slot-lever-stick {
+      width: 6px; height: 54px; background: #cbd5e1; border: 1px solid #475569;
+      transform-origin: top center; transition: transform 0.25s ease;
+    }
+    .slot-lever-base {
+      width: 22px; height: 10px; background: #475569; border: 2px solid #94a3b8; border-radius: 3px;
+    }
+    .slot-lever-assembly.pulled .slot-lever-stick {
+      transform: scaleY(0.45) translateY(6px);
+    }
+    .slot-lever-assembly.pulled .slot-lever-knob {
+      transform: translateY(24px);
+    }
 
     .wheel-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
     .wheel-wrapper { position: relative; width: 280px; height: 280px; margin-bottom: 30px; }
@@ -598,6 +474,11 @@
     .progress-bar { height: 14px; background: rgba(0,0,0,0.5); border: 2px solid #a855f7; overflow: hidden; }
     .progress-fill { height: 100%; background: #10b981; width: 0%; transition: width 0.3s; }
     .progress-hint { font-size: 7.5px; color: #9ca3af; margin-top: 8px; text-align: center; line-height: 1.5; }
+
+    .badge-counter-banner {
+      background: rgba(0,0,0,0.4); border: 2px solid #fde047; color: #fde047;
+      padding: 8px 10px; margin-bottom: 10px; font-size: 8px; text-align: center;
+    }
 
     #screen-settings { background: linear-gradient(180deg, #2e1065, #1e1b4b); overflow: hidden; }
     #rocket-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
@@ -699,7 +580,6 @@
     </div>
   </div>
 
-  <!-- Баланс (опущен ниже крестика) -->
   <div class="top-balance" id="openProfile">
     <img class="top-avatar" id="topAvatar" src="" alt="">
     <div class="top-balance-text">
@@ -709,21 +589,22 @@
   </div>
 
   <div class="screen active" id="screen-main">
-    <!-- Левая колонка -->
     <div class="main-btns-container">
       <div class="inventory-btn-main" id="mainInventoryBtn" onclick="showScreen('inventory')">
-        🎒 <span data-i18n="inventory_main_btn">инвентарь</span>
+        <span class="side-menu-emoji">🎒</span>
+        <span data-i18n="inventory_main_btn">инвентарь</span>
       </div>
       <div class="shop-btn-main" id="mainShopBtn" onclick="showScreen('shop')">
-        🛒 <span data-i18n="shop_btn">Магазин</span>
+        <span class="side-menu-emoji">🛒</span>
+        <span data-i18n="shop_btn">Магазин</span>
         <span class="shop-event-badge" id="shopEventBadge" style="display: none;">!</span>
       </div>
       <div class="casino-btn-main" onclick="showScreen('casino')">
-        🎮 <span data-i18n="casino_btn">Казино</span>
+        <span class="side-menu-emoji">🎮</span>
+        <span data-i18n="casino_btn">Казино</span>
       </div>
     </div>
 
-    <!-- Правая колонка уменьшенных кнопок с приподнятыми эмодзи -->
     <div class="right-btns-container">
       <div class="side-tile-btn" onclick="showScreen('friends')">
         <div class="side-tile-icon">🫂</div>
@@ -753,7 +634,6 @@
     </div>
   </div>
 
-  <!-- Экран: Друзья -->
   <div class="screen" id="screen-friends">
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="inventory-content">
@@ -767,7 +647,6 @@
     </div>
   </div>
 
-  <!-- Экран: Кланы -->
   <div class="screen" id="screen-clans">
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="inventory-content">
@@ -781,7 +660,6 @@
     </div>
   </div>
 
-  <!-- Экран: Ежедневный календарь -->
   <div class="screen" id="screen-calendar">
     <div class="streak-screen-wrap">
       <div class="streak-board">
@@ -909,10 +787,20 @@
     <button class="btn-top-back" onclick="showScreen('casino')">◀</button>
     <button class="btn-info" onclick="openInfo('slots')">❓</button>
     <div class="slots-container">
-      <div class="slots-window">
-        <div class="slot-reel"><div class="reel-strip" id="strip1"><div class="slot-item-symbol">🥔</div></div></div>
-        <div class="slot-reel"><div class="reel-strip" id="strip2"><div class="slot-item-symbol">🥔</div></div></div>
-        <div class="slot-reel"><div class="reel-strip" id="strip3"><div class="slot-item-symbol">🥔</div></div></div>
+      <div class="slots-machine-wrap">
+        <div class="siren-lamp" id="slotSirenLamp"></div>
+        <div class="slots-cabinet-row">
+          <div class="slots-window">
+            <div class="slot-reel"><div class="reel-strip" id="strip1"><div class="slot-item-symbol">🥔</div></div></div>
+            <div class="slot-reel"><div class="reel-strip" id="strip2"><div class="slot-item-symbol">🥔</div></div></div>
+            <div class="slot-reel"><div class="reel-strip" id="strip3"><div class="slot-item-symbol">🥔</div></div></div>
+          </div>
+          <div class="slot-lever-assembly" id="slotLever" onclick="spinSlots()" title="Рычажок">
+            <div class="slot-lever-knob"></div>
+            <div class="slot-lever-stick"></div>
+            <div class="slot-lever-base"></div>
+          </div>
+        </div>
       </div>
       <button class="btn btn-gold" id="spinSlotsBtn" onclick="spinSlots()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_slots_btn">КРУТИТЬ (100 ₽)</button>
     </div>
@@ -1088,6 +976,10 @@
           skin_chaos_eye: { name: "Скин «Глаз Хаоса»", desc: "Редкий скин (без бонусов)", rarity: "Эпический" }
         },
         badges_label: "Бейджи событий: ", no_badges_yet: "Пока нет бейджей — участвуйте в событиях!",
+        badge_counter: "Выбрано: {count} / 3",
+        badge_to_profile: "В профиль",
+        badge_remove_profile: "Убрать",
+        badge_locked_hint: "Откроется при участии в событии",
         badge_names: {
           bm_regular: "🌑 Завсегдатай Чёрного рынка",
           halloween_2026: "🎃 Хэллоуин 2026",
@@ -1139,7 +1031,7 @@
         `,
         info_slots_html: `
           <p><b>Стоимость:</b> 100 ₽ за прокрутку.</p>
-          <p><b>Как играть:</b> Соберите 3 одинаковых символа на линии.</p>
+          <p><b>Как играть:</b> Нажмите кнопку или потяните рычажок, чтобы собрать 3 одинаковых символа на линии.</p>
           <hr>
           <p><b>Таблица выплат:</b></p>
           <p>🍟 🍟 🍟 — <b>10 000 ₽</b> (0.01%)</p>
@@ -1172,7 +1064,8 @@
           { title: "Апофеоз", desc: "30-й уровень тапа", icon: "🌠" }, { title: "Автоматизированный рай", desc: "15-й сила авто", icon: "⚙️" },
           { title: "Сингулярность", desc: "25-й сила авто", icon: "🤖" }, { title: "Деп деп и ещё деп", desc: "Сыграть в казино", icon: "🕹" },
           { title: "Везунчик", desc: "Сорвать джекпот", icon: "🎰" }, { title: "Всё про**бал", desc: "Выбить 🗿", icon: "🗿" },
-          { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" }, { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" }
+          { title: "Золотой фермер", desc: "Купить золотую картошку", icon: "🪙" }, { title: "Призрачный дух", desc: "Купить картошку-призрака", icon: "👻" },
+          { title: "Безумец", desc: "1 000 000 000 тапов", icon: "💀" }
         ]
       },
       en: {
@@ -1219,6 +1112,10 @@
           skin_chaos_eye: { name: "Chaos Eye Skin", desc: "Rare skin (no bonuses)", rarity: "Epic" }
         },
         badges_label: "Event badges: ", no_badges_yet: "No badges yet — join events!",
+        badge_counter: "Selected: {count} / 3",
+        badge_to_profile: "To profile",
+        badge_remove_profile: "Remove",
+        badge_locked_hint: "Unlocked by participating in the event",
         badge_names: {
           bm_regular: "🌑 Black Market Regular",
           halloween_2026: "🎃 Halloween 2026",
@@ -1270,7 +1167,7 @@
         `,
         info_slots_html: `
           <p><b>Cost:</b> 100 ₽ per spin.</p>
-          <p><b>How to play:</b> Match 3 identical symbols on the payline.</p>
+          <p><b>How to play:</b> Press the button or pull the lever to match 3 identical symbols on the payline.</p>
           <hr>
           <p><b>Payout table:</b></p>
           <p>🍟 🍟 🍟 — <b>10,000 ₽</b> (0.01%)</p>
@@ -1303,7 +1200,8 @@
           { title: "Apotheosis", desc: "30th tap level", icon: "🌠" }, { title: "Automated Paradise", desc: "15th auto power", icon: "⚙️" },
           { title: "Singularity", desc: "25th auto power", icon: "🤖" }, { title: "Dep dep and more dep", desc: "Play in casino", icon: "🕹" },
           { title: "Lucky", desc: "Hit the jackpot", icon: "🎰" }, { title: "Lost Everything", desc: "Hit the 🗿", icon: "🗿" },
-          { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" }, { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" }
+          { title: "Golden Farmer", desc: "Buy golden potato", icon: "🪙" }, { title: "Ghostly Spirit", desc: "Buy ghost potato", icon: "👻" },
+          { title: "Madman", desc: "1,000,000,000 taps", icon: "💀" }
         ]
       }
     };
@@ -1355,10 +1253,7 @@
       for (var i = 0; i < caseOpenTimers.length; i++) clearTimeout(caseOpenTimers[i]);
       caseOpenTimers = [];
       if (customCaseAudio) {
-        try {
-          customCaseAudio.pause();
-          customCaseAudio.currentTime = 0;
-        } catch (e) {}
+        try { customCaseAudio.pause(); customCaseAudio.currentTime = 0; } catch (e) {}
       }
     }
 
@@ -1419,6 +1314,51 @@
       }
     }
 
+    // Уникальный мелодический/синтезаторный звук для каждого id квеста (без повторов у соседей)
+    var QUEST_SOUND_PATTERNS = [
+      { notes: [523.25, 659.25], wave: 'triangle', stepMs: 90, dur: 0.16 },
+      { notes: [587.33, 880.00], wave: 'sine', stepMs: 95, dur: 0.18 },
+      { notes: [659.25, 783.99, 987.77], wave: 'square', stepMs: 75, dur: 0.14 },
+      { notes: [698.46, 523.25, 880.00], wave: 'triangle', stepMs: 80, dur: 0.16 },
+      { notes: [783.99, 1046.50, 1318.51], wave: 'sine', stepMs: 70, dur: 0.18 },
+      { notes: [440.00, 659.25, 880.00, 1174.66], wave: 'triangle', stepMs: 65, dur: 0.15 },
+      { notes: [880.00, 698.46, 1046.50], wave: 'sawtooth', stepMs: 85, dur: 0.14 },
+      { notes: [587.33, 739.99, 987.77, 1174.66], wave: 'sine', stepMs: 70, dur: 0.16 },
+      { notes: [659.25, 987.77, 1318.51, 1567.98], wave: 'triangle', stepMs: 65, dur: 0.18 },
+      { notes: [523.25, 659.25, 783.99, 1046.50, 1318.51], wave: 'sawtooth', stepMs: 75, dur: 0.22 },
+      { notes: [783.99, 587.33, 880.00, 1174.66], wave: 'square', stepMs: 70, dur: 0.16 },
+      { notes: [622.25, 932.33, 1244.51], wave: 'sine', stepMs: 85, dur: 0.2 },
+      { notes: [698.46, 880.00, 1046.50, 1396.91], wave: 'triangle', stepMs: 65, dur: 0.18 },
+      { notes: [830.61, 622.25, 932.33, 1244.51], wave: 'sine', stepMs: 75, dur: 0.18 },
+      { notes: [523.25, 783.99, 1046.50, 1567.98, 2093.00], wave: 'sawtooth', stepMs: 75, dur: 0.25 },
+      { notes: [659.25, 830.61, 987.77, 1318.51, 1661.22], wave: 'triangle', stepMs: 70, dur: 0.22 },
+      { notes: [587.33, 880.00, 1174.66, 1479.98, 1760.00], wave: 'sine', stepMs: 70, dur: 0.24 },
+      { notes: [739.99, 987.77, 1174.66, 1479.98, 1975.53], wave: 'sawtooth', stepMs: 70, dur: 0.26 },
+      { notes: [659.25, 987.77, 1318.51, 1567.98, 1975.53, 2637.02], wave: 'triangle', stepMs: 65, dur: 0.25 },
+      { notes: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00], wave: 'sawtooth', stepMs: 75, dur: 0.35 }
+    ];
+
+    function playQuestUniqueSound(questId) {
+      if (!isSoundEnabled) return;
+      initAudio();
+      if (!audioCtx) return;
+      var pat = QUEST_SOUND_PATTERNS[(Math.max(1, questId) - 1) % QUEST_SOUND_PATTERNS.length];
+      var now = audioCtx.currentTime;
+      for (var i = 0; i < pat.notes.length; i++) {
+        var startT = now + (i * pat.stepMs) / 1000;
+        var osc = audioCtx.createOscillator();
+        var gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = pat.wave;
+        osc.frequency.setValueAtTime(pat.notes[i], startT);
+        gain.gain.setValueAtTime(0.14, startT);
+        gain.gain.exponentialRampToValueAtTime(0.001, startT + pat.dur);
+        osc.start(startT);
+        osc.stop(startT + pat.dur);
+      }
+    }
+
     function playSound(type) {
       if (!isSoundEnabled) return;
       initAudio();
@@ -1443,14 +1383,6 @@
         osc.type = 'sawtooth'; osc.frequency.setValueAtTime(523.25, now); osc.frequency.setValueAtTime(659.25, now + 0.15); osc.frequency.setValueAtTime(783.99, now + 0.3); osc.frequency.setValueAtTime(1046.50, now + 0.45);
         gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.8);
         osc.start(now); osc.stop(now + 0.8);
-      } else if (type === 'quest_claim_11') {
-        osc.type = 'square'; osc.frequency.setValueAtTime(400, now); osc.frequency.linearRampToValueAtTime(800, now + 0.2); osc.frequency.setValueAtTime(800, now + 0.3); osc.frequency.linearRampToValueAtTime(1600, now + 0.6);
-        gain.gain.setValueAtTime(0.1, now); gain.gain.linearRampToValueAtTime(0.2, now + 0.3); gain.gain.exponentialRampToValueAtTime(0.01, now + 1.0);
-        osc.start(now); osc.stop(now + 1.0);
-      } else if (type === 'quest_claim_15') {
-        osc.type = 'sawtooth'; osc.frequency.setValueAtTime(300, now); osc.frequency.linearRampToValueAtTime(1500, now + 0.5);
-        gain.gain.setValueAtTime(0.2, now); gain.gain.exponentialRampToValueAtTime(0.01, now + 1.2);
-        osc.start(now); osc.stop(now + 1.2);
       } else if (type === 'achievement') {
         osc.type = 'sawtooth'; osc.frequency.setValueAtTime(440, now); osc.frequency.setValueAtTime(554.37, now + 0.1); osc.frequency.setValueAtTime(659.25, now + 0.2);
         gain.gain.setValueAtTime(0.15, now); gain.gain.linearRampToValueAtTime(0.01, now + 0.5);
@@ -1645,10 +1577,30 @@
     ];
 
     var questsData = [
-      { id: 1, need: 1000, reward: 0.5 }, { id: 2, need: 5000, reward: 1 }, { id: 3, need: 10000, reward: 2 }, { id: 4, need: 15000, reward: 5 }, { id: 5, need: 20000, reward: 10 },
-      { id: 6, need: 25000, reward: 15 }, { id: 7, need: 30000, reward: 20 }, { id: 8, need: 35000, reward: 25 }, { id: 9, need: 40000, reward: 30 }, { id: 10, need: 50000, reward: 50 },
-      { id: 11, need: 100000, reward: 100 }, { id: 12, need: 250000, reward: 500 }, { id: 13, need: 500000, reward: 500 }, { id: 14, need: 750000, reward: 750 }, { id: 15, need: 1000000, reward: 1000 },
-      { id: 16, need: 2500000, reward: 2500 }, { id: 17, need: 5000000, reward: 5000 }, { id: 18, need: 10000000, reward: 10000 }, { id: 19, need: 25000000, reward: 25000 }, { id: 20, need: 50000000, reward: 50000 }
+      { id: 1, need: 1000, reward: 0.5 },
+      { id: 2, need: 5000, reward: 1 },
+      { id: 3, need: 10000, reward: 2 },
+      { id: 4, need: 15000, reward: 5 },
+      { id: 5, need: 20000, reward: 10 },
+      { id: 6, need: 25000, reward: 15 },
+      { id: 7, need: 30000, reward: 20 },
+      { id: 8, need: 35000, reward: 25 },
+      { id: 9, need: 40000, reward: 30 },
+      { id: 10, need: 50000, reward: 50 },
+      { id: 11, need: 100000, reward: 100 },
+      { id: 12, need: 250000, reward: 500 },
+      { id: 13, need: 500000, reward: 500 },
+      { id: 14, need: 750000, reward: 750 },
+      { id: 15, need: 1000000, reward: 1000 },
+      { id: 16, need: 2500000, reward: 2500 },
+      { id: 17, need: 5000000, reward: 5000 },
+      { id: 18, need: 10000000, reward: 10000 },
+      { id: 19, need: 25000000, reward: 25000 },
+      { id: 20, need: 50000000, reward: 50000 },
+      { id: 21, need: 100000000, reward: 100000 },
+      { id: 22, need: 250000000, reward: 200000 },
+      { id: 23, need: 500000000, reward: 350000 },
+      { id: 24, need: 1000000000, reward: 500000 }
     ];
 
     var skinsData = [
@@ -1670,19 +1622,12 @@
       { id: "skin_chaos_eye", icon: "👁️", price: 3000000, kind: "skin", skinId: 4 }
     ];
 
+    var ALL_BADGE_KEYS = ["bm_regular", "halloween_2026", "newyear_2026", "valentine_2026", "april_2026"];
+
     var CALENDAR_SLOTS = [
-      { amount: 0.01, icon: "🪙" },
-      { amount: 0.1, icon: "💵" },
-      { amount: 0.25, icon: "💰" },
-      { amount: 0.5, icon: "💎" },
-      { amount: 1, icon: "🥔" },
-      { amount: 5, icon: "📦" },
-      { amount: 10, icon: "🔥" },
-      { amount: 25, icon: "⚡" },
-      { amount: 50, icon: "👑" },
-      { amount: 100, icon: "🌟" },
-      { amount: 250, icon: "🚀" },
-      { amount: 1000, icon: "🍟" }
+      { amount: 0.01, icon: "🪙" }, { amount: 0.1, icon: "💵" }, { amount: 0.25, icon: "💰" }, { amount: 0.5, icon: "💎" },
+      { amount: 1, icon: "🥔" }, { amount: 5, icon: "📦" }, { amount: 10, icon: "🔥" }, { amount: 25, icon: "⚡" },
+      { amount: 50, icon: "👑" }, { amount: 100, icon: "🌟" }, { amount: 250, icon: "🚀" }, { amount: 1000, icon: "🍟" }
     ];
 
     var balance = parseFloat(safeStorage.getItem('potatoBalance')) || 0;
@@ -1719,6 +1664,7 @@
     var notifiedSeasons = safeJsonParse(safeStorage.getItem('notifiedSeasons'), []);
     var eventHistory = safeJsonParse(safeStorage.getItem('eventHistory'), []);
     var earnedBadges = safeJsonParse(safeStorage.getItem('earnedBadges'), []);
+    var selectedProfileBadges = safeJsonParse(safeStorage.getItem('selectedProfileBadges'), []);
 
     var bannerHideTimer = null;
     var currentBannerEventType = null;
@@ -1732,7 +1678,7 @@
     var lastGiftRewardShown = null;
 
     var isSpinning = false; var spinCost = 5; var forceMoai = false; var SPIN_DURATION = 9000;
-    var isSlotsSpinning = false; var slotsCost = 100;
+    var isSlotsSpinning = false; var slotsCost = 100; var sirenTimeout = null;
     var isWheelSpinning = false; var wheelCost = 500;
     var currentWheelRotation = 0;
 
@@ -1766,13 +1712,10 @@
       return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
     }
 
-    function getTodayKey() {
-      return getDateKeyByOffset(0);
-    }
+    function getTodayKey() { return getDateKeyByOffset(0); }
 
     function getSlotForDay(dayNumber) {
-      var idx = (Math.max(1, dayNumber) - 1) % CALENDAR_SLOTS.length;
-      return CALENDAR_SLOTS[idx];
+      return CALENDAR_SLOTS[(Math.max(1, dayNumber) - 1) % CALENDAR_SLOTS.length];
     }
 
     function formatSlotAmount(amount) {
@@ -1843,11 +1786,8 @@
       if (lastCalendarClaimDate === todayKey) return;
 
       var yesterdayKey = getDateKeyByOffset(-1);
-      if (lastCalendarClaimDate === yesterdayKey || streakDays === 0) {
-        streakDays += 1;
-      } else {
-        streakDays = 1;
-      }
+      if (lastCalendarClaimDate === yesterdayKey || streakDays === 0) streakDays += 1;
+      else streakDays = 1;
 
       var slot = getSlotForDay(streakDays);
       var reward = slot.amount;
@@ -1856,7 +1796,7 @@
       lastCalendarReward = reward.toFixed(3);
 
       save();
-      playSound(reward === 1000 ? 'quest_claim_15' : 'quest_claim');
+      playSound(reward === 1000 ? 'quest_claim_10' : 'quest_claim');
       playHaptic(reward === 1000 ? 'heavy' : 'success');
       updateUI();
       updateCalendarUI();
@@ -1900,11 +1840,47 @@
       safeStorage.setItem('notifiedSeasons', JSON.stringify(notifiedSeasons));
       safeStorage.setItem('eventHistory', JSON.stringify(eventHistory));
       safeStorage.setItem('earnedBadges', JSON.stringify(earnedBadges));
+      safeStorage.setItem('selectedProfileBadges', JSON.stringify(selectedProfileBadges));
     }
 
     function addBadge(badgeKey) {
-      if (earnedBadges.indexOf(badgeKey) === -1) { earnedBadges.push(badgeKey); save(); }
+      if (earnedBadges.indexOf(badgeKey) === -1) {
+        earnedBadges.push(badgeKey);
+        if (selectedProfileBadges.length < 3 && selectedProfileBadges.indexOf(badgeKey) === -1) {
+          selectedProfileBadges.push(badgeKey);
+        }
+        save();
+      }
     }
+
+    function getDisplayedProfileBadges() {
+      var validSelected = [];
+      for (var i = 0; i < selectedProfileBadges.length; i++) {
+        var k = selectedProfileBadges[i];
+        if (earnedBadges.indexOf(k) !== -1 && validSelected.indexOf(k) === -1) {
+          validSelected.push(k);
+          if (validSelected.length === 3) break;
+        }
+      }
+      if (validSelected.length > 0) return validSelected;
+      return earnedBadges.slice(0, 3);
+    }
+
+    window.toggleProfileBadge = function(badgeKey) {
+      if (earnedBadges.indexOf(badgeKey) === -1) return;
+      var activeList = getDisplayedProfileBadges();
+      var idxInActive = activeList.indexOf(badgeKey);
+      if (idxInActive !== -1) {
+        selectedProfileBadges = activeList.filter(function(item) { return item !== badgeKey; });
+      } else {
+        if (activeList.length >= 3) return;
+        selectedProfileBadges = activeList.concat([badgeKey]);
+      }
+      save();
+      playHaptic('light');
+      updateProfileBadges();
+      renderEventsHistory();
+    };
 
     function recordEventParticipation(entry) {
       var idx = eventHistory.findIndex(function(item) { return item.id === entry.id; });
@@ -1997,9 +1973,7 @@
       document.body.classList.add('has-event-banner');
 
       if (bannerHideTimer) clearTimeout(bannerHideTimer);
-      bannerHideTimer = setTimeout(function() {
-        hideEventBanner();
-      }, 5000);
+      bannerHideTimer = setTimeout(function() { hideEventBanner(); }, 5000);
     }
 
     function checkEvents(showPopups) {
@@ -2009,11 +1983,8 @@
       var day = date.getDate();
 
       if (manualEventsDisabled) {
-        activeEvents.blackMarket = false;
-        activeEvents.halloween = false;
-        activeEvents.newYear = false;
-        activeEvents.valentine = false;
-        activeEvents.april = false;
+        activeEvents.blackMarket = false; activeEvents.halloween = false;
+        activeEvents.newYear = false; activeEvents.valentine = false; activeEvents.april = false;
       } else if (forcedEventKey) {
         activeEvents.blackMarket = forcedEventKey === 'blackMarket';
         activeEvents.halloween = forcedEventKey === 'halloween';
@@ -2038,12 +2009,9 @@
           activeEvents.blackMarket = false;
           var thirtyDaysMs = 30 * 24 * 60 * 60 * 1000;
           if (!lastBlackMarket || (now - lastBlackMarket >= thirtyDaysMs)) {
-            bmCycleId += 1;
-            lastBlackMarket = now;
+            bmCycleId += 1; lastBlackMarket = now;
             blackMarketEnd = now + (3 * 24 * 60 * 60 * 1000);
-            bmBoughtInCycle = [];
-            activeEvents.blackMarket = true;
-            save();
+            bmBoughtInCycle = []; activeEvents.blackMarket = true; save();
           }
         }
       }
@@ -2157,50 +2125,30 @@
     };
 
     window.forceEvent = function(eventName) {
-      activeEvents.blackMarket = false;
-      activeEvents.halloween = false;
-      activeEvents.newYear = false;
-      activeEvents.valentine = false;
-      activeEvents.april = false;
+      activeEvents.blackMarket = false; activeEvents.halloween = false;
+      activeEvents.newYear = false; activeEvents.valentine = false; activeEvents.april = false;
       hideEventBanner();
 
       if (eventName === 'none') {
-        manualEventsDisabled = true;
-        forcedEventKey = '';
+        manualEventsDisabled = true; forcedEventKey = '';
       } else {
-        manualEventsDisabled = false;
-        forcedEventKey = eventName;
-        if (eventName === 'halloween') {
-          activeEvents.halloween = true;
-          triggerBannerFor5Sec('halloween');
-        } else if (eventName === 'newYear') {
-          activeEvents.newYear = true;
-          triggerBannerFor5Sec('newYear');
-        } else if (eventName === 'valentine') {
-          activeEvents.valentine = true;
-          triggerBannerFor5Sec('valentine');
-        } else if (eventName === 'april') {
-          activeEvents.april = true;
-          triggerBannerFor5Sec('april');
-        } else if (eventName === 'blackMarket') {
-          activeEvents.blackMarket = true;
-          bmCycleId += 1;
-          lastBlackMarket = Date.now();
-          blackMarketEnd = Date.now() + (3 * 24 * 60 * 60 * 1000);
-          bmBoughtInCycle = [];
+        manualEventsDisabled = false; forcedEventKey = eventName;
+        if (eventName === 'halloween') { activeEvents.halloween = true; triggerBannerFor5Sec('halloween'); }
+        else if (eventName === 'newYear') { activeEvents.newYear = true; triggerBannerFor5Sec('newYear'); }
+        else if (eventName === 'valentine') { activeEvents.valentine = true; triggerBannerFor5Sec('valentine'); }
+        else if (eventName === 'april') { activeEvents.april = true; triggerBannerFor5Sec('april'); }
+        else if (eventName === 'blackMarket') {
+          activeEvents.blackMarket = true; bmCycleId += 1; lastBlackMarket = Date.now();
+          blackMarketEnd = Date.now() + (3 * 24 * 60 * 60 * 1000); bmBoughtInCycle = [];
           triggerBannerFor5Sec('blackMarket');
         }
       }
 
       syncEventHistoryWithActive();
-      updateSeasonVisuals();
-      updateShopEventUI();
-      updateProfileBadges();
+      updateSeasonVisuals(); updateShopEventUI(); updateProfileBadges();
       renderShop();
       if (currentShopTab === 'blackmarket' && activeEvents.blackMarket) renderBlackMarket();
-      save();
-      closeTestEventMenu();
-      playHaptic('success');
+      save(); closeTestEventMenu(); playHaptic('success');
     };
 
     var rocketAnimId = null;
@@ -2240,17 +2188,9 @@
         var key = elements[i].getAttribute('data-i18n');
         if (t[key]) elements[i].innerText = t[key];
       }
-      updateShopEventUI();
-      updateSettingsUI();
-      renderShop();
-      renderBlackMarket();
-      renderInventory();
-      updateGiftUI();
-      updateCalendarUI();
-      updateAutoInfo();
-      updateBuffsInfo();
-      updateRank();
-      updateProfileBadges();
+      updateShopEventUI(); updateSettingsUI(); renderShop(); renderBlackMarket();
+      renderInventory(); updateGiftUI(); updateCalendarUI(); updateAutoInfo();
+      updateBuffsInfo(); updateRank(); updateProfileBadges();
       if (activeInfoGame) renderInfoModalContent(activeInfoGame);
     }
 
@@ -2324,8 +2264,9 @@
     function updateProfileBadges() {
       var bar = getEl('profileBadgesBar');
       if (!bar) return;
-      if (!earnedBadges.length) bar.innerText = t.no_badges_yet;
-      else bar.innerText = t.badges_label + earnedBadges.map(function(k) { return t.badge_names[k] || k; }).join(' • ');
+      var shown = getDisplayedProfileBadges();
+      if (!shown.length) bar.innerText = t.no_badges_yet;
+      else bar.innerText = t.badges_label + shown.map(function(k) { return t.badge_names[k] || k; }).join(' • ');
     }
 
     function updateUI() {
@@ -2337,8 +2278,7 @@
       if (tapPowerEl) tapPowerEl.innerText = formatMoney(getEffectiveTapValue());
       if (totalTapsText) totalTapsText.innerText = formatMoney(totalTaps, 0);
       if (progressFill) progressFill.style.width = Math.min(100, (totalTaps / 50000000) * 100) + '%';
-      updateBuffsInfo();
-      updateProfileBadges();
+      updateBuffsInfo(); updateProfileBadges();
       checkAchievements(); checkQuestReady(); save();
     }
 
@@ -2417,8 +2357,7 @@
 
     window.switchShopTab = function(tab) {
       if (tab === 'blackmarket' && !activeEvents.blackMarket) return;
-      currentShopTab = tab;
-      playHaptic('medium');
+      currentShopTab = tab; playHaptic('medium');
       var tabs = document.querySelectorAll('.shop-tab-btn');
       for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
 
@@ -2471,12 +2410,8 @@
             return function() {
               if (balance < lot.price) { playHaptic('error'); alert(t.not_enough_money); return; }
               balance -= lot.price;
-              if (lot.kind === 'moai_amulet') {
-                hasMoaiAmulet = true;
-                moaiEquipped = true;
-              } else if (lot.kind === 'skin' && ownedSkins.indexOf(lot.skinId) === -1) {
-                ownedSkins.push(lot.skinId);
-              }
+              if (lot.kind === 'moai_amulet') { hasMoaiAmulet = true; moaiEquipped = true; }
+              else if (lot.kind === 'skin' && ownedSkins.indexOf(lot.skinId) === -1) { ownedSkins.push(lot.skinId); }
 
               if (bmBoughtInCycle.indexOf(lot.id) === -1) bmBoughtInCycle.push(lot.id);
               addBadge('bm_regular');
@@ -2582,6 +2517,16 @@
       }, 50);
     };
 
+    function triggerSirenLamp() {
+      var lamp = getEl('slotSirenLamp');
+      if (!lamp) return;
+      lamp.classList.add('active-siren');
+      if (sirenTimeout) clearTimeout(sirenTimeout);
+      sirenTimeout = setTimeout(function() {
+        lamp.classList.remove('active-siren');
+      }, 2500);
+    }
+
     var slotSymbols = ['🥔', '🍟', '👻'];
     function buildStrip(stripId, targetSymbol, durationMs) {
       var strip = getEl(stripId); if (!strip) return;
@@ -2600,9 +2545,14 @@
     window.spinSlots = function() {
       if (isSlotsSpinning) return;
       var spinBtnEl = getEl('spinSlotsBtn');
+      var leverEl = getEl('slotLever');
       if (balance < slotsCost) { playHaptic('error'); alert(t.not_enough_money); return; }
       isSlotsSpinning = true; balance -= slotsCost; updateUI();
       if (spinBtnEl) spinBtnEl.disabled = true;
+      if (leverEl) {
+        leverEl.classList.add('pulled');
+        setTimeout(function() { leverEl.classList.remove('pulled'); }, 350);
+      }
       playHaptic('medium');
       var dur1 = 1500, dur2 = 2200, dur3 = 3000;
       playSlotSpinSound(dur3 / 1000);
@@ -2628,6 +2578,7 @@
         isSlotsSpinning = false;
         if (spinBtnEl) spinBtnEl.disabled = false;
         if (winAmount > 0) {
+          triggerSirenLamp();
           var finalWin = applyCasinoOutcome(winAmount);
           playSound('quest_claim_10'); playHaptic('heavy');
           if (winType === 'jackpot') {
@@ -2720,6 +2671,7 @@
       if (maxUpgrade >= 30 && unlockedAch.indexOf(14) === -1) { unlockedAch.push(14); newUnlock = true; }
       if (autoValueLevel >= 25 && unlockedAch.indexOf(16) === -1) { unlockedAch.push(16); newUnlock = true; }
       if (totalTaps >= 100000 && unlockedAch.indexOf(5) === -1) { unlockedAch.push(5); newUnlock = true; }
+      if (totalTaps >= 1000000000 && unlockedAch.indexOf(22) === -1) { unlockedAch.push(22); newUnlock = true; }
       if (newUnlock) { playSound('achievement'); save(); }
     }
 
@@ -2804,10 +2756,7 @@
     window.toggleMoaiWear = function() {
       if (!hasMoaiAmulet) return;
       moaiEquipped = !moaiEquipped;
-      updateBuffsInfo();
-      save();
-      renderInventory();
-      playHaptic('medium');
+      updateBuffsInfo(); save(); renderInventory(); playHaptic('medium');
     };
 
     function renderInventory() {
@@ -2926,10 +2875,7 @@
         var btn = makeActionButton(btnText, !canClaim, (function(quest) {
           return function() {
             balance += quest.reward; claimed.push(quest.id);
-            if (quest.id === 10 || quest.id === 16 || quest.id === 18 || quest.id === 19 || quest.id === 20) playSound('quest_claim_10');
-            else if (quest.id === 11) playSound('quest_claim_11');
-            else if (quest.id === 15 || quest.id === 17) playSound('quest_claim_15');
-            else playSound('quest_claim');
+            playQuestUniqueSound(quest.id);
             playHaptic('success'); hasUnclaimedQuest = false; updateUI(); renderQuests();
           };
         })(q));
@@ -2963,6 +2909,51 @@
 
     function renderEventsHistory() {
       if (!eventsHistoryList) return; eventsHistoryList.innerHTML = '';
+      var activeShowcase = getDisplayedProfileBadges();
+
+      var counterBanner = document.createElement('div');
+      counterBanner.className = 'badge-counter-banner';
+      counterBanner.innerText = t.badge_counter.replace('{count}', activeShowcase.length);
+      eventsHistoryList.appendChild(counterBanner);
+
+      for (var b = 0; b < ALL_BADGE_KEYS.length; b++) {
+        var bKey = ALL_BADGE_KEYS[b];
+        var isEarned = earnedBadges.indexOf(bKey) !== -1;
+        var isSelected = activeShowcase.indexOf(bKey) !== -1;
+
+        var bCard = document.createElement('div');
+        bCard.className = 'card' + (isSelected ? ' rgb-glow' : '');
+        if (!isEarned) { bCard.style.opacity = '0.55'; bCard.style.filter = 'grayscale(80%)'; }
+
+        bCard.innerHTML =
+          '<div class="card-content">' +
+            '<div class="card-title">' + (t.badge_names[bKey] || bKey) + '</div>' +
+            '<div class="card-desc" style="margin-bottom:0;">' + (isEarned ? (isSelected ? t.badge_remove_profile : t.badge_to_profile) : t.badge_locked_hint) + '</div>' +
+          '</div>';
+
+        var bBtn = document.createElement('button');
+        bBtn.className = 'btn ' + (isSelected ? 'btn-grey' : 'btn-green');
+        bBtn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
+        if (!isEarned) {
+          bBtn.disabled = true;
+          bBtn.innerText = '🔒';
+        } else if (isSelected) {
+          bBtn.innerText = t.badge_remove_profile;
+          bBtn.onclick = (function(k) { return function() { window.toggleProfileBadge(k); }; })(bKey);
+        } else {
+          bBtn.disabled = activeShowcase.length >= 3;
+          bBtn.innerText = t.badge_to_profile;
+          bBtn.onclick = (function(k) { return function() { window.toggleProfileBadge(k); }; })(bKey);
+        }
+        bCard.appendChild(bBtn);
+        eventsHistoryList.appendChild(bCard);
+      }
+
+      var histTitle = document.createElement('div');
+      histTitle.className = 'section-title';
+      histTitle.innerText = t.events_history_btn;
+      eventsHistoryList.appendChild(histTitle);
+
       if (!eventHistory.length) {
         var emptyCard = document.createElement('div'); emptyCard.className = 'card';
         emptyCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;">' + t.history_empty + '</div></div>';
