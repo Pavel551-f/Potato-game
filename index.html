@@ -36,8 +36,8 @@
       position: fixed;
       top: 0;
       right: 0;
-      width: 140px;
-      height: 140px;
+      width: 120px;
+      height: 120px;
       pointer-events: none;
       z-index: 8;
     }
@@ -45,18 +45,18 @@
     .spider-line {
       position: absolute;
       top: 0;
-      right: 34px;
+      right: 26px;
       width: 2px;
-      height: 54px;
+      height: 44px;
       background: rgba(255, 255, 255, 0.55);
       transform-origin: top center;
       animation: spiderSwing 2.8s ease-in-out infinite;
     }
     .spider-icon {
       position: absolute;
-      top: 50px;
-      right: 24px;
-      font-size: 18px;
+      top: 40px;
+      right: 17px;
+      font-size: 16px;
       transform-origin: top center;
       animation: spiderSwing 2.8s ease-in-out infinite;
     }
@@ -100,15 +100,15 @@
       cursor: pointer;
     }
 
-    body.has-event-banner .top-balance,
     body.has-event-banner .btn-top-back { top: 54px; }
-    body.has-event-banner .main-btns-container { top: 116px; }
+    body.has-event-banner .top-balance { top: 106px; }
+    body.has-event-banner .main-btns-container { top: 168px; }
     body.has-event-banner .right-btns-container { top: 168px; }
     body.has-event-banner .tabs,
     body.has-event-banner .shop-tabs { padding-top: 120px; }
     body.has-event-banner .main-content,
     body.has-event-banner .profile-content,
-    body.has-event-banner .inventory-content { padding-top: 130px; }
+    body.has-event-banner .inventory-content { padding-top: 140px; }
     body.has-event-banner .casino-menu-container,
     body.has-event-banner .casino-container,
     body.has-event-banner .slots-container,
@@ -119,28 +119,31 @@
     body.has-event-banner #screen-quests .list-content,
     body.has-event-banner #screen-rating .rating-container { padding-top: 52px; }
 
-    /* Баланс в верхнем левом углу */
+    /* Крестик всегда сверху слева, баланс опускается ниже, чтобы никогда не пересекаться */
+    .btn-top-back {
+      position: absolute; top: 14px; left: 14px; z-index: 70;
+      background: rgba(76, 29, 149, 0.85);
+      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
+      color: white; padding: 7px 11px;
+      font-family: inherit; font-size: 11px; cursor: pointer;
+      transition: top 0.2s ease;
+    }
+    .btn-top-back:active { border-color: #4c1d95 #a855f7 #a855f7 #4c1d95; }
+
     .top-balance {
-      position: absolute; top: 14px; left: 14px; display: flex; align-items: center; gap: 10px;
+      position: absolute; top: 66px; left: 14px; display: flex; align-items: center; gap: 10px;
       background: rgba(0,0,0,0.45); padding: 4px 10px 4px 4px; z-index: 60; cursor: pointer;
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
       transition: top 0.2s ease;
     }
+    .top-balance.no-back-offset { top: 14px; }
+    body.has-event-banner .top-balance.no-back-offset { top: 54px; }
+
     .top-avatar { width: 30px; height: 30px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; order: 1; }
     .top-balance-text { display: flex; flex-direction: column; align-items: flex-start; order: 2; }
     .top-balance-label { font-size: 8px; color: #c4b5fd; margin-bottom: 4px; }
     .top-balance-value { font-size: 12px; font-weight: bold; color: #fff; transition: color 0.3s; }
     .top-balance-value.negative { color: #ef4444; }
-
-    .btn-top-back {
-      position: absolute; top: 14px; left: 14px; z-index: 70;
-      background: rgba(76, 29, 149, 0.7);
-      border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
-      color: white; padding: 8px 12px;
-      font-family: inherit; font-size: 12px; cursor: pointer;
-      transition: top 0.2s ease;
-    }
-    .btn-top-back:active { border-color: #4c1d95 #a855f7 #a855f7 #4c1d95; }
 
     .btn-info {
       position: fixed; bottom: 90px; right: 20px; z-index: 80;
@@ -154,17 +157,18 @@
 
     /* Левая колонка кнопок: Инвентарь, Магазин, Казино */
     .main-btns-container {
-      position: absolute; top: 76px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
+      position: absolute; top: 128px; left: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
       transition: top 0.2s ease;
     }
 
-    /* Правая колонка кнопок: Друзья, Кланы, Календарь (ниже паутинки и паучка) */
+    /* Правая колонка компактных кнопок в стиле скриншота */
     .right-btns-container {
-      position: absolute; top: 128px; right: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 60;
+      position: absolute; top: 128px; right: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 60;
+      width: 92px;
       transition: top 0.2s ease;
     }
 
-    .inventory-btn-main, .shop-btn-main, .casino-btn-main, .side-menu-btn {
+    .inventory-btn-main, .shop-btn-main, .casino-btn-main {
       position: relative;
       display: flex; align-items: center; justify-content: center; gap: 6px;
       padding: 6px 10px; cursor: pointer;
@@ -188,54 +192,214 @@
     .casino-btn-main { background: rgba(234, 179, 8, 0.15); border-color: #fde047 #a16207 #a16207 #fde047; }
     .casino-btn-main:active { border-color: #a16207 #fde047 #fde047 #a16207; }
 
-    .side-menu-btn {
-      background: rgba(59, 130, 246, 0.18);
-      border-color: #93c5fd #1e3a8a #1e3a8a #93c5fd;
+    .side-tile-btn {
+      width: 100%;
+      background: rgba(30, 41, 59, 0.88);
+      border: 3px solid;
+      border-color: #94a3b8 #0f172a #0f172a #94a3b8;
+      border-radius: 6px;
+      padding: 6px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      cursor: pointer;
+      box-shadow: 0 3px 0 rgba(0, 0, 0, 0.65);
     }
-    .side-menu-btn:active {
-      border-color: #1e3a8a #93c5fd #93c5fd #1e3a8a;
+    .side-tile-btn:active {
+      transform: translateY(2px);
+      border-color: #0f172a #94a3b8 #94a3b8 #0f172a;
     }
-    .calendar-btn {
-      background: rgba(16, 185, 129, 0.2);
-      border-color: #6ee7b7 #065f46 #065f46 #6ee7b7;
+    .side-tile-icon {
+      font-size: 18px;
+      line-height: 1.1;
+      filter: drop-shadow(0 2px 0 rgba(0,0,0,0.6));
     }
-    .calendar-btn:active {
-      border-color: #065f46 #6ee7b7 #6ee7b7 #065f46;
+    .side-tile-label {
+      font-size: 7px;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: -0.3px;
+      white-space: nowrap;
     }
-    .calendar-day-pill {
-      background: #fde047;
-      color: #000;
-      text-shadow: none;
-      font-size: 8px;
-      padding: 2px 4px;
-      border: 1px solid #000;
+    .side-tile-sub {
+      font-size: 6px;
+      color: #fde047;
+      white-space: nowrap;
     }
 
-    .inventory-btn-main span, .shop-btn-main span, .casino-btn-main span, .side-menu-btn span.btn-label {
+    .inventory-btn-main span, .shop-btn-main span, .casino-btn-main span {
       font-size: 9px; color: #fff; text-transform: uppercase;
     }
 
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; position: relative; }
     .screen.active { display: flex; }
 
-    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 90px; transition: padding-top 0.2s ease; }
+    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 105px; transition: padding-top 0.2s ease; }
 
     .potato-wrap {
-      width: 220px; height: 220px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      width: 190px; height: 190px; cursor: pointer; display: flex; align-items: center; justify-content: center;
       position: relative; z-index: 10; border-radius: 24px; transition: transform 0.1s ease;
     }
 
-    .potato-emoji { font-size: 120px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
+    .potato-emoji { font-size: 110px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
     .potato-wrap:active .potato-emoji { animation: shake 0.1s; }
     @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
 
     .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; image-rendering: pixelated; filter: drop-shadow(0 0 6px rgba(255,255,255,0.22)) drop-shadow(0 10px 15px rgba(0,0,0,0.55)); }
     .potato-wrap:active img { animation: shake 0.1s; }
 
-    .tap-power { margin-top: 16px; font-size: 11px; color: #c4b5fd; text-align: center; }
+    .tap-power { margin-top: 14px; font-size: 11px; color: #c4b5fd; text-align: center; }
     .tap-boost { font-size: 10px; color: #fde047; margin-left: 5px; }
-    .auto-info { margin-top: 10px; font-size: 9px; color: #10b981; text-align: center; }
-    .active-buffs-info { margin-top: 8px; font-size: 8px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
+    .auto-info { margin-top: 8px; font-size: 9px; color: #10b981; text-align: center; }
+    .active-buffs-info { margin-top: 6px; font-size: 8px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
+
+    /* Экран Ежедневной серии в стиле референса */
+    .streak-screen-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 64px 14px 24px;
+    }
+    .streak-board {
+      position: relative;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      background: linear-gradient(135deg, #f97316 0%, #db2777 45%, #7e22ce 100%);
+      border: 4px solid #fde047;
+      border-radius: 14px;
+      padding: 14px 12px 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.65);
+    }
+    .streak-top-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .streak-heading {
+      font-size: 12px;
+      color: #fde047;
+      text-transform: uppercase;
+      text-shadow: 2px 2px 0 #000;
+      line-height: 1.3;
+    }
+    .streak-close-btn {
+      background: #ef4444;
+      color: #fff;
+      border: 3px solid #fca5a5;
+      border-radius: 6px;
+      padding: 5px 9px;
+      font-family: inherit;
+      font-size: 10px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .streak-close-btn:active { transform: translateY(2px); }
+
+    .streak-body {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .streak-counter-card {
+      width: 78px;
+      flex-shrink: 0;
+      background: #fff;
+      color: #111827;
+      text-shadow: none;
+      border: 3px solid #1e1b4b;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.45);
+    }
+    .streak-counter-top {
+      background: #eab308;
+      padding: 4px 0;
+      text-align: center;
+      font-size: 7px;
+      font-weight: bold;
+      border-bottom: 2px solid #1e1b4b;
+    }
+    .streak-counter-num {
+      padding: 12px 4px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .streak-track-area {
+      flex: 1;
+      min-width: 0;
+    }
+    .streak-timer-pill {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.55);
+      border: 2px solid #fde047;
+      border-radius: 6px;
+      padding: 4px 7px;
+      font-size: 7px;
+      color: #fde047;
+      margin-bottom: 8px;
+    }
+    .streak-cards-row {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .streak-reward-slot {
+      min-width: 64px;
+      flex: 1;
+      background: linear-gradient(180deg, #38bdf8, #1d4ed8);
+      border: 3px solid #bae6fd;
+      border-radius: 8px;
+      padding: 8px 4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.4);
+    }
+    .streak-reward-slot.claimed-slot {
+      opacity: 0.6;
+      filter: grayscale(40%);
+    }
+    .streak-reward-slot.current-slot {
+      border-color: #fde047;
+      box-shadow: 0 0 10px rgba(253, 224, 71, 0.8);
+    }
+    .streak-slot-day {
+      font-size: 6px;
+      color: #e0f2fe;
+    }
+    .streak-slot-icon {
+      font-size: 18px;
+    }
+    .streak-slot-val {
+      font-size: 7px;
+      color: #fde047;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .streak-footer-row {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .streak-last-note {
+      font-size: 8px;
+      color: #fef08a;
+      text-align: center;
+      min-height: 12px;
+    }
 
     .tabs { display: flex; gap: 10px; padding: 80px 16px 12px; transition: padding-top 0.2s ease; }
     .tab-btn {
@@ -341,33 +505,6 @@
     .gift-btn-bottom:disabled { background: #4b5563; color: #e5e7eb; cursor: not-allowed; }
     .gift-lock-inline { font-size: 13px; flex-shrink: 0; }
 
-    /* Карточка календаря дней подряд */
-    .calendar-card {
-      width: 100%; max-width: 340px;
-      background: rgba(255,255,255,0.09);
-      border: 3px solid; border-color: #6ee7b7 #065f46 #065f46 #6ee7b7;
-      padding: 16px; text-align: center;
-    }
-    .calendar-streak-badge {
-      font-size: 12px; color: #fde047; margin-bottom: 10px; line-height: 1.5;
-    }
-    .calendar-timer-text {
-      font-size: 9px; color: #c4b5fd; margin-bottom: 12px; line-height: 1.6;
-    }
-    .calendar-last-reward {
-      font-size: 9px; color: #10b981; margin-bottom: 12px; min-height: 14px;
-    }
-    .calendar-values-wrap {
-      display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-bottom: 14px;
-    }
-    .calendar-val-chip {
-      padding: 5px 7px; font-size: 8px;
-      background: rgba(0,0,0,0.35); border: 2px solid #10b981; color: #e9d5ff;
-    }
-    .calendar-val-chip.jackpot {
-      border-color: #fde047; color: #fde047;
-    }
-
     .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 80px 16px 30px; gap: 20px; transition: padding-top 0.2s ease; }
     .casino-title { font-size: 16px; color: #fde047; margin-bottom: 20px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
     .casino-game-card { width: 100%; max-width: 320px; cursor: pointer; background: rgba(255,255,255,0.09); padding: 20px; display: flex; align-items: center; gap: 15px; border: 3px solid; border-color: #fde047 #a16207 #a16207 #fde047; transition: transform 0.1s; }
@@ -418,7 +555,7 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    .profile-content, .inventory-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 70px 20px 30px; position: relative; transition: padding-top 0.2s ease; }
+    .profile-content, .inventory-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 112px 20px 30px; position: relative; transition: padding-top 0.2s ease; }
     .profile-avatar { width: 100px; height: 100px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 14px; image-rendering: pixelated; background: #4c1d95;}
     .profile-name { font-size: 12px; margin-bottom: 5px; text-align: center; color: #fff; }
     .profile-rank { font-size: 9px; color: #fde047; margin-bottom: 10px; text-align: center; text-shadow: 1px 1px 0 #000; }
@@ -437,7 +574,7 @@
     #rocket-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
     .rocket { position: absolute; font-size: 30px; opacity: 0.3; }
     .settings-content { position: relative; z-index: 10; padding: 80px 20px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; transition: padding-top 0.2s ease; }
-    .settings-title { font-size: 16px; color: white; margin-bottom: 30px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
+    .settings-title { font-size: 16px; color: white; margin-bottom: 24px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
     .setting-row { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: rgba(255,255,255,0.1); padding: 15px; border: 3px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
     .setting-label { font-size: 10px; color: #fff; }
     .toggle-btn { background: #4b5563; color: #fff; border: 3px solid #374151; padding: 8px 12px; font-size: 10px; font-family: inherit; cursor: pointer; border-radius: 8px; width: 80px; text-align: center; }
@@ -481,9 +618,9 @@
 <body>
 
   <div class="halloween-corner-web" aria-hidden="true">
-    <svg viewBox="0 0 140 140" width="140" height="140">
-      <path d="M140 0 L0 140 M140 0 L32 0 M140 0 L140 108 M140 0 L75 0 M140 0 L140 65" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" fill="none"/>
-      <path d="M108 0 A32 32 0 0 0 140 32 M75 0 A65 65 0 0 0 140 65 M42 0 A98 98 0 0 0 140 98" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" fill="none"/>
+    <svg viewBox="0 0 120 120" width="120" height="120">
+      <path d="M120 0 L0 120 M120 0 L28 0 M120 0 L120 92 M120 0 L64 0 M120 0 L120 56" stroke="rgba(255,255,255,0.35)" stroke-width="1.2" fill="none"/>
+      <path d="M92 0 A28 28 0 0 0 120 28 M64 0 A56 56 0 0 0 120 56" stroke="rgba(255,255,255,0.3)" stroke-width="1.2" fill="none"/>
     </svg>
     <div class="spider-line"></div>
     <div class="spider-icon">🕷️</div>
@@ -533,11 +670,11 @@
     </div>
   </div>
 
-  <!-- Баланс в верхнем левом углу -->
+  <!-- Баланс (опущен ниже крестика, чтобы ничего не пересекалось) -->
   <div class="top-balance" id="openProfile">
     <img class="top-avatar" id="topAvatar" src="" alt="">
     <div class="top-balance-text">
-      <div class="top-balance-label" data-i18n="balance_label">Ваш баланс</div>
+      <div class="top-balance-label" data-i18n="balance_label">Баланс</div>
       <div class="top-balance-value" id="balance">0.000</div>
     </div>
   </div>
@@ -557,17 +694,20 @@
       </div>
     </div>
 
-    <!-- Правая колонка: Друзья, Кланы, Ежедневный календарь -->
+    <!-- Правая колонка компактных кнопок: Друзья, Кланы, Календарь -->
     <div class="right-btns-container">
-      <div class="side-menu-btn" onclick="showScreen('friends')">
-        🫂 <span class="btn-label" data-i18n="friends_btn">Друзья</span>
+      <div class="side-tile-btn" onclick="showScreen('friends')">
+        <div class="side-tile-icon">🫂</div>
+        <div class="side-tile-label" data-i18n="friends_btn">Друзья</div>
       </div>
-      <div class="side-menu-btn" onclick="showScreen('clans')">
-        <span id="clanBtnIcon">🏰</span> <span class="btn-label" data-i18n="clans_btn">Кланы</span>
+      <div class="side-tile-btn" onclick="showScreen('clans')">
+        <div class="side-tile-icon">🏰</div>
+        <div class="side-tile-label" data-i18n="clans_btn">Кланы</div>
       </div>
-      <div class="side-menu-btn calendar-btn" onclick="showScreen('calendar')">
-        📅 <span class="btn-label" data-i18n="calendar_btn">Календарь</span>
-        <span class="calendar-day-pill" id="calendarBtnDay">1</span>
+      <div class="side-tile-btn" onclick="showScreen('calendar')">
+        <div class="side-tile-icon">📅</div>
+        <div class="side-tile-label" data-i18n="calendar_btn">Календарь</div>
+        <div class="side-tile-sub" id="calendarBtnSub">День 1</div>
       </div>
     </div>
 
@@ -584,7 +724,7 @@
     </div>
   </div>
 
-  <!-- Экран: Друзья (заглушка) -->
+  <!-- Экран: Друзья -->
   <div class="screen" id="screen-friends">
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="inventory-content">
@@ -592,39 +732,51 @@
       <div class="card" style="width: 100%; max-width: 340px;">
         <div class="card-content">
           <div class="card-title" data-i18n="soon_title">Скоро появится</div>
-          <div class="card-desc" style="margin-bottom: 0;" data-i18n="friends_soon_desc">Раздел «Друзья» ещё в разработке. Следите за обновлениями!</div>
+          <div class="card-desc" style="margin-bottom: 0;" data-i18n="friends_soon_desc">Раздел «Друзья» ещё в разработке. Скоро добавим!</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Экран: Кланы (заглушка) -->
+  <!-- Экран: Кланы -->
   <div class="screen" id="screen-clans">
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="inventory-content">
-      <div class="settings-title"><span id="clanScreenIcon">🏰</span> <span data-i18n="clans_btn">Кланы</span></div>
+      <div class="settings-title">🏰 <span data-i18n="clans_btn">Кланы</span></div>
       <div class="card" style="width: 100%; max-width: 340px;">
         <div class="card-content">
           <div class="card-title" data-i18n="soon_title">Скоро появится</div>
-          <div class="card-desc" style="margin-bottom: 0;" data-i18n="clans_soon_desc">Раздел «Кланы» ещё в разработке. Скоро добавим кланы и битвы!</div>
+          <div class="card-desc" style="margin-bottom: 0;" data-i18n="clans_soon_desc">Раздел «Кланы» ещё в разработке. Скоро добавим!</div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Экран: Ежедневный календарь наград -->
+  <!-- Экран: Ежедневный календарь (в стиле референса) -->
   <div class="screen" id="screen-calendar">
-    <button class="btn-top-back" onclick="showScreen('main')">✖</button>
-    <div class="inventory-content">
-      <div class="settings-title">📅 <span data-i18n="calendar_title">Ежедневный календарь</span></div>
-      <div class="calendar-card">
-        <div class="calendar-streak-badge">
-          <span data-i18n="calendar_day_label">День подряд</span>: <span id="calendarStreakNum">1</span>
+    <div class="streak-screen-wrap">
+      <div class="streak-board">
+        <div class="streak-top-row">
+          <div class="streak-heading" data-i18n="calendar_series_title">ЕЖЕДНЕВНАЯ СЕРИЯ</div>
+          <button class="streak-close-btn" onclick="showScreen('main')">✖</button>
         </div>
-        <div class="calendar-timer-text" id="calendarTimerText"></div>
-        <div class="calendar-last-reward" id="calendarLastRewardText"></div>
-        <div class="calendar-values-wrap" id="calendarValuesWrap"></div>
-        <button class="btn btn-green" style="width: 100%; margin-bottom: 0;" id="claimCalendarBtn" onclick="claimCalendarReward()"></button>
+
+        <div class="streak-body">
+          <div class="streak-counter-card">
+            <div class="streak-counter-top" data-i18n="calendar_day_short">ДЕНЬ</div>
+            <div class="streak-counter-num" id="calendarStreakNum">1</div>
+          </div>
+
+          <div class="streak-track-area">
+            <div class="streak-timer-pill" id="calendarTimerText"></div>
+            <div class="streak-cards-row" id="calendarCardsRow"></div>
+          </div>
+        </div>
+
+        <div class="streak-footer-row">
+          <div class="streak-last-note" id="calendarLastRewardText"></div>
+          <button class="btn btn-green" style="width: 100%; max-width: 320px; margin-bottom: 0;" id="claimCalendarBtn" onclick="claimCalendarReward()"></button>
+        </div>
       </div>
     </div>
   </div>
@@ -809,6 +961,7 @@
   </div>
 
   <div class="screen" id="screen-profile">
+    <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="profile-content">
       <img class="profile-avatar" id="profileAvatar" src="" alt="">
       <div class="profile-name" id="profileName" data-i18n="player">Игрок</div>
@@ -867,10 +1020,13 @@
         rating_leader: "🏆 Лидер проекта!", player: "Игрок", legend: "Легенда", total_taps: "Всего тапов", taps_hint: "Число тапов, чтобы друзья могли посмотреть",
         withdraw: "Вывести средства", dev_btn: "Нажми 5 раз для теста", menu_main: "Главная", menu_upgrades: "Улучшения", menu_rating: "Рейтинг", menu_quests: "Квесты",
         friends_btn: "Друзья", clans_btn: "Кланы", calendar_btn: "Календарь",
-        calendar_title: "Ежедневный календарь", calendar_day_label: "День подряд",
-        calendar_claim_btn: "Забрать награду дня {day}", calendar_claimed_btn: "День {day} забран",
-        calendar_ready_now: "Награда дня {day} доступна сейчас!",
-        calendar_next_in: "Следующий день через: {h}ч {m}м {s}с",
+        calendar_day_sub: "День {day}",
+        calendar_series_title: "ЕЖЕДНЕВНАЯ СЕРИЯ",
+        calendar_day_short: "ДЕНЬ",
+        calendar_claim_btn: "Забрать награду дня {day}",
+        calendar_claimed_btn: "День {day} забран",
+        calendar_ready_now: "Доступна награда дня {day}!",
+        calendar_next_in: "{h}ч. {m}м. {s}с.",
         calendar_last_reward: "Последняя награда: +{val} ₽",
         soon_title: "Скоро появится",
         friends_soon_desc: "Раздел «Друзья» ещё в разработке. Скоро добавим!",
@@ -995,10 +1151,13 @@
         rating_leader: "🏆 Leader!", player: "Player", legend: "Legend", total_taps: "Total taps", taps_hint: "Total taps for friends to see",
         withdraw: "Withdraw funds", dev_btn: "Press 5 times to test", menu_main: "Main", menu_upgrades: "Upgrades", menu_rating: "Rating", menu_quests: "Quests",
         friends_btn: "Friends", clans_btn: "Clans", calendar_btn: "Calendar",
-        calendar_title: "Daily Calendar", calendar_day_label: "Streak Day",
-        calendar_claim_btn: "Claim Day {day}", calendar_claimed_btn: "Day {day} Claimed",
-        calendar_ready_now: "Day {day} reward is ready now!",
-        calendar_next_in: "Next day in: {h}h {m}m {s}s",
+        calendar_day_sub: "Day {day}",
+        calendar_series_title: "DAILY STREAK",
+        calendar_day_short: "DAY",
+        calendar_claim_btn: "Claim Day {day}",
+        calendar_claimed_btn: "Day {day} Claimed",
+        calendar_ready_now: "Day {day} reward ready!",
+        calendar_next_in: "{h}h. {m}m. {s}s.",
         calendar_last_reward: "Last reward: +{val} ₽",
         soon_title: "Coming Soon",
         friends_soon_desc: "Friends section is under development. Coming soon!",
@@ -1482,7 +1641,20 @@
       { id: "skin_chaos_eye", icon: "👁️", price: 3000000, kind: "skin", skinId: 4 }
     ];
 
-    var CALENDAR_REWARDS_POOL = [0.01, 0.1, 0.25, 0.5, 1, 5, 10, 25, 50, 100, 250, 1000];
+    var CALENDAR_SLOTS = [
+      { amount: 0.01, icon: "🪙" },
+      { amount: 0.1, icon: "💵" },
+      { amount: 0.25, icon: "💰" },
+      { amount: 0.5, icon: "💎" },
+      { amount: 1, icon: "🥔" },
+      { amount: 5, icon: "📦" },
+      { amount: 10, icon: "🔥" },
+      { amount: 25, icon: "⚡" },
+      { amount: 50, icon: "👑" },
+      { amount: 100, icon: "🌟" },
+      { amount: 250, icon: "🚀" },
+      { amount: 1000, icon: "🍟" }
+    ];
 
     var balance = parseFloat(safeStorage.getItem('potatoBalance')) || 0;
     var tapValue = parseFloat(safeStorage.getItem('tapValue')) || 0.001;
@@ -1569,43 +1741,42 @@
       return getDateKeyByOffset(0);
     }
 
-    function rollCalendarReward() {
-      var r = Math.random();
-      if (r < 0.002) return 1000;
-      if (r < 0.012) return 250;
-      if (r < 0.032) return 100;
-      if (r < 0.067) return 50;
-      if (r < 0.127) return 25;
-      if (r < 0.217) return 10;
-      if (r < 0.347) return 5;
-      if (r < 0.507) return 1;
-      if (r < 0.677) return 0.5;
-      if (r < 0.807) return 0.25;
-      if (r < 0.917) return 0.1;
-      return 0.01;
+    function getSlotForDay(dayNumber) {
+      var idx = (Math.max(1, dayNumber) - 1) % CALENDAR_SLOTS.length;
+      return CALENDAR_SLOTS[idx];
     }
 
-    function formatCalendarChipVal(val) {
-      return val === 1000 ? '1.000 ★' : formatMoney(val, val < 1 ? 2 : 0);
+    function formatSlotAmount(amount) {
+      return amount === 1000 ? '1.000' : formatMoney(amount, amount < 1 ? 2 : 0);
     }
 
     function updateCalendarUI() {
       var todayKey = getTodayKey();
       var claimedToday = (lastCalendarClaimDate === todayKey);
-      var displayDay = claimedToday ? Math.max(1, streakDays) : (streakDays + 1);
+      var activeDay = claimedToday ? Math.max(1, streakDays) : (streakDays + 1);
 
-      var btnDayEl = getEl('calendarBtnDay');
-      if (btnDayEl) btnDayEl.innerText = displayDay;
+      var btnSubEl = getEl('calendarBtnSub');
+      if (btnSubEl) btnSubEl.innerText = t.calendar_day_sub.replace('{day}', activeDay);
 
       var streakNumEl = getEl('calendarStreakNum');
-      if (streakNumEl) streakNumEl.innerText = displayDay;
+      if (streakNumEl) streakNumEl.innerText = activeDay;
 
-      var valuesWrap = getEl('calendarValuesWrap');
-      if (valuesWrap && !valuesWrap.dataset.ready) {
-        valuesWrap.innerHTML = CALENDAR_REWARDS_POOL.map(function(val) {
-          return '<div class="calendar-val-chip' + (val === 1000 ? ' jackpot' : '') + '">' + formatCalendarChipVal(val) + '</div>';
-        }).join('');
-        valuesWrap.dataset.ready = '1';
+      var cardsRow = getEl('calendarCardsRow');
+      if (cardsRow) {
+        var html = '';
+        for (var i = 0; i < 5; i++) {
+          var dayNum = activeDay + i;
+          var slot = getSlotForDay(dayNum);
+          var isCurrent = (i === 0);
+          var isDone = isCurrent && claimedToday;
+          html +=
+            '<div class="streak-reward-slot' + (isCurrent ? ' current-slot' : '') + (isDone ? ' claimed-slot' : '') + '">' +
+              '<div class="streak-slot-day">' + t.calendar_day_short + ' ' + dayNum + '</div>' +
+              '<div class="streak-slot-icon">' + slot.icon + '</div>' +
+              '<div class="streak-slot-val">' + formatSlotAmount(slot.amount) + ' ₽</div>' +
+            '</div>';
+        }
+        cardsRow.innerHTML = html;
       }
 
       var lastRewardEl = getEl('calendarLastRewardText');
@@ -1626,15 +1797,15 @@
       if (timerEl) {
         timerEl.innerText = claimedToday
           ? t.calendar_next_in.replace('{h}', h).replace('{m}', m).replace('{s}', s)
-          : t.calendar_ready_now.replace('{day}', displayDay);
+          : t.calendar_ready_now.replace('{day}', activeDay);
       }
 
       var claimBtn = getEl('claimCalendarBtn');
       if (claimBtn) {
         claimBtn.disabled = claimedToday;
         claimBtn.innerText = claimedToday
-          ? t.calendar_claimed_btn.replace('{day}', displayDay)
-          : t.calendar_claim_btn.replace('{day}', displayDay);
+          ? t.calendar_claimed_btn.replace('{day}', activeDay)
+          : t.calendar_claim_btn.replace('{day}', activeDay);
       }
     }
 
@@ -1649,7 +1820,8 @@
         streakDays = 1;
       }
 
-      var reward = rollCalendarReward();
+      var slot = getSlotForDay(streakDays);
+      var reward = slot.amount;
       balance += reward;
       lastCalendarClaimDate = todayKey;
       lastCalendarReward = reward.toFixed(3);
@@ -2087,7 +2259,7 @@
     function updatePotatoSkin() {
       var skin = skinsData.find(function(s) { return s.id === equippedSkin; });
       if (potatoDisplay && skin) {
-        potatoDisplay.style.fontSize = '120px';
+        potatoDisplay.style.fontSize = '110px';
         potatoDisplay.innerHTML = '';
         var img = document.createElement('img');
         img.src = skin.image; img.draggable = false;
@@ -2817,7 +2989,10 @@
       }
 
       if (topBalanceBar) {
-        topBalanceBar.style.display = ['quests', 'rating', 'inventory', 'achievements', 'events-history', 'settings'].indexOf(name) !== -1 ? 'none' : 'flex';
+        var hideOnScreens = ['quests', 'rating', 'inventory', 'achievements', 'events-history', 'settings', 'calendar'];
+        topBalanceBar.style.display = hideOnScreens.indexOf(name) !== -1 ? 'none' : 'flex';
+        var hasTopBackScreen = ['friends', 'clans', 'shop', 'casino', 'casino-box', 'casino-slots', 'casino-wheel', 'profile'].indexOf(name) !== -1;
+        topBalanceBar.classList.toggle('no-back-offset', !hasTopBackScreen);
       }
 
       if (name === 'upgrades') renderUpgrades();
