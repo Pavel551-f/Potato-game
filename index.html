@@ -69,20 +69,22 @@
       padding: 0 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; cursor: pointer;
     }
 
+    /* Позиции при активном баннере */
     body.has-event-banner .btn-top-back { top: 54px; }
     body.has-event-banner .top-balance { top: 106px; }
-    body.has-event-banner .main-btns-container { top: 166px; }
-    body.has-event-banner .right-btns-container { top: 166px; }
+    body.has-event-banner .top-balance.no-back-offset { top: 54px; }
+    body.has-event-banner .main-btns-container { top: 108px; }
+    body.has-event-banner .right-btns-container { top: 108px; }
     body.has-event-banner .tabs,
     body.has-event-banner .shop-tabs { padding-top: 120px; }
-    body.has-event-banner .main-content,
+    body.has-event-banner .main-content { padding-top: 132px; }
     body.has-event-banner .profile-content,
-    body.has-event-banner .inventory-content { padding-top: 140px; }
-    body.has-event-banner .casino-menu-container,
+    body.has-event-banner .inventory-content { padding-top: 152px; }
+    body.has-event-banner .casino-menu-container { padding-top: 158px; }
     body.has-event-banner .casino-container,
     body.has-event-banner .slots-container,
     body.has-event-banner .wheel-container,
-    body.has-event-banner .settings-content { padding-top: 120px; }
+    body.has-event-banner .settings-content { padding-top: 145px; }
     body.has-event-banner #screen-achievements .list-content,
     body.has-event-banner #screen-events-history .list-content { padding-top: 115px; }
     body.has-event-banner #screen-quests .list-content,
@@ -105,7 +107,6 @@
       transition: top 0.2s ease;
     }
     .top-balance.no-back-offset { top: 14px; }
-    body.has-event-banner .top-balance.no-back-offset { top: 54px; }
 
     .top-avatar { width: 28px; height: 28px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; order: 1; }
     .top-balance-text { display: flex; flex-direction: column; align-items: flex-start; order: 2; }
@@ -123,15 +124,15 @@
     }
     .btn-info:active { border-color: #1e40af #93c5fd #93c5fd #1e40af; transform: scale(0.95); }
 
-    /* Выровненная левая колонка */
+    /* Выровненная левая и правая колонки на главном экране — рядом с балансом */
     .main-btns-container {
-      position: absolute; top: 126px; left: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 60;
+      position: absolute; top: 68px; left: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 60;
       width: 118px;
       transition: top 0.2s ease;
     }
 
     .right-btns-container {
-      position: absolute; top: 126px; right: 14px; display: flex; flex-direction: column; gap: 7px; z-index: 60;
+      position: absolute; top: 68px; right: 14px; display: flex; flex-direction: column; gap: 7px; z-index: 60;
       width: 78px;
       transition: top 0.2s ease;
     }
@@ -198,7 +199,7 @@
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; position: relative; }
     .screen.active { display: flex; }
 
-    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 105px; transition: padding-top 0.2s ease; }
+    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 86px; transition: padding-top 0.2s ease; }
 
     .potato-wrap {
       width: 185px; height: 185px; cursor: pointer; display: flex; align-items: center; justify-content: center;
@@ -370,13 +371,14 @@
     }
     .gift-lock-inline { font-size: 12px; flex-shrink: 0; }
 
-    .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 78px 14px 24px; gap: 12px; transition: padding-top 0.2s ease; }
+    /* Отступ сверху на экранах казино, чтобы не пересекаться с балансом */
+    .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 118px 14px 24px; gap: 12px; transition: padding-top 0.2s ease; }
     .casino-title { font-size: 14px; color: #fde047; margin-bottom: 10px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
     .casino-game-card { width: 100%; max-width: 290px; cursor: pointer; background: rgba(255,255,255,0.09); padding: 12px 14px; display: flex; align-items: center; gap: 12px; border: 2px solid; border-color: #fde047 #a16207 #a16207 #fde047; transition: transform 0.1s; }
     .casino-game-card:active { transform: scale(0.98); border-color: #a16207 #fde047 #fde047 #a16207; }
     .casino-game-card .card-icon { font-size: 28px; width: 34px; text-align: center; }
 
-    .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
+    .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 115px 16px 30px; transition: padding-top 0.2s ease; }
     .reel-window { width: 100%; max-width: 320px; height: 90px; overflow: hidden; position: relative; background: rgba(0,0,0,0.5); border: 4px solid #a855f7; margin-bottom: 30px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
     .reel { display: flex; height: 100%; align-items: center; position: absolute; left: 0; top: 0; transition: transform 9s cubic-bezier(0.1, 0.8, 0.1, 1); }
     .reel-item { width: 80px; height: 80px; margin: 0 5px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; background: #eab308; color: #000; text-shadow: none; border: 3px solid #fde047; border-radius: 10px; }
@@ -388,31 +390,39 @@
     .pointer::before { top: 0; border-top: 15px solid #a855f7; }
     .pointer::after { bottom: 0; border-bottom: 15px solid #a855f7; }
 
-    /* Грузовик картошки: сирена + барабаны + рычажок */
-    .slots-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
+    /* Грузовик картошки: сирена пристыкована к верхнему краю рамки + барабаны + рычажок */
+    .slots-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 115px 16px 30px; transition: padding-top 0.2s ease; }
     .slots-machine-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; }
-    .siren-lamp {
-      width: 24px; height: 24px; border-radius: 50%;
-      background: #4b5563; border: 3px solid #fde047;
-      margin-bottom: 8px; box-shadow: 0 0 8px rgba(0,0,0,0.6);
+    .slots-cabinet-row { display: flex; align-items: flex-end; gap: 10px; }
+    .slots-body-col { display: flex; flex-direction: column; align-items: center; }
+
+    .siren-cap {
+      width: 44px; height: 20px;
+      background: #4b5563;
+      border: 3px solid #ef4444;
+      border-bottom: none;
+      border-radius: 22px 22px 0 0;
+      margin-bottom: -3px;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.45);
       transition: background 0.15s, box-shadow 0.15s;
+      z-index: 2;
     }
-    .siren-lamp.active-siren {
-      animation: sirenFlash 0.25s infinite alternate;
+    .siren-cap.active-siren {
+      animation: sirenCapFlash 0.22s infinite alternate;
     }
-    @keyframes sirenFlash {
-      0% { background: #ef4444; box-shadow: 0 0 18px #ef4444; transform: scale(1.08); }
-      100% { background: #fde047; box-shadow: 0 0 22px #fde047; transform: scale(1.18); }
+    @keyframes sirenCapFlash {
+      0% { background: #ef4444; box-shadow: 0 0 16px #ef4444; }
+      100% { background: #fde047; box-shadow: 0 0 22px #fde047; }
     }
-    .slots-cabinet-row { display: flex; align-items: center; gap: 10px; }
-    .slots-window { display: flex; gap: 10px; background: #1a1625; padding: 15px; border: 4px solid #a855f7; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); border-radius: 10px; }
+
+    .slots-window { position: relative; z-index: 3; display: flex; gap: 10px; background: #1a1625; padding: 15px; border: 4px solid #a855f7; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); border-radius: 10px; }
     .slot-reel { width: 68px; height: 100px; background: #2e1065; border: 3px solid #4c1d95; border-radius: 8px; overflow: hidden; position: relative; }
     .reel-strip { display: flex; flex-direction: column; align-items: center; position: absolute; top: 0; left: 0; width: 100%; }
     .slot-item-symbol { width: 100%; height: 100px; display: flex; justify-content: center; align-items: center; font-size: 38px; flex-shrink: 0; }
 
     .slot-lever-assembly {
       display: flex; flex-direction: column; align-items: center; cursor: pointer;
-      padding: 4px; height: 110px; justify-content: flex-start;
+      padding: 4px; height: 110px; justify-content: flex-end;
     }
     .slot-lever-knob {
       width: 20px; height: 20px; border-radius: 50%;
@@ -422,19 +432,19 @@
     }
     .slot-lever-stick {
       width: 6px; height: 54px; background: #cbd5e1; border: 1px solid #475569;
-      transform-origin: top center; transition: transform 0.25s ease;
+      transform-origin: bottom center; transition: transform 0.25s ease;
     }
     .slot-lever-base {
       width: 22px; height: 10px; background: #475569; border: 2px solid #94a3b8; border-radius: 3px;
     }
     .slot-lever-assembly.pulled .slot-lever-stick {
-      transform: scaleY(0.45) translateY(6px);
+      transform: scaleY(0.45);
     }
     .slot-lever-assembly.pulled .slot-lever-knob {
       transform: translateY(24px);
     }
 
-    .wheel-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 80px 16px 30px; transition: padding-top 0.2s ease; }
+    .wheel-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 115px 16px 30px; transition: padding-top 0.2s ease; }
     .wheel-wrapper { position: relative; width: 280px; height: 280px; margin-bottom: 30px; }
     .wheel {
       width: 100%; height: 100%; border-radius: 50%;
@@ -483,7 +493,7 @@
     #screen-settings { background: linear-gradient(180deg, #2e1065, #1e1b4b); overflow: hidden; }
     #rocket-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
     .rocket { position: absolute; font-size: 30px; opacity: 0.3; }
-    .settings-content { position: relative; z-index: 10; padding: 78px 18px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; transition: padding-top 0.2s ease; }
+    .settings-content { position: relative; z-index: 10; padding: 105px 18px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; transition: padding-top 0.2s ease; }
     .settings-title { font-size: 14px; color: white; margin-bottom: 18px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
     .setting-row { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; background: rgba(255,255,255,0.1); padding: 11px 13px; border: 2px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
     .setting-label { font-size: 9px; color: #fff; }
@@ -788,12 +798,14 @@
     <button class="btn-info" onclick="openInfo('slots')">❓</button>
     <div class="slots-container">
       <div class="slots-machine-wrap">
-        <div class="siren-lamp" id="slotSirenLamp"></div>
         <div class="slots-cabinet-row">
-          <div class="slots-window">
-            <div class="slot-reel"><div class="reel-strip" id="strip1"><div class="slot-item-symbol">🥔</div></div></div>
-            <div class="slot-reel"><div class="reel-strip" id="strip2"><div class="slot-item-symbol">🥔</div></div></div>
-            <div class="slot-reel"><div class="reel-strip" id="strip3"><div class="slot-item-symbol">🥔</div></div></div>
+          <div class="slots-body-col">
+            <div class="siren-cap" id="slotSirenLamp"></div>
+            <div class="slots-window">
+              <div class="slot-reel"><div class="reel-strip" id="strip1"><div class="slot-item-symbol">🥔</div></div></div>
+              <div class="slot-reel"><div class="reel-strip" id="strip2"><div class="slot-item-symbol">🥔</div></div></div>
+              <div class="slot-reel"><div class="reel-strip" id="strip3"><div class="slot-item-symbol">🥔</div></div></div>
+            </div>
           </div>
           <div class="slot-lever-assembly" id="slotLever" onclick="spinSlots()" title="Рычажок">
             <div class="slot-lever-knob"></div>
@@ -1314,7 +1326,7 @@
       }
     }
 
-    // Уникальный мелодический/синтезаторный звук для каждого id квеста (без повторов у соседей)
+    // Расширенный набор неповторяющихся звуков для каждого id квеста (включая новые до 1 триллиона)
     var QUEST_SOUND_PATTERNS = [
       { notes: [523.25, 659.25], wave: 'triangle', stepMs: 90, dur: 0.16 },
       { notes: [587.33, 880.00], wave: 'sine', stepMs: 95, dur: 0.18 },
@@ -1335,7 +1347,14 @@
       { notes: [587.33, 880.00, 1174.66, 1479.98, 1760.00], wave: 'sine', stepMs: 70, dur: 0.24 },
       { notes: [739.99, 987.77, 1174.66, 1479.98, 1975.53], wave: 'sawtooth', stepMs: 70, dur: 0.26 },
       { notes: [659.25, 987.77, 1318.51, 1567.98, 1975.53, 2637.02], wave: 'triangle', stepMs: 65, dur: 0.25 },
-      { notes: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00], wave: 'sawtooth', stepMs: 75, dur: 0.35 }
+      { notes: [523.25, 659.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00], wave: 'sawtooth', stepMs: 75, dur: 0.35 },
+      // Новые мелодии для высоких квестов (от 1 млрд до 1 трлн)
+      { notes: [493.88, 739.99, 987.77, 1479.98, 1108.73], wave: 'sine', stepMs: 68, dur: 0.22 },
+      { notes: [554.37, 830.61, 1108.73, 1661.22, 1244.51], wave: 'triangle', stepMs: 62, dur: 0.24 },
+      { notes: [622.25, 783.99, 1244.51, 932.33, 1567.98, 1864.66], wave: 'square', stepMs: 58, dur: 0.2 },
+      { notes: [466.16, 698.46, 932.33, 1396.91, 1760.00, 1174.66], wave: 'sawtooth', stepMs: 64, dur: 0.26 },
+      { notes: [739.99, 1108.73, 1479.98, 1864.66, 2217.46, 1661.22], wave: 'sine', stepMs: 60, dur: 0.28 },
+      { notes: [523.25, 783.99, 1174.66, 1567.98, 2093.00, 2349.32, 2637.02], wave: 'triangle', stepMs: 56, dur: 0.3 }
     ];
 
     function playQuestUniqueSound(questId) {
@@ -1576,6 +1595,7 @@
       { level: 9, cost: 375, interval: 5000 }, { level: 10, cost: 500, interval: 1000 }
     ];
 
+    // Квесты до 1 000 000 000 000 (1 триллиона) тапов с умеренными наградами для сохранения баланса экономики
     var questsData = [
       { id: 1, need: 1000, reward: 0.5 },
       { id: 2, need: 5000, reward: 1 },
@@ -1600,7 +1620,12 @@
       { id: 21, need: 100000000, reward: 100000 },
       { id: 22, need: 250000000, reward: 200000 },
       { id: 23, need: 500000000, reward: 350000 },
-      { id: 24, need: 1000000000, reward: 500000 }
+      { id: 24, need: 1000000000, reward: 500000 },
+      { id: 25, need: 5000000000, reward: 750000 },
+      { id: 26, need: 25000000000, reward: 1000000 },
+      { id: 27, need: 100000000000, reward: 1500000 },
+      { id: 28, need: 500000000000, reward: 2250000 },
+      { id: 29, need: 1000000000000, reward: 3000000 }
     ];
 
     var skinsData = [
@@ -1633,7 +1658,7 @@
     var balance = parseFloat(safeStorage.getItem('potatoBalance')) || 0;
     var tapValue = parseFloat(safeStorage.getItem('tapValue')) || 0.001;
     var maxUpgrade = parseInt(safeStorage.getItem('maxUpgrade'), 10) || 0;
-    var totalTaps = parseInt(safeStorage.getItem('totalTaps'), 10) || 0;
+    var totalTaps = Number(safeStorage.getItem('totalTaps')) || 0;
     var claimed = safeJsonParse(safeStorage.getItem('claimed'), []);
     var unlockedAch = safeJsonParse(safeStorage.getItem('unlockedAch'), []);
     var hasAutoclicker = safeStorage.getItem('hasAutoclicker') === 'true';
@@ -2578,8 +2603,8 @@
         isSlotsSpinning = false;
         if (spinBtnEl) spinBtnEl.disabled = false;
         if (winAmount > 0) {
-          triggerSirenLamp();
           var finalWin = applyCasinoOutcome(winAmount);
+          triggerSirenLamp();
           playSound('quest_claim_10'); playHaptic('heavy');
           if (winType === 'jackpot') {
             alert(t.slot_jackpot.replace('{amount}', formatMoney(finalWin, 0)));
