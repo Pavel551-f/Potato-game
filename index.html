@@ -74,7 +74,7 @@
     body.has-event-banner .top-balance.no-back-offset { top: 54px; }
     body.has-event-banner .main-btns-container { top: 112px; }
     body.has-event-banner .right-btns-container { top: 112px; }
-    body.has-event-banner .tabs { padding-top: 120px; }
+    body.has-event-banner .tabs { padding-top: 112px; }
     body.has-event-banner .shop-tabs { padding-top: 154px; }
     body.has-event-banner .main-content { padding-top: 132px; }
     body.has-event-banner .profile-content,
@@ -259,7 +259,7 @@
     .streak-footer-row { margin-top: 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .streak-last-note { font-size: 7.5px; color: #fef08a; text-align: center; min-height: 11px; }
 
-    .tabs { display: flex; gap: 8px; padding: 80px 14px 10px; transition: padding-top 0.2s ease; }
+    .tabs { display: flex; gap: 8px; padding: 72px 14px 10px; transition: padding-top 0.2s ease; }
     .tab-btn {
       flex: 1; padding: 10px 6px; font-size: 9px;
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer;
@@ -373,6 +373,9 @@
     .casino-title { font-size: 14px; color: #fde047; margin-bottom: 10px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
     .casino-game-card { width: 100%; max-width: 290px; cursor: pointer; background: rgba(255,255,255,0.09); padding: 12px 14px; display: flex; align-items: center; gap: 12px; border: 2px solid; border-color: #fde047 #a16207 #a16207 #fde047; transition: transform 0.1s; }
     .casino-game-card:active { transform: scale(0.98); border-color: #a16207 #fde047 #fde047 #a16207; }
+    .casino-game-card.locked { opacity: 0.65; filter: grayscale(65%); border-color: #6b7280 #374151 #374151 #6b7280 !important; }
+    .casino-game-card.locked:active { transform: none; }
+    .casino-lock-badge { font-size: 7px; color: #fca5a5; margin-top: 4px; line-height: 1.4; }
     .casino-game-card .card-icon { font-size: 28px; width: 34px; text-align: center; }
 
     .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 115px 16px 30px; transition: padding-top 0.2s ease; }
@@ -763,30 +766,7 @@
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="casino-menu-container">
       <div class="casino-title" data-i18n="casino_title">🎰 КАЗИНО 🎰</div>
-
-      <div class="casino-game-card" onclick="showScreen('casino-box')">
-        <div class="card-icon">📦</div>
-        <div class="card-content">
-          <div class="card-title" data-i18n="potato_box">Ящик картошки</div>
-          <div class="card-desc" data-i18n="potato_box_desc">Классическая рулетка (5 ₽)</div>
-        </div>
-      </div>
-
-      <div class="casino-game-card" onclick="showScreen('casino-slots')" style="border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;">
-        <div class="card-icon">🚛</div>
-        <div class="card-content">
-          <div class="card-title" data-i18n="potato_truck">Грузовик картошки</div>
-          <div class="card-desc" data-i18n="potato_truck_desc">Слот-машина (100 ₽)</div>
-        </div>
-      </div>
-
-      <div class="casino-game-card" onclick="showScreen('casino-wheel')" style="border-color: #10b981 #065f46 #065f46 #10b981;">
-        <div class="card-icon">🎡</div>
-        <div class="card-content">
-          <div class="card-title" data-i18n="potato_field">Поле картошки</div>
-          <div class="card-desc" data-i18n="potato_field_desc">Колесо Фортуны (500 ₽)</div>
-        </div>
-      </div>
+      <div id="casinoGamesList" style="width: 100%; display: flex; flex-direction: column; align-items: center; gap: 12px;"></div>
     </div>
   </div>
 
@@ -824,7 +804,7 @@
           </div>
         </div>
       </div>
-      <button class="btn btn-gold" id="spinSlotsBtn" onclick="spinSlots()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_slots_btn">КРУТИТЬ (100 ₽)</button>
+      <button class="btn btn-gold" id="spinSlotsBtn" onclick="spinSlots()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_slots_btn">КРУТИТЬ (500 ₽)</button>
     </div>
   </div>
 
@@ -836,7 +816,7 @@
         <div class="wheel-pointer"></div>
         <div class="wheel" id="fortuneWheel"></div>
       </div>
-      <button class="btn btn-gold" id="spinWheelBtn" onclick="spinWheel()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_wheel_btn">КРУТИТЬ (500 ₽)</button>
+      <button class="btn btn-gold" id="spinWheelBtn" onclick="spinWheel()" style="font-size: 12px; padding: 15px 30px;" data-i18n="spin_wheel_btn">КРУТИТЬ (1.500 ₽)</button>
     </div>
   </div>
 
@@ -1019,8 +999,13 @@
         daily_gift_title: "ПОДАРОК ДНЯ", daily_gift_btn: "ПОДАРОК", jackpot: "ДЖЕКПОТ!",
         gift_wait_prefix: "Доступно через", gift_ready: "Забрать!",
         gift_added_note: "Пришло на ваш баланс",
-        casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)", spin_slots_btn: "КРУТИТЬ (100 ₽)", spin_wheel_btn: "КРУТИТЬ (500 ₽)",
-        casino_title: "🎰 КАЗИНО 🎰", potato_box: "Ящик картошки", potato_box_desc: "Классическая рулетка (5 ₽)", potato_truck: "Грузовик картошки", potato_truck_desc: "Слот-машина (100 ₽)", potato_field: "Поле картошки", potato_field_desc: "Колесо Фортуны (500 ₽)",
+        casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)", spin_slots_btn: "КРУТИТЬ (500 ₽)", spin_wheel_btn: "КРУТИТЬ (1.500 ₽)",
+        casino_title: "🎰 КАЗИНО 🎰",
+        potato_box: "Ящик картошки", potato_box_desc: "Рулетка • 5 ₽ (с 5 ур. тапа)",
+        potato_truck: "Грузовик картошки", potato_truck_desc: "Слоты • 500 ₽ (с 20 ур. тапа)",
+        potato_field: "Поле картошки", potato_field_desc: "Колесо • 1.500 ₽ (с 40 ур. тапа)",
+        casino_req_badge: "🔒 Нужно {req} ур. тапа (сейчас {cur})",
+        casino_locked_alert: "Режим «{game}» закрыт! Прокачайте улучшение тапа до {req} уровня (сейчас {cur}).",
         settings_btn: "⚙️ Настройки", settings_title: "Настройки", sound_effects: "Звуковые эффекты", vibration: "Вибрация", on: "ВКЛ", off: "ВЫКЛ", lang_btn: "🌐 Язык / Language", support_btn: "📢 Помощь и поддержка",
         test_events_btn: "🧪 Тест Событий", test_events_title: "🧪 ТЕСТ СОБЫТИЙ",
         test_events_desc: "Выберите событие для включения (баннер скроется через 5 сек).",
@@ -1046,6 +1031,7 @@
         min_withdraw: "Минимум 10 ₽", withdraw_msg: "Вывод {amount} ₽ (test)",
         dev_bonus_msg: "+5 000 000 ₽ и +10 000 000 тапов!",
         info_box_html: `
+          <p><b>Доступ:</b> открывается с <b>5 уровня</b> улучшения тапа.</p>
           <p><b>Стоимость:</b> 5 ₽ за прокрутку.</p>
           <p><b>Как играть:</b> Стрелка указывает на выигрыш. Красные числа списывают деньги, жёлтые — начисляют (сбалансировано против абуза).</p>
           <hr>
@@ -1055,26 +1041,28 @@
           <p>💵 Обычные числа (-15 ₽ … +12 ₽): <b>~98.45%</b></p>
         `,
         info_slots_html: `
-          <p><b>Стоимость:</b> 100 ₽ за прокрутку.</p>
+          <p><b>Доступ:</b> открывается с <b>20 уровня</b> улучшения тапа.</p>
+          <p><b>Стоимость:</b> 500 ₽ за прокрутку.</p>
           <p><b>Как играть:</b> Нажмите кнопку или потяните рычажок, чтобы собрать символы на линии.</p>
           <hr>
           <p><b>Таблица выплат:</b></p>
-          <p>🍟 🍟 🍟 — <b>5 000 ₽</b></p>
-          <p>👻 👻 👻 — <b>2 500 ₽</b></p>
-          <p>🥔 🥔 🥔 — <b>1 500 ₽</b></p>
-          <p>🍟 🍟 + любой — <b>500 ₽</b></p>
-          <p>👻 👻 + любой — <b>250 ₽</b></p>
-          <p>🥔 🥔 + любой — <b>60 ₽</b></p>
+          <p>🍟 🍟 🍟 — <b>25 000 ₽</b></p>
+          <p>👻 👻 👻 — <b>12 500 ₽</b></p>
+          <p>🥔 🥔 🥔 — <b>7 500 ₽</b></p>
+          <p>🍟 🍟 + любой — <b>2 500 ₽</b></p>
+          <p>👻 👻 + любой — <b>1 250 ₽</b></p>
+          <p>🥔 🥔 + любой — <b>300 ₽</b></p>
         `,
         info_wheel_html: `
-          <p><b>Стоимость:</b> 500 ₽ за прокрутку.</p>
+          <p><b>Доступ:</b> открывается с <b>40 уровня</b> улучшения тапа.</p>
+          <p><b>Стоимость:</b> 1.500 ₽ за прокрутку.</p>
           <p><b>Как играть:</b> Крутите колесо. Стрелка покажет ваш приз.</p>
           <p style="color:#ef4444;"><b>Красный</b> — Проигрыш</p>
-          <p style="color:#10b981;"><b>Зеленый</b> — x1.5 (750 ₽)</p>
-          <p style="color:#3b82f6;"><b>Синий</b> — x2 (1 000 ₽)</p>
-          <p style="color:#a855f7;"><b>Фиолетовый</b> — x5 (2 500 ₽)</p>
-          <p style="color:#ec4899;"><b>Розовый</b> — x10 (5 000 ₽)</p>
-          <p style="color:#00e5ff;"><b>Бирюзовый</b> — ДЖЕКПОТ x50 (25 000 ₽)</p>
+          <p style="color:#10b981;"><b>Зеленый</b> — 1 000 ₽</p>
+          <p style="color:#3b82f6;"><b>Синий</b> — x2 (3 000 ₽)</p>
+          <p style="color:#a855f7;"><b>Фиолетовый</b> — x5 (7 500 ₽)</p>
+          <p style="color:#ec4899;"><b>Розовый</b> — x10 (15 000 ₽)</p>
+          <p style="color:#00e5ff;"><b>Бирюзовый</b> — ДЖЕКПОТ x50 (75 000 ₽)</p>
           <hr>
           <p><b>Шансы:</b> Проигрыш — 65%. Выигрыш — 35% (Джекпот — всего 0.5%).</p>
         `,
@@ -1159,8 +1147,13 @@
         daily_gift_title: "DAILY GIFT", daily_gift_btn: "GIFT", jackpot: "JACKPOT!",
         gift_wait_prefix: "Available in", gift_ready: "Claim!",
         gift_added_note: "Added to your balance",
-        casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", spin_slots_btn: "SPIN (100 ₽)", spin_wheel_btn: "SPIN (500 ₽)",
-        casino_title: "🎰 CASINO 🎰", potato_box: "Potato Box", potato_box_desc: "Classic roulette (5 ₽)", potato_truck: "Potato Truck", potato_truck_desc: "Slot machine (100 ₽)", potato_field: "Potato Field", potato_field_desc: "Wheel of Fortune (500 ₽)",
+        casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", spin_slots_btn: "SPIN (500 ₽)", spin_wheel_btn: "SPIN (1.500 ₽)",
+        casino_title: "🎰 CASINO 🎰",
+        potato_box: "Potato Box", potato_box_desc: "Roulette • 5 ₽ (from Tap Lv.5)",
+        potato_truck: "Potato Truck", potato_truck_desc: "Slots • 500 ₽ (from Tap Lv.20)",
+        potato_field: "Potato Field", potato_field_desc: "Wheel • 1.500 ₽ (from Tap Lv.40)",
+        casino_req_badge: "🔒 Requires Tap Lv.{req} (now {cur})",
+        casino_locked_alert: "\"{game}\" is locked! Upgrade Tap to Level {req} first (currently Lv.{cur}).",
         settings_btn: "⚙️ Settings", settings_title: "Settings", sound_effects: "Sound Effects", vibration: "Vibration", on: "ON", off: "OFF", lang_btn: "🌐 Language / Язык", support_btn: "📢 Help & Support",
         test_events_btn: "🧪 Event Test", test_events_title: "🧪 EVENT TEST",
         test_events_desc: "Choose an event to enable (banner hides in 5s).",
@@ -1186,6 +1179,7 @@
         min_withdraw: "Minimum 10 ₽", withdraw_msg: "Withdraw {amount} ₽ (test)",
         dev_bonus_msg: "+5,000,000 ₽ and +10,000,000 taps!",
         info_box_html: `
+          <p><b>Unlock:</b> opens at <b>Tap Level 5</b>.</p>
           <p><b>Cost:</b> 5 ₽ per spin.</p>
           <p><b>How to play:</b> Red numbers subtract money; yellow numbers add money (balanced against abuse).</p>
           <hr>
@@ -1195,26 +1189,28 @@
           <p>💵 Regular (-15 ₽ … +12 ₽): <b>~98.45%</b></p>
         `,
         info_slots_html: `
-          <p><b>Cost:</b> 100 ₽ per spin.</p>
+          <p><b>Unlock:</b> opens at <b>Tap Level 20</b>.</p>
+          <p><b>Cost:</b> 500 ₽ per spin.</p>
           <p><b>How to play:</b> Press the button or pull the lever to match symbols on the payline.</p>
           <hr>
           <p><b>Payout table:</b></p>
-          <p>🍟 🍟 🍟 — <b>5,000 ₽</b></p>
-          <p>👻 👻 👻 — <b>2,500 ₽</b></p>
-          <p>🥔 🥔 🥔 — <b>1,500 ₽</b></p>
-          <p>🍟 🍟 + any — <b>500 ₽</b></p>
-          <p>👻 👻 + any — <b>250 ₽</b></p>
-          <p>🥔 🥔 + any — <b>60 ₽</b></p>
+          <p>🍟 🍟 🍟 — <b>25,000 ₽</b></p>
+          <p>👻 👻 👻 — <b>12,500 ₽</b></p>
+          <p>🥔 🥔 🥔 — <b>7,500 ₽</b></p>
+          <p>🍟 🍟 + any — <b>2,500 ₽</b></p>
+          <p>👻 👻 + any — <b>1,250 ₽</b></p>
+          <p>🥔 🥔 + any — <b>300 ₽</b></p>
         `,
         info_wheel_html: `
-          <p><b>Cost:</b> 500 ₽ per spin.</p>
+          <p><b>Unlock:</b> opens at <b>Tap Level 40</b>.</p>
+          <p><b>Cost:</b> 1.500 ₽ per spin.</p>
           <p><b>How to play:</b> Spin the wheel. The pointer shows your prize.</p>
           <p style="color:#ef4444;"><b>Red</b> — Loss</p>
-          <p style="color:#10b981;"><b>Green</b> — x1.5 (750 ₽)</p>
-          <p style="color:#3b82f6;"><b>Blue</b> — x2 (1,000 ₽)</p>
-          <p style="color:#a855f7;"><b>Purple</b> — x5 (2,500 ₽)</p>
-          <p style="color:#ec4899;"><b>Pink</b> — x10 (5,000 ₽)</p>
-          <p style="color:#00e5ff;"><b>Cyan</b> — x50 JACKPOT (25,000 ₽)</p>
+          <p style="color:#10b981;"><b>Green</b> — 1,000 ₽</p>
+          <p style="color:#3b82f6;"><b>Blue</b> — x2 (3,000 ₽)</p>
+          <p style="color:#a855f7;"><b>Purple</b> — x5 (7,500 ₽)</p>
+          <p style="color:#ec4899;"><b>Pink</b> — x10 (15,000 ₽)</p>
+          <p style="color:#00e5ff;"><b>Cyan</b> — x50 JACKPOT (75,000 ₽)</p>
           <hr>
           <p><b>Odds:</b> Loss — 65%. Win — 35% (Jackpot — only 0.5%).</p>
         `,
@@ -1751,9 +1747,10 @@
     var giftCooldown = 24 * 60 * 60 * 1000;
     var lastGiftRewardShown = null;
 
+    var CASINO_UNLOCK_LEVELS = { box: 5, slots: 20, wheel: 40 };
     var isSpinning = false; var spinCost = 5; var forceMoai = false; var SPIN_DURATION = 9000;
-    var isSlotsSpinning = false; var slotsCost = 100; var sirenTimeout = null;
-    var isWheelSpinning = false; var wheelCost = 500;
+    var isSlotsSpinning = false; var slotsCost = 500; var sirenTimeout = null;
+    var isWheelSpinning = false; var wheelCost = 1500;
     var currentWheelRotation = 0;
 
     var rankMultipliers = [1.05, 1.1, 1.15, 1.2, 1.25, 1.3, 1.35, 1.4, 1.45, 1.5];
@@ -2312,6 +2309,7 @@
         if (scrName === 'achievements') renderAchievements();
         if (scrName === 'events-history') renderEventsHistory();
         if (scrName === 'inventory') renderInventory();
+        if (scrName === 'casino') renderCasinoMenu();
       }
     }
 
@@ -2379,7 +2377,8 @@
       updateRank();
       if (tapPowerEl) tapPowerEl.innerText = formatMoney(getEffectiveTapValue());
       if (totalTapsText) totalTapsText.innerText = formatMoney(totalTaps, 0);
-      if (progressFill) progressFill.style.width = Math.min(100, (totalTaps / 50000000) * 100) + '%';
+      var maxQuestNeed = questsData.length ? questsData[questsData.length - 1].need : 1000000000000;
+      if (progressFill) progressFill.style.width = Math.min(100, (totalTaps / maxQuestNeed) * 100) + '%';
       updateBuffsInfo(); updateProfileBadges();
       checkAchievements(); checkQuestReady(); save();
     }
@@ -2547,6 +2546,44 @@
       { type: 'money', value: -1 }, { type: 'money', value: -2 }, { type: 'money', value: -4 }, { type: 'money', value: -6 }, { type: 'money', value: -8 }, { type: 'money', value: -12 }, { type: 'money', value: -15 }
     ];
 
+    function renderCasinoMenu() {
+      var list = getEl('casinoGamesList');
+      if (!list) return;
+      var games = [
+        { key: 'box', screen: 'casino-box', icon: '📦', title: t.potato_box, desc: t.potato_box_desc, req: CASINO_UNLOCK_LEVELS.box, border: '#fde047 #a16207 #a16207 #fde047' },
+        { key: 'slots', screen: 'casino-slots', icon: '🚛', title: t.potato_truck, desc: t.potato_truck_desc, req: CASINO_UNLOCK_LEVELS.slots, border: '#a855f7 #4c1d95 #4c1d95 #a855f7' },
+        { key: 'wheel', screen: 'casino-wheel', icon: '🎡', title: t.potato_field, desc: t.potato_field_desc, req: CASINO_UNLOCK_LEVELS.wheel, border: '#10b981 #065f46 #065f46 #10b981' }
+      ];
+      list.innerHTML = '';
+      for (var i = 0; i < games.length; i++) {
+        var g = games[i];
+        var unlocked = maxUpgrade >= g.req;
+        var card = document.createElement('div');
+        card.className = 'casino-game-card' + (unlocked ? '' : ' locked');
+        if (unlocked) card.style.borderColor = g.border;
+        var lockHtml = unlocked ? '' : '<div class="casino-lock-badge">' + t.casino_req_badge.replace('{req}', g.req).replace('{cur}', maxUpgrade) + '</div>';
+        card.innerHTML =
+          '<div class="card-icon">' + (unlocked ? g.icon : '🔒') + '</div>' +
+          '<div class="card-content">' +
+            '<div class="card-title">' + g.title + '</div>' +
+            '<div class="card-desc" style="margin-bottom:0;">' + g.desc + '</div>' +
+            lockHtml +
+          '</div>';
+        card.onclick = (function(game) {
+          return function() {
+            if (maxUpgrade < game.req) {
+              playHaptic('error');
+              showGameAlert(t.casino_locked_alert.replace('{game}', game.title).replace('{req}', game.req).replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
+              return;
+            }
+            playHaptic('medium');
+            showScreen(game.screen);
+          };
+        })(g);
+        list.appendChild(card);
+      }
+    }
+
     function initCasino() {
       if (!casinoReel) return; casinoReel.innerHTML = '';
       for (var i = 0; i < 50; i++) addReelItem(casinoItems[Math.floor(Math.random() * casinoItems.length)]);
@@ -2565,6 +2602,7 @@
 
     window.spinCasino = function() {
       if (isSpinning || !casinoReel || !spinBtn) return;
+      if (maxUpgrade < CASINO_UNLOCK_LEVELS.box) { playHaptic('error'); showGameAlert(t.casino_locked_alert.replace('{game}', t.potato_box).replace('{req}', CASINO_UNLOCK_LEVELS.box).replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' }); return; }
       if (balance < spinCost) { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); return; }
 
       isSpinning = true; balance -= spinCost; updateUI();
@@ -2649,6 +2687,7 @@
 
     window.spinSlots = function() {
       if (isSlotsSpinning) return;
+      if (maxUpgrade < CASINO_UNLOCK_LEVELS.slots) { playHaptic('error'); showGameAlert(t.casino_locked_alert.replace('{game}', t.potato_truck).replace('{req}', CASINO_UNLOCK_LEVELS.slots).replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' }); return; }
       var spinBtnEl = getEl('spinSlotsBtn');
       var leverEl = getEl('slotLever');
       if (balance < slotsCost) { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); return; }
@@ -2663,12 +2702,12 @@
       playSlotSpinSound(dur3 / 1000);
 
       var roll = Math.random(), winType = 'none', winAmount = 0, finalSymbols = ['🥔', '🥔', '🥔'];
-      if (roll < 0.0001) { finalSymbols = ['🍟', '🍟', '🍟']; winAmount = 5000; winType = 'jackpot'; }
-      else if (roll < 0.0101) { finalSymbols = ['🍟', '🍟', Math.random() < 0.5 ? '🥔' : '👻']; winAmount = 500; winType = 'win'; }
-      else if (roll < 0.0151) { finalSymbols = ['👻', '👻', '👻']; winAmount = 2500; winType = 'win'; }
-      else if (roll < 0.0351) { finalSymbols = ['🥔', '🥔', '🥔']; winAmount = 1500; winType = 'win'; }
-      else if (roll < 0.0651) { finalSymbols = ['👻', '👻', Math.random() < 0.5 ? '🥔' : '🍟']; winAmount = 250; winType = 'win'; }
-      else if (roll < 0.2151) { finalSymbols = ['🥔', '🥔', Math.random() < 0.5 ? '🍟' : '👻']; winAmount = 60; winType = 'win'; }
+      if (roll < 0.0001) { finalSymbols = ['🍟', '🍟', '🍟']; winAmount = 25000; winType = 'jackpot'; }
+      else if (roll < 0.0101) { finalSymbols = ['🍟', '🍟', Math.random() < 0.5 ? '🥔' : '👻']; winAmount = 2500; winType = 'win'; }
+      else if (roll < 0.0151) { finalSymbols = ['👻', '👻', '👻']; winAmount = 12500; winType = 'win'; }
+      else if (roll < 0.0351) { finalSymbols = ['🥔', '🥔', '🥔']; winAmount = 7500; winType = 'win'; }
+      else if (roll < 0.0651) { finalSymbols = ['👻', '👻', Math.random() < 0.5 ? '🥔' : '🍟']; winAmount = 1250; winType = 'win'; }
+      else if (roll < 0.2151) { finalSymbols = ['🥔', '🥔', Math.random() < 0.5 ? '🍟' : '👻']; winAmount = 300; winType = 'win'; }
       else { var arr = ['🥔', '🍟', '👻']; arr.sort(function() { return Math.random() - 0.5; }); finalSymbols = arr; }
 
       buildStrip('strip1', finalSymbols[0], dur1);
@@ -2697,6 +2736,7 @@
 
     window.spinWheel = function() {
       if (isWheelSpinning) return;
+      if (maxUpgrade < CASINO_UNLOCK_LEVELS.wheel) { playHaptic('error'); showGameAlert(t.casino_locked_alert.replace('{game}', t.potato_field).replace('{req}', CASINO_UNLOCK_LEVELS.wheel).replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' }); return; }
       var spinBtnEl = getEl('spinWheelBtn');
       if (balance < wheelCost) { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); return; }
       isWheelSpinning = true; balance -= wheelCost; updateUI();
@@ -2712,13 +2752,13 @@
         var lossSectors = [0, 1, 3, 4, 6, 7, 9, 11, 14];
         targetSectorIndex = lossSectors[Math.floor(Math.random() * lossSectors.length)];
       } else if (roll < 0.85) {
-        winType = 'win'; winAmount = 750;
+        winType = 'win'; winAmount = 1000;
         var greenSectors = [2, 8, 12];
         targetSectorIndex = greenSectors[Math.floor(Math.random() * greenSectors.length)];
-      } else if (roll < 0.95) { winType = 'win'; winAmount = 1000; targetSectorIndex = 5; }
-      else if (roll < 0.98) { winType = 'win'; winAmount = 2500; targetSectorIndex = 10; }
-      else if (roll < 0.995) { winType = 'win'; winAmount = 5000; targetSectorIndex = 13; }
-      else { winType = 'jackpot'; winAmount = 25000; targetSectorIndex = 15; }
+      } else if (roll < 0.95) { winType = 'win'; winAmount = 3000; targetSectorIndex = 5; }
+      else if (roll < 0.98) { winType = 'win'; winAmount = 7500; targetSectorIndex = 10; }
+      else if (roll < 0.995) { winType = 'win'; winAmount = 15000; targetSectorIndex = 13; }
+      else { winType = 'jackpot'; winAmount = 75000; targetSectorIndex = 15; }
 
       var sectorAngle = 22.5;
       var targetCenterAngle = (targetSectorIndex * sectorAngle) + (sectorAngle / 2);
@@ -3112,7 +3152,7 @@
           topBalanceBar.style.display = 'none';
         } else {
           topBalanceBar.style.display = 'flex';
-          topBalanceBar.classList.toggle('no-back-offset', name === 'main');
+          topBalanceBar.classList.toggle('no-back-offset', name === 'main' || name === 'upgrades');
         }
       }
 
@@ -3123,6 +3163,7 @@
       else if (name === 'inventory') renderInventory();
       else if (name === 'calendar') updateCalendarUI();
       else if (name === 'shop') { updateShopEventUI(); switchShopTab(currentShopTab); }
+      else if (name === 'casino') renderCasinoMenu();
       else if (name === 'casino-box') initCasino();
       else if (name === 'rating') renderRating();
       else if (name === 'settings') { updateSettingsUI(); initRockets(); }
