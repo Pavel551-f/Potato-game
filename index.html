@@ -161,50 +161,102 @@
     .casino-btn-main { background: rgba(234, 179, 8, 0.15); border-color: #fde047 #a16207 #a16207 #fde047; }
     .casino-btn-main:active { border-color: #a16207 #fde047 #fde047 #a16207; }
 
-    .chess-btn-main { background: rgba(16, 185, 129, 0.16); border-color: #6ee7b7 #065f46 #065f46 #6ee7b7; }
+    .chess-btn-main {
+      position: relative;
+      width: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+      padding: 6px 6px; cursor: pointer;
+      border: 3px solid;
+      background: rgba(16, 185, 129, 0.16);
+      border-color: #6ee7b7 #065f46 #065f46 #6ee7b7;
+    }
     .chess-btn-main:active { border-color: #065f46 #6ee7b7 #6ee7b7 #065f46; }
     .chess-btn-main span:not(.side-menu-emoji) {
       font-size: 7.5px; color: #fff; text-transform: uppercase; line-height: 1.2;
     }
 
-    body.has-event-banner .chess-container { padding-top: 152px; }
+    body.has-event-banner .chess-container { padding-top: 148px; }
     .chess-container {
       flex: 1; display: flex; flex-direction: column; align-items: center;
-      padding: 112px 14px 26px; overflow-y: auto; transition: padding-top 0.2s ease;
+      padding: 108px 14px 24px; overflow-y: auto; transition: padding-top 0.2s ease;
     }
     .chess-title {
-      font-size: 13px; color: #6ee7b7; margin-bottom: 10px;
+      font-size: 12px; color: #e9d5ff; margin-bottom: 8px;
       text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center;
     }
     .chess-status-bar {
-      width: 100%; max-width: 280px; background: rgba(0,0,0,0.45);
-      border: 2px solid #a855f7; padding: 7px 9px; margin-bottom: 10px;
+      width: 100%; max-width: 296px; background: rgba(0,0,0,0.48);
+      border: 2px solid #a855f7; border-radius: 6px; padding: 7px 9px; margin-bottom: 10px;
       font-size: 7.5px; line-height: 1.5; color: #fde047; text-align: center;
     }
-    .chess-board {
-      display: grid; grid-template-columns: repeat(8, 1fr);
-      width: 100%; max-width: 272px; aspect-ratio: 1 / 1;
-      border: 4px solid #c084fc; box-shadow: 0 6px 18px rgba(0,0,0,0.65);
+    .chess-board-frame {
+      width: 100%; max-width: 296px;
+      padding: 4px;
+      background: linear-gradient(145deg, #9333ea, #4c1d95);
+      border: 3px solid #d8b4fe;
+      border-radius: 6px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.65);
       margin-bottom: 12px;
     }
+    .chess-board {
+      display: grid;
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      grid-template-rows: repeat(8, minmax(0, 1fr));
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 3px;
+      overflow: hidden;
+    }
     .chess-cell {
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; cursor: pointer; position: relative;
-      text-shadow: 1px 1px 0 rgba(0,0,0,0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      min-height: 0;
+      aspect-ratio: 1 / 1;
+      font-size: clamp(16px, 5.2vw, 24px);
+      line-height: 1;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.55);
     }
-    .chess-cell.light { background: #e9d5ff; }
-    .chess-cell.dark { background: #6b21a8; }
-    .chess-cell.selected { box-shadow: inset 0 0 0 3px #fde047; background: #a855f7 !important; }
+    .chess-cell.light { background: #ede9fe; }
+    .chess-cell.dark { background: #7e22ce; }
+    .chess-cell.last-move.light { background: #ddd6fe; }
+    .chess-cell.last-move.dark { background: #9333ea; }
+    .chess-cell.in-check { background: #ef4444 !important; }
+    .chess-cell.selected {
+      background: #c084fc !important;
+      box-shadow: inset 0 0 0 2px #fde047;
+    }
     .chess-cell.valid-move::after {
-      content: ''; width: 9px; height: 9px; border-radius: 50%;
-      background: rgba(16, 185, 129, 0.85); border: 1px solid #000;
+      content: '';
+      position: absolute;
+      width: 28%;
+      height: 28%;
+      border-radius: 50%;
+      background: rgba(16, 185, 129, 0.88);
+      border: 1.5px solid rgba(0, 0, 0, 0.65);
+      pointer-events: none;
     }
-    .chess-cell.valid-capture { box-shadow: inset 0 0 0 3px #ef4444; }
-    .chess-cell.last-move { background: rgba(253, 224, 71, 0.35) !important; }
+    .chess-cell.valid-capture {
+      box-shadow: inset 0 0 0 3px #ef4444;
+    }
     .chess-controls {
-      width: 100%; max-width: 272px; display: flex; gap: 8px; justify-content: center;
+      width: 100%; max-width: 296px; display: flex; gap: 8px; justify-content: center;
     }
-
+    .promo-choices {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 10px;
+    }
+    .promo-btn {
+      background: #4c1d95; border: 2px solid #c084fc; border-radius: 6px;
+      color: #fff; font-size: 24px; padding: 10px 4px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .promo-btn:active { transform: scale(0.95); background: #6b21a8; }
 
     .side-tile-btn {
       width: 100%;
@@ -634,6 +686,19 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="chessPromoModal" style="z-index: 10060;">
+    <div class="modal-content" style="text-align: center;">
+      <h3 data-i18n="chess_promo_title">ПРЕВРАЩЕНИЕ ПЕШКИ</h3>
+      <p style="text-align: center;" data-i18n="chess_promo_desc">Выберите фигуру:</p>
+      <div class="promo-choices">
+        <button class="promo-btn" onclick="chooseChessPromotion('Q')">♕</button>
+        <button class="promo-btn" onclick="chooseChessPromotion('R')">♖</button>
+        <button class="promo-btn" onclick="chooseChessPromotion('B')">♗</button>
+        <button class="promo-btn" onclick="chooseChessPromotion('N')">♘</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-overlay" id="testEventModal">
     <div class="modal-content" style="text-align: center;">
       <h3 data-i18n="test_events_title">🧪 ТЕСТ СОБЫТИЙ</h3>
@@ -687,7 +752,7 @@
         <div class="side-tile-icon">🏰</div>
         <div class="side-tile-label" data-i18n="clans_btn">Кланы</div>
       </div>
-      <div class="side-tile-btn" onclick="showScreen('calendar')">
+      <div class="side-tile-btn" id="mainCalendarBtn" style="display: none;" onclick="showScreen('calendar')">
         <div class="side-tile-icon">📅</div>
         <div class="side-tile-sub" id="calendarBtnSub">День 1</div>
       </div>
@@ -876,7 +941,9 @@
     <div class="chess-container">
       <div class="chess-title" data-i18n="chess_title">♟️ ШАХМАТЫ ДНЯ ♟️</div>
       <div class="chess-status-bar" id="chessStatusBar"></div>
-      <div class="chess-board" id="chessBoard"></div>
+      <div class="chess-board-frame">
+        <div class="chess-board" id="chessBoard"></div>
+      </div>
       <div class="chess-controls">
         <button class="btn btn-green" style="flex:1; margin-bottom:0;" onclick="resetChessGame()" data-i18n="chess_new_game">Новая партия</button>
       </div>
@@ -1065,6 +1132,7 @@
         gift_added_note: "Пришло на ваш баланс",
         casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)", spin_slots_btn: "КРУТИТЬ (500 ₽)", spin_wheel_btn: "КРУТИТЬ (1.500 ₽)",
         chess_btn: "Шахматы", chess_title: "♟️ ШАХМАТЫ ДНЯ ♟️", chess_new_game: "Новая партия",
+        chess_promo_title: "ПРЕВРАЩЕНИЕ ПЕШКИ", chess_promo_desc: "Выберите фигуру:",
         chess_your_turn: "Твой ход (Белые) • Победа: +250 ₽",
         chess_bot_turn: "Бот думает...",
         chess_check: "⚠️ Шах! Твой ход (Белые)",
@@ -1128,19 +1196,11 @@
         `,
         info_chess_html: `
           <p><b>Событие на 1 день:</b> в левом меню под Казино появляется кнопка <b>Шахматы</b>.</p>
-          <p><b>Правила:</b> Вы играете белыми фигурами против Картофельного Бота по классическим правилам (включая превращение пешки в ферзя).</p>
+          <p><b>Правила:</b> Вы играете белыми фигурами против Картофельного Бота по полным правилам шахмат — включая рокировку (короткую и длинную), взятие на проходе, превращение пешки, шах, мат и пат.</p>
           <hr>
           <p><b>Награды:</b></p>
           <p>🏆 Победа (мат боту): <b>+250 ₽</b></p>
           <p>🤝 Ничья (пат): <b>+50 ₽</b></p>
-        `,
-        info_chess_html: `
-          <p><b>1-Day Event:</b> A <b>Chess</b> button appears under Casino on the main screen.</p>
-          <p><b>Rules:</b> You play White against Potato Bot with standard chess rules (including auto-queen promotion).</p>
-          <hr>
-          <p><b>Rewards:</b></p>
-          <p>🏆 Victory (Checkmate): <b>+250 ₽</b></p>
-          <p>🤝 Draw (Stalemate): <b>+50 ₽</b></p>
         `,
         info_wheel_html: `
           <p><b>Доступ:</b> открывается с <b>40 уровня</b> улучшения тапа.</p>
@@ -1239,6 +1299,7 @@
         gift_added_note: "Added to your balance",
         casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", spin_slots_btn: "SPIN (500 ₽)", spin_wheel_btn: "SPIN (1.500 ₽)",
         chess_btn: "Chess", chess_title: "♟️ CHESS DAY ♟️", chess_new_game: "New Game",
+        chess_promo_title: "PAWN PROMOTION", chess_promo_desc: "Choose a piece:",
         chess_your_turn: "Your turn (White) • Win: +250 ₽",
         chess_bot_turn: "Bot is thinking...",
         chess_check: "⚠️ Check! Your turn (White)",
@@ -1299,6 +1360,14 @@
           <p>🍟 🍟 + any — <b>2,500 ₽</b></p>
           <p>👻 👻 + any — <b>1,250 ₽</b></p>
           <p>🥔 🥔 + any — <b>300 ₽</b></p>
+        `,
+        info_chess_html: `
+          <p><b>1-Day Event:</b> A <b>Chess</b> button appears under Casino on the main screen.</p>
+          <p><b>Rules:</b> Play White against Potato Bot with full chess rules — castling (kingside & queenside), en passant, pawn promotion, check, checkmate & stalemate.</p>
+          <hr>
+          <p><b>Rewards:</b></p>
+          <p>🏆 Victory (Checkmate): <b>+250 ₽</b></p>
+          <p>🤝 Draw (Stalemate): <b>+50 ₽</b></p>
         `,
         info_wheel_html: `
           <p><b>Unlock:</b> opens at <b>Tap Level 40</b>.</p>
@@ -1704,7 +1773,6 @@
     var tg = null;
     try { if (window.Telegram && window.Telegram.WebApp) { tg = window.Telegram.WebApp; tg.ready(); tg.expand(); } } catch(e) {}
 
-    // Расширенная ветка улучшений тапа (50 уровней) — без процентного множителя
     var upgradesData = [
       { nameIdx: 0, desc: 0.002, cost: 6, value: 0.002 }, { nameIdx: 1, desc: 0.003, cost: 12, value: 0.003 }, { nameIdx: 2, desc: 0.004, cost: 24, value: 0.004 }, { nameIdx: 3, desc: 0.005, cost: 45, value: 0.005 },
       { nameIdx: 4, desc: 0.010, cost: 120, value: 0.010 }, { nameIdx: 5, desc: 0.020, cost: 250, value: 0.020 }, { nameIdx: 6, desc: 0.030, cost: 450, value: 0.030 }, { nameIdx: 7, desc: 0.040, cost: 700, value: 0.040 },
@@ -1726,7 +1794,6 @@
 
     var autoBuyCost = 250;
 
-    // Расширенная ветка силы автокликера (45 уровней) — без буста тапа от автокликера
     var autoValueData = [
       { level: 1, cost: 120, value: 0.0002 }, { level: 2, cost: 160, value: 0.0003 }, { level: 3, cost: 210, value: 0.0004 }, { level: 4, cost: 280, value: 0.0005 },
       { level: 5, cost: 450, value: 0.001 }, { level: 6, cost: 600, value: 0.002 }, { level: 7, cost: 800, value: 0.003 }, { level: 8, cost: 1050, value: 0.004 },
@@ -1799,6 +1866,7 @@
 
     var ALL_BADGE_KEYS = ["bm_regular", "halloween_2026", "newyear_2026", "valentine_2026", "april_2026", "chess_2026"];
     var CALENDAR_ICONS = ["🪙", "💵", "💰", "💎", "🥔", "📦", "🔥", "⚡", "👑", "🌟", "🚀", "🍟"];
+    var CALENDAR_UNLOCK_TAP_LEVEL = 25;
 
     var balance = parseFloat(safeStorage.getItem('potatoBalance')) || 0;
     var tapValue = parseFloat(safeStorage.getItem('tapValue')) || 0.001;
@@ -1885,7 +1953,6 @@
 
     function getTodayKey() { return getDateKeyByOffset(0); }
 
-    // Бесконечный календарь «вразброс» от 0.01 до 500 ₽ для любого дня 1, 2, 3, ...
     function seededUnitRandom(seed) {
       var x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
       return x - Math.floor(x);
@@ -1920,7 +1987,18 @@
       return formatMoney(amount, 2);
     }
 
+    function isCalendarUnlocked() {
+      return maxUpgrade >= CALENDAR_UNLOCK_TAP_LEVEL;
+    }
+
     function updateCalendarUI() {
+      var calBtnEl = getEl('mainCalendarBtn');
+      var unlocked = isCalendarUnlocked();
+      if (calBtnEl) {
+        calBtnEl.style.display = unlocked ? 'flex' : 'none';
+      }
+      if (!unlocked) return;
+
       var todayKey = getTodayKey();
       var claimedToday = (lastCalendarClaimDate === todayKey);
       var activeDay = claimedToday ? Math.max(1, streakDays) : (streakDays + 1);
@@ -1981,6 +2059,7 @@
     }
 
     window.claimCalendarReward = function() {
+      if (!isCalendarUnlocked()) return;
       var todayKey = getTodayKey();
       if (lastCalendarClaimDate === todayKey) return;
 
@@ -2444,7 +2523,12 @@
         if (scrName === 'events-history') renderEventsHistory();
         if (scrName === 'inventory') renderInventory();
         if (scrName === 'casino') renderCasinoMenu();
-        if (scrName === 'chess') { if (!chessGameOver) setChessStatus(chessTurn === 'w' ? (isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn) : t.chess_bot_turn); renderChessBoard(); }
+        if (scrName === 'chess') {
+          if (!chessGameOver && chessState) {
+            setChessStatus(chessTurn === 'w' ? (isKingInCheck(chessState.board, 'w') ? t.chess_check : t.chess_your_turn) : t.chess_bot_turn);
+          }
+          renderChessBoard();
+        }
       }
     }
 
@@ -2514,7 +2598,7 @@
       if (totalTapsText) totalTapsText.innerText = formatMoney(totalTaps, 0);
       var maxQuestNeed = questsData.length ? questsData[questsData.length - 1].need : 1000000000000;
       if (progressFill) progressFill.style.width = Math.min(100, (totalTaps / maxQuestNeed) * 100) + '%';
-      updateBuffsInfo(); updateProfileBadges();
+      updateCalendarUI(); updateBuffsInfo(); updateProfileBadges();
       checkAchievements(); checkQuestReady(); save();
     }
 
@@ -3108,38 +3192,38 @@
           var card = document.createElement('div'); card.className = 'card';
           card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_buy + '</div><div class="card-desc">' + t.auto_desc + '</div></div>';
           card.appendChild(makeActionButton(t.buy_for + ' ' + formatMoney(autoBuyCost, 0) + ' ₽', false, function() {
-            if (balance >= autoBuyCost) { balance -= autoBuyCost; hasAutoclicker = true; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
+            if (balance >= autoBuyCost) { balance -= autoBuyCost; hasAutoclicker = true; playSound('upgrade'); playHaptic('success'); startAutoclicker(); updateAutoInfo(); updateUI(); renderUpgrades(); }
             else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
           }));
+          upgradesList.appendChild(card); return;
+        }
+        var pTitle = document.createElement('div'); pTitle.className = 'section-title'; pTitle.innerText = t.auto_power; upgradesList.appendChild(pTitle);
+        for (var i = 0; i < autoValueData.length; i++) {
+          var vUpg = autoValueData[i]; var isBought = vUpg.level <= autoValueLevel; var isNext = vUpg.level === autoValueLevel + 1;
+          var btnText = isBought ? t.bought : (isNext ? t.buy_for + ' ' + formatMoney(vUpg.cost, 0) + ' ₽' : t.buy_prev);
+          var card = document.createElement('div'); card.className = 'card';
+          card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_power + ' ' + vUpg.level + '</div><div class="card-desc">' + t.gives + ' +' + vUpg.value.toFixed(4) + ' ₽</div></div>';
+          card.appendChild(makeActionButton(btnText, !isNext, (function(vu) {
+            return function() {
+              if (balance >= vu.cost) { balance -= vu.cost; autoValue = vu.value; autoValueLevel = vu.level; playSound('upgrade'); playHaptic('success'); updateAutoInfo(); updateUI(); renderUpgrades(); }
+              else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
+            };
+          })(vUpg)));
           upgradesList.appendChild(card);
-        } else {
-          var t1 = document.createElement('div'); t1.className = 'section-title'; t1.innerText = t.auto_power; upgradesList.appendChild(t1);
-          for (var v = 0; v < autoValueData.length; v++) {
-            var av = autoValueData[v]; var isB = autoValueLevel >= av.level; var isN = autoValueLevel + 1 === av.level;
-            var pCard = document.createElement('div'); pCard.className = 'card';
-            pCard.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_power + ' Lv.' + av.level + '</div><div class="card-desc">' + t.gives + ' ' + formatMoney(av.value, 4) + ' ₽</div></div>';
-            pCard.appendChild(makeActionButton(isB ? t.bought : (isN ? t.buy_for + ' ' + formatMoney(av.cost, 0) + ' ₽' : t.buy_prev), !isN, (function(a) {
-              return function() {
-                if (balance >= a.cost) { balance -= a.cost; autoValue = a.value; autoValueLevel = a.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
-                else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
-              };
-            })(av)));
-            upgradesList.appendChild(pCard);
-          }
-
-          var t2 = document.createElement('div'); t2.className = 'section-title'; t2.innerText = t.auto_speed; upgradesList.appendChild(t2);
-          for (var s = 0; s < autoSpeedData.length; s++) {
-            var as = autoSpeedData[s]; var isSB = autoSpeedLevel >= as.level; var isSN = autoSpeedLevel + 1 === as.level;
-            var sCard = document.createElement('div'); sCard.className = 'card';
-            sCard.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_speed + ' Lv.' + as.level + '</div><div class="card-desc">' + t.interval + ': ' + (as.interval/1000) + ' ' + t.sec + '</div></div>';
-            sCard.appendChild(makeActionButton(isSB ? t.bought : (isSN ? t.buy_for + ' ' + formatMoney(as.cost, 0) + ' ₽' : t.buy_prev), !isSN, (function(a) {
-              return function() {
-                if (balance >= a.cost) { balance -= a.cost; autoInterval = a.interval; autoSpeedLevel = a.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
-                else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
-              };
-            })(as)));
-            upgradesList.appendChild(sCard);
-          }
+        }
+        var sTitle = document.createElement('div'); sTitle.className = 'section-title'; sTitle.innerText = t.auto_speed; upgradesList.appendChild(sTitle);
+        for (var i = 0; i < autoSpeedData.length; i++) {
+          var sUpg = autoSpeedData[i]; var isBought = sUpg.level <= autoSpeedLevel; var isNext = sUpg.level === autoSpeedLevel + 1;
+          var btnText = isBought ? t.bought : (isNext ? t.buy_for + ' ' + formatMoney(sUpg.cost, 0) + ' ₽' : t.buy_prev);
+          var card = document.createElement('div'); card.className = 'card';
+          card.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_speed + ' ' + sUpg.level + '</div><div class="card-desc">' + t.interval + ': ' + (sUpg.interval/1000) + ' ' + t.sec + '</div></div>';
+          card.appendChild(makeActionButton(btnText, !isNext, (function(su) {
+            return function() {
+              if (balance >= su.cost) { balance -= su.cost; autoInterval = su.interval; autoSpeedLevel = su.level; playSound('upgrade'); playHaptic('success'); startAutoclicker(); updateAutoInfo(); updateUI(); renderUpgrades(); }
+              else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
+            };
+          })(sUpg)));
+          upgradesList.appendChild(card);
         }
       }
     }
@@ -3148,400 +3232,440 @@
       if (!questsList) return; questsList.innerHTML = '';
       for (var i = 0; i < questsData.length; i++) {
         var q = questsData[i]; var isClaimed = claimed.indexOf(q.id) !== -1; var canClaim = !isClaimed && totalTaps >= q.need;
-        var titleText = currentLang === 'ru' ? 'Натапать ' + formatMoney(q.need, 0) + ' раз' : 'Tap ' + formatMoney(q.need, 0) + ' times';
-        var descText = t.make_taps + ' ' + formatMoney(q.need, 0) + ' ' + t.taps_word;
-        var progText = t.progress + ': ' + formatMoney(Math.min(totalTaps, q.need), 0) + ' / ' + formatMoney(q.need, 0);
-
+        var current = Math.min(totalTaps, q.need); var btnText = isClaimed ? t.received : (canClaim ? t.claim : t.not_done);
         var card = document.createElement('div'); card.className = 'card';
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-top:6px;margin-bottom:0;color:#a78bfa;font-size:8px;line-height:1.5;word-break:break-word;">' + progText + '</div></div>';
-
-        var btnText = isClaimed ? t.received : (canClaim ? t.claim + ' (+' + formatMoney(q.reward, q.reward < 1 ? 1 : 0) + ' ₽)' : t.not_done);
-        var btn = makeActionButton(btnText, !canClaim, (function(quest) {
+        card.innerHTML = '<div class="card-content"><div class="card-title">' + t.make_taps + ' ' + formatMoney(q.need, 0) + ' ' + t.taps_word + '</div><div class="card-desc">' + t.progress + ': ' + formatMoney(current, 0) + ' / ' + formatMoney(q.need, 0) + ' • +' + formatMoney(q.reward, q.reward < 1 ? 1 : 0) + ' ₽</div></div>';
+        card.appendChild(makeActionButton(btnText, !canClaim, (function(quest) {
           return function() {
             balance += quest.reward; claimed.push(quest.id);
             playQuestUniqueSound(quest.id);
-            playHaptic('success'); lastNotifiedQuestCount = Math.max(0, lastNotifiedQuestCount - 1); updateUI(); renderQuests();
+            playHaptic('success'); updateUI(); renderQuests();
           };
-        })(q));
-        if (canClaim) btn.style.background = '#10b981';
-        card.appendChild(btn); questsList.appendChild(card);
+        })(q)));
+        questsList.appendChild(card);
       }
     }
 
     function renderAchievements() {
-      if (!achievementsList) return; achievementsList.innerHTML = ''; var achData = t.ach_list;
-      for (var i = 0; i < achData.length; i++) {
-        var isUnlocked = unlockedAch.indexOf(i) !== -1; var ach = achData[i];
+      if (!achievementsList) return; achievementsList.innerHTML = '';
+      for (var i = 0; i < t.ach_list.length; i++) {
+        var ach = t.ach_list[i]; var isUnlocked = unlockedAch.indexOf(i) !== -1;
         var card = document.createElement('div'); card.className = 'card';
         if (isUnlocked) card.classList.add('rgb-glow');
-        else { card.style.opacity = '0.5'; card.style.filter = 'grayscale(100%)'; }
-
-        var iconHtml = ach.icon === 'wood'
-          ? '<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/><ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/><ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/><ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/><ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/><path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>'
-          : '<div class="card-icon">' + ach.icon + '</div>';
-
-        var statusHtml = isUnlocked ? '<div class="card-status status-unlocked">' + t.ach_unlocked + '</div>' : '<div class="card-status status-locked">' + t.ach_locked + '</div>';
-        card.innerHTML = iconHtml + '<div class="card-content"><div class="card-title">' + ach.title + '</div><div class="card-desc">' + ach.desc + '</div>' + statusHtml + '</div>';
+        var iconHtml = '';
+        if (ach.icon === 'wood') {
+          iconHtml = '<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 16 16" shape-rendering="crispEdges">' +
+            '<rect x="5" y="1" width="6" height="2" fill="#8B4513"/><rect x="3" y="3" width="10" height="2" fill="#A0522D"/>' +
+            '<rect x="2" y="5" width="12" height="6" fill="#CD853F"/><rect x="3" y="11" width="10" height="2" fill="#A0522D"/>' +
+            '<rect x="5" y="13" width="6" height="2" fill="#8B4513"/><rect x="6" y="6" width="4" height="4" fill="#DEB887"/>' +
+            '<rect x="7" y="7" width="2" height="2" fill="#5C2D0C"/></svg></div>';
+        } else { iconHtml = '<div class="card-icon">' + ach.icon + '</div>'; }
+        card.innerHTML = iconHtml + '<div class="card-content"><div class="card-title">' + ach.title + '</div><div class="card-desc">' + ach.desc + '</div></div><div class="card-status ' + (isUnlocked ? 'status-unlocked' : 'status-locked') + '">' + (isUnlocked ? t.ach_unlocked : t.ach_locked) + '</div>';
         achievementsList.appendChild(card);
       }
     }
 
-    function formatShortDate(ts) {
-      if (!ts) return '—';
-      return new Date(ts).toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { day: '2-digit', month: 'short' });
-    }
-
     function renderEventsHistory() {
-      if (!eventsHistoryList) return; eventsHistoryList.innerHTML = '';
-      var activeShowcase = getDisplayedProfileBadges();
+      if (!eventsHistoryList) return;
+      eventsHistoryList.innerHTML = '';
+
+      var shownBadges = getDisplayedProfileBadges();
 
       var counterBanner = document.createElement('div');
       counterBanner.className = 'badge-counter-banner';
-      counterBanner.innerText = t.badge_counter.replace('{count}', activeShowcase.length);
+      counterBanner.innerText = t.badge_counter.replace('{count}', shownBadges.length);
       eventsHistoryList.appendChild(counterBanner);
 
       for (var b = 0; b < ALL_BADGE_KEYS.length; b++) {
         var bKey = ALL_BADGE_KEYS[b];
         var isEarned = earnedBadges.indexOf(bKey) !== -1;
-        var isSelected = activeShowcase.indexOf(bKey) !== -1;
+        var isSelected = shownBadges.indexOf(bKey) !== -1;
 
         var bCard = document.createElement('div');
-        bCard.className = 'card' + (isSelected ? ' rgb-glow' : '');
-        if (!isEarned) { bCard.style.opacity = '0.55'; bCard.style.filter = 'grayscale(80%)'; }
+        bCard.className = 'card' + (isEarned ? ' rgb-glow' : '');
+        if (!isEarned) bCard.style.opacity = '0.55';
+
+        var badgeTitle = t.badge_names[bKey] || bKey;
+        var descText = isEarned
+          ? (isSelected ? (currentLang === 'ru' ? 'Показывается в профиле' : 'Shown in profile') : (currentLang === 'ru' ? 'Получен — можно выбрать в профиль' : 'Earned — can be shown in profile'))
+          : t.badge_locked_hint;
 
         bCard.innerHTML =
           '<div class="card-content">' +
-            '<div class="card-title">' + (t.badge_names[bKey] || bKey) + '</div>' +
-            '<div class="card-desc" style="margin-bottom:0;">' + (isEarned ? (isSelected ? t.badge_remove_profile : t.badge_to_profile) : t.badge_locked_hint) + '</div>' +
+            '<div class="card-title">' + badgeTitle + '</div>' +
+            '<div class="card-desc" style="margin-bottom:0;">' + descText + '</div>' +
           '</div>';
 
-        var bBtn = document.createElement('button');
-        bBtn.className = 'btn ' + (isSelected ? 'btn-grey' : 'btn-green');
-        bBtn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
+        var btn = document.createElement('button');
+        btn.className = 'btn ' + (isSelected ? 'btn-green' : 'btn-grey');
+        btn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7px;';
+
         if (!isEarned) {
-          bBtn.disabled = true;
-          bBtn.innerText = '🔒';
+          btn.innerText = '🔒'; btn.disabled = true;
         } else if (isSelected) {
-          bBtn.innerText = t.badge_remove_profile;
-          bBtn.onclick = (function(k) { return function() { window.toggleProfileBadge(k); }; })(bKey);
+          btn.innerText = t.badge_remove_profile;
+          btn.onclick = (function(key) { return function() { window.toggleProfileBadge(key); }; })(bKey);
         } else {
-          bBtn.disabled = activeShowcase.length >= 3;
-          bBtn.innerText = t.badge_to_profile;
-          bBtn.onclick = (function(k) { return function() { window.toggleProfileBadge(k); }; })(bKey);
+          btn.innerText = t.badge_to_profile;
+          btn.disabled = shownBadges.length >= 3;
+          btn.onclick = (function(key) { return function() { window.toggleProfileBadge(key); }; })(bKey);
         }
-        bCard.appendChild(bBtn);
+
+        bCard.appendChild(btn);
         eventsHistoryList.appendChild(bCard);
       }
 
-      var histTitle = document.createElement('div');
-      histTitle.className = 'section-title';
-      histTitle.innerText = t.events_history_btn;
-      eventsHistoryList.appendChild(histTitle);
-
       if (!eventHistory.length) {
-        var emptyCard = document.createElement('div'); emptyCard.className = 'card';
+        var emptyCard = document.createElement('div');
+        emptyCard.className = 'card';
         emptyCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;">' + t.history_empty + '</div></div>';
-        eventsHistoryList.appendChild(emptyCard); return;
+        eventsHistoryList.appendChild(emptyCard);
+        return;
       }
+
       for (var i = 0; i < eventHistory.length; i++) {
-        var ev = eventHistory[i]; var card = document.createElement('div'); card.className = 'card';
-        var evName = currentLang === 'en' ? (ev.nameEn || ev.nameRu || ev.id) : (ev.nameRu || ev.nameEn || ev.id);
-        var descParts = [t.history_period.replace('{start}', formatShortDate(ev.start)).replace('{end}', formatShortDate(ev.end))];
-        if (typeof ev.itemsBought === 'number') descParts.push(t.history_bought_bm.replace('{count}', ev.itemsBought));
-        descParts.push(ev.active ? t.history_active : t.history_finished);
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + evName + '</div><div class="card-desc" style="margin-bottom:0;">' + descParts.join(' • ') + '</div></div>';
+        var ev = eventHistory[i];
+        var card = document.createElement('div');
+        card.className = 'card';
+        var title = currentLang === 'en' ? (ev.nameEn || ev.nameRu) : (ev.nameRu || ev.nameEn);
+        var startStr = new Date(ev.start).toLocaleDateString();
+        var endStr = new Date(ev.end).toLocaleDateString();
+        var extra = typeof ev.itemsBought === 'number' ? ('<div class="card-desc">' + t.history_bought_bm.replace('{count}', ev.itemsBought) + '</div>') : '';
+        var statusLine = ev.active ? t.history_active : t.history_finished;
+        card.innerHTML =
+          '<div class="card-content">' +
+            '<div class="card-title">' + title + '</div>' +
+            '<div class="card-desc">' + t.history_period.replace('{start}', startStr).replace('{end}', endStr) + '</div>' +
+            extra +
+            '<div class="card-status ' + (ev.active ? 'status-unlocked' : 'status-locked') + '">' + statusLine + '</div>' +
+          '</div>';
         eventsHistoryList.appendChild(card);
       }
     }
 
     function renderRating() {
       var list = getEl('leaderboardList'); if (!list) return;
-      var ratingData = [
-        { name: t.legend, score: "100.000.000", avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" },
-        { name: "Саша", score: "50.000.000", avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100&h=100&fit=crop" },
-        { name: "Маша", score: "20.000.000", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" },
-        { name: "Илья", score: "10.000.000", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" }
-      ];
-      list.innerHTML = '';
-      for (var i = 0; i < ratingData.length; i++) {
-        var r = ratingData[i]; var row = document.createElement('div'); row.className = 'rating-row';
-        row.innerHTML = '<div class="rating-rank">' + (i + 1) + '</div><img class="rating-avatar" src="' + r.avatar + '" alt=""><div class="rating-info"><div class="rating-name">' + r.name + '</div><div class="rating-score">' + r.score + ' ₽</div></div>';
-        list.appendChild(row);
-      }
+      var formattedScore = formatMainBalance(balance) + ' ₽';
+      var avatarSrc = userPhoto || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><rect width="40" height="40" fill="%234c1d95"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="22">🥔</text></svg>';
+      list.innerHTML = '<div class="rating-row"><div class="rating-rank">1</div><img class="rating-avatar" src="' + avatarSrc + '" alt=""><div class="rating-info"><div class="rating-name">' + userName + '</div><div class="rating-score">' + formattedScore + '</div></div></div>';
     }
 
-
-    // ==================== ШАХМАТЫ (СОБЫТИЕ НА 1 ДЕНЬ) ====================
+    /* ===================== CHESS DAY (FULL CHESS + AI BOT) ===================== */
     var CHESS_GLYPHS = {
       wK: '♔', wQ: '♕', wR: '♖', wB: '♗', wN: '♘', wP: '♙',
       bK: '♚', bQ: '♛', bR: '♜', bB: '♝', bN: '♞', bP: '♟'
     };
-    var CHESS_VALS = { P: 10, N: 30, B: 30, R: 50, Q: 90, K: 900 };
+    var CHESS_PIECE_VALUES = { P: 100, N: 320, B: 330, R: 500, Q: 900, K: 20000 };
+
     var chessState = null;
     var chessSelected = null;
-    var chessValidMoves = [];
-    var chessGameOver = false;
+    var chessLegalForSelected = [];
     var chessTurn = 'w';
+    var chessGameOver = false;
     var chessLastMove = null;
+    var chessPendingPromo = null;
     var chessBotTimer = null;
 
-    function createInitialChessBoard() {
-      return [
-        ['bR','bN','bB','bQ','bK','bB','bN','bR'],
-        ['bP','bP','bP','bP','bP','bP','bP','bP'],
-        [null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null],
-        ['wP','wP','wP','wP','wP','wP','wP','wP'],
-        ['wR','wN','wB','wQ','wK','wB','wN','wR']
+    function createInitialChessState() {
+      var board = [
+        ['bR', 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
+        ['bP', 'bP', 'bP', 'bP', 'bP', 'bP', 'bP', 'bP'],
+        [null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null],
+        ['wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP'],
+        ['wR', 'wN', 'wB', 'wQ', 'wK', 'wB', 'wN', 'wR']
       ];
+      return {
+        board: board,
+        castling: { wK: true, wQ: true, bK: true, bQ: true },
+        enPassant: null
+      };
     }
 
-    function cloneBoard(b) {
-      var res = [];
-      for (var r = 0; r < 8; r++) res.push(b[r].slice());
-      return res;
+    function cloneChessState(st) {
+      var b = [];
+      for (var r = 0; r < 8; r++) b.push(st.board[r].slice());
+      return {
+        board: b,
+        castling: { wK: st.castling.wK, wQ: st.castling.wQ, bK: st.castling.bK, bQ: st.castling.bQ },
+        enPassant: st.enPassant ? { r: st.enPassant.r, c: st.enPassant.c } : null
+      };
     }
 
     function inBounds(r, c) { return r >= 0 && r < 8 && c >= 0 && c < 8; }
 
-    function getPseudoMoves(b, r, c) {
-      var p = b[r][c];
-      if (!p) return [];
-      var color = p[0];
-      var type = p[1];
-      var moves = [];
+    function isSquareAttacked(board, targetR, targetC, byColor) {
+      var pawnDir = byColor === 'w' ? 1 : -1;
+      var pr = targetR + pawnDir;
+      if (inBounds(pr, targetC - 1) && board[pr][targetC - 1] === byColor + 'P') return true;
+      if (inBounds(pr, targetC + 1) && board[pr][targetC + 1] === byColor + 'P') return true;
 
-      function pushIfValid(nr, nc) {
-        if (!inBounds(nr, nc)) return false;
-        var target = b[nr][nc];
-        if (!target) {
-          moves.push({ r: nr, c: nc });
-          return true;
-        }
-        if (target[0] !== color) {
-          moves.push({ r: nr, c: nc });
-        }
-        return false;
+      var knightOffsets = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+      for (var i = 0; i < knightOffsets.length; i++) {
+        var nr = targetR + knightOffsets[i][0], nc = targetC + knightOffsets[i][1];
+        if (inBounds(nr, nc) && board[nr][nc] === byColor + 'N') return true;
       }
 
-      if (type === 'P') {
-        var dir = color === 'w' ? -1 : 1;
-        var startRow = color === 'w' ? 6 : 1;
-        if (inBounds(r + dir, c) && !b[r + dir][c]) {
-          moves.push({ r: r + dir, c: c });
-          if (r === startRow && !b[r + dir * 2][c]) {
-            moves.push({ r: r + dir * 2, c: c });
-          }
-        }
-        var caps = [-1, 1];
-        for (var i = 0; i < caps.length; i++) {
-          var nc = c + caps[i];
-          if (inBounds(r + dir, nc) && b[r + dir][nc] && b[r + dir][nc][0] !== color) {
-            moves.push({ r: r + dir, c: nc });
-          }
-        }
-      } else if (type === 'N') {
-        var jumps = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
-        for (var j = 0; j < jumps.length; j++) pushIfValid(r + jumps[j][0], c + jumps[j][1]);
-      } else if (type === 'K') {
-        for (var dr = -1; dr <= 1; dr++) {
-          for (var dc = -1; dc <= 1; dc++) {
-            if (dr !== 0 || dc !== 0) pushIfValid(r + dr, c + dc);
-          }
-        }
-      } else {
-        var dirs = [];
-        if (type === 'R' || type === 'Q') dirs.push([-1,0],[1,0],[0,-1],[0,1]);
-        if (type === 'B' || type === 'Q') dirs.push([-1,-1],[-1,1],[1,-1],[1,1]);
-        for (var d = 0; d < dirs.length; d++) {
-          var step = 1;
-          while (pushIfValid(r + dirs[d][0] * step, c + dirs[d][1] * step)) step++;
+      for (var dr = -1; dr <= 1; dr++) {
+        for (var dc = -1; dc <= 1; dc++) {
+          if (dr === 0 && dc === 0) continue;
+          var kr = targetR + dr, kc = targetC + dc;
+          if (inBounds(kr, kc) && board[kr][kc] === byColor + 'K') return true;
         }
       }
-      return moves;
-    }
 
-    function isKingInCheck(b, color) {
-      var kr = -1, kc = -1;
-      for (var r = 0; r < 8; r++) {
-        for (var c = 0; c < 8; c++) {
-          if (b[r][c] === color + 'K') { kr = r; kc = c; break; }
+      var orthoDirs = [[-1,0],[1,0],[0,-1],[0,1]];
+      for (var o = 0; o < orthoDirs.length; o++) {
+        var r = targetR + orthoDirs[o][0], c = targetC + orthoDirs[o][1];
+        while (inBounds(r, c)) {
+          var p = board[r][c];
+          if (p) {
+            if (p === byColor + 'R' || p === byColor + 'Q') return true;
+            break;
+          }
+          r += orthoDirs[o][0]; c += orthoDirs[o][1];
         }
       }
-      if (kr === -1) return true;
-      var enemy = color === 'w' ? 'b' : 'w';
-      for (var r2 = 0; r2 < 8; r2++) {
-        for (var c2 = 0; c2 < 8; c2++) {
-          if (b[r2][c2] && b[r2][c2][0] === enemy) {
-            var pm = getPseudoMoves(b, r2, c2);
-            for (var i = 0; i < pm.length; i++) {
-              if (pm[i].r === kr && pm[i].c === kc) return true;
-            }
+
+      var diagDirs = [[-1,-1],[-1,1],[1,-1],[1,1]];
+      for (var d = 0; d < diagDirs.length; d++) {
+        var r2 = targetR + diagDirs[d][0], c2 = targetC + diagDirs[d][1];
+        while (inBounds(r2, c2)) {
+          var p2 = board[r2][c2];
+          if (p2) {
+            if (p2 === byColor + 'B' || p2 === byColor + 'Q') return true;
+            break;
           }
+          r2 += diagDirs[d][0]; c2 += diagDirs[d][1];
         }
       }
       return false;
     }
 
-    function applyMoveOnBoard(b, fr, fc, tr, tc) {
-      var nb = cloneBoard(b);
-      var piece = nb[fr][fc];
-      nb[fr][fc] = null;
-      if (piece === 'wP' && tr === 0) piece = 'wQ';
-      if (piece === 'bP' && tr === 7) piece = 'bQ';
-      nb[tr][tc] = piece;
-      return nb;
-    }
-
-    function getLegalMoves(b, r, c) {
-      var p = b[r][c];
-      if (!p) return [];
-      var color = p[0];
-      var pseudo = getPseudoMoves(b, r, c);
-      var legal = [];
-      for (var i = 0; i < pseudo.length; i++) {
-        var nb = applyMoveOnBoard(b, r, c, pseudo[i].r, pseudo[i].c);
-        if (!isKingInCheck(nb, color)) legal.push(pseudo[i]);
-      }
-      return legal;
-    }
-
-    function getAllLegalMoves(b, color) {
-      var all = [];
+    function isKingInCheck(board, color) {
+      var kingCode = color + 'K';
+      var opp = color === 'w' ? 'b' : 'w';
       for (var r = 0; r < 8; r++) {
         for (var c = 0; c < 8; c++) {
-          if (b[r][c] && b[r][c][0] === color) {
-            var ms = getLegalMoves(b, r, c);
-            for (var i = 0; i < ms.length; i++) {
-              all.push({ fr: r, fc: c, tr: ms[i].r, tc: ms[i].c });
+          if (board[r][c] === kingCode) return isSquareAttacked(board, r, c, opp);
+        }
+      }
+      return false;
+    }
+
+    function generatePseudoMovesForPiece(st, r, c) {
+      var board = st.board;
+      var piece = board[r][c];
+      if (!piece) return [];
+      var color = piece[0], type = piece[1], opp = color === 'w' ? 'b' : 'w';
+      var moves = [];
+
+      if (type === 'P') {
+        var dir = color === 'w' ? -1 : 1;
+        var startRow = color === 'w' ? 6 : 1;
+        var promoRow = color === 'w' ? 0 : 7;
+        var f1 = r + dir;
+        if (inBounds(f1, c) && !board[f1][c]) {
+          if (f1 === promoRow) {
+            ['Q', 'R', 'B', 'N'].forEach(function(pr) { moves.push({ fromR: r, fromC: c, toR: f1, toC: c, promo: pr }); });
+          } else {
+            moves.push({ fromR: r, fromC: c, toR: f1, toC: c });
+            var f2 = r + dir * 2;
+            if (r === startRow && !board[f2][c]) {
+              moves.push({ fromR: r, fromC: c, toR: f2, toC: c, doublePawn: true });
+            }
+          }
+        }
+        var capCols = [c - 1, c + 1];
+        for (var i = 0; i < capCols.length; i++) {
+          var tc = capCols[i];
+          if (!inBounds(f1, tc)) continue;
+          var target = board[f1][tc];
+          if (target && target[0] === opp) {
+            if (f1 === promoRow) {
+              ['Q', 'R', 'B', 'N'].forEach(function(pr) { moves.push({ fromR: r, fromC: c, toR: f1, toC: tc, promo: pr }); });
+            } else {
+              moves.push({ fromR: r, fromC: c, toR: f1, toC: tc });
+            }
+          } else if (st.enPassant && st.enPassant.r === f1 && st.enPassant.c === tc) {
+            moves.push({ fromR: r, fromC: c, toR: f1, toC: tc, enPassantCapture: true });
+          }
+        }
+      } else if (type === 'N') {
+        var jumps = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+        for (var j = 0; j < jumps.length; j++) {
+          var nr = r + jumps[j][0], nc = c + jumps[j][1];
+          if (inBounds(nr, nc) && (!board[nr][nc] || board[nr][nc][0] === opp)) {
+            moves.push({ fromR: r, fromC: c, toR: nr, toC: nc });
+          }
+        }
+      } else if (type === 'B' || type === 'R' || type === 'Q') {
+        var dirs = [];
+        if (type === 'R' || type === 'Q') dirs.push([-1,0],[1,0],[0,-1],[0,1]);
+        if (type === 'B' || type === 'Q') dirs.push([-1,-1],[-1,1],[1,-1],[1,1]);
+        for (var d = 0; d < dirs.length; d++) {
+          var sr = r + dirs[d][0], sc = c + dirs[d][1];
+          while (inBounds(sr, sc)) {
+            if (!board[sr][sc]) {
+              moves.push({ fromR: r, fromC: c, toR: sr, toC: sc });
+            } else {
+              if (board[sr][sc][0] === opp) moves.push({ fromR: r, fromC: c, toR: sr, toC: sc });
+              break;
+            }
+            sr += dirs[d][0]; sc += dirs[d][1];
+          }
+        }
+      } else if (type === 'K') {
+        for (var dr = -1; dr <= 1; dr++) {
+          for (var dc = -1; dc <= 1; dc++) {
+            if (dr === 0 && dc === 0) continue;
+            var kr = r + dr, kc = c + dc;
+            if (inBounds(kr, kc) && (!board[kr][kc] || board[kr][kc][0] === opp)) {
+              moves.push({ fromR: r, fromC: c, toR: kr, toC: kc });
+            }
+          }
+        }
+        var homeRow = color === 'w' ? 7 : 0;
+        if (r === homeRow && c === 4 && !isSquareAttacked(board, homeRow, 4, opp)) {
+          if (st.castling[color + 'K'] && !board[homeRow][5] && !board[homeRow][6] && board[homeRow][7] === color + 'R') {
+            if (!isSquareAttacked(board, homeRow, 5, opp) && !isSquareAttacked(board, homeRow, 6, opp)) {
+              moves.push({ fromR: homeRow, fromC: 4, toR: homeRow, toC: 6, castle: 'K' });
+            }
+          }
+          if (st.castling[color + 'Q'] && !board[homeRow][3] && !board[homeRow][2] && !board[homeRow][1] && board[homeRow][0] === color + 'R') {
+            if (!isSquareAttacked(board, homeRow, 3, opp) && !isSquareAttacked(board, homeRow, 2, opp)) {
+              moves.push({ fromR: homeRow, fromC: 4, toR: homeRow, toC: 2, castle: 'Q' });
             }
           }
         }
       }
-      return all;
+      return moves;
     }
 
-    function setChessStatus(msg) {
-      var bar = getEl('chessStatusBar');
-      if (bar) bar.innerText = msg;
-    }
+    function applyChessMove(st, move) {
+      var next = cloneChessState(st);
+      var b = next.board;
+      var piece = b[move.fromR][move.fromC];
+      var color = piece[0], type = piece[1];
+      var captured = b[move.toR][move.toC];
 
-    window.resetChessGame = function() {
-      if (chessBotTimer) { clearTimeout(chessBotTimer); chessBotTimer = null; }
-      chessState = createInitialChessBoard();
-      chessSelected = null;
-      chessValidMoves = [];
-      chessGameOver = false;
-      chessTurn = 'w';
-      chessLastMove = null;
-      setChessStatus(t.chess_your_turn);
-      renderChessBoard();
-      playHaptic('light');
-    };
+      b[move.fromR][move.fromC] = null;
 
-    function finishChessMatch(result) {
-      chessGameOver = true;
-      if (result === 'win') {
-        balance += 250;
-        addBadge('chess_2026');
-        updateUI();
-        playSound('quest_claim_10');
-        playHaptic('heavy');
-        setChessStatus(t.chess_win);
-        showGameAlert(t.chess_win, { type: 'success', icon: '♟️' });
-      } else if (result === 'draw') {
-        balance += 50;
-        updateUI();
-        playSound('quest_claim');
-        playHaptic('success');
-        setChessStatus(t.chess_draw);
-        showGameAlert(t.chess_draw, { type: 'success', icon: '🤝' });
+      if (move.enPassantCapture) {
+        var capRow = color === 'w' ? move.toR + 1 : move.toR - 1;
+        b[capRow][move.toC] = null;
+      }
+
+      if (move.castle === 'K') {
+        b[move.fromR][5] = color + 'R';
+        b[move.fromR][7] = null;
+      } else if (move.castle === 'Q') {
+        b[move.fromR][3] = color + 'R';
+        b[move.fromR][0] = null;
+      }
+
+      if (move.promo) b[move.toR][move.toC] = color + move.promo;
+      else b[move.toR][move.toC] = piece;
+
+      if (type === 'K') {
+        next.castling[color + 'K'] = false;
+        next.castling[color + 'Q'] = false;
+      }
+      if (type === 'R') {
+        if (move.fromR === 7 && move.fromC === 0) next.castling.wQ = false;
+        if (move.fromR === 7 && move.fromC === 7) next.castling.wK = false;
+        if (move.fromR === 0 && move.fromC === 0) next.castling.bQ = false;
+        if (move.fromR === 0 && move.fromC === 7) next.castling.bK = false;
+      }
+      if (captured === 'wR') {
+        if (move.toR === 7 && move.toC === 0) next.castling.wQ = false;
+        if (move.toR === 7 && move.toC === 7) next.castling.wK = false;
+      }
+      if (captured === 'bR') {
+        if (move.toR === 0 && move.toC === 0) next.castling.bQ = false;
+        if (move.toR === 0 && move.toC === 7) next.castling.bK = false;
+      }
+
+      if (move.doublePawn) {
+        next.enPassant = { r: (move.fromR + move.toR) / 2, c: move.fromC };
       } else {
-        playHaptic('error');
-        setChessStatus(t.chess_lose);
-        showGameAlert(t.chess_lose, { type: 'error', icon: '💀' });
+        next.enPassant = null;
       }
+
+      return next;
     }
 
-    function performBotTurn() {
-      if (chessGameOver || !chessState) return;
-      var moves = getAllLegalMoves(chessState, 'b');
-      if (!moves.length) {
-        if (isKingInCheck(chessState, 'b')) finishChessMatch('win');
-        else finishChessMatch('draw');
-        return;
-      }
-
-      var bestScore = -99999;
-      var bestMoves = [];
-      for (var i = 0; i < moves.length; i++) {
-        var m = moves[i];
-        var captured = chessState[m.tr][m.tc];
-        var nb = applyMoveOnBoard(chessState, m.fr, m.fc, m.tr, m.tc);
-        var score = (Math.random() * 2);
-        if (captured) score += (CHESS_VALS[captured[1]] || 0) * 10;
-        if (isKingInCheck(nb, 'w')) score += 15;
-        if (m.tr >= 3 && m.tr <= 4 && m.tc >= 3 && m.tc <= 4) score += 3;
-
-        if (score > bestScore) { bestScore = score; bestMoves = [m]; }
-        else if (Math.abs(score - bestScore) < 0.01) { bestMoves.push(m); }
-      }
-
-      var chosen = bestMoves[Math.floor(Math.random() * bestMoves.length)];
-      chessState = applyMoveOnBoard(chessState, chosen.fr, chosen.fc, chosen.tr, chosen.tc);
-      chessLastMove = chosen;
-      chessTurn = 'w';
-      playHaptic('light');
-      renderChessBoard();
-
-      var playerMoves = getAllLegalMoves(chessState, 'w');
-      if (!playerMoves.length) {
-        if (isKingInCheck(chessState, 'w')) finishChessMatch('lose');
-        else finishChessMatch('draw');
-        return;
-      }
-      setChessStatus(isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn);
-    }
-
-    function handleChessCellClick(r, c) {
-      if (chessGameOver || chessTurn !== 'w' || !chessState) return;
-
-      for (var i = 0; i < chessValidMoves.length; i++) {
-        if (chessValidMoves[i].r === r && chessValidMoves[i].c === c && chessSelected) {
-          var moveObj = { fr: chessSelected.r, fc: chessSelected.c, tr: r, tc: c };
-          chessState = applyMoveOnBoard(chessState, moveObj.fr, moveObj.fc, moveObj.tr, moveObj.tc);
-          chessLastMove = moveObj;
-          chessSelected = null;
-          chessValidMoves = [];
-          chessTurn = 'b';
-          playHaptic('medium');
-          renderChessBoard();
-
-          var botMoves = getAllLegalMoves(chessState, 'b');
-          if (!botMoves.length) {
-            if (isKingInCheck(chessState, 'b')) finishChessMatch('win');
-            else finishChessMatch('draw');
-            return;
+    function getAllLegalMoves(st, color) {
+      var legal = [];
+      for (var r = 0; r < 8; r++) {
+        for (var c = 0; c < 8; c++) {
+          var p = st.board[r][c];
+          if (!p || p[0] !== color) continue;
+          var pseudo = generatePseudoMovesForPiece(st, r, c);
+          for (var i = 0; i < pseudo.length; i++) {
+            var nextSt = applyChessMove(st, pseudo[i]);
+            if (!isKingInCheck(nextSt.board, color)) legal.push(pseudo[i]);
           }
-          setChessStatus(t.chess_bot_turn);
-          chessBotTimer = setTimeout(performBotTurn, 420);
-          return;
         }
       }
+      return legal;
+    }
 
-      var piece = chessState[r][c];
-      if (piece && piece[0] === 'w') {
-        chessSelected = { r: r, c: c };
-        chessValidMoves = getLegalMoves(chessState, r, c);
-        playHaptic('light');
-        renderChessBoard();
-      } else {
-        chessSelected = null;
-        chessValidMoves = [];
-        renderChessBoard();
+    function evaluateChessBoard(board) {
+      var score = 0;
+      for (var r = 0; r < 8; r++) {
+        for (var c = 0; c < 8; c++) {
+          var p = board[r][c];
+          if (!p) continue;
+          var val = CHESS_PIECE_VALUES[p[1]] || 0;
+          var centerBonus = (3.5 - Math.abs(3.5 - r)) * 4 + (3.5 - Math.abs(3.5 - c)) * 4;
+          if (p[0] === 'b') score += (val + centerBonus);
+          else score -= (val + centerBonus);
+        }
       }
+      return score;
+    }
+
+    function chooseBotChessMove(st) {
+      var botMoves = getAllLegalMoves(st, 'b');
+      if (!botMoves.length) return null;
+
+      var bestScore = -999999;
+      var bestMoves = [];
+
+      for (var i = 0; i < botMoves.length; i++) {
+        var m = botMoves[i];
+        var nextSt = applyChessMove(st, m);
+        var whiteReplies = getAllLegalMoves(nextSt, 'w');
+        var evalScore = 0;
+
+        if (whiteReplies.length === 0) {
+          evalScore = isKingInCheck(nextSt.board, 'w') ? 100000 : 0;
+        } else {
+          var worstAfterWhite = 999999;
+          for (var j = 0; j < whiteReplies.length; j++) {
+            var afterWhiteSt = applyChessMove(nextSt, whiteReplies[j]);
+            var s = evaluateChessBoard(afterWhiteSt.board);
+            if (s < worstAfterWhite) worstAfterWhite = s;
+          }
+          evalScore = worstAfterWhite;
+        }
+
+        if (evalScore > bestScore) {
+          bestScore = evalScore;
+          bestMoves = [m];
+        } else if (evalScore === bestScore) {
+          bestMoves.push(m);
+        }
+      }
+      return bestMoves[Math.floor(Math.random() * bestMoves.length)];
+    }
+
+    function setChessStatus(text) {
+      var bar = getEl('chessStatusBar');
+      if (bar) bar.innerText = text;
     }
 
     function renderChessBoard() {
@@ -3549,127 +3673,254 @@
       if (!boardEl || !chessState) return;
       boardEl.innerHTML = '';
 
+      var inCheckColor = isKingInCheck(chessState.board, 'w') ? 'w' : (isKingInCheck(chessState.board, 'b') ? 'b' : null);
+
       for (var r = 0; r < 8; r++) {
         for (var c = 0; c < 8; c++) {
           var cell = document.createElement('div');
           var isLight = (r + c) % 2 === 0;
           cell.className = 'chess-cell ' + (isLight ? 'light' : 'dark');
 
-          if (chessLastMove && ((chessLastMove.fr === r && chessLastMove.fc === c) || (chessLastMove.tr === r && chessLastMove.tc === c))) {
+          if (chessLastMove && ((chessLastMove.fromR === r && chessLastMove.fromC === c) || (chessLastMove.toR === r && chessLastMove.toC === c))) {
             cell.classList.add('last-move');
           }
           if (chessSelected && chessSelected.r === r && chessSelected.c === c) {
             cell.classList.add('selected');
           }
 
-          var isTarget = false;
-          for (var m = 0; m < chessValidMoves.length; m++) {
-            if (chessValidMoves[m].r === r && chessValidMoves[m].c === c) { isTarget = true; break; }
-          }
-          if (isTarget) {
-            if (chessState[r][c]) cell.classList.add('valid-capture');
+          var targetMoves = chessLegalForSelected.filter(function(m) { return m.toR === r && m.toC === c; });
+          if (targetMoves.length > 0) {
+            if (chessState.board[r][c] || targetMoves[0].enPassantCapture) cell.classList.add('valid-capture');
             else cell.classList.add('valid-move');
           }
 
-          var piece = chessState[r][c];
+          var piece = chessState.board[r][c];
           if (piece) {
+            if (inCheckColor && piece === inCheckColor + 'K') cell.classList.add('in-check');
             cell.innerText = CHESS_GLYPHS[piece] || '';
-            cell.style.color = piece[0] === 'w' ? '#ffffff' : '#111827';
           }
 
           cell.onclick = (function(row, col) {
-            return function() { handleChessCellClick(row, col); };
-          })(r, c);
+            return function() { onChessCellClick(row, col); };
+          })(r, col);
 
           boardEl.appendChild(cell);
         }
       }
     }
 
-    function showScreen(name) {
-      var screens = document.querySelectorAll('.screen');
-      for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
-      var targetScreen = getEl('screen-' + name);
-      if (targetScreen) targetScreen.classList.add('active');
+    function finishChessAfterMove(moverColor) {
+      var nextColor = moverColor === 'w' ? 'b' : 'w';
+      var nextMoves = getAllLegalMoves(chessState, nextColor);
+      var checked = isKingInCheck(chessState.board, nextColor);
 
-      var menuItems = document.querySelectorAll('.menu-item');
-      for (var j = 0; j < menuItems.length; j++) menuItems[j].classList.remove('active');
-      var activeMenu = document.querySelector('.menu-item[data-screen="' + name + '"]');
-      if (activeMenu) activeMenu.classList.add('active');
-
-      if (topBalanceBar) {
-        var hideBalanceScreens = ['quests', 'rating', 'achievements', 'events-history', 'settings', 'friends', 'clans'];
-        if (hideBalanceScreens.indexOf(name) !== -1) {
-          topBalanceBar.style.display = 'none';
+      if (nextMoves.length === 0) {
+        chessGameOver = true;
+        renderChessBoard();
+        if (checked) {
+          if (moverColor === 'w') {
+            balance += 250;
+            addBadge('chess_2026');
+            updateUI();
+            playSound('quest_claim_10');
+            playHaptic('success');
+            setChessStatus(t.chess_win);
+            showGameAlert(t.chess_win, { type: 'success', icon: '🏆' });
+          } else {
+            playHaptic('error');
+            setChessStatus(t.chess_lose);
+            showGameAlert(t.chess_lose, { type: 'error', icon: '💀' });
+          }
         } else {
+          balance += 50;
+          addBadge('chess_2026');
+          updateUI();
+          playSound('quest_claim');
+          playHaptic('medium');
+          setChessStatus(t.chess_draw);
+          showGameAlert(t.chess_draw, { type: 'success', icon: '🤝' });
+        }
+        return true;
+      }
+
+      if (nextColor === 'w') {
+        setChessStatus(checked ? t.chess_check : t.chess_your_turn);
+      } else {
+        setChessStatus(t.chess_bot_turn);
+      }
+      return false;
+    }
+
+    function executePlayerChessMove(move) {
+      chessState = applyChessMove(chessState, move);
+      chessLastMove = move;
+      chessSelected = null;
+      chessLegalForSelected = [];
+      playHaptic('light');
+      renderChessBoard();
+
+      if (finishChessAfterMove('w')) return;
+
+      chessTurn = 'b';
+      if (chessBotTimer) clearTimeout(chessBotTimer);
+      chessBotTimer = setTimeout(function() {
+        if (chessGameOver || !chessState) return;
+        var botMove = chooseBotChessMove(chessState);
+        if (!botMove) return;
+        chessState = applyChessMove(chessState, botMove);
+        chessLastMove = botMove;
+        chessTurn = 'w';
+        playHaptic('light');
+        renderChessBoard();
+        finishChessAfterMove('b');
+      }, 320);
+    }
+
+    window.chooseChessPromotion = function(promoType) {
+      var modal = getEl('chessPromoModal');
+      if (modal) modal.style.display = 'none';
+      if (!chessPendingPromo) return;
+      var move = Object.assign({}, chessPendingPromo, { promo: promoType });
+      chessPendingPromo = null;
+      executePlayerChessMove(move);
+    };
+
+    function onChessCellClick(r, c) {
+      if (chessGameOver || chessTurn !== 'w' || !chessState) return;
+
+      var matchingMoves = chessLegalForSelected.filter(function(m) { return m.toR === r && m.toC === c; });
+      if (matchingMoves.length > 0) {
+        if (matchingMoves.length > 1 && matchingMoves[0].promo) {
+          chessPendingPromo = matchingMoves[0];
+          var modal = getEl('chessPromoModal');
+          if (modal) modal.style.display = 'flex';
+          return;
+        }
+        executePlayerChessMove(matchingMoves[0]);
+        return;
+      }
+
+      var piece = chessState.board[r][c];
+      if (piece && piece[0] === 'w') {
+        chessSelected = { r: r, c: c };
+        var allWhite = getAllLegalMoves(chessState, 'w');
+        chessLegalForSelected = allWhite.filter(function(m) { return m.fromR === r && m.fromC === c; });
+        playHaptic('light');
+        renderChessBoard();
+      } else {
+        chessSelected = null;
+        chessLegalForSelected = [];
+        renderChessBoard();
+      }
+    }
+
+    window.resetChessGame = function() {
+      if (chessBotTimer) { clearTimeout(chessBotTimer); chessBotTimer = null; }
+      chessState = createInitialChessState();
+      chessSelected = null;
+      chessLegalForSelected = [];
+      chessTurn = 'w';
+      chessGameOver = false;
+      chessLastMove = null;
+      chessPendingPromo = null;
+      setChessStatus(t.chess_your_turn);
+      renderChessBoard();
+      playHaptic('medium');
+    };
+
+    function showScreen(name) {
+      if (name === 'calendar' && !isCalendarUnlocked()) return;
+      playHaptic('light');
+      var screens = document.querySelectorAll('.screen'); for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
+      var target = getEl('screen-' + name); if (target) target.classList.add('active');
+      var items = document.querySelectorAll('.menu-item'); for (var j = 0; j < items.length; j++) items[j].classList.toggle('active', items[j].dataset.screen === name);
+
+      var screensWithTopBack = ['friends', 'clans', 'calendar', 'shop', 'casino', 'casino-box', 'casino-slots', 'casino-wheel', 'chess', 'achievements', 'events-history', 'inventory', 'settings', 'profile'];
+      if (topBalanceBar) {
+        if (name === 'quests' || name === 'rating') topBalanceBar.style.display = 'none';
+        else {
           topBalanceBar.style.display = 'flex';
-          topBalanceBar.classList.toggle('no-back-offset', name === 'main' || name === 'upgrades');
+          topBalanceBar.classList.toggle('no-back-offset', screensWithTopBack.indexOf(name) === -1);
         }
       }
 
+      if (name === 'calendar') updateCalendarUI();
       if (name === 'upgrades') renderUpgrades();
-      else if (name === 'quests') renderQuests();
-      else if (name === 'achievements') renderAchievements();
-      else if (name === 'events-history') renderEventsHistory();
-      else if (name === 'inventory') renderInventory();
-      else if (name === 'calendar') updateCalendarUI();
-      else if (name === 'shop') { updateShopEventUI(); switchShopTab(currentShopTab); }
-      else if (name === 'casino') renderCasinoMenu();
-      else if (name === 'chess') { if (!chessState) resetChessGame(); else renderChessBoard(); }
-      else if (name === 'casino-box') initCasino();
-      else if (name === 'rating') renderRating();
-      else if (name === 'settings') { updateSettingsUI(); initRockets(); }
-      else if (name === 'profile') updateProfileBadges();
+      if (name === 'quests') renderQuests();
+      if (name === 'rating') renderRating();
+      if (name === 'achievements') renderAchievements();
+      if (name === 'events-history') renderEventsHistory();
+      if (name === 'inventory') renderInventory();
+      if (name === 'shop') { updateShopEventUI(); renderShop(); if (currentShopTab === 'blackmarket') renderBlackMarket(); }
+      if (name === 'casino') renderCasinoMenu();
+      if (name === 'casino-box') initCasino();
+      if (name === 'chess') { if (!chessState) resetChessGame(); else renderChessBoard(); }
+      if (name === 'settings') { updateSettingsUI(); initRockets(); }
     }
 
     var menuItems = document.querySelectorAll('.menu-item');
     for (var i = 0; i < menuItems.length; i++) {
-      menuItems[i].addEventListener('click', function() { playHaptic('medium'); showScreen(this.getAttribute('data-screen')); });
+      menuItems[i].addEventListener('click', (function(btn) { return function() { showScreen(btn.dataset.screen); }; })(menuItems[i]));
     }
+    var openProfileBtn = getEl('openProfile'); if (openProfileBtn) openProfileBtn.addEventListener('click', function() { showScreen('profile'); });
 
     var tabTap = getEl('tabTap'); var tabAuto = getEl('tabAuto');
-    if (tabTap) tabTap.addEventListener('click', function() { playHaptic('medium'); currentTab = 'tap'; tabTap.classList.add('active'); if (tabAuto) tabAuto.classList.remove('active'); renderUpgrades(); });
-    if (tabAuto) tabAuto.addEventListener('click', function() { playHaptic('medium'); currentTab = 'auto'; tabAuto.classList.add('active'); if (tabTap) tabTap.classList.remove('active'); renderUpgrades(); });
-
-    var openProfileBtn = getEl('openProfile'); if (openProfileBtn) openProfileBtn.addEventListener('click', function() { playHaptic('medium'); showScreen('profile'); });
+    if (tabTap) tabTap.addEventListener('click', function() { currentTab = 'tap'; tabTap.classList.add('active'); if (tabAuto) tabAuto.classList.remove('active'); playHaptic('light'); renderUpgrades(); });
+    if (tabAuto) tabAuto.addEventListener('click', function() { currentTab = 'auto'; tabAuto.classList.add('active'); if (tabTap) tabTap.classList.remove('active'); playHaptic('light'); renderUpgrades(); });
 
     function withdrawMoney() {
       playHaptic('medium');
-      if (balance < 10) { playHaptic('error'); showGameAlert(t.min_withdraw, { type: 'error', icon: '💳' }); return; }
-      playSound('casino_win'); playHaptic('success'); showGameAlert(t.withdraw_msg.replace('{amount}', formatMoney(balance)), { type: 'success', icon: '💳' });
+      if (balance < 10) { playHaptic('error'); showGameAlert(t.min_withdraw, { type: 'error', icon: '💸' }); return; }
+      var withdrawVal = formatMainBalance(balance);
+      showGameAlert(t.withdraw_msg.replace('{amount}', withdrawVal), { type: 'success', icon: '🏦' });
+      balance = 0; updateUI();
     }
 
-    var devClicks = 0; var devBtn = getEl('devBtn');
-    if (devBtn) devBtn.addEventListener('click', function() {
-      devClicks++; playHaptic('light');
-      if (devClicks >= 5) {
-        balance += 5000000; totalTaps += 10000000; updateUI(); playSound('upgrade'); playHaptic('heavy');
-        showGameAlert(t.dev_bonus_msg, { type: 'success', icon: '🛠️' }); devClicks = 0;
-      }
-    });
+    var devClicks = 0;
+    var devBtn = getEl('devBtn');
+    if (devBtn) {
+      devBtn.addEventListener('click', function() {
+        devClicks++;
+        if (devClicks >= 5) {
+          balance += 5000000; totalTaps += 10000000; updateUI();
+          playSound('quest_claim_10'); playHaptic('heavy');
+          showGameAlert(t.dev_bonus_msg, { type: 'success', icon: '🧪' });
+          devClicks = 0;
+        }
+      });
+    }
 
     try {
-      var user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-      userName = (user && user.first_name) ? user.first_name : t.player;
-      var profileNameEl = getEl('profileName'); if (profileNameEl) profileNameEl.innerText = userName;
-      var defaultAvatar = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="92" height="92"><rect width="92" height="92" fill="#4c1d95"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" font-size="44">🥔</text></svg>');
-      userPhoto = (user && user.photo_url) ? user.photo_url : defaultAvatar;
-      var topAvatar = getEl('topAvatar'); var profileAvatar = getEl('profileAvatar');
-      if (topAvatar) topAvatar.src = userPhoto;
-      if (profileAvatar) profileAvatar.src = userPhoto;
+      if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        var u = tg.initDataUnsafe.user;
+        userName = [u.first_name, u.last_name].filter(Boolean).join(' ') || t.player;
+        var pName = getEl('profileName'); if (pName) pName.innerText = userName;
+        if (u.photo_url) {
+          userPhoto = u.photo_url;
+          var tAv = getEl('topAvatar'); var pAv = getEl('profileAvatar');
+          if (tAv) tAv.src = userPhoto;
+          if (pAv) pAv.src = userPhoto;
+        }
+      }
     } catch(e) {}
 
+    if (!userPhoto) {
+      var fallbackSvg = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80"><rect width="80" height="80" fill="%234c1d95"/><text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle" font-size="44">🥔</text></svg>';
+      var tAv2 = getEl('topAvatar'); var pAv2 = getEl('profileAvatar');
+      if (tAv2) tAv2.src = fallbackSvg;
+      if (pAv2) pAv2.src = fallbackSvg;
+    }
+
     initSnowflakes();
-    applyTranslations();
-    updateUI();
-    updatePotatoSkin();
-    updateAutoInfo();
-    updateGiftUI();
-    updateCalendarUI();
-    startAutoclicker();
     checkEvents(true);
-    setInterval(function() { checkEvents(false); updateGiftUI(); updateCalendarUI(); updateBuffsInfo(); }, 1000);
-    showScreen('main');
+    setInterval(function() {
+      checkEvents(false);
+      if (currentShopTab === 'gifts') updateGiftUI();
+      updateCalendarUI();
+      updateBuffsInfo();
+    }, 1000);
+
+    applyTranslations(); updatePotatoSkin(); startAutoclicker(); updateAutoInfo(); updateUI(); showScreen('main');
   </script>
 </body>
 </html>
