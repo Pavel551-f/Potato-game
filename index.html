@@ -70,22 +70,22 @@
     }
 
     body.has-event-banner .btn-top-back { top: 54px; }
-    body.has-event-banner .top-balance { top: 54px; }
+    body.has-event-banner .top-balance { top: 106px; }
+    body.has-event-banner .top-balance.no-back-offset { top: 54px; }
     body.has-event-banner .main-btns-container { top: 112px; }
     body.has-event-banner .right-btns-container { top: 112px; }
-    body.has-event-banner .tabs { padding-top: 104px; }
-    body.has-event-banner .shop-tabs { padding-top: 104px; }
+    body.has-event-banner .tabs { padding-top: 112px; }
+    body.has-event-banner .shop-tabs { padding-top: 154px; }
     body.has-event-banner .main-content { padding-top: 126px; }
     body.has-event-banner .profile-content,
-    body.has-event-banner .inventory-content { padding-top: 108px; }
-    body.has-event-banner .casino-menu-container { padding-top: 112px; }
+    body.has-event-banner .inventory-content { padding-top: 152px; }
+    body.has-event-banner .casino-menu-container { padding-top: 158px; }
     body.has-event-banner .casino-container,
     body.has-event-banner .slots-container,
     body.has-event-banner .wheel-container,
-    body.has-event-banner .settings-content { padding-top: 108px; }
-    body.has-event-banner .chess-container { padding-top: 108px; }
+    body.has-event-banner .settings-content { padding-top: 145px; }
     body.has-event-banner #screen-achievements .list-content,
-    body.has-event-banner #screen-events-history .list-content { padding-top: 106px; }
+    body.has-event-banner #screen-events-history .list-content { padding-top: 115px; }
     body.has-event-banner #screen-quests .list-content,
     body.has-event-banner #screen-rating .rating-container { padding-top: 52px; }
 
@@ -99,17 +99,13 @@
     }
     .btn-top-back:active { border-color: #4c1d95 #a855f7 #a855f7 #4c1d95; }
 
-    /* Баланс отображается только на главном экране */
     .top-balance {
-      display: none;
-      position: absolute; top: 14px; left: 14px; align-items: center; gap: 8px;
+      position: absolute; top: 66px; left: 14px; display: flex; align-items: center; gap: 8px;
       background: rgba(0,0,0,0.45); padding: 4px 9px 4px 4px; z-index: 60; cursor: pointer;
       border: 3px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
       transition: top 0.2s ease;
     }
-    body.on-main-screen .top-balance {
-      display: flex;
-    }
+    .top-balance.no-back-offset { top: 14px; }
 
     .top-avatar { width: 28px; height: 28px; border: 2px solid #4c1d95; object-fit: cover; background: #4c1d95; image-rendering: pixelated; order: 1; }
     .top-balance-text { display: flex; flex-direction: column; align-items: flex-start; order: 2; }
@@ -172,9 +168,10 @@
       font-size: 7px; color: #fff; text-transform: uppercase; line-height: 1.15;
     }
 
+    body.has-event-banner .chess-container { padding-top: 148px; }
     .chess-container {
       flex: 1; display: flex; flex-direction: column; align-items: center;
-      padding: 68px 14px 24px; overflow-y: auto; transition: padding-top 0.2s ease;
+      padding: 108px 14px 24px; overflow-y: auto; transition: padding-top 0.2s ease;
     }
     .chess-title {
       font-size: 12px; color: #d8b4fe; margin-bottom: 8px;
@@ -196,37 +193,17 @@
     .chess-cell {
       display: flex; align-items: center; justify-content: center;
       aspect-ratio: 1 / 1; min-width: 0; overflow: hidden;
-      font-size: 21px; line-height: 1; cursor: pointer; position: relative;
-    }
-    /* Белые фигуры — светлые с чётким тёмным контуром */
-    .chess-cell.piece-white {
-      color: #ffffff;
-      text-shadow:
-        -1.5px -1.5px 0 #1e1b4b,
-         1.5px -1.5px 0 #1e1b4b,
-        -1.5px  1.5px 0 #1e1b4b,
-         1.5px  1.5px 0 #1e1b4b,
-         0px    2px   2px rgba(0,0,0,0.85);
-    }
-    /* Чёрные фигуры — насыщенно-чёрные с чётким светлым ореолом для контраста на тёмной клетке */
-    .chess-cell.piece-black {
-      color: #09090b;
-      font-weight: 900;
-      text-shadow:
-        -1.5px -1.5px 0 #f3e8ff,
-         1.5px -1.5px 0 #f3e8ff,
-        -1.5px  1.5px 0 #f3e8ff,
-         1.5px  1.5px 0 #f3e8ff,
-         0px    0px   4px rgba(255,255,255,0.75);
+      font-size: 20px; line-height: 1; cursor: pointer; position: relative;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.55);
     }
     .chess-cell.light { background: #f3e8ff; }
     .chess-cell.dark { background: #7e22ce; }
-    .chess-cell.selected { box-shadow: inset 0 0 0 3px #fde047; background: #a855f7 !important; }
+    .chess-cell.selected { box-shadow: inset 0 0 0 3px #d8b4fe; background: #a855f7 !important; }
     .chess-cell.valid-move::after {
       content: ''; position: absolute; width: 9px; height: 9px; border-radius: 50%;
-      background: rgba(250, 204, 21, 0.95); border: 1.5px solid #1e1b4b; pointer-events: none;
+      background: rgba(216, 180, 254, 0.92); border: 1.5px solid #3b0764; pointer-events: none;
     }
-    .chess-cell.valid-capture { box-shadow: inset 0 0 0 3px #ef4444; background: rgba(239, 68, 68, 0.25); }
+    .chess-cell.valid-capture { box-shadow: inset 0 0 0 3px #ef4444; }
     .chess-cell.last-move { background: rgba(216, 180, 254, 0.42) !important; }
     .chess-controls {
       width: 100%; max-width: 272px; display: flex; gap: 8px; justify-content: center;
@@ -287,7 +264,7 @@
     .auto-info { margin-top: 7px; font-size: 8.5px; color: #10b981; text-align: center; }
     .active-buffs-info { margin-top: 6px; font-size: 7.5px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
 
-    .streak-screen-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 74px 12px 24px; }
+    .streak-screen-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 118px 12px 24px; }
     .streak-board {
       position: relative; width: 100%; max-width: 500px; margin: 0 auto;
       background: linear-gradient(135deg, #f97316 0%, #db2777 45%, #7e22ce 100%);
@@ -330,7 +307,7 @@
     .streak-footer-row { margin-top: 10px; display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .streak-last-note { font-size: 7.5px; color: #fef08a; text-align: center; min-height: 11px; }
 
-    .tabs { display: flex; gap: 8px; padding: 14px 14px 10px; transition: padding-top 0.2s ease; }
+    .tabs { display: flex; gap: 8px; padding: 72px 14px 10px; transition: padding-top 0.2s ease; }
     .tab-btn {
       flex: 1; padding: 10px 6px; font-size: 9px;
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer;
@@ -339,7 +316,7 @@
     }
     .tab-btn.active { background: #8b5cf6; color: white; border-color: #d8b4fe #5b21b6 #5b21b6 #d8b4fe; transform: translateY(2px); }
 
-    .shop-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; padding: 56px 14px 0; transition: padding-top 0.2s ease; }
+    .shop-tabs { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 12px; padding: 114px 14px 0; transition: padding-top 0.2s ease; }
     .shop-tab-btn {
       flex: 1 1 30%; padding: 8px 5px; font-size: 7.5px;
       background: rgba(76, 29, 149, 0.7); color: #c4b5fd; cursor: pointer;
@@ -361,9 +338,9 @@
 
     .list-content { padding: 0 14px 26px; }
     #screen-achievements .list-content,
-    #screen-events-history .list-content { padding-top: 56px; transition: padding-top 0.2s ease; }
-    #screen-quests .list-content { padding-top: 14px; transition: padding-top 0.2s ease; }
-    #screen-rating .rating-container { padding-top: 14px; transition: padding-top 0.2s ease; }
+    #screen-events-history .list-content { padding-top: 75px; transition: padding-top 0.2s ease; }
+    #screen-quests .list-content { padding-top: 18px; transition: padding-top 0.2s ease; }
+    #screen-rating .rating-container { padding-top: 18px; transition: padding-top 0.2s ease; }
     #screen-upgrades .list-content { padding-top: 0; }
     #screen-shop .list-content { padding-top: 8px; }
 
@@ -440,7 +417,7 @@
     }
     .gift-lock-inline { font-size: 12px; flex-shrink: 0; }
 
-    .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 66px 14px 24px; gap: 12px; transition: padding-top 0.2s ease; }
+    .casino-menu-container { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 118px 14px 24px; gap: 12px; transition: padding-top 0.2s ease; }
     .casino-title { font-size: 14px; color: #fde047; margin-bottom: 10px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
     .casino-game-card { width: 100%; max-width: 290px; cursor: pointer; background: rgba(255,255,255,0.09); padding: 12px 14px; display: flex; align-items: center; gap: 12px; border: 2px solid; border-color: #fde047 #a16207 #a16207 #fde047; transition: transform 0.1s; }
     .casino-game-card:active { transform: scale(0.98); border-color: #a16207 #fde047 #fde047 #a16207; }
@@ -449,7 +426,7 @@
     .casino-lock-badge { font-size: 7px; color: #fca5a5; margin-top: 4px; line-height: 1.4; }
     .casino-game-card .card-icon { font-size: 28px; width: 34px; text-align: center; }
 
-    .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 66px 16px 30px; transition: padding-top 0.2s ease; }
+    .casino-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 115px 16px 30px; transition: padding-top 0.2s ease; }
     .reel-window { width: 100%; max-width: 320px; height: 90px; overflow: hidden; position: relative; background: rgba(0,0,0,0.5); border: 4px solid #a855f7; margin-bottom: 30px; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
     .reel { display: flex; height: 100%; align-items: center; position: absolute; left: 0; top: 0; transition: transform 9s cubic-bezier(0.1, 0.8, 0.1, 1); }
     .reel-item { width: 80px; height: 80px; margin: 0 5px; flex-shrink: 0; display: flex; justify-content: center; align-items: center; font-size: 11px; font-weight: bold; background: #eab308; color: #000; text-shadow: none; border: 3px solid #fde047; border-radius: 10px; }
@@ -461,7 +438,7 @@
     .pointer::before { top: 0; border-top: 15px solid #a855f7; }
     .pointer::after { bottom: 0; border-bottom: 15px solid #a855f7; }
 
-    .slots-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 66px 16px 30px; transition: padding-top 0.2s ease; }
+    .slots-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 115px 16px 30px; transition: padding-top 0.2s ease; }
     .slots-machine-wrap { display: flex; flex-direction: column; align-items: center; margin-bottom: 24px; }
     .slots-cabinet-row { display: flex; align-items: flex-end; gap: 10px; }
     .slots-body-col { display: flex; flex-direction: column; align-items: center; }
@@ -514,7 +491,7 @@
       transform: translateY(24px);
     }
 
-    .wheel-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 66px 16px 30px; transition: padding-top 0.2s ease; }
+    .wheel-container { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 115px 16px 30px; transition: padding-top 0.2s ease; }
     .wheel-wrapper { position: relative; width: 280px; height: 280px; margin-bottom: 30px; }
     .wheel {
       width: 100%; height: 100%; border-radius: 50%;
@@ -540,7 +517,7 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.5);
     }
 
-    .profile-content, .inventory-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 62px 18px 26px; position: relative; transition: padding-top 0.2s ease; }
+    .profile-content, .inventory-content { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 112px 18px 26px; position: relative; transition: padding-top 0.2s ease; }
     .profile-avatar { width: 92px; height: 92px; border: 3px solid #a855f7; object-fit: cover; margin-bottom: 12px; image-rendering: pixelated; background: #4c1d95;}
     .profile-name { font-size: 11px; margin-bottom: 5px; text-align: center; color: #fff; }
     .profile-rank { font-size: 8.5px; color: #fde047; margin-bottom: 9px; text-align: center; text-shadow: 1px 1px 0 #000; }
@@ -563,14 +540,14 @@
     #screen-settings { background: linear-gradient(180deg, #2e1065, #1e1b4b); overflow: hidden; }
     #rocket-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
     .rocket { position: absolute; font-size: 30px; opacity: 0.3; }
-    .settings-content { position: relative; z-index: 10; padding: 62px 18px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; transition: padding-top 0.2s ease; }
+    .settings-content { position: relative; z-index: 10; padding: 105px 18px 20px; display: flex; flex-direction: column; align-items: center; width: 100%; transition: padding-top 0.2s ease; }
     .settings-title { font-size: 14px; color: white; margin-bottom: 18px; text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center; }
     .setting-row { width: 100%; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; background: rgba(255,255,255,0.1); padding: 11px 13px; border: 2px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
     .setting-label { font-size: 9px; color: #fff; }
     .toggle-btn { background: #4b5563; color: #fff; border: 2px solid #374151; padding: 6px 10px; font-size: 9px; font-family: inherit; cursor: pointer; border-radius: 7px; width: 72px; text-align: center; }
     .toggle-btn.active { background: #10b981; border-color: #6ee7b7; }
 
-    .rating-container { flex: 1; overflow-y: auto; padding: 14px 14px 96px; }
+    .rating-container { flex: 1; overflow-y: auto; padding: 18px 14px 96px; }
     .rating-row { display: flex; align-items: center; padding: 10px; margin-bottom: 10px; background: rgba(255,255,255,0.09); border: 2px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7; }
     .rating-rank { width: 26px; height: 26px; display: flex; justify-content: center; align-items: center; font-size: 9px; margin-right: 10px; background: #eab308; color: #000; flex-shrink: 0; border: 2px solid #000; }
     .rating-avatar { width: 34px; height: 34px; margin-right: 10px; object-fit: cover; background: #333; border: 2px solid #a855f7; flex-shrink: 0; image-rendering: pixelated; }
@@ -610,7 +587,7 @@
     #gameAlertModal.alert-success .modal-content { border-color: #6ee7b7 #065f46 #065f46 #6ee7b7; }
   </style>
 </head>
-<body class="on-main-screen">
+<body>
 
   <div class="halloween-corner-web" aria-hidden="true">
     <svg viewBox="0 0 120 120" width="120" height="120">
@@ -1157,7 +1134,7 @@
         `,
         info_chess_html: `
           <p><b>Событие на 1 день:</b> в левом меню под Казино появляется кнопка <b>Шахматы</b>.</p>
-          <p><b>Правила:</b> Классические шахматы против бота — рокировка, взятие на проходе и превращение пешки в ферзя.</p>
+          <p><b>Правила:</b> Вы играете белыми фигурами против Картофельного Бота по классическим правилам (включая превращение пешки в ферзя).</p>
           <hr>
           <p><b>Награды:</b></p>
           <p>🏆 Победа (мат боту): <b>+250 ₽</b></p>
@@ -1274,7 +1251,7 @@
         potato_truck: "Potato Truck", potato_truck_desc: "Slots • 500 ₽ (from Tap Lv.20)",
         potato_field: "Potato Field", potato_field_desc: "Wheel • 1.500 ₽ (from Tap Lv.40)",
         casino_req_badge: "🔒 Requires Tap Lv.{req} (now {cur})",
-        casino_locked_alert: ""{game}" is locked! Upgrade Tap to Level {req} first (currently Lv.{cur}).",
+        casino_locked_alert: "\"{game}\" is locked! Upgrade Tap to Level {req} first (currently Lv.{cur}).",
         settings_btn: "⚙️ Settings", settings_title: "Settings", sound_effects: "Sound Effects", vibration: "Vibration", on: "ON", off: "OFF", lang_btn: "🌐 Language / Язык", support_btn: "📢 Help & Support",
         test_events_btn: "🧪 Event Test", test_events_title: "🧪 EVENT TEST",
         test_events_desc: "Choose an event to enable (banner hides in 5s).",
@@ -1324,7 +1301,7 @@
         `,
         info_chess_html: `
           <p><b>1-Day Event:</b> A <b>Chess</b> button appears under Casino on the main screen.</p>
-          <p><b>Rules:</b> Standard chess against Potato Bot — castling, en passant, and pawn promotion to queen.</p>
+          <p><b>Rules:</b> You play White against Potato Bot with standard chess rules (including auto-queen promotion).</p>
           <hr>
           <p><b>Rewards:</b></p>
           <p>🏆 Victory (Checkmate): <b>+250 ₽</b></p>
@@ -1890,7 +1867,7 @@
     var blackMarketList = getEl('blackMarketList'); var eventsHistoryList = getEl('eventsHistoryList'); var inventoryList = getEl('inventoryList');
     var autoInfo = getEl('autoInfo'); var activeBuffsInfo = getEl('activeBuffsInfo');
     var totalTapsText = getEl('totalTapsText'); var progressFill = getEl('progressFill');
-    var casinoReel = getEl('casinoReel'); var spinBtn = getEl('spinBtn'); var profileRankEl = getEl('profileRank');
+    var topBalanceBar = document.querySelector('.top-balance'); var casinoReel = getEl('casinoReel'); var spinBtn = getEl('spinBtn'); var profileRankEl = getEl('profileRank');
 
     function initSnowflakes() {
       var layer = getEl('snowflakesLayer');
@@ -2170,7 +2147,7 @@
       if (activeEvents.valentine) {
         recordEventParticipation({
           id: 'valentine_' + year, badgeKey: 'valentine_2026',
-          nameRu: '💘 День святого Валентина ' + year, nameEn: '💘 Valentine's Day ' + year,
+          nameRu: '💘 День святого Валентина ' + year, nameEn: '💘 Valentine\'s Day ' + year,
           start: new Date(year, 1, 14).getTime(), end: new Date(year, 1, 14, 23, 59, 59).getTime(), active: true
         });
         addBadge('valentine_2026');
@@ -3191,10 +3168,10 @@
 
           var t2 = document.createElement('div'); t2.className = 'section-title'; t2.innerText = t.auto_speed; upgradesList.appendChild(t2);
           for (var s = 0; s < autoSpeedData.length; s++) {
-            var as = autoSpeedData[s]; var isSB = autoSpeedLevel >= as.level; var isSN = autoSpeedLevel + 1 === as.level;
+            var as = autoSpeedData[s]; var isBS = autoSpeedLevel >= as.level; var isNS = autoSpeedLevel + 1 === as.level;
             var sCard = document.createElement('div'); sCard.className = 'card';
             sCard.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_speed + ' Lv.' + as.level + '</div><div class="card-desc">' + t.interval + ': ' + (as.interval/1000) + ' ' + t.sec + '</div></div>';
-            sCard.appendChild(makeActionButton(isSB ? t.bought : (isSN ? t.buy_for + ' ' + formatMoney(as.cost, 0) + ' ₽' : t.buy_prev), !isSN, (function(a) {
+            sCard.appendChild(makeActionButton(isBS ? t.bought : (isNS ? t.buy_for + ' ' + formatMoney(as.cost, 0) + ' ₽' : t.buy_prev), !isNS, (function(a) {
               return function() {
                 if (balance >= a.cost) { balance -= a.cost; autoInterval = a.interval; autoSpeedLevel = a.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
                 else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
@@ -3209,16 +3186,17 @@
     function renderQuests() {
       if (!questsList) return; questsList.innerHTML = '';
       for (var i = 0; i < questsData.length; i++) {
-        var q = questsData[i]; var isClaimed = claimed.indexOf(q.id) !== -1; var canClaim = !isClaimed && totalTaps >= q.need;
+        var q = questsData[i]; var isClaimed = claimed.indexOf(q.id) !== -1; var canClaim = totalTaps >= q.need && !isClaimed;
         var card = document.createElement('div'); card.className = 'card';
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + t.make_taps + ' ' + formatMoney(q.need, 0) + ' ' + t.taps_word + '</div><div class="card-desc">' + t.progress + ': ' + formatMoney(totalTaps, 0) + ' / ' + formatMoney(q.need, 0) + ' • +' + formatMoney(q.reward) + ' ₽</div></div>';
-        card.appendChild(makeActionButton(isClaimed ? t.received : (canClaim ? t.claim : t.not_done), !canClaim, (function(quest) {
+        var rewDec = q.reward < 1 ? 1 : 0;
+        var btnText = isClaimed ? t.received : (canClaim ? t.claim : t.not_done);
+        card.innerHTML = '<div class="card-content"><div class="card-title">' + t.make_taps + ' ' + formatMoney(q.need, 0) + ' ' + t.taps_word + '</div><div class="card-desc">' + t.gives + ' ' + formatMoney(q.reward, rewDec) + ' ₽</div><div class="card-desc">' + t.progress + ': ' + formatMoney(Math.min(totalTaps, q.need), 0) + ' / ' + formatMoney(q.need, 0) + '</div></div>';
+        card.appendChild(makeActionButton(btnText, !canClaim, (function(qObj) {
           return function() {
-            if (claimed.indexOf(quest.id) === -1 && totalTaps >= quest.need) {
-              balance += quest.reward; claimed.push(quest.id);
-              if (quest.id === 10) playSound('quest_claim_10'); else playSound('quest_claim');
-              playQuestUniqueSound(quest.id);
-              playHaptic('success'); updateUI(); renderQuests();
+            if (totalTaps >= qObj.need && claimed.indexOf(qObj.id) === -1) {
+              balance += qObj.reward; claimed.push(qObj.id);
+              playQuestUniqueSound(qObj.id); playHaptic('success');
+              updateUI(); renderQuests();
             }
           };
         })(q)));
@@ -3229,125 +3207,124 @@
     function renderAchievements() {
       if (!achievementsList) return; achievementsList.innerHTML = '';
       for (var i = 0; i < t.ach_list.length; i++) {
-        var ach = t.ach_list[i]; var unlocked = unlockedAch.indexOf(i) !== -1;
+        var ach = t.ach_list[i]; var isUnlocked = unlockedAch.indexOf(i) !== -1;
         var card = document.createElement('div'); card.className = 'card';
-        var iconHtml = ach.icon === 'wood'
-          ? '<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 24 24" style="' + (!unlocked ? 'filter: grayscale(100%) opacity(0.5);' : '') + '"><rect x="9" y="2" width="6" height="4" fill="#d97706" stroke="#78350f" stroke-width="1.5"/><circle cx="12" cy="14" r="7" fill="#b45309" stroke="#78350f" stroke-width="2"/><circle cx="12" cy="14" r="4" fill="none" stroke="#f59e0b" stroke-width="1.5"/></svg></div>'
-          : '<div class="card-icon" style="' + (!unlocked ? 'filter: grayscale(100%) opacity(0.5);' : '') + '">' + ach.icon + '</div>';
-        card.innerHTML = iconHtml + '<div class="card-content"><div class="card-title">' + ach.title + '</div><div class="card-desc">' + ach.desc + '</div><div class="card-status ' + (unlocked ? 'status-unlocked' : 'status-locked') + '">' + (unlocked ? t.ach_unlocked : t.ach_locked) + '</div></div>';
+        var iconHtml = ach.icon === 'wood' ? '<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect x="6" y="1" width="4" height="4" fill="#ef4444"/><rect x="7" y="2" width="2" height="2" fill="#fca5a5"/><rect x="3" y="5" width="10" height="8" fill="#5c3a21"/><rect x="4" y="6" width="8" height="6" fill="#8b5a2b"/><rect x="5" y="7" width="6" height="4" fill="#a06934"/><rect x="7" y="8" width="2" height="2" fill="#d9a066"/><rect x="5" y="13" width="6" height="2" fill="#5c3a21"/></svg></div>' : '<div class="card-icon">' + ach.icon + '</div>';
+        card.innerHTML = iconHtml + '<div class="card-content"><div class="card-title">' + ach.title + '</div><div class="card-desc">' + ach.desc + '</div><div class="card-status ' + (isUnlocked ? 'status-unlocked' : 'status-locked') + '">' + (isUnlocked ? t.ach_unlocked : t.ach_locked) + '</div></div>';
         achievementsList.appendChild(card);
       }
     }
 
     function formatShortDate(ts) {
-      if (!ts) return '?';
+      if (!ts) return '—';
       var d = new Date(ts);
-      var dd = ('0' + d.getDate()).slice(-2);
-      var mm = ('0' + (d.getMonth() + 1)).slice(-2);
-      return dd + '.' + mm + '.' + d.getFullYear();
+      return ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + d.getFullYear();
     }
 
     function renderEventsHistory() {
       if (!eventsHistoryList) return;
       eventsHistoryList.innerHTML = '';
+      var activeSelected = getDisplayedProfileBadges();
 
-      var activeBadgeKeys = getDisplayedProfileBadges();
-      var banner = document.createElement('div');
-      banner.className = 'badge-counter-banner';
-      banner.innerText = t.badge_counter.replace('{count}', activeBadgeKeys.length);
-      eventsHistoryList.appendChild(banner);
+      var counterBanner = document.createElement('div');
+      counterBanner.className = 'badge-counter-banner';
+      counterBanner.innerText = t.badge_counter.replace('{count}', activeSelected.length);
+      eventsHistoryList.appendChild(counterBanner);
 
-      var badgesTitle = document.createElement('div');
-      badgesTitle.className = 'section-title';
-      badgesTitle.innerText = t.badges_label.replace(':', '');
-      eventsHistoryList.appendChild(badgesTitle);
+      var bSection = document.createElement('div');
+      bSection.className = 'section-title';
+      bSection.innerText = t.badges_label;
+      eventsHistoryList.appendChild(bSection);
 
-      for (var b = 0; b < ALL_BADGE_KEYS.length; b++) {
-        var bKey = ALL_BADGE_KEYS[b];
+      for (var k = 0; k < ALL_BADGE_KEYS.length; k++) {
+        var bKey = ALL_BADGE_KEYS[k];
         var isEarned = earnedBadges.indexOf(bKey) !== -1;
-        var isSelected = activeBadgeKeys.indexOf(bKey) !== -1;
-
+        var isOnProfile = activeSelected.indexOf(bKey) !== -1;
         var bCard = document.createElement('div');
         bCard.className = 'card';
         if (!isEarned) bCard.style.opacity = '0.5';
 
-        var bName = t.badge_names[bKey] || bKey;
-        var bDesc = isEarned
-          ? (isSelected ? t.badge_to_profile + ' • ✓' : t.badge_to_profile)
-          : t.badge_locked_hint;
-
-        bCard.innerHTML =
-          '<div class="card-content">' +
-            '<div class="card-title">' + bName + '</div>' +
-            '<div class="card-desc" style="margin-bottom:0;">' + bDesc + '</div>' +
-          '</div>';
+        var bContent = document.createElement('div');
+        bContent.className = 'card-content';
+        bContent.innerHTML =
+          '<div class="card-title">' + (t.badge_names[bKey] || bKey) + '</div>' +
+          '<div class="card-desc" style="margin-bottom:0;">' + (isEarned ? (isOnProfile ? t.worn_status : t.unworn_status) : t.badge_locked_hint) + '</div>';
+        bCard.appendChild(bContent);
 
         if (isEarned) {
           var bBtn = document.createElement('button');
-          bBtn.className = 'btn ' + (isSelected ? 'btn-grey' : 'btn-green');
-          bBtn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
-          bBtn.innerText = isSelected ? t.badge_remove_profile : t.badge_to_profile;
-          bBtn.disabled = (!isSelected && activeBadgeKeys.length >= 3);
-          bBtn.onclick = (function(key) {
-            return function() { window.toggleProfileBadge(key); };
-          })(bKey);
+          bBtn.className = 'btn ' + (isOnProfile ? 'btn-grey' : 'btn-green');
+          bBtn.style.cssText = 'width:auto;margin-bottom:0;padding:6px 8px;font-size:7px;';
+          bBtn.innerText = isOnProfile ? t.badge_remove_profile : t.badge_to_profile;
+          if (!isOnProfile && activeSelected.length >= 3) {
+            bBtn.disabled = true;
+          } else {
+            bBtn.onclick = (function(key) { return function() { window.toggleProfileBadge(key); }; })(bKey);
+          }
           bCard.appendChild(bBtn);
         }
         eventsHistoryList.appendChild(bCard);
       }
 
-      var histTitle = document.createElement('div');
-      histTitle.className = 'section-title';
-      histTitle.innerText = t.events_history_btn.replace(/^[^\s]+\s/, '');
-      eventsHistoryList.appendChild(histTitle);
+      var hSection = document.createElement('div');
+      hSection.className = 'section-title';
+      hSection.innerText = t.events_history_btn;
+      eventsHistoryList.appendChild(hSection);
 
       if (!eventHistory.length) {
-        var emptyCard = document.createElement('div'); emptyCard.className = 'card';
+        var emptyCard = document.createElement('div');
+        emptyCard.className = 'card';
         emptyCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;">' + t.history_empty + '</div></div>';
         eventsHistoryList.appendChild(emptyCard);
         return;
       }
 
       for (var i = 0; i < eventHistory.length; i++) {
-        var ev = eventHistory[i];
-        var evName = (currentLang === 'en' ? ev.nameEn : ev.nameRu) || ev.nameRu || ev.id;
-        var periodLine = t.history_period.replace('{start}', formatShortDate(ev.start)).replace('{end}', formatShortDate(ev.end));
-        var extraLine = typeof ev.itemsBought === 'number' ? ' • ' + t.history_bought_bm.replace('{count}', ev.itemsBought) : '';
-        var statusLine = ev.active ? t.history_active : t.history_finished;
-
-        var hCard = document.createElement('div'); hCard.className = 'card';
-        hCard.innerHTML =
+        var h = eventHistory[i];
+        var card = document.createElement('div');
+        card.className = 'card';
+        var extra = typeof h.itemsBought === 'number'
+          ? '<div class="card-desc">' + t.history_bought_bm.replace('{count}', h.itemsBought) + '</div>'
+          : '';
+        card.innerHTML =
           '<div class="card-content">' +
-            '<div class="card-title">' + evName + '</div>' +
-            '<div class="card-desc">' + periodLine + extraLine + '</div>' +
-            '<div class="card-status ' + (ev.active ? 'status-unlocked' : 'status-locked') + '">' + statusLine + '</div>' +
+            '<div class="card-title">' + (currentLang === 'en' ? (h.nameEn || h.nameRu) : (h.nameRu || h.nameEn)) + '</div>' +
+            '<div class="card-desc">' + t.history_period.replace('{start}', formatShortDate(h.start)).replace('{end}', formatShortDate(h.end)) + '</div>' +
+            extra +
+            '<div class="card-status ' + (h.active ? 'status-unlocked' : 'status-locked') + '">' + (h.active ? t.history_active : t.history_finished) + '</div>' +
           '</div>';
-        eventsHistoryList.appendChild(hCard);
+        eventsHistoryList.appendChild(card);
       }
     }
 
-    var players = [
-      { name: "Повелитель Клубней", score: "850.000.000.000", avatar: "🥔" }, { name: "Мастер Автокликера", score: "250.000.000.000", avatar: "⚙️" },
-      { name: "Ловец Джекпотов", score: "95.000.000.000", avatar: "🎰" }, { name: "Фермер-Миллионер", score: "35.000.000.000", avatar: "💰" },
-      { name: "Легенда Клуба", score: "12.000.000.000", avatar: "🔥" }, { name: "Агроном Со Стажем", score: "4.500.000.000", avatar: "🌱" },
-      { name: "Тапатель 3000", score: "1.500.000.000", avatar: "⚡" }, { name: "Любитель Картошки", score: "500.000.000", avatar: "🍟" }
+    var leadersData = [
+      { name: "Артём", taps: 5000000000000000000, img: "potato_gold.png" }, { name: "Алексей", taps: 4000000000000000000, img: "potato_gold.png" },
+      { name: "Никита", taps: 3000000000000000000, img: "potato_gold.png" }, { name: "Даниил", taps: 2000000000000000000, img: "potato_gold.png" },
+      { name: "Кирилл", taps: 1000000000000000000, img: "potato_gold.png" }, { name: "Егор", taps: 800000000000000000, img: "potato_gold.png" },
+      { name: "Иван", taps: 600000000000000000, img: "potato_gold.png" }, { name: "Дмитрий", taps: 400000000000000000, img: "potato_gold.png" },
+      { name: "Матвей", taps: 200000000000000000, img: "potato_gold.png" }, { name: "Роман", taps: 100000000000000000, img: "potato_gold.png" },
+      { name: "Анна", taps: 50000000000000000, img: "potato_ghost.png" }, { name: "Мария", taps: 25000000000000000, img: "potato_ghost.png" },
+      { name: "София", taps: 10000000000000000, img: "potato_ghost.png" }, { name: "Виктория", taps: 5000000000000000, img: "potato_ghost.png" },
+      { name: "Дарья", taps: 2500000000000000, img: "potato_ghost.png" }, { name: "Полина", taps: 1000000000000000, img: "potato_ghost.png" },
+      { name: "Василиса", taps: 500000000000000, img: "potato_ghost.png" }, { name: "Алиса", taps: 250000000000000, img: "potato_ghost.png" },
+      { name: "Ева", taps: 100000000000000, img: "potato_ghost.png" }, { name: "Ксения", taps: 50000000000000, img: "potato_ghost.png" }
     ];
 
     function renderRating() {
       var list = getEl('leaderboardList'); if (!list) return; list.innerHTML = '';
-      for (var i = 0; i < players.length; i++) {
-        var p = players[i]; var row = document.createElement('div'); row.className = 'rating-row';
-        row.innerHTML = '<div class="rating-rank">#' + (i + 1) + '</div><div class="rating-avatar" style="display:flex;align-items:center;justify-content:center;font-size:18px;">' + p.avatar + '</div><div class="rating-info"><div class="rating-name">' + p.name + '</div><div class="rating-score">' + p.score + ' ' + t.taps_word + '</div></div>';
+      for (var i = 0; i < leadersData.length; i++) {
+        var l = leadersData[i]; var row = document.createElement('div'); row.className = 'rating-row';
+        var medal = i === 0 ? '🥇' : (i === 1 ? '🥈' : (i === 2 ? '🥉' : (i + 1)));
+        row.innerHTML = '<div class="rating-rank">' + medal + '</div><img class="rating-avatar" src="' + l.img + '" onerror="this.style.display=\'none\'"><div class="rating-info"><div class="rating-name">' + l.name + '</div><div class="rating-score">' + formatMoney(l.taps, 0) + ' ' + t.taps_word + '</div></div>';
         list.appendChild(row);
       }
     }
 
-    // ==================== ШАХМАТЫ (полные правила + умный бот + контрастные фигуры) ====================
-    var CHESS_GLYPHS = {
+    var CHESS_PIECES = {
       wK: '♔', wQ: '♕', wR: '♖', wB: '♗', wN: '♘', wP: '♙',
       bK: '♚', bQ: '♛', bR: '♜', bB: '♝', bN: '♞', bP: '♟'
     };
-
+    var CHESS_VALS = { P: 100, N: 320, B: 330, R: 500, Q: 900, K: 20000 };
     var chessState = null;
     var chessTurn = 'w';
     var chessSelected = null;
@@ -3355,567 +3332,450 @@
     var chessLastMove = null;
     var chessGameOver = false;
     var chessBotTimer = null;
-    var chessRewardGiven = false;
 
-    function createInitialChessState() {
-      var board = [];
-      for (var r = 0; r < 8; r++) board.push([null, null, null, null, null, null, null, null]);
-      var back = ['R', 'N', 'B', 'Q', 'K', 'B', 'N', 'R'];
-      for (var c = 0; c < 8; c++) {
-        board[0][c] = 'b' + back[c];
-        board[1][c] = 'bP';
-        board[6][c] = 'wP';
-        board[7][c] = 'w' + back[c];
-      }
-      return {
-        board: board,
-        castling: { wK: true, wR0: true, wR7: true, bK: true, bR0: true, bR7: true },
-        enPassant: null
-      };
+    function createInitialChessBoard() {
+      return [
+        ['bR','bN','bB','bQ','bK','bB','bN','bR'],
+        ['bP','bP','bP','bP','bP','bP','bP','bP'],
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+        [null,null,null,null,null,null,null,null],
+        ['wP','wP','wP','wP','wP','wP','wP','wP'],
+        ['wR','wN','wB','wQ','wK','wB','wN','wR']
+      ];
     }
 
-    function cloneChessState(st) {
-      var nb = [];
-      for (var r = 0; r < 8; r++) nb.push(st.board[r].slice());
-      return {
-        board: nb,
-        castling: Object.assign({}, st.castling),
-        enPassant: st.enPassant ? { r: st.enPassant.r, c: st.enPassant.c } : null
-      };
+    function cloneChessBoard(b) {
+      return b.map(function(row) { return row.slice(); });
     }
 
-    function inBounds(r, c) { return r >= 0 && r < 8 && c >= 0 && c < 8; }
-    function pieceColor(p) { return p ? p.charAt(0) : null; }
-    function pieceType(p) { return p ? p.charAt(1) : null; }
-    function oppColor(col) { return col === 'w' ? 'b' : 'w'; }
+    function setChessStatus(msg) {
+      var bar = getEl('chessStatusBar');
+      if (bar) bar.innerText = msg;
+    }
 
-    function findKing(st, col) {
+    function findKingPos(b, color) {
+      var target = color + 'K';
       for (var r = 0; r < 8; r++) {
         for (var c = 0; c < 8; c++) {
-          if (st.board[r][c] === col + 'K') return { r: r, c: c };
+          if (b[r][c] === target) return { r: r, c: c };
         }
       }
       return null;
     }
 
-    function isSquareAttacked(st, tr, tc, byCol) {
-      // Атаки пешек: белые идут вверх (-1), атакуют (-1, -1) и (-1, +1); чёрные идут вниз (+1), атакуют (+1, -1) и (+1, +1)
-      var pawnDir = (byCol === 'w') ? -1 : 1;
-      var pr = tr - pawnDir;
-      if (inBounds(pr, tc - 1) && st.board[pr][tc - 1] === byCol + 'P') return true;
-      if (inBounds(pr, tc + 1) && st.board[pr][tc + 1] === byCol + 'P') return true;
-
-      // Атаки коня
-      var knightJumps = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
-      for (var i = 0; i < knightJumps.length; i++) {
-        var nr = tr + knightJumps[i][0], nc = tc + knightJumps[i][1];
-        if (inBounds(nr, nc) && st.board[nr][nc] === byCol + 'N') return true;
+    function isSquareAttacked(b, r, c, byColor) {
+      var pDir = byColor === 'w' ? 1 : -1;
+      var pr = r + pDir;
+      if (pr >= 0 && pr < 8) {
+        if (c - 1 >= 0 && b[pr][c - 1] === byColor + 'P') return true;
+        if (c + 1 < 8 && b[pr][c + 1] === byColor + 'P') return true;
       }
-
-      // Атаки короля (соседние клетки)
-      for (var dr = -1; dr <= 1; dr++) {
-        for (var dc = -1; dc <= 1; dc++) {
-          if (dr === 0 && dc === 0) continue;
-          var kr = tr + dr, kc = tc + dc;
-          if (inBounds(kr, kc) && st.board[kr][kc] === byCol + 'K') return true;
-        }
+      var kJumps = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+      for (var i = 0; i < kJumps.length; i++) {
+        var nr = r + kJumps[i][0], nc = c + kJumps[i][1];
+        if (nr >= 0 && nr < 8 && nc >= 0 && nc < 8 && b[nr][nc] === byColor + 'N') return true;
       }
-
-      // Прямые линии (ладья / ферзь)
-      var orthDirs = [[-1,0],[1,0],[0,-1],[0,1]];
-      for (var d = 0; d < orthDirs.length; d++) {
-        var r = tr + orthDirs[d][0], c = tc + orthDirs[d][1];
-        while (inBounds(r, c)) {
-          var p = st.board[r][c];
-          if (p) {
-            if (pieceColor(p) === byCol && (pieceType(p) === 'R' || pieceType(p) === 'Q')) return true;
-            break;
-          }
-          r += orthDirs[d][0]; c += orthDirs[d][1];
-        }
+      var kingDirs = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+      for (var j = 0; j < kingDirs.length; j++) {
+        var kr = r + kingDirs[j][0], kc = c + kingDirs[j][1];
+        if (kr >= 0 && kr < 8 && kc >= 0 && kc < 8 && b[kr][kc] === byColor + 'K') return true;
       }
-
-      // Диагонали (слон / ферзь)
       var diagDirs = [[-1,-1],[-1,1],[1,-1],[1,1]];
-      for (var d2 = 0; d2 < diagDirs.length; d2++) {
-        var r2 = tr + diagDirs[d2][0], c2 = tc + diagDirs[d2][1];
-        while (inBounds(r2, c2)) {
-          var p2 = st.board[r2][c2];
-          if (p2) {
-            if (pieceColor(p2) === byCol && (pieceType(p2) === 'B' || pieceType(p2) === 'Q')) return true;
+      for (var d = 0; d < diagDirs.length; d++) {
+        var dr = r + diagDirs[d][0], dc = c + diagDirs[d][1];
+        while (dr >= 0 && dr < 8 && dc >= 0 && dc < 8) {
+          var pc = b[dr][dc];
+          if (pc) {
+            if (pc[0] === byColor && (pc[1] === 'B' || pc[1] === 'Q')) return true;
             break;
           }
-          r2 += diagDirs[d2][0]; c2 += diagDirs[d2][1];
+          dr += diagDirs[d][0]; dc += diagDirs[d][1];
         }
       }
-
+      var orthoDirs = [[-1,0],[1,0],[0,-1],[0,1]];
+      for (var o = 0; o < orthoDirs.length; o++) {
+        var orr = r + orthoDirs[o][0], occ = c + orthoDirs[o][1];
+        while (orr >= 0 && orr < 8 && occ >= 0 && occ < 8) {
+          var pco = b[orr][occ];
+          if (pco) {
+            if (pco[0] === byColor && (pco[1] === 'R' || pco[1] === 'Q')) return true;
+            break;
+          }
+          orr += orthoDirs[o][0]; occ += orthoDirs[o][1];
+        }
+      }
       return false;
     }
 
-    function isKingInCheck(st, col) {
-      var kp = findKing(st, col);
+    function isKingInCheck(b, color) {
+      var kp = findKingPos(b, color);
       if (!kp) return false;
-      return isSquareAttacked(st, kp.r, kp.c, oppColor(col));
+      return isSquareAttacked(b, kp.r, kp.c, color === 'w' ? 'b' : 'w');
     }
 
-    function generatePseudoMoves(st, r, c) {
-      var p = st.board[r][c];
-      if (!p) return [];
-      var col = pieceColor(p);
-      var typ = pieceType(p);
-      var opp = oppColor(col);
+    function getPseudoMovesForSquare(b, r, c) {
+      var piece = b[r][c];
+      if (!piece) return [];
+      var color = piece[0], type = piece[1], enemy = color === 'w' ? 'b' : 'w';
       var moves = [];
 
-      function pushMove(tr, tc, extra) {
-        if (!inBounds(tr, tc)) return;
-        var target = st.board[tr][tc];
-        if (!target || pieceColor(target) === opp) {
-          var mv = { fromR: r, fromC: c, toR: tr, toC: tc };
-          if (extra) Object.assign(mv, extra);
-          moves.push(mv);
+      if (type === 'P') {
+        var dir = color === 'w' ? -1 : 1;
+        var startRow = color === 'w' ? 6 : 1;
+        var oneR = r + dir;
+        if (oneR >= 0 && oneR < 8 && !b[oneR][c]) {
+          moves.push({ r: oneR, c: c });
+          var twoR = r + dir * 2;
+          if (r === startRow && !b[twoR][c]) moves.push({ r: twoR, c: c });
         }
-      }
-
-      function addRays(dirs) {
-        for (var i = 0; i < dirs.length; i++) {
-          var nr = r + dirs[i][0], nc = c + dirs[i][1];
-          while (inBounds(nr, nc)) {
-            var occ = st.board[nr][nc];
-            if (!occ) {
-              moves.push({ fromR: r, fromC: c, toR: nr, toC: nc });
+        if (oneR >= 0 && oneR < 8) {
+          if (c - 1 >= 0 && b[oneR][c - 1] && b[oneR][c - 1][0] === enemy) moves.push({ r: oneR, c: c - 1 });
+          if (c + 1 < 8 && b[oneR][c + 1] && b[oneR][c + 1][0] === enemy) moves.push({ r: oneR, c: c + 1 });
+        }
+      } else if (type === 'N') {
+        var jumps = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
+        for (var i = 0; i < jumps.length; i++) {
+          var nr = r + jumps[i][0], nc = c + jumps[i][1];
+          if (nr >= 0 && nr < 8 && nc >= 0 && nc < 8 && (!b[nr][nc] || b[nr][nc][0] === enemy)) {
+            moves.push({ r: nr, c: nc });
+          }
+        }
+      } else if (type === 'K') {
+        var kDirs = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
+        for (var j = 0; j < kDirs.length; j++) {
+          var kr = r + kDirs[j][0], kc = c + kDirs[j][1];
+          if (kr >= 0 && kr < 8 && kc >= 0 && kc < 8 && (!b[kr][kc] || b[kr][kc][0] === enemy)) {
+            moves.push({ r: kr, c: kc });
+          }
+        }
+      } else {
+        var dirs = [];
+        if (type === 'B' || type === 'Q') dirs = dirs.concat([[-1,-1],[-1,1],[1,-1],[1,1]]);
+        if (type === 'R' || type === 'Q') dirs = dirs.concat([[-1,0],[1,0],[0,-1],[0,1]]);
+        for (var d = 0; d < dirs.length; d++) {
+          var dr = r + dirs[d][0], dc = c + dirs[d][1];
+          while (dr >= 0 && dr < 8 && dc >= 0 && dc < 8) {
+            if (!b[dr][dc]) {
+              moves.push({ r: dr, c: dc });
             } else {
-              if (pieceColor(occ) === opp) {
-                moves.push({ fromR: r, fromC: c, toR: nr, toC: nc });
-              }
+              if (b[dr][dc][0] === enemy) moves.push({ r: dr, c: dc });
               break;
             }
-            nr += dirs[i][0]; nc += dirs[i][1];
+            dr += dirs[d][0]; dc += dirs[d][1];
           }
         }
       }
-
-      if (typ === 'P') {
-        var dir = (col === 'w') ? -1 : 1;
-        var startRow = (col === 'w') ? 6 : 1;
-        var promoRow = (col === 'w') ? 0 : 7;
-
-        // Шаг вперёд
-        if (inBounds(r + dir, c) && !st.board[r + dir][c]) {
-          var isPromo = (r + dir === promoRow);
-          moves.push({ fromR: r, fromC: c, toR: r + dir, toC: c, promotion: isPromo ? (col + 'Q') : null });
-          // Двойной шаг с начальной линии
-          if (r === startRow && !st.board[r + 2 * dir][c]) {
-            moves.push({
-              fromR: r, fromC: c, toR: r + 2 * dir, toC: c,
-              newEnPassant: { r: r + dir, c: c }
-            });
-          }
-        }
-
-        // Взятие по диагонали
-        var caps = [-1, 1];
-        for (var k = 0; k < caps.length; k++) {
-          var dc = caps[k];
-          if (!inBounds(r + dir, c + dc)) continue;
-          var diagPiece = st.board[r + dir][c + dc];
-          if (diagPiece && pieceColor(diagPiece) === opp) {
-            var isPromoCap = (r + dir === promoRow);
-            moves.push({ fromR: r, fromC: c, toR: r + dir, toC: c + dc, promotion: isPromoCap ? (col + 'Q') : null });
-          } else if (st.enPassant && st.enPassant.r === r + dir && st.enPassant.c === c + dc) {
-            moves.push({
-              fromR: r, fromC: c, toR: r + dir, toC: c + dc,
-              enPassantCap: { r: r, c: c + dc }
-            });
-          }
-        }
-      } else if (typ === 'N') {
-        var nJumps = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
-        for (var j = 0; j < nJumps.length; j++) pushMove(r + nJumps[j][0], c + nJumps[j][1]);
-      } else if (typ === 'B') {
-        addRays([[-1,-1],[-1,1],[1,-1],[1,1]]);
-      } else if (typ === 'R') {
-        addRays([[-1,0],[1,0],[0,-1],[0,1]]);
-      } else if (typ === 'Q') {
-        addRays([[-1,-1],[-1,1],[1,-1],[1,1],[-1,0],[1,0],[0,-1],[0,1]]);
-      } else if (typ === 'K') {
-        for (var dr = -1; dr <= 1; dr++) {
-          for (var dc2 = -1; dc2 <= 1; dc2++) {
-            if (dr !== 0 || dc2 !== 0) pushMove(r + dr, c + dc2);
-          }
-        }
-        // Рокировка
-        var homeRow = (col === 'w') ? 7 : 0;
-        if (r === homeRow && c === 4 && st.castling[col + 'K'] && !isSquareAttacked(st, homeRow, 4, opp)) {
-          // Короткая рокировка (g-файл = 6)
-          if (st.castling[col + 'R7'] && !st.board[homeRow][5] && !st.board[homeRow][6] &&
-              !isSquareAttacked(st, homeRow, 5, opp) && !isSquareAttacked(st, homeRow, 6, opp)) {
-            moves.push({
-              fromR: homeRow, fromC: 4, toR: homeRow, toC: 6,
-              castleRook: { fromR: homeRow, fromC: 7, toR: homeRow, toC: 5 }
-            });
-          }
-          // Длинная рокировка (c-файл = 2)
-          if (st.castling[col + 'R0'] && !st.board[homeRow][3] && !st.board[homeRow][2] && !st.board[homeRow][1] &&
-              !isSquareAttacked(st, homeRow, 3, opp) && !isSquareAttacked(st, homeRow, 2, opp)) {
-            moves.push({
-              fromR: homeRow, fromC: 4, toR: homeRow, toC: 2,
-              castleRook: { fromR: homeRow, fromC: 0, toR: homeRow, toC: 3 }
-            });
-          }
-        }
-      }
-
       return moves;
     }
 
-    function applyChessMove(st, mv) {
-      var next = cloneChessState(st);
-      var p = next.board[mv.fromR][mv.fromC];
-      next.board[mv.fromR][mv.fromC] = null;
-      next.board[mv.toR][mv.toC] = mv.promotion ? mv.promotion : p;
-      next.enPassant = mv.newEnPassant ? { r: mv.newEnPassant.r, c: mv.newEnPassant.c } : null;
-
-      if (mv.enPassantCap) {
-        next.board[mv.enPassantCap.r][mv.enPassantCap.c] = null;
-      }
-
-      if (mv.castleRook) {
-        var rookPiece = next.board[mv.castleRook.fromR][mv.castleRook.fromC];
-        next.board[mv.castleRook.fromR][mv.castleRook.fromC] = null;
-        next.board[mv.castleRook.toR][mv.castleRook.toC] = rookPiece;
-      }
-
-      // Обновление прав на рокировку при движении короля или ладьи
-      if (p === 'wK') { next.castling.wK = false; next.castling.wR0 = false; next.castling.wR7 = false; }
-      if (p === 'bK') { next.castling.bK = false; next.castling.bR0 = false; next.castling.bR7 = false; }
-      if (mv.fromR === 7 && mv.fromC === 0 || mv.toR === 7 && mv.toC === 0) next.castling.wR0 = false;
-      if (mv.fromR === 7 && mv.fromC === 7 || mv.toR === 7 && mv.toC === 7) next.castling.wR7 = false;
-      if (mv.fromR === 0 && mv.fromC === 0 || mv.toR === 0 && mv.toC === 0) next.castling.bR0 = false;
-      if (mv.fromR === 0 && mv.fromC === 7 || mv.toR === 0 && mv.toC === 7) next.castling.bR7 = false;
-
-      return next;
-    }
-
-    function getLegalMovesForSquare(st, r, c) {
-      var p = st.board[r][c];
-      if (!p) return [];
-      var col = pieceColor(p);
-      var pseudo = generatePseudoMoves(st, r, c);
+    function getLegalMovesForSquare(b, r, c) {
+      var piece = b[r][c];
+      if (!piece) return [];
+      var color = piece[0];
+      var pseudo = getPseudoMovesForSquare(b, r, c);
       var legal = [];
       for (var i = 0; i < pseudo.length; i++) {
-        var cand = applyChessMove(st, pseudo[i]);
-        if (!isKingInCheck(cand, col)) legal.push(pseudo[i]);
+        var m = pseudo[i];
+        var nextB = cloneChessBoard(b);
+        nextB[m.r][m.c] = piece;
+        nextB[r][c] = null;
+        if (!isKingInCheck(nextB, color)) legal.push(m);
       }
       return legal;
     }
 
-    function getAllLegalMoves(st, col) {
+    function getAllLegalMoves(b, color) {
       var all = [];
       for (var r = 0; r < 8; r++) {
         for (var c = 0; c < 8; c++) {
-          if (pieceColor(st.board[r][c]) === col) {
-            var sqMoves = getLegalMovesForSquare(st, r, c);
-            for (var i = 0; i < sqMoves.length; i++) all.push(sqMoves[i]);
+          if (b[r][c] && b[r][c][0] === color) {
+            var ms = getLegalMovesForSquare(b, r, c);
+            for (var i = 0; i < ms.length; i++) {
+              all.push({ fromR: r, fromC: c, toR: ms[i].r, toC: ms[i].c });
+            }
           }
         }
       }
       return all;
     }
 
-    function setChessStatus(msg) {
-      var el = getEl('chessStatusBar');
-      if (el) el.innerText = msg;
+    function applyChessMove(b, mv) {
+      var nextB = cloneChessBoard(b);
+      var piece = nextB[mv.fromR][mv.fromC];
+      nextB[mv.toR][mv.toC] = piece;
+      nextB[mv.fromR][mv.fromC] = null;
+      if (piece === 'wP' && mv.toR === 0) nextB[mv.toR][mv.toC] = 'wQ';
+      if (piece === 'bP' && mv.toR === 7) nextB[mv.toR][mv.toC] = 'bQ';
+      return nextB;
     }
 
-    function evaluateChessBoard(st) {
-      var vals = { P: 10, N: 30, B: 32, R: 50, Q: 90, K: 900 };
+    function evaluateChessBoard(b) {
       var score = 0;
       for (var r = 0; r < 8; r++) {
         for (var c = 0; c < 8; c++) {
-          var p = st.board[r][c];
+          var p = b[r][c];
           if (!p) continue;
-          var v = vals[pieceType(p)] || 0;
-          if (pieceColor(p) === 'b') score += v;
-          else score -= v;
+          var val = CHESS_VALS[p[1]] || 0;
+          if (p[0] === 'b') score += val;
+          else score -= val;
         }
       }
       return score;
     }
 
-    function checkChessGameEnd() {
+    function finishChessIfEnded() {
       var legal = getAllLegalMoves(chessState, chessTurn);
       if (legal.length === 0) {
         chessGameOver = true;
         if (isKingInCheck(chessState, chessTurn)) {
           if (chessTurn === 'b') {
-            setChessStatus(t.chess_win);
-            if (!chessRewardGiven) {
-              chessRewardGiven = true;
-              balance += 250;
-              addBadge('chess_2026');
-              updateUI();
-            }
-            playSound('quest_claim_10');
-            playHaptic('success');
-          } else {
-            setChessStatus(t.chess_lose);
-            playHaptic('error');
-          }
-        } else {
-          setChessStatus(t.chess_draw);
-          if (!chessRewardGiven) {
-            chessRewardGiven = true;
-            balance += 50;
+            balance += 250;
             addBadge('chess_2026');
             updateUI();
+            playSound('quest_claim_10');
+            playHaptic('heavy');
+            setChessStatus(t.chess_win);
+            showGameAlert(t.chess_win, { type: 'success', icon: '🏆' });
+          } else {
+            playHaptic('error');
+            setChessStatus(t.chess_lose);
+            showGameAlert(t.chess_lose, { type: 'error', icon: '💀' });
           }
+        } else {
+          balance += 50;
+          updateUI();
           playSound('quest_claim');
           playHaptic('medium');
+          setChessStatus(t.chess_draw);
+          showGameAlert(t.chess_draw, { icon: '🤝' });
         }
         return true;
       }
       return false;
     }
 
-    function runChessBotMove() {
+    function runChessBotTurn() {
       if (chessGameOver || chessTurn !== 'b') return;
-      var moves = getAllLegalMoves(chessState, 'b');
-      if (moves.length === 0) { checkChessGameEnd(); return; }
+      setChessStatus(t.chess_bot_turn);
+      if (chessBotTimer) clearTimeout(chessBotTimer);
+      chessBotTimer = setTimeout(function() {
+        if (chessGameOver || chessTurn !== 'b') return;
+        var moves = getAllLegalMoves(chessState, 'b');
+        if (!moves.length) { finishChessIfEnded(); renderChessBoard(); return; }
 
-      var bestScore = -1e9;
-      var bestMoves = [];
-      for (var i = 0; i < moves.length; i++) {
-        var nextSt = applyChessMove(chessState, moves[i]);
-        var sc = evaluateChessBoard(nextSt);
-        if (isKingInCheck(nextSt, 'w')) sc += 8;
-        if (getAllLegalMoves(nextSt, 'w').length === 0 && isKingInCheck(nextSt, 'w')) sc += 5000;
-        sc += Math.random() * 6;
-        if (sc > bestScore) { bestScore = sc; bestMoves = [moves[i]]; }
-        else if (sc === bestScore) bestMoves.push(moves[i]);
-      }
-
-      var chosen = bestMoves[Math.floor(Math.random() * bestMoves.length)];
-      chessState = applyChessMove(chessState, chosen);
-      chessLastMove = chosen;
-      chessTurn = 'w';
-      playSound('upgrade');
-      playHaptic('light');
-
-      if (!checkChessGameEnd()) {
-        setChessStatus(isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn);
-      }
-      renderChessBoard();
+        var bestScore = -Infinity;
+        var bestMoves = [];
+        for (var i = 0; i < moves.length; i++) {
+          var candBoard = applyChessMove(chessState, moves[i]);
+          var sc = evaluateChessBoard(candBoard);
+          if (isKingInCheck(candBoard, 'w')) sc += 35;
+          sc += (Math.random() - 0.5) * 28;
+          if (sc > bestScore) { bestScore = sc; bestMoves = [moves[i]]; }
+          else if (Math.abs(sc - bestScore) < 1) { bestMoves.push(moves[i]); }
+        }
+        var chosen = bestMoves[Math.floor(Math.random() * bestMoves.length)];
+        chessState = applyChessMove(chessState, chosen);
+        chessLastMove = chosen;
+        chessTurn = 'w';
+        playHaptic('light');
+        if (!finishChessIfEnded()) {
+          setChessStatus(isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn);
+        }
+        renderChessBoard();
+      }, 280);
     }
 
-    function handleChessCellClick(r, c) {
+    window.onChessCellClick = function(r, c) {
       if (chessGameOver || chessTurn !== 'w') return;
-
+      var cellPiece = chessState[r][c];
       if (chessSelected) {
-        var chosenMove = null;
+        var matched = null;
         for (var i = 0; i < chessValidMoves.length; i++) {
-          if (chessValidMoves[i].toR === r && chessValidMoves[i].toC === c) {
-            chosenMove = chessValidMoves[i];
-            break;
-          }
+          if (chessValidMoves[i].r === r && chessValidMoves[i].c === c) { matched = chessValidMoves[i]; break; }
         }
-        if (chosenMove) {
-          chessState = applyChessMove(chessState, chosenMove);
-          chessLastMove = chosenMove;
+        if (matched) {
+          var mv = { fromR: chessSelected.r, fromC: chessSelected.c, toR: r, toC: c };
+          chessState = applyChessMove(chessState, mv);
+          chessLastMove = mv;
           chessSelected = null;
           chessValidMoves = [];
           chessTurn = 'b';
-          playHaptic('light');
+          playHaptic('medium');
           renderChessBoard();
-
-          if (!checkChessGameEnd()) {
-            setChessStatus(t.chess_bot_turn);
-            if (chessBotTimer) clearTimeout(chessBotTimer);
-            chessBotTimer = setTimeout(runChessBotMove, 380);
-          }
+          if (!finishChessIfEnded()) runChessBotTurn();
           return;
         }
       }
-
-      var p = chessState.board[r][c];
-      if (p && pieceColor(p) === 'w') {
-        if (chessSelected && chessSelected.r === r && chessSelected.c === c) {
-          chessSelected = null;
-          chessValidMoves = [];
-        } else {
-          chessSelected = { r: r, c: c };
-          chessValidMoves = getLegalMovesForSquare(chessState, r, c);
-        }
+      if (cellPiece && cellPiece[0] === 'w') {
+        chessSelected = { r: r, c: c };
+        chessValidMoves = getLegalMovesForSquare(chessState, r, c);
         playHaptic('light');
-        renderChessBoard();
       } else {
         chessSelected = null;
         chessValidMoves = [];
-        renderChessBoard();
       }
-    }
+      renderChessBoard();
+    };
 
     function renderChessBoard() {
       var boardEl = getEl('chessBoard');
       if (!boardEl || !chessState) return;
-      boardEl.innerHTML = '';
-
+      var html = '';
       for (var r = 0; r < 8; r++) {
         for (var c = 0; c < 8; c++) {
-          var cell = document.createElement('div');
-          var isLight = ((r + c) % 2 === 0);
-          cell.className = 'chess-cell ' + (isLight ? 'light' : 'dark');
-
-          var p = chessState.board[r][c];
-          if (p) {
-            cell.innerText = CHESS_GLYPHS[p] || '';
-            cell.classList.add(pieceColor(p) === 'w' ? 'piece-white' : 'piece-black');
+          var isLight = (r + c) % 2 === 0;
+          var cls = 'chess-cell ' + (isLight ? 'light' : 'dark');
+          if (chessSelected && chessSelected.r === r && chessSelected.c === c) cls += ' selected';
+          if (chessLastMove && ((chessLastMove.fromR === r && chessLastMove.fromC === c) || (chessLastMove.toR === r && chessLastMove.toC === c))) {
+            cls += ' last-move';
           }
-
-          if (chessSelected && chessSelected.r === r && chessSelected.c === c) {
-            cell.classList.add('selected');
-          }
-
-          if (chessLastMove &&
-              ((chessLastMove.fromR === r && chessLastMove.fromC === c) ||
-               (chessLastMove.toR === r && chessLastMove.toC === c))) {
-            cell.classList.add('last-move');
-          }
-
-          var isTarget = false;
+          var piece = chessState[r][c];
+          var isMoveTarget = false;
           for (var i = 0; i < chessValidMoves.length; i++) {
-            if (chessValidMoves[i].toR === r && chessValidMoves[i].toC === c) {
-              isTarget = true;
-              break;
-            }
+            if (chessValidMoves[i].r === r && chessValidMoves[i].c === c) { isMoveTarget = true; break; }
           }
-          if (isTarget) {
-            if (p || (chessState.board[chessSelected.r][chessSelected.c] && pieceType(chessState.board[chessSelected.r][chessSelected.c]) === 'P' && c !== chessSelected.c)) {
-              cell.classList.add('valid-capture');
-            } else {
-              cell.classList.add('valid-move');
-            }
-          }
-
-          cell.onclick = (function(rr, cc) {
-            return function() { handleChessCellClick(rr, cc); };
-          })(r, c);
-
-          boardEl.appendChild(cell);
+          if (isMoveTarget) cls += piece ? ' valid-capture' : ' valid-move';
+          var glyph = piece ? (CHESS_PIECES[piece] || '') : '';
+          html += '<div class="' + cls + '" onclick="onChessCellClick(' + r + ',' + c + ')">' + glyph + '</div>';
         }
       }
+      boardEl.innerHTML = html;
     }
 
     window.resetChessGame = function() {
       if (chessBotTimer) { clearTimeout(chessBotTimer); chessBotTimer = null; }
-      chessState = createInitialChessState();
+      chessState = createInitialChessBoard();
       chessTurn = 'w';
       chessSelected = null;
       chessValidMoves = [];
       chessLastMove = null;
       chessGameOver = false;
-      chessRewardGiven = false;
       setChessStatus(t.chess_your_turn);
       renderChessBoard();
       playHaptic('medium');
     };
 
-    window.showScreen = function(name) {
+    function initChessIfNeeded() {
+      if (!chessState) {
+        window.resetChessGame();
+      } else {
+        if (!chessGameOver) setChessStatus(chessTurn === 'w' ? (isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn) : t.chess_bot_turn);
+        renderChessBoard();
+      }
+    }
+
+    function showScreen(screenName) {
+      if (screenName === 'calendar' && !isCalendarUnlocked()) {
+        playHaptic('error');
+        showGameAlert(t.calendar_locked_alert.replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
+        return;
+      }
+      if (screenName === 'chess' && !activeEvents.chessDay) {
+        screenName = 'main';
+      }
+      stopCaseOpenSound();
       var screens = document.querySelectorAll('.screen');
       for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
-      var targetScreen = getEl('screen-' + name);
+      var targetScreen = getEl('screen-' + screenName);
       if (targetScreen) targetScreen.classList.add('active');
 
-      if (document.body) {
-        document.body.classList.toggle('on-main-screen', name === 'main');
-      }
+      var menuItems = document.querySelectorAll('.menu-item');
+      for (var j = 0; j < menuItems.length; j++) menuItems[j].classList.remove('active');
+      var activeMenu = document.querySelector('.menu-item[data-screen="' + screenName + '"]');
+      if (activeMenu) activeMenu.classList.add('active');
 
-      var items = document.querySelectorAll('.menu-item');
-      for (var j = 0; j < items.length; j++) {
-        var itemScr = items[j].getAttribute('data-screen');
-        items[j].classList.toggle('active', itemScr === name);
-      }
+      var isMain = screenName === 'main';
+      var isProfile = screenName === 'profile';
+      var isSettings = screenName === 'settings';
+      var isAchievements = screenName === 'achievements';
+      var isEventsHistory = screenName === 'events-history';
+      var isInventory = screenName === 'inventory';
+      var isFriends = screenName === 'friends';
+      var isClans = screenName === 'clans';
+      var isCalendar = screenName === 'calendar';
+      var isShop = screenName === 'shop';
+      var isCasinoMenu = screenName === 'casino';
+      var isCasinoGame = (screenName === 'casino-box' || screenName === 'casino-slots' || screenName === 'casino-wheel');
+      var isChess = (screenName === 'chess');
 
-      if (name === 'upgrades') renderUpgrades();
-      else if (name === 'quests') renderQuests();
-      else if (name === 'rating') renderRating();
-      else if (name === 'achievements') renderAchievements();
-      else if (name === 'events-history') renderEventsHistory();
-      else if (name === 'inventory') renderInventory();
-      else if (name === 'calendar') updateCalendarUI();
-      else if (name === 'casino') renderCasinoMenu();
-      else if (name === 'casino-box') { initCasino(); if (spinBtn) spinBtn.disabled = isSpinning; }
-      else if (name === 'casino-slots') { var sBtn = getEl('spinSlotsBtn'); if (sBtn) sBtn.disabled = isSlotsSpinning; }
-      else if (name === 'casino-wheel') { var wBtn = getEl('spinWheelBtn'); if (wBtn) wBtn.disabled = isWheelSpinning; }
-      else if (name === 'chess') { if (!chessState) window.resetChessGame(); else renderChessBoard(); }
-      else if (name === 'settings') { initRockets(); updateSettingsUI(); }
-      else if (name === 'shop') {
-        updateShopEventUI();
-        if (currentShopTab === 'skins') renderShop();
-        else if (currentShopTab === 'gifts') updateGiftUI();
-        else if (currentShopTab === 'blackmarket' && activeEvents.blackMarket) renderBlackMarket();
-      }
-      playHaptic('light');
-    };
+      var hideBalance = isProfile || isSettings || isAchievements || isEventsHistory || isInventory || isFriends || isClans || isCalendar || isShop || isCasinoMenu || isCasinoGame || isChess;
+      if (topBalanceBar) topBalanceBar.style.display = hideBalance ? 'none' : 'flex';
 
-    var menuItems = document.querySelectorAll('.menu-item');
-    for (var m = 0; m < menuItems.length; m++) {
-      menuItems[m].addEventListener('click', function() { var scr = this.getAttribute('data-screen'); if (scr) showScreen(scr); });
+      if (screenName === 'upgrades') renderUpgrades();
+      if (screenName === 'quests') renderQuests();
+      if (screenName === 'rating') renderRating();
+      if (screenName === 'achievements') renderAchievements();
+      if (screenName === 'events-history') renderEventsHistory();
+      if (screenName === 'inventory') renderInventory();
+      if (screenName === 'calendar') updateCalendarUI();
+      if (screenName === 'shop') switchShopTab(currentShopTab === 'blackmarket' && !activeEvents.blackMarket ? 'skins' : currentShopTab);
+      if (screenName === 'casino') renderCasinoMenu();
+      if (screenName === 'casino-box') initCasino();
+      if (screenName === 'chess') initChessIfNeeded();
+      if (screenName === 'settings') initRockets();
+      if (isMain) updateUI();
+    }
+
+    var menuItemsList = document.querySelectorAll('.menu-item');
+    for (var mIdx = 0; mIdx < menuItemsList.length; mIdx++) {
+      menuItemsList[mIdx].addEventListener('click', (function(item) {
+        return function() { playHaptic('light'); showScreen(item.getAttribute('data-screen')); };
+      })(menuItemsList[mIdx]));
     }
 
     var openProfileBtn = getEl('openProfile');
-    if (openProfileBtn) openProfileBtn.addEventListener('click', function() { showScreen('profile'); });
+    if (openProfileBtn) openProfileBtn.addEventListener('click', function() { playHaptic('light'); showScreen('profile'); });
+
+    var tabTap = getEl('tabTap'); var tabAuto = getEl('tabAuto');
+    if (tabTap) tabTap.addEventListener('click', function() { currentTab = 'tap'; tabTap.classList.add('active'); if (tabAuto) tabAuto.classList.remove('active'); playHaptic('light'); renderUpgrades(); });
+    if (tabAuto) tabAuto.addEventListener('click', function() { currentTab = 'auto'; tabAuto.classList.add('active'); if (tabTap) tabTap.classList.remove('active'); playHaptic('light'); renderUpgrades(); });
 
     window.withdrawMoney = function() {
       playHaptic('medium');
-      if (balance < 10) showGameAlert(t.min_withdraw, { type: 'error', icon: '💳' });
-      else showGameAlert(t.withdraw_msg.replace('{amount}', formatMoney(balance)), { type: 'success', icon: '💳' });
+      if (balance < 10) { showGameAlert(t.min_withdraw, { type: 'error', icon: '💳' }); return; }
+      showGameAlert(t.withdraw_msg.replace('{amount}', formatMoney(balance)), { type: 'success', icon: '💳' });
     };
 
     var devClicks = 0; var devBtn = getEl('devBtn');
-    if (devBtn) {
-      devBtn.addEventListener('click', function() {
-        devClicks++; playHaptic('light');
-        if (devClicks >= 5) {
-          balance += 5000000; totalTaps += 10000000; devClicks = 0;
-          playSound('quest_claim_10'); playHaptic('heavy'); updateUI(); showGameAlert(t.dev_bonus_msg, { type: 'success', icon: '🧪' });
-        }
-      });
-    }
-
-    function initUser() {
-      var pName = getEl('profileName'); var topAv = getEl('topAvatar'); var profAv = getEl('profileAvatar');
-      if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-        var u = tg.initDataUnsafe.user;
-        userName = (u.first_name || '') + ' ' + (u.last_name || ''); userName = userName.trim() || u.username || t.player;
-        if (u.photo_url) userPhoto = u.photo_url;
+    if (devBtn) devBtn.addEventListener('click', function() {
+      devClicks++; playHaptic('light');
+      if (devClicks >= 5) {
+        balance += 5000000; totalTaps += 10000000; updateUI(); devClicks = 0;
+        playSound('upgrade'); playHaptic('heavy'); showGameAlert(t.dev_bonus_msg, { type: 'success', icon: '🚀' });
       }
-      if (pName) pName.innerText = userName;
-      var svgAvatar = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100'><rect width='100' height='100' fill='%238b5cf6'/><text x='50%' y='55%' font-size='50' text-anchor='middle' dominant-baseline='middle'>🥔</text></svg>";
-      if (topAv) { topAv.src = userPhoto || svgAvatar; topAv.onerror = function() { this.src = svgAvatar; }; }
-      if (profAv) { profAv.src = userPhoto || svgAvatar; profAv.onerror = function() { this.src = svgAvatar; }; }
+    });
+
+    function loadUserProfile() {
+      try {
+        if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+          var u = tg.initDataUnsafe.user;
+          userName = (u.first_name || '') + (u.last_name ? ' ' + u.last_name : '') || t.player;
+          if (u.photo_url) userPhoto = u.photo_url;
+        }
+      } catch(e) {}
+      var pName = getEl('profileName'); if (pName) pName.innerText = userName;
+      var tAv = getEl('topAvatar'); var pAv = getEl('profileAvatar');
+      if (userPhoto) {
+        if (tAv) { tAv.src = userPhoto; tAv.style.display = 'block'; }
+        if (pAv) { pAv.src = userPhoto; pAv.style.display = 'block'; }
+      } else {
+        if (tAv) tAv.style.display = 'none';
+        if (pAv) pAv.style.display = 'none';
+      }
     }
 
+    initSnowflakes(); loadUserProfile(); updatePotatoSkin(); applyTranslations(); updateUI(); updateAutoInfo();
+    if (hasAutoclicker) startAutoclicker();
+    checkEvents(true);
+    setInterval(function() { checkEvents(false); }, 60000);
     setInterval(function() {
-      if (currentShopTab === 'gifts') updateGiftUI();
+      var shopGifts = getEl('shopContentGifts');
+      if (shopGifts && shopGifts.style.display !== 'none') updateGiftUI();
       var calScreen = getEl('screen-calendar');
       if (calScreen && calScreen.classList.contains('active')) updateCalendarUI();
-      if (activeEvents.blackMarket && currentShopTab === 'blackmarket') updateShopEventUI();
     }, 1000);
-
-    try {
-      initSnowflakes();
-      initUser();
-      updatePotatoSkin();
-      updateAutoInfo();
-      startAutoclicker();
-      initCasino();
-      checkEvents(true);
-      applyTranslations();
-      updateUI();
-    } catch (e) {
-      var err = getEl('error-screen');
-      if (err) { err.style.display = 'block'; err.innerHTML = "<p><b>INIT ERROR:</b> " + e.message + "</p>"; }
-    }
   </script>
 </body>
 </html>
