@@ -136,7 +136,7 @@
       transition: top 0.2s ease;
     }
 
-    .inventory-btn-main, .shop-btn-main, .casino-btn-main, .chess-btn-main {
+    .inventory-btn-main, .shop-btn-main, .casino-btn-main {
       position: relative;
       width: 100%;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
@@ -162,54 +162,7 @@
     .casino-btn-main { background: rgba(234, 179, 8, 0.16); border-color: #fde047 #a16207 #a16207 #fde047; }
     .casino-btn-main:active { border-color: #a16207 #fde047 #fde047 #a16207; }
 
-    .chess-btn-main { background: rgba(16, 185, 129, 0.18); border-color: #6ee7b7 #065f46 #065f46 #6ee7b7; }
-    .chess-btn-main:active { border-color: #065f46 #6ee7b7 #6ee7b7 #065f46; }
-    .chess-btn-main span:not(.side-menu-emoji) {
-      font-size: 7px; color: #fff; text-transform: uppercase; line-height: 1.15;
-    }
-
-    body.has-event-banner .chess-container { padding-top: 148px; }
-    .chess-container {
-      flex: 1; display: flex; flex-direction: column; align-items: center;
-      padding: 108px 14px 24px; overflow-y: auto; transition: padding-top 0.2s ease;
-    }
-    .chess-title {
-      font-size: 12px; color: #d8b4fe; margin-bottom: 8px;
-      text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center;
-    }
-    .chess-status-bar {
-      width: 100%; max-width: 280px; background: rgba(15, 10, 30, 0.72);
-      border: 2px solid #d8b4fe; border-radius: 6px; padding: 7px 9px; margin-bottom: 10px;
-      font-size: 7.5px; line-height: 1.5; color: #f3e8ff; text-align: center;
-    }
-    /* Доска в фиолетово-сиреневых тонах (#f3e8ff / #7e22ce / #d8b4fe) с ровными ячейками */
-    .chess-board {
-      display: grid; grid-template-columns: repeat(8, minmax(0, 1fr));
-      width: 100%; max-width: 272px; aspect-ratio: 1 / 1;
-      border: 3px solid #d8b4fe; border-radius: 6px; overflow: hidden;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.65);
-      margin-bottom: 12px; background: #7e22ce;
-    }
-    .chess-cell {
-      display: flex; align-items: center; justify-content: center;
-      aspect-ratio: 1 / 1; min-width: 0; overflow: hidden;
-      font-size: 20px; line-height: 1; cursor: pointer; position: relative;
-      text-shadow: 1px 1px 0 rgba(0,0,0,0.55);
-    }
-    .chess-cell.light { background: #f3e8ff; }
-    .chess-cell.dark { background: #7e22ce; }
-    .chess-cell.selected { box-shadow: inset 0 0 0 3px #d8b4fe; background: #a855f7 !important; }
-    .chess-cell.valid-move::after {
-      content: ''; position: absolute; width: 9px; height: 9px; border-radius: 50%;
-      background: rgba(216, 180, 254, 0.92); border: 1.5px solid #3b0764; pointer-events: none;
-    }
-    .chess-cell.valid-capture { box-shadow: inset 0 0 0 3px #ef4444; }
-    .chess-cell.last-move { background: rgba(216, 180, 254, 0.42) !important; }
-    .chess-controls {
-      width: 100%; max-width: 272px; display: flex; gap: 8px; justify-content: center;
-    }
-
-    .side-tile-btn {
+.side-tile-btn {
       width: 100%;
       background: rgba(30, 41, 59, 0.92);
       border: 2px solid;
@@ -646,13 +599,12 @@
       <button class="modal-btn" onclick="forceEvent('valentine')" style="background: #be185d; border-color: #f9a8d4 #831843 #831843 #f9a8d4;" data-i18n="evt_force_valentine">💘 Включить День святого Валентина</button>
       <button class="modal-btn" onclick="forceEvent('april')" style="background: #a16207; border-color: #fde047 #713f12 #713f12 #fde047;" data-i18n="evt_force_april">🤡 Включить 1 апреля</button>
       <button class="modal-btn" onclick="forceEvent('blackMarket')" style="background: #1e1b4b; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;" data-i18n="evt_force_blackmarket">🌑 Включить Чёрный Рынок (3 дня)</button>
-      <button class="modal-btn" onclick="forceEvent('chessDay')" style="background: #065f46; border-color: #6ee7b7 #047857 #047857 #6ee7b7;" data-i18n="evt_force_chess">♟️ Включить День Шахмат (1 день)</button>
       <button class="modal-btn" onclick="forceEvent('none')" style="background: #4b5563; border-color: #9ca3af #374151 #374151 #9ca3af;" data-i18n="evt_force_none">❌ Выключить все (Классика)</button>
       <button class="modal-btn" onclick="closeTestEventMenu()" style="margin-top: 16px; background: #ef4444; border-color: #fca5a5 #7f1d1d #7f1d1d #fca5a5;" data-i18n="close_btn">Закрыть</button>
     </div>
   </div>
 
-  <div class="top-balance" id="openProfile">
+  <div class="top-balance no-back-offset" id="openProfile">
     <img class="top-avatar" id="topAvatar" src="" alt="">
     <div class="top-balance-text">
       <div class="top-balance-label" data-i18n="balance_label">Баланс</div>
@@ -674,10 +626,6 @@
       <div class="casino-btn-main" onclick="showScreen('casino')">
         <span class="side-menu-emoji">🎮</span>
         <span data-i18n="casino_btn">Казино</span>
-      </div>
-      <div class="chess-btn-main" id="mainChessBtn" onclick="showScreen('chess')" style="display: none;">
-        <span class="side-menu-emoji">♟️</span>
-        <span data-i18n="chess_btn">Шахматы</span>
       </div>
     </div>
 
@@ -873,19 +821,6 @@
     </div>
   </div>
 
-  <div class="screen" id="screen-chess">
-    <button class="btn-top-back" onclick="showScreen('main')">✖</button>
-    <button class="btn-info" onclick="openInfo('chess')">❓</button>
-    <div class="chess-container">
-      <div class="chess-title" data-i18n="chess_title">♟️ ШАХМАТЫ ДНЯ ♟️</div>
-      <div class="chess-status-bar" id="chessStatusBar"></div>
-      <div class="chess-board" id="chessBoard"></div>
-      <div class="chess-controls">
-        <button class="btn btn-green" style="flex:1; margin-bottom:0;" onclick="resetChessGame()" data-i18n="chess_new_game">Новая партия</button>
-      </div>
-    </div>
-  </div>
-
   <div class="screen" id="screen-upgrades">
     <div class="tabs">
       <button class="tab-btn active" id="tabTap" data-i18n="tab_tap">Ул. тапа</button>
@@ -1059,8 +994,7 @@
           halloween_2026: "🎃 Хэллоуин 2026",
           newyear_2026: "🎄 Новогодний тапер 2026",
           valentine_2026: "💘 Валентинка 2026",
-          april_2026: "🤡 Розыгрыш 1 апреля",
-          chess_2026: "♟️ Гроссмейстер дня"
+          april_2026: "🤡 Розыгрыш 1 апреля"
         },
         history_empty: "Вы ещё не участвовали в событиях.",
         history_period: "Период: {start} — {end}",
@@ -1070,15 +1004,6 @@
         gift_wait_prefix: "Доступно через", gift_ready: "Забрать!",
         gift_added_note: "Пришло на ваш баланс",
         casino_btn: "Казино", spin_btn: "КРУТИТЬ (5 ₽)", spin_slots_btn: "КРУТИТЬ (500 ₽)", spin_wheel_btn: "КРУТИТЬ (1.500 ₽)",
-        chess_btn: "Шахматы", chess_title: "♟️ ШАХМАТЫ ДНЯ ♟️", chess_new_game: "Новая партия",
-        chess_your_turn: "Твой ход (Белые) • Победа: +250 ₽",
-        chess_bot_turn: "Бот думает...",
-        chess_check: "⚠️ Шах! Твой ход (Белые)",
-        chess_win: "🏆 Победа! Ты поставил мат и получил +250 ₽!",
-        chess_lose: "💀 Мат! Победил Картофельный Бот.",
-        chess_draw: "🤝 Ничья (пат)! Награда за партию: +50 ₽.",
-        evt_chess: "♟️ День Шахмат! Сыграй партию в меню слева.",
-        evt_force_chess: "♟️ Включить День Шахмат (1 день)",
         casino_title: "🎰 КАЗИНО 🎰",
         potato_box: "Ящик картошки", potato_box_desc: "Рулетка • 5 ₽ (с 5 ур. тапа)",
         potato_truck: "Грузовик картошки", potato_truck_desc: "Слоты • 500 ₽ (с 20 ур. тапа)",
@@ -1131,14 +1056,6 @@
           <p>🍟 🍟 + любой — <b>2 500 ₽</b></p>
           <p>👻 👻 + любой — <b>1 250 ₽</b></p>
           <p>🥔 🥔 + любой — <b>300 ₽</b></p>
-        `,
-        info_chess_html: `
-          <p><b>Событие на 1 день:</b> в левом меню под Казино появляется кнопка <b>Шахматы</b>.</p>
-          <p><b>Правила:</b> Вы играете белыми фигурами против Картофельного Бота по классическим правилам (включая превращение пешки в ферзя).</p>
-          <hr>
-          <p><b>Награды:</b></p>
-          <p>🏆 Победа (мат боту): <b>+250 ₽</b></p>
-          <p>🤝 Ничья (пат): <b>+50 ₽</b></p>
         `,
         info_wheel_html: `
           <p><b>Доступ:</b> открывается с <b>40 уровня</b> улучшения тапа.</p>
@@ -1226,8 +1143,7 @@
           halloween_2026: "🎃 Halloween 2026",
           newyear_2026: "🎄 New Year Tapper 2026",
           valentine_2026: "💘 Valentine 2026",
-          april_2026: "🤡 April Fools Joke",
-          chess_2026: "♟️ Chess Day Grandmaster"
+          april_2026: "🤡 April Fools Joke"
         },
         history_empty: "You haven't participated in any events yet.",
         history_period: "Period: {start} — {end}",
@@ -1237,15 +1153,6 @@
         gift_wait_prefix: "Available in", gift_ready: "Claim!",
         gift_added_note: "Added to your balance",
         casino_btn: "Casino", spin_btn: "SPIN (5 ₽)", spin_slots_btn: "SPIN (500 ₽)", spin_wheel_btn: "SPIN (1.500 ₽)",
-        chess_btn: "Chess", chess_title: "♟️ CHESS DAY ♟️", chess_new_game: "New Game",
-        chess_your_turn: "Your turn (White) • Win: +250 ₽",
-        chess_bot_turn: "Bot is thinking...",
-        chess_check: "⚠️ Check! Your turn (White)",
-        chess_win: "🏆 Victory! Checkmate! You won +250 ₽!",
-        chess_lose: "💀 Checkmate! Potato Bot won.",
-        chess_draw: "🤝 Stalemate! Draw reward: +50 ₽.",
-        evt_chess: "♟️ Chess Day! Play a match from the left menu.",
-        evt_force_chess: "♟️ Enable Chess Day (1 day)",
         casino_title: "🎰 CASINO 🎰",
         potato_box: "Potato Box", potato_box_desc: "Roulette • 5 ₽ (from Tap Lv.5)",
         potato_truck: "Potato Truck", potato_truck_desc: "Slots • 500 ₽ (from Tap Lv.20)",
@@ -1298,14 +1205,6 @@
           <p>🍟 🍟 + any — <b>2,500 ₽</b></p>
           <p>👻 👻 + any — <b>1,250 ₽</b></p>
           <p>🥔 🥔 + any — <b>300 ₽</b></p>
-        `,
-        info_chess_html: `
-          <p><b>1-Day Event:</b> A <b>Chess</b> button appears under Casino on the main screen.</p>
-          <p><b>Rules:</b> You play White against Potato Bot with standard chess rules (including auto-queen promotion).</p>
-          <hr>
-          <p><b>Rewards:</b></p>
-          <p>🏆 Victory (Checkmate): <b>+250 ₽</b></p>
-          <p>🤝 Draw (Stalemate): <b>+50 ₽</b></p>
         `,
         info_wheel_html: `
           <p><b>Unlock:</b> opens at <b>Tap Level 40</b>.</p>
@@ -1646,7 +1545,6 @@
       if (game === 'box') { title.innerText = "📦 " + t.potato_box; text.innerHTML = t.info_box_html; }
       else if (game === 'slots') { title.innerText = "🚛 " + t.potato_truck; text.innerHTML = t.info_slots_html; }
       else if (game === 'wheel') { title.innerText = "🎡 " + t.potato_field; text.innerHTML = t.info_wheel_html; }
-      else if (game === 'chess') { title.innerText = "♟️ " + t.chess_title; text.innerHTML = t.info_chess_html; }
     }
 
     window.openInfo = function(game) {
@@ -1802,7 +1700,7 @@
       { id: "skin_chaos_eye", icon: "👁️", price: 3500000, kind: "skin", skinId: 4 }
     ];
 
-    var ALL_BADGE_KEYS = ["bm_regular", "halloween_2026", "newyear_2026", "valentine_2026", "april_2026", "chess_2026"];
+    var ALL_BADGE_KEYS = ["bm_regular", "halloween_2026", "newyear_2026", "valentine_2026", "april_2026"];
     var CALENDAR_ICONS = ["🪙", "💵", "💰", "💎", "🥔", "📦", "🔥", "⚡", "👑", "🌟", "🚀", "🍟"];
 
     var balance = parseFloat(safeStorage.getItem('potatoBalance')) || 0;
@@ -1827,7 +1725,7 @@
     var moaiEquipped = safeStorage.getItem('moaiEquipped') !== 'false';
     var lastMoaiSaveDate = safeStorage.getItem('lastMoaiSaveDate') || '';
 
-    var activeEvents = { blackMarket: false, halloween: false, newYear: false, valentine: false, april: false, chessDay: false };
+    var activeEvents = { blackMarket: false, halloween: false, newYear: false, valentine: false, april: false };
     var manualEventsDisabled = safeStorage.getItem('manualEventsDisabled') === 'true';
     var forcedEventKey = safeStorage.getItem('forcedEventKey') || '';
     var bmCycleId = parseInt(safeStorage.getItem('bmCycleId'), 10) || 1;
@@ -2160,12 +2058,7 @@
         });
         addBadge('april_2026');
       }
-      if (activeEvents.chessDay) {
-        recordEventParticipation({
-          id: 'chess_' + getTodayKey(), badgeKey: 'chess_2026',
-          nameRu: '♟️ День Шахмат', nameEn: '♟️ Chess Day',
-          start: new Date(new Date().setHours(0,0,0,0)).getTime(), end: new Date(new Date().setHours(23,59,59,999)).getTime(), active: true
-        });
+);
       }
       if (activeEvents.blackMarket) {
         recordEventParticipation({
@@ -2207,9 +2100,6 @@
       } else if (eventType === 'april') {
         text.innerText = t.evt_april;
         banner.style.background = 'linear-gradient(90deg, #a16207, #713f12)';
-      } else if (eventType === 'chessDay') {
-        text.innerText = t.evt_chess;
-        banner.style.background = 'linear-gradient(90deg, #065f46, #047857)';
       } else {
         hideEventBanner();
         return;
@@ -2230,14 +2120,13 @@
 
       if (manualEventsDisabled) {
         activeEvents.blackMarket = false; activeEvents.halloween = false;
-        activeEvents.newYear = false; activeEvents.valentine = false; activeEvents.april = false; activeEvents.chessDay = false;
+        activeEvents.newYear = false; activeEvents.valentine = false; activeEvents.april = false;
       } else if (forcedEventKey) {
         activeEvents.blackMarket = forcedEventKey === 'blackMarket';
         activeEvents.halloween = forcedEventKey === 'halloween';
         activeEvents.newYear = forcedEventKey === 'newYear';
         activeEvents.valentine = forcedEventKey === 'valentine';
         activeEvents.april = forcedEventKey === 'april';
-        activeEvents.chessDay = forcedEventKey === 'chessDay';
         if (activeEvents.blackMarket && now >= blackMarketEnd) {
           blackMarketEnd = now + (3 * 24 * 60 * 60 * 1000);
         }
@@ -2246,7 +2135,6 @@
         activeEvents.newYear = (month === 12 && day >= 20) || (month === 1 && day <= 10);
         activeEvents.valentine = (month === 2 && day === 14);
         activeEvents.april = (month === 4 && day === 1);
-        activeEvents.chessDay = (month === 7 && day === 20);
 
         if (now < blackMarketEnd) {
           activeEvents.blackMarket = true;
@@ -2308,14 +2196,8 @@
             notifiedSeasons.push(afKey); save();
             showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_april));
           }
-        } else if (activeEvents.chessDay) {
-          triggerBannerFor5Sec('chessDay');
-          var chKey = 'chess_' + getTodayKey();
-          if (notifiedSeasons.indexOf(chKey) === -1) {
-            notifiedSeasons.push(chKey); save();
-            showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_chess));
-          }
         }
+      }
       }
     }
 
@@ -2333,10 +2215,6 @@
       var evType = currentBannerEventType;
       hideEventBanner();
       playHaptic('medium');
-      if (evType === 'chessDay' && activeEvents.chessDay) {
-        showScreen('chess');
-        return;
-      }
       var targetTab = evType === 'blackMarket' ? 'blackmarket' : 'skins';
       showScreen('shop');
       if (targetTab === 'blackmarket' && activeEvents.blackMarket) switchShopTab('blackmarket');
@@ -2371,15 +2249,6 @@
       }
 
       if (!activeEvents.blackMarket && currentShopTab === 'blackmarket') switchShopTab('skins');
-
-      var chessBtn = getEl('mainChessBtn');
-      if (chessBtn) {
-        chessBtn.style.display = activeEvents.chessDay ? 'flex' : 'none';
-      }
-      var activeScreenEl = document.querySelector('.screen.active');
-      if (!activeEvents.chessDay && activeScreenEl && activeScreenEl.id === 'screen-chess') {
-        showScreen('main');
-      }
     }
 
     window.openTestEventMenu = function() {
@@ -2395,7 +2264,7 @@
 
     window.forceEvent = function(eventName) {
       activeEvents.blackMarket = false; activeEvents.halloween = false;
-      activeEvents.newYear = false; activeEvents.valentine = false; activeEvents.april = false; activeEvents.chessDay = false;
+      activeEvents.newYear = false; activeEvents.valentine = false; activeEvents.april = false;
       hideEventBanner();
 
       if (eventName === 'none') {
@@ -2406,7 +2275,6 @@
         else if (eventName === 'newYear') { activeEvents.newYear = true; triggerBannerFor5Sec('newYear'); }
         else if (eventName === 'valentine') { activeEvents.valentine = true; triggerBannerFor5Sec('valentine'); }
         else if (eventName === 'april') { activeEvents.april = true; triggerBannerFor5Sec('april'); }
-        else if (eventName === 'chessDay') { activeEvents.chessDay = true; triggerBannerFor5Sec('chessDay'); }
         else if (eventName === 'blackMarket') {
           activeEvents.blackMarket = true; bmCycleId += 1; lastBlackMarket = Date.now();
           blackMarketEnd = Date.now() + (3 * 24 * 60 * 60 * 1000); bmBoughtInCycle = [];
@@ -2481,7 +2349,6 @@
         if (scrName === 'events-history') renderEventsHistory();
         if (scrName === 'inventory') renderInventory();
         if (scrName === 'casino') renderCasinoMenu();
-        if (scrName === 'chess') { if (!chessGameOver) setChessStatus(chessTurn === 'w' ? (isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn) : t.chess_bot_turn); renderChessBoard(); }
       }
     }
 
@@ -3320,360 +3187,12 @@
       }
     }
 
-    var CHESS_PIECES = {
-      wK: '♔', wQ: '♕', wR: '♖', wB: '♗', wN: '♘', wP: '♙',
-      bK: '♚', bQ: '♛', bR: '♜', bB: '♝', bN: '♞', bP: '♟'
-    };
-    var CHESS_VALS = { P: 100, N: 320, B: 330, R: 500, Q: 900, K: 20000 };
-    var chessState = null;
-    var chessTurn = 'w';
-    var chessSelected = null;
-    var chessValidMoves = [];
-    var chessLastMove = null;
-    var chessGameOver = false;
-    var chessBotTimer = null;
-
-    function createInitialChessBoard() {
-      return [
-        ['bR','bN','bB','bQ','bK','bB','bN','bR'],
-        ['bP','bP','bP','bP','bP','bP','bP','bP'],
-        [null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null],
-        ['wP','wP','wP','wP','wP','wP','wP','wP'],
-        ['wR','wN','wB','wQ','wK','wB','wN','wR']
-      ];
-    }
-
-    function cloneChessBoard(b) {
-      return b.map(function(row) { return row.slice(); });
-    }
-
-    function setChessStatus(msg) {
-      var bar = getEl('chessStatusBar');
-      if (bar) bar.innerText = msg;
-    }
-
-    function findKingPos(b, color) {
-      var target = color + 'K';
-      for (var r = 0; r < 8; r++) {
-        for (var c = 0; c < 8; c++) {
-          if (b[r][c] === target) return { r: r, c: c };
-        }
-      }
-      return null;
-    }
-
-    function isSquareAttacked(b, r, c, byColor) {
-      var pDir = byColor === 'w' ? 1 : -1;
-      var pr = r + pDir;
-      if (pr >= 0 && pr < 8) {
-        if (c - 1 >= 0 && b[pr][c - 1] === byColor + 'P') return true;
-        if (c + 1 < 8 && b[pr][c + 1] === byColor + 'P') return true;
-      }
-      var kJumps = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
-      for (var i = 0; i < kJumps.length; i++) {
-        var nr = r + kJumps[i][0], nc = c + kJumps[i][1];
-        if (nr >= 0 && nr < 8 && nc >= 0 && nc < 8 && b[nr][nc] === byColor + 'N') return true;
-      }
-      var kingDirs = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
-      for (var j = 0; j < kingDirs.length; j++) {
-        var kr = r + kingDirs[j][0], kc = c + kingDirs[j][1];
-        if (kr >= 0 && kr < 8 && kc >= 0 && kc < 8 && b[kr][kc] === byColor + 'K') return true;
-      }
-      var diagDirs = [[-1,-1],[-1,1],[1,-1],[1,1]];
-      for (var d = 0; d < diagDirs.length; d++) {
-        var dr = r + diagDirs[d][0], dc = c + diagDirs[d][1];
-        while (dr >= 0 && dr < 8 && dc >= 0 && dc < 8) {
-          var pc = b[dr][dc];
-          if (pc) {
-            if (pc[0] === byColor && (pc[1] === 'B' || pc[1] === 'Q')) return true;
-            break;
-          }
-          dr += diagDirs[d][0]; dc += diagDirs[d][1];
-        }
-      }
-      var orthoDirs = [[-1,0],[1,0],[0,-1],[0,1]];
-      for (var o = 0; o < orthoDirs.length; o++) {
-        var orr = r + orthoDirs[o][0], occ = c + orthoDirs[o][1];
-        while (orr >= 0 && orr < 8 && occ >= 0 && occ < 8) {
-          var pco = b[orr][occ];
-          if (pco) {
-            if (pco[0] === byColor && (pco[1] === 'R' || pco[1] === 'Q')) return true;
-            break;
-          }
-          orr += orthoDirs[o][0]; occ += orthoDirs[o][1];
-        }
-      }
-      return false;
-    }
-
-    function isKingInCheck(b, color) {
-      var kp = findKingPos(b, color);
-      if (!kp) return false;
-      return isSquareAttacked(b, kp.r, kp.c, color === 'w' ? 'b' : 'w');
-    }
-
-    function getPseudoMovesForSquare(b, r, c) {
-      var piece = b[r][c];
-      if (!piece) return [];
-      var color = piece[0], type = piece[1], enemy = color === 'w' ? 'b' : 'w';
-      var moves = [];
-
-      if (type === 'P') {
-        var dir = color === 'w' ? -1 : 1;
-        var startRow = color === 'w' ? 6 : 1;
-        var oneR = r + dir;
-        if (oneR >= 0 && oneR < 8 && !b[oneR][c]) {
-          moves.push({ r: oneR, c: c });
-          var twoR = r + dir * 2;
-          if (r === startRow && !b[twoR][c]) moves.push({ r: twoR, c: c });
-        }
-        if (oneR >= 0 && oneR < 8) {
-          if (c - 1 >= 0 && b[oneR][c - 1] && b[oneR][c - 1][0] === enemy) moves.push({ r: oneR, c: c - 1 });
-          if (c + 1 < 8 && b[oneR][c + 1] && b[oneR][c + 1][0] === enemy) moves.push({ r: oneR, c: c + 1 });
-        }
-      } else if (type === 'N') {
-        var jumps = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
-        for (var i = 0; i < jumps.length; i++) {
-          var nr = r + jumps[i][0], nc = c + jumps[i][1];
-          if (nr >= 0 && nr < 8 && nc >= 0 && nc < 8 && (!b[nr][nc] || b[nr][nc][0] === enemy)) {
-            moves.push({ r: nr, c: nc });
-          }
-        }
-      } else if (type === 'K') {
-        var kDirs = [[-1,-1],[-1,0],[-1,1],[0,-1],[0,1],[1,-1],[1,0],[1,1]];
-        for (var j = 0; j < kDirs.length; j++) {
-          var kr = r + kDirs[j][0], kc = c + kDirs[j][1];
-          if (kr >= 0 && kr < 8 && kc >= 0 && kc < 8 && (!b[kr][kc] || b[kr][kc][0] === enemy)) {
-            moves.push({ r: kr, c: kc });
-          }
-        }
-      } else {
-        var dirs = [];
-        if (type === 'B' || type === 'Q') dirs = dirs.concat([[-1,-1],[-1,1],[1,-1],[1,1]]);
-        if (type === 'R' || type === 'Q') dirs = dirs.concat([[-1,0],[1,0],[0,-1],[0,1]]);
-        for (var d = 0; d < dirs.length; d++) {
-          var dr = r + dirs[d][0], dc = c + dirs[d][1];
-          while (dr >= 0 && dr < 8 && dc >= 0 && dc < 8) {
-            if (!b[dr][dc]) {
-              moves.push({ r: dr, c: dc });
-            } else {
-              if (b[dr][dc][0] === enemy) moves.push({ r: dr, c: dc });
-              break;
-            }
-            dr += dirs[d][0]; dc += dirs[d][1];
-          }
-        }
-      }
-      return moves;
-    }
-
-    function getLegalMovesForSquare(b, r, c) {
-      var piece = b[r][c];
-      if (!piece) return [];
-      var color = piece[0];
-      var pseudo = getPseudoMovesForSquare(b, r, c);
-      var legal = [];
-      for (var i = 0; i < pseudo.length; i++) {
-        var m = pseudo[i];
-        var nextB = cloneChessBoard(b);
-        nextB[m.r][m.c] = piece;
-        nextB[r][c] = null;
-        if (!isKingInCheck(nextB, color)) legal.push(m);
-      }
-      return legal;
-    }
-
-    function getAllLegalMoves(b, color) {
-      var all = [];
-      for (var r = 0; r < 8; r++) {
-        for (var c = 0; c < 8; c++) {
-          if (b[r][c] && b[r][c][0] === color) {
-            var ms = getLegalMovesForSquare(b, r, c);
-            for (var i = 0; i < ms.length; i++) {
-              all.push({ fromR: r, fromC: c, toR: ms[i].r, toC: ms[i].c });
-            }
-          }
-        }
-      }
-      return all;
-    }
-
-    function applyChessMove(b, mv) {
-      var nextB = cloneChessBoard(b);
-      var piece = nextB[mv.fromR][mv.fromC];
-      nextB[mv.toR][mv.toC] = piece;
-      nextB[mv.fromR][mv.fromC] = null;
-      if (piece === 'wP' && mv.toR === 0) nextB[mv.toR][mv.toC] = 'wQ';
-      if (piece === 'bP' && mv.toR === 7) nextB[mv.toR][mv.toC] = 'bQ';
-      return nextB;
-    }
-
-    function evaluateChessBoard(b) {
-      var score = 0;
-      for (var r = 0; r < 8; r++) {
-        for (var c = 0; c < 8; c++) {
-          var p = b[r][c];
-          if (!p) continue;
-          var val = CHESS_VALS[p[1]] || 0;
-          if (p[0] === 'b') score += val;
-          else score -= val;
-        }
-      }
-      return score;
-    }
-
-    function finishChessIfEnded() {
-      var legal = getAllLegalMoves(chessState, chessTurn);
-      if (legal.length === 0) {
-        chessGameOver = true;
-        if (isKingInCheck(chessState, chessTurn)) {
-          if (chessTurn === 'b') {
-            balance += 250;
-            addBadge('chess_2026');
-            updateUI();
-            playSound('quest_claim_10');
-            playHaptic('heavy');
-            setChessStatus(t.chess_win);
-            showGameAlert(t.chess_win, { type: 'success', icon: '🏆' });
-          } else {
-            playHaptic('error');
-            setChessStatus(t.chess_lose);
-            showGameAlert(t.chess_lose, { type: 'error', icon: '💀' });
-          }
-        } else {
-          balance += 50;
-          updateUI();
-          playSound('quest_claim');
-          playHaptic('medium');
-          setChessStatus(t.chess_draw);
-          showGameAlert(t.chess_draw, { icon: '🤝' });
-        }
-        return true;
-      }
-      return false;
-    }
-
-    function runChessBotTurn() {
-      if (chessGameOver || chessTurn !== 'b') return;
-      setChessStatus(t.chess_bot_turn);
-      if (chessBotTimer) clearTimeout(chessBotTimer);
-      chessBotTimer = setTimeout(function() {
-        if (chessGameOver || chessTurn !== 'b') return;
-        var moves = getAllLegalMoves(chessState, 'b');
-        if (!moves.length) { finishChessIfEnded(); renderChessBoard(); return; }
-
-        var bestScore = -Infinity;
-        var bestMoves = [];
-        for (var i = 0; i < moves.length; i++) {
-          var candBoard = applyChessMove(chessState, moves[i]);
-          var sc = evaluateChessBoard(candBoard);
-          if (isKingInCheck(candBoard, 'w')) sc += 35;
-          sc += (Math.random() - 0.5) * 28;
-          if (sc > bestScore) { bestScore = sc; bestMoves = [moves[i]]; }
-          else if (Math.abs(sc - bestScore) < 1) { bestMoves.push(moves[i]); }
-        }
-        var chosen = bestMoves[Math.floor(Math.random() * bestMoves.length)];
-        chessState = applyChessMove(chessState, chosen);
-        chessLastMove = chosen;
-        chessTurn = 'w';
-        playHaptic('light');
-        if (!finishChessIfEnded()) {
-          setChessStatus(isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn);
-        }
-        renderChessBoard();
-      }, 280);
-    }
-
-    window.onChessCellClick = function(r, c) {
-      if (chessGameOver || chessTurn !== 'w') return;
-      var cellPiece = chessState[r][c];
-      if (chessSelected) {
-        var matched = null;
-        for (var i = 0; i < chessValidMoves.length; i++) {
-          if (chessValidMoves[i].r === r && chessValidMoves[i].c === c) { matched = chessValidMoves[i]; break; }
-        }
-        if (matched) {
-          var mv = { fromR: chessSelected.r, fromC: chessSelected.c, toR: r, toC: c };
-          chessState = applyChessMove(chessState, mv);
-          chessLastMove = mv;
-          chessSelected = null;
-          chessValidMoves = [];
-          chessTurn = 'b';
-          playHaptic('medium');
-          renderChessBoard();
-          if (!finishChessIfEnded()) runChessBotTurn();
-          return;
-        }
-      }
-      if (cellPiece && cellPiece[0] === 'w') {
-        chessSelected = { r: r, c: c };
-        chessValidMoves = getLegalMovesForSquare(chessState, r, c);
-        playHaptic('light');
-      } else {
-        chessSelected = null;
-        chessValidMoves = [];
-      }
-      renderChessBoard();
-    };
-
-    function renderChessBoard() {
-      var boardEl = getEl('chessBoard');
-      if (!boardEl || !chessState) return;
-      var html = '';
-      for (var r = 0; r < 8; r++) {
-        for (var c = 0; c < 8; c++) {
-          var isLight = (r + c) % 2 === 0;
-          var cls = 'chess-cell ' + (isLight ? 'light' : 'dark');
-          if (chessSelected && chessSelected.r === r && chessSelected.c === c) cls += ' selected';
-          if (chessLastMove && ((chessLastMove.fromR === r && chessLastMove.fromC === c) || (chessLastMove.toR === r && chessLastMove.toC === c))) {
-            cls += ' last-move';
-          }
-          var piece = chessState[r][c];
-          var isMoveTarget = false;
-          for (var i = 0; i < chessValidMoves.length; i++) {
-            if (chessValidMoves[i].r === r && chessValidMoves[i].c === c) { isMoveTarget = true; break; }
-          }
-          if (isMoveTarget) cls += piece ? ' valid-capture' : ' valid-move';
-          var glyph = piece ? (CHESS_PIECES[piece] || '') : '';
-          html += '<div class="' + cls + '" onclick="onChessCellClick(' + r + ',' + c + ')">' + glyph + '</div>';
-        }
-      }
-      boardEl.innerHTML = html;
-    }
-
-    window.resetChessGame = function() {
-      if (chessBotTimer) { clearTimeout(chessBotTimer); chessBotTimer = null; }
-      chessState = createInitialChessBoard();
-      chessTurn = 'w';
-      chessSelected = null;
-      chessValidMoves = [];
-      chessLastMove = null;
-      chessGameOver = false;
-      setChessStatus(t.chess_your_turn);
-      renderChessBoard();
-      playHaptic('medium');
-    };
-
-    function initChessIfNeeded() {
-      if (!chessState) {
-        window.resetChessGame();
-      } else {
-        if (!chessGameOver) setChessStatus(chessTurn === 'w' ? (isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn) : t.chess_bot_turn);
-        renderChessBoard();
-      }
-    }
 
     function showScreen(screenName) {
       if (screenName === 'calendar' && !isCalendarUnlocked()) {
         playHaptic('error');
         showGameAlert(t.calendar_locked_alert.replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
         return;
-      }
-      if (screenName === 'chess' && !activeEvents.chessDay) {
-        screenName = 'main';
       }
       stopCaseOpenSound();
       var screens = document.querySelectorAll('.screen');
@@ -3698,10 +3217,11 @@
       var isShop = screenName === 'shop';
       var isCasinoMenu = screenName === 'casino';
       var isCasinoGame = (screenName === 'casino-box' || screenName === 'casino-slots' || screenName === 'casino-wheel');
-      var isChess = (screenName === 'chess');
-
-      var hideBalance = isProfile || isSettings || isAchievements || isEventsHistory || isInventory || isFriends || isClans || isCalendar || isShop || isCasinoMenu || isCasinoGame || isChess;
-      if (topBalanceBar) topBalanceBar.style.display = hideBalance ? 'none' : 'flex';
+      var hideBalance = isProfile || isSettings || isAchievements || isEventsHistory || isInventory || isFriends || isClans || isCalendar || isShop || isCasinoMenu || isCasinoGame;
+      if (topBalanceBar) {
+        topBalanceBar.style.display = hideBalance ? 'none' : 'flex';
+        topBalanceBar.classList.toggle('no-back-offset', isMain);
+      }
 
       if (screenName === 'upgrades') renderUpgrades();
       if (screenName === 'quests') renderQuests();
@@ -3713,7 +3233,6 @@
       if (screenName === 'shop') switchShopTab(currentShopTab === 'blackmarket' && !activeEvents.blackMarket ? 'skins' : currentShopTab);
       if (screenName === 'casino') renderCasinoMenu();
       if (screenName === 'casino-box') initCasino();
-      if (screenName === 'chess') initChessIfNeeded();
       if (screenName === 'settings') initRockets();
       if (isMain) updateUI();
     }
