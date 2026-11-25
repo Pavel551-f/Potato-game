@@ -76,7 +76,7 @@
     body.has-event-banner .right-btns-container { top: 112px; }
     body.has-event-banner .tabs { padding-top: 112px; }
     body.has-event-banner .shop-tabs { padding-top: 154px; }
-    body.has-event-banner .main-content { padding-top: 132px; }
+    body.has-event-banner .main-content { padding-top: 126px; }
     body.has-event-banner .profile-content,
     body.has-event-banner .inventory-content { padding-top: 152px; }
     body.has-event-banner .casino-menu-container { padding-top: 158px; }
@@ -123,34 +123,35 @@
     }
     .btn-info:active { border-color: #1e40af #93c5fd #93c5fd #1e40af; transform: scale(0.95); }
 
+    /* Компактные боковые колонки на главном экране */
     .main-btns-container {
-      position: absolute; top: 72px; left: 14px; display: flex; flex-direction: column; gap: 8px; z-index: 60;
-      width: 116px;
+      position: absolute; top: 72px; left: 12px; display: flex; flex-direction: column; gap: 6px; z-index: 60;
+      width: 102px;
       transition: top 0.2s ease;
     }
 
     .right-btns-container {
-      position: absolute; top: 72px; right: 14px; display: flex; flex-direction: column; gap: 5px; z-index: 60;
-      width: 62px;
+      position: absolute; top: 72px; right: 12px; display: flex; flex-direction: column; gap: 5px; z-index: 60;
+      width: 56px;
       transition: top 0.2s ease;
     }
 
-    .inventory-btn-main, .shop-btn-main, .casino-btn-main {
+    .inventory-btn-main, .shop-btn-main, .casino-btn-main, .chess-btn-main {
       position: relative;
       width: 100%;
-      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
-      padding: 6px 6px; cursor: pointer;
-      border: 3px solid;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+      padding: 5px 5px; cursor: pointer;
+      border: 2px solid;
     }
-    .side-menu-emoji { font-size: 13px; line-height: 1; }
-    .inventory-btn-main { background: rgba(139, 92, 246, 0.18); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
+    .side-menu-emoji { font-size: 12px; line-height: 1; }
+    .inventory-btn-main { background: rgba(139, 92, 246, 0.2); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
     .inventory-btn-main:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
-    .shop-btn-main { background: rgba(168, 85, 247, 0.15); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
+    .shop-btn-main { background: rgba(168, 85, 247, 0.18); border-color: #c084fc #4c1d95 #4c1d95 #c084fc; }
     .shop-btn-main:active { border-color: #4c1d95 #c084fc #c084fc #4c1d95; }
     .shop-event-badge {
-      position: absolute; top: -6px; right: -6px;
+      position: absolute; top: -5px; right: -5px;
       background: #ef4444; color: #fff;
-      font-size: 7px; padding: 2px 3px;
+      font-size: 6.5px; padding: 2px 3px;
       border: 2px solid #000;
       animation: badgePulse 1.4s infinite;
     }
@@ -158,53 +159,55 @@
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.15); }
     }
-    .casino-btn-main { background: rgba(234, 179, 8, 0.15); border-color: #fde047 #a16207 #a16207 #fde047; }
+    .casino-btn-main { background: rgba(234, 179, 8, 0.16); border-color: #fde047 #a16207 #a16207 #fde047; }
     .casino-btn-main:active { border-color: #a16207 #fde047 #fde047 #a16207; }
 
-    .chess-btn-main { background: rgba(16, 185, 129, 0.16); border-color: #6ee7b7 #065f46 #065f46 #6ee7b7; }
+    .chess-btn-main { background: rgba(16, 185, 129, 0.18); border-color: #6ee7b7 #065f46 #065f46 #6ee7b7; }
     .chess-btn-main:active { border-color: #065f46 #6ee7b7 #6ee7b7 #065f46; }
     .chess-btn-main span:not(.side-menu-emoji) {
-      font-size: 7.5px; color: #fff; text-transform: uppercase; line-height: 1.2;
+      font-size: 7px; color: #fff; text-transform: uppercase; line-height: 1.15;
     }
 
-    body.has-event-banner .chess-container { padding-top: 152px; }
+    body.has-event-banner .chess-container { padding-top: 148px; }
     .chess-container {
       flex: 1; display: flex; flex-direction: column; align-items: center;
-      padding: 112px 14px 26px; overflow-y: auto; transition: padding-top 0.2s ease;
+      padding: 108px 14px 24px; overflow-y: auto; transition: padding-top 0.2s ease;
     }
     .chess-title {
-      font-size: 13px; color: #6ee7b7; margin-bottom: 10px;
+      font-size: 12px; color: #d8b4fe; margin-bottom: 8px;
       text-transform: uppercase; text-shadow: 2px 2px 0 #000; text-align: center;
     }
     .chess-status-bar {
-      width: 100%; max-width: 280px; background: rgba(0,0,0,0.45);
-      border: 2px solid #a855f7; padding: 7px 9px; margin-bottom: 10px;
-      font-size: 7.5px; line-height: 1.5; color: #fde047; text-align: center;
+      width: 100%; max-width: 280px; background: rgba(15, 10, 30, 0.72);
+      border: 2px solid #d8b4fe; border-radius: 6px; padding: 7px 9px; margin-bottom: 10px;
+      font-size: 7.5px; line-height: 1.5; color: #f3e8ff; text-align: center;
     }
+    /* Доска в фиолетово-сиреневых тонах (#f3e8ff / #7e22ce / #d8b4fe) с ровными ячейками */
     .chess-board {
-      display: grid; grid-template-columns: repeat(8, 1fr);
+      display: grid; grid-template-columns: repeat(8, minmax(0, 1fr));
       width: 100%; max-width: 272px; aspect-ratio: 1 / 1;
-      border: 4px solid #c084fc; box-shadow: 0 6px 18px rgba(0,0,0,0.65);
-      margin-bottom: 12px;
+      border: 3px solid #d8b4fe; border-radius: 6px; overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.65);
+      margin-bottom: 12px; background: #7e22ce;
     }
     .chess-cell {
       display: flex; align-items: center; justify-content: center;
-      font-size: 20px; cursor: pointer; position: relative;
-      text-shadow: 1px 1px 0 rgba(0,0,0,0.65);
+      aspect-ratio: 1 / 1; min-width: 0; overflow: hidden;
+      font-size: 20px; line-height: 1; cursor: pointer; position: relative;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.55);
     }
-    .chess-cell.light { background: #e9d5ff; }
-    .chess-cell.dark { background: #6b21a8; }
-    .chess-cell.selected { box-shadow: inset 0 0 0 3px #fde047; background: #a855f7 !important; }
+    .chess-cell.light { background: #f3e8ff; }
+    .chess-cell.dark { background: #7e22ce; }
+    .chess-cell.selected { box-shadow: inset 0 0 0 3px #d8b4fe; background: #a855f7 !important; }
     .chess-cell.valid-move::after {
-      content: ''; width: 9px; height: 9px; border-radius: 50%;
-      background: rgba(16, 185, 129, 0.85); border: 1px solid #000;
+      content: ''; position: absolute; width: 9px; height: 9px; border-radius: 50%;
+      background: rgba(216, 180, 254, 0.92); border: 1.5px solid #3b0764; pointer-events: none;
     }
     .chess-cell.valid-capture { box-shadow: inset 0 0 0 3px #ef4444; }
-    .chess-cell.last-move { background: rgba(253, 224, 71, 0.35) !important; }
+    .chess-cell.last-move { background: rgba(216, 180, 254, 0.42) !important; }
     .chess-controls {
       width: 100%; max-width: 272px; display: flex; gap: 8px; justify-content: center;
     }
-
 
     .side-tile-btn {
       width: 100%;
@@ -212,7 +215,7 @@
       border: 2px solid;
       border-color: #94a3b8 #0f172a #0f172a #94a3b8;
       border-radius: 5px;
-      padding: 3px 2px 4px;
+      padding: 3px 2px;
       display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
       cursor: pointer;
       box-shadow: 0 2px 0 rgba(0, 0, 0, 0.65);
@@ -222,44 +225,44 @@
       border-color: #0f172a #94a3b8 #94a3b8 #0f172a;
     }
     .side-tile-icon {
-      font-size: 13px; line-height: 1;
+      font-size: 12px; line-height: 1;
       filter: drop-shadow(0 1px 0 rgba(0,0,0,0.65));
     }
     .side-tile-label {
-      font-size: 5px; color: #fff; text-transform: uppercase;
+      font-size: 4.8px; color: #fff; text-transform: uppercase;
       letter-spacing: -0.4px; white-space: nowrap; line-height: 1.15;
     }
     .side-tile-sub {
-      font-size: 5px; color: #fde047; white-space: nowrap; line-height: 1.1;
+      font-size: 4.8px; color: #fde047; white-space: nowrap; line-height: 1.1;
     }
 
     .inventory-btn-main span:not(.side-menu-emoji),
     .shop-btn-main span:not(.side-menu-emoji):not(.shop-event-badge),
     .casino-btn-main span:not(.side-menu-emoji) {
-      font-size: 7.5px; color: #fff; text-transform: uppercase; line-height: 1.2;
+      font-size: 7px; color: #fff; text-transform: uppercase; line-height: 1.15;
     }
 
     .screen { flex: 1; display: none; flex-direction: column; overflow-y: auto; position: relative; }
     .screen.active { display: flex; }
 
-    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 86px; transition: padding-top 0.2s ease; }
+    .main-content { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 82px; transition: padding-top 0.2s ease; }
 
     .potato-wrap {
-      width: 185px; height: 185px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+      width: 168px; height: 168px; cursor: pointer; display: flex; align-items: center; justify-content: center;
       position: relative; z-index: 10; border-radius: 24px; transition: transform 0.1s ease;
     }
 
-    .potato-emoji { font-size: 106px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
+    .potato-emoji { font-size: 98px; transition: transform 0.1s; pointer-events: none; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
     .potato-wrap:active .potato-emoji { animation: shake 0.1s; }
     @keyframes shake { 0% { transform: translate(1px, 1px) rotate(0deg); } 10% { transform: translate(-1px, -2px) rotate(-1deg); } 20% { transform: translate(-3px, 0px) rotate(1deg); } 30% { transform: translate(3px, 2px) rotate(0deg); } 40% { transform: translate(1px, -1px) rotate(1deg); } 50% { transform: translate(-1px, 2px) rotate(-1deg); } 60% { transform: translate(-3px, 1px) rotate(0deg); } 70% { transform: translate(3px, 1px) rotate(-1deg); } 80% { transform: translate(-1px, -1px) rotate(1deg); } 90% { transform: translate(1px, 2px) rotate(0deg); } 100% { transform: translate(1px, -2px) rotate(-1deg); } }
 
     .potato-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; pointer-events: none; transition: transform 0.1s; image-rendering: pixelated; filter: drop-shadow(0 0 6px rgba(255,255,255,0.22)) drop-shadow(0 10px 15px rgba(0,0,0,0.55)); }
     .potato-wrap:active img { animation: shake 0.1s; }
 
-    .tap-power { margin-top: 14px; font-size: 11px; color: #c4b5fd; text-align: center; }
-    .tap-boost { font-size: 10px; color: #fde047; margin-left: 5px; }
-    .auto-info { margin-top: 8px; font-size: 9px; color: #10b981; text-align: center; }
-    .active-buffs-info { margin-top: 6px; font-size: 8px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
+    .tap-power { margin-top: 12px; font-size: 10.5px; color: #c4b5fd; text-align: center; }
+    .tap-boost { font-size: 9.5px; color: #fde047; margin-left: 5px; }
+    .auto-info { margin-top: 7px; font-size: 8.5px; color: #10b981; text-align: center; }
+    .active-buffs-info { margin-top: 6px; font-size: 7.5px; color: #f472b6; text-align: center; line-height: 1.5; max-width: 320px; }
 
     .streak-screen-wrap { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 118px 12px 24px; }
     .streak-board {
@@ -687,7 +690,8 @@
         <div class="side-tile-icon">🏰</div>
         <div class="side-tile-label" data-i18n="clans_btn">Кланы</div>
       </div>
-      <div class="side-tile-btn" onclick="showScreen('calendar')">
+      <!-- Календарь открывается только при покупке 25 уровня улучшения тапа -->
+      <div class="side-tile-btn" id="mainCalendarBtn" onclick="openCalendarScreen()" style="display: none;">
         <div class="side-tile-icon">📅</div>
         <div class="side-tile-sub" id="calendarBtnSub">День 1</div>
       </div>
@@ -977,6 +981,8 @@
       stopWhenReelFinishes: true
     };
 
+    var CALENDAR_UNLOCK_TAP_LEVEL = 25;
+
     var memoryStorage = {};
     var safeStorage = {
       getItem: function(key) {
@@ -1010,6 +1016,7 @@
         calendar_ready_now: "Доступна награда дня {day}!",
         calendar_next_in: "{h}ч. {m}м. {s}с.",
         calendar_last_reward: "Последняя награда: +{val} ₽",
+        calendar_locked_alert: "Календарь откроется после покупки 25 уровня улучшения тапа (сейчас {cur} ур.).",
         soon_title: "Скоро появится",
         friends_soon_desc: "Раздел «Друзья» ещё в разработке. Скоро добавим!",
         clans_soon_desc: "Раздел «Кланы» ещё в разработке. Скоро добавим!",
@@ -1134,14 +1141,6 @@
           <p>🏆 Победа (мат боту): <b>+250 ₽</b></p>
           <p>🤝 Ничья (пат): <b>+50 ₽</b></p>
         `,
-        info_chess_html: `
-          <p><b>1-Day Event:</b> A <b>Chess</b> button appears under Casino on the main screen.</p>
-          <p><b>Rules:</b> You play White against Potato Bot with standard chess rules (including auto-queen promotion).</p>
-          <hr>
-          <p><b>Rewards:</b></p>
-          <p>🏆 Victory (Checkmate): <b>+250 ₽</b></p>
-          <p>🤝 Draw (Stalemate): <b>+50 ₽</b></p>
-        `,
         info_wheel_html: `
           <p><b>Доступ:</b> открывается с <b>40 уровня</b> улучшения тапа.</p>
           <p><b>Стоимость:</b> 1.500 ₽ за прокрутку.</p>
@@ -1184,6 +1183,7 @@
         calendar_ready_now: "Day {day} reward ready!",
         calendar_next_in: "{h}h. {m}m. {s}s.",
         calendar_last_reward: "Last reward: +{val} ₽",
+        calendar_locked_alert: "Calendar unlocks at Tap Upgrade Level 25 (current: Lv.{cur}).",
         soon_title: "Coming Soon",
         friends_soon_desc: "Friends section is under development. Coming soon!",
         clans_soon_desc: "Clans section is under development. Coming soon!",
@@ -1299,6 +1299,14 @@
           <p>🍟 🍟 + any — <b>2,500 ₽</b></p>
           <p>👻 👻 + any — <b>1,250 ₽</b></p>
           <p>🥔 🥔 + any — <b>300 ₽</b></p>
+        `,
+        info_chess_html: `
+          <p><b>1-Day Event:</b> A <b>Chess</b> button appears under Casino on the main screen.</p>
+          <p><b>Rules:</b> You play White against Potato Bot with standard chess rules (including auto-queen promotion).</p>
+          <hr>
+          <p><b>Rewards:</b></p>
+          <p>🏆 Victory (Checkmate): <b>+250 ₽</b></p>
+          <p>🤝 Draw (Stalemate): <b>+50 ₽</b></p>
         `,
         info_wheel_html: `
           <p><b>Unlock:</b> opens at <b>Tap Level 40</b>.</p>
@@ -1704,7 +1712,6 @@
     var tg = null;
     try { if (window.Telegram && window.Telegram.WebApp) { tg = window.Telegram.WebApp; tg.ready(); tg.expand(); } } catch(e) {}
 
-    // Расширенная ветка улучшений тапа (50 уровней) — без процентного множителя
     var upgradesData = [
       { nameIdx: 0, desc: 0.002, cost: 6, value: 0.002 }, { nameIdx: 1, desc: 0.003, cost: 12, value: 0.003 }, { nameIdx: 2, desc: 0.004, cost: 24, value: 0.004 }, { nameIdx: 3, desc: 0.005, cost: 45, value: 0.005 },
       { nameIdx: 4, desc: 0.010, cost: 120, value: 0.010 }, { nameIdx: 5, desc: 0.020, cost: 250, value: 0.020 }, { nameIdx: 6, desc: 0.030, cost: 450, value: 0.030 }, { nameIdx: 7, desc: 0.040, cost: 700, value: 0.040 },
@@ -1726,7 +1733,6 @@
 
     var autoBuyCost = 250;
 
-    // Расширенная ветка силы автокликера (45 уровней) — без буста тапа от автокликера
     var autoValueData = [
       { level: 1, cost: 120, value: 0.0002 }, { level: 2, cost: 160, value: 0.0003 }, { level: 3, cost: 210, value: 0.0004 }, { level: 4, cost: 280, value: 0.0005 },
       { level: 5, cost: 450, value: 0.001 }, { level: 6, cost: 600, value: 0.002 }, { level: 7, cost: 800, value: 0.003 }, { level: 8, cost: 1050, value: 0.004 },
@@ -1885,26 +1891,27 @@
 
     function getTodayKey() { return getDateKeyByOffset(0); }
 
-    // Бесконечный календарь «вразброс» от 0.01 до 500 ₽ для любого дня 1, 2, 3, ...
     function seededUnitRandom(seed) {
       var x = Math.sin(seed * 12.9898 + 78.233) * 43758.5453;
       return x - Math.floor(x);
     }
 
+    // Сбалансированная награда календаря от 0.01 до 500 ₽
     function getSlotForDay(dayNumber) {
       var d = Math.max(1, dayNumber);
       var r1 = seededUnitRandom(d * 37 + 11);
       var r2 = seededUnitRandom(d * 73 + 29);
+      var scale = Math.min(1, (d - 1) / 30);
       var amount = 0;
 
-      if (r1 < 0.30) {
-        amount = parseFloat((0.01 + r2 * 4.99).toFixed(2));
-      } else if (r1 < 0.72) {
-        amount = parseFloat((5 + r2 * 45).toFixed(2));
-      } else if (r1 < 0.94) {
-        amount = Math.round(50 + r2 * 150);
+      if (r1 < 0.35) {
+        amount = parseFloat((0.01 + r2 * (2 + scale * 4)).toFixed(2));
+      } else if (r1 < 0.78) {
+        amount = parseFloat((3 + r2 * (22 + scale * 35)).toFixed(2));
+      } else if (r1 < 0.95) {
+        amount = Math.round(50 + r2 * (110 + scale * 90));
       } else {
-        amount = Math.round(200 + r2 * 300);
+        amount = Math.round(200 + r2 * (150 + scale * 150));
       }
 
       if (amount < 0.01) amount = 0.01;
@@ -1920,7 +1927,34 @@
       return formatMoney(amount, 2);
     }
 
+    function isCalendarUnlocked() {
+      return maxUpgrade >= CALENDAR_UNLOCK_TAP_LEVEL;
+    }
+
+    function updateCalendarVisibility() {
+      var unlocked = isCalendarUnlocked();
+      var calBtn = getEl('mainCalendarBtn');
+      if (calBtn) {
+        calBtn.style.display = unlocked ? 'flex' : 'none';
+      }
+      var activeScreenEl = document.querySelector('.screen.active');
+      if (!unlocked && activeScreenEl && activeScreenEl.id === 'screen-calendar') {
+        showScreen('main');
+      }
+    }
+
+    window.openCalendarScreen = function() {
+      if (!isCalendarUnlocked()) {
+        playHaptic('error');
+        showGameAlert(t.calendar_locked_alert.replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
+        return;
+      }
+      playHaptic('medium');
+      showScreen('calendar');
+    };
+
     function updateCalendarUI() {
+      updateCalendarVisibility();
       var todayKey = getTodayKey();
       var claimedToday = (lastCalendarClaimDate === todayKey);
       var activeDay = claimedToday ? Math.max(1, streakDays) : (streakDays + 1);
@@ -1973,7 +2007,7 @@
 
       var claimBtn = getEl('claimCalendarBtn');
       if (claimBtn) {
-        claimBtn.disabled = claimedToday;
+        claimBtn.disabled = claimedToday || !isCalendarUnlocked();
         claimBtn.innerText = claimedToday
           ? t.calendar_claimed_btn.replace('{day}', activeDay)
           : t.calendar_claim_btn.replace('{day}', activeDay);
@@ -1981,6 +2015,11 @@
     }
 
     window.claimCalendarReward = function() {
+      if (!isCalendarUnlocked()) {
+        playHaptic('error');
+        showGameAlert(t.calendar_locked_alert.replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
+        return;
+      }
       var todayKey = getTodayKey();
       if (lastCalendarClaimDate === todayKey) return;
 
@@ -2452,8 +2491,9 @@
       if (!imgEl) return;
       imgEl.style.display = 'none';
       var parent = imgEl.parentElement || imgEl.parentNode;
-      if (parent) {
+      if (parent && !parent.querySelector('.skin-emoji-fallback')) {
         var span = document.createElement('span');
+        span.className = 'skin-emoji-fallback';
         span.innerText = emoji;
         if (isLocked) span.style.filter = 'grayscale(100%) opacity(0.5)';
         parent.appendChild(span);
@@ -2463,7 +2503,7 @@
     function updatePotatoSkin() {
       var skin = skinsData.find(function(s) { return s.id === equippedSkin; });
       if (potatoDisplay && skin) {
-        potatoDisplay.style.fontSize = '106px';
+        potatoDisplay.style.fontSize = '98px';
         potatoDisplay.innerHTML = '';
         var img = document.createElement('img');
         img.src = skin.image; img.draggable = false;
@@ -2510,6 +2550,7 @@
         balanceEl.classList.toggle('negative', balance < 0);
       }
       updateRank();
+      updateCalendarVisibility();
       if (tapPowerEl) tapPowerEl.innerText = formatMoney(getEffectiveTapValue());
       if (totalTapsText) totalTapsText.innerText = formatMoney(totalTaps, 0);
       var maxQuestNeed = questsData.length ? questsData[questsData.length - 1].need : 1000000000000;
@@ -3120,7 +3161,7 @@
             pCard.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_power + ' Lv.' + av.level + '</div><div class="card-desc">' + t.gives + ' ' + formatMoney(av.value, 4) + ' ₽</div></div>';
             pCard.appendChild(makeActionButton(isB ? t.bought : (isN ? t.buy_for + ' ' + formatMoney(av.cost, 0) + ' ₽' : t.buy_prev), !isN, (function(a) {
               return function() {
-                if (balance >= a.cost) { balance -= a.cost; autoValue = a.value; autoValueLevel = a.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
+                if (balance >= a.cost) { balance -= a.cost; autoValue = a.value; autoValueLevel = a.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); renderUpgrades(); }
                 else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
               };
             })(av)));
@@ -3132,9 +3173,9 @@
             var as = autoSpeedData[s]; var isSB = autoSpeedLevel >= as.level; var isSN = autoSpeedLevel + 1 === as.level;
             var sCard = document.createElement('div'); sCard.className = 'card';
             sCard.innerHTML = '<div class="card-content"><div class="card-title">' + t.auto_speed + ' Lv.' + as.level + '</div><div class="card-desc">' + t.interval + ': ' + (as.interval/1000) + ' ' + t.sec + '</div></div>';
-            sCard.appendChild(makeActionButton(isSB ? t.bought : (isSN ? t.buy_for + ' ' + formatMoney(as.cost, 0) + ' ₽' : t.buy_prev), !isSN, (function(a) {
+            sCard.appendChild(makeActionButton(isSB ? t.bought : (isSN ? t.buy_for + ' ' + formatMoney(as.cost, 0) + ' ₽' : t.buy_prev), !isSN, (function(sp) {
               return function() {
-                if (balance >= a.cost) { balance -= a.cost; autoInterval = a.interval; autoSpeedLevel = a.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
+                if (balance >= sp.cost) { balance -= sp.cost; autoInterval = sp.interval; autoSpeedLevel = sp.level; playSound('upgrade'); playHaptic('success'); updateUI(); updateAutoInfo(); startAutoclicker(); renderUpgrades(); }
                 else { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); }
               };
             })(as)));
@@ -3148,86 +3189,84 @@
       if (!questsList) return; questsList.innerHTML = '';
       for (var i = 0; i < questsData.length; i++) {
         var q = questsData[i]; var isClaimed = claimed.indexOf(q.id) !== -1; var canClaim = !isClaimed && totalTaps >= q.need;
-        var titleText = currentLang === 'ru' ? 'Натапать ' + formatMoney(q.need, 0) + ' раз' : 'Tap ' + formatMoney(q.need, 0) + ' times';
-        var descText = t.make_taps + ' ' + formatMoney(q.need, 0) + ' ' + t.taps_word;
-        var progText = t.progress + ': ' + formatMoney(Math.min(totalTaps, q.need), 0) + ' / ' + formatMoney(q.need, 0);
-
         var card = document.createElement('div'); card.className = 'card';
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + titleText + '</div><div class="card-desc">' + descText + '</div><div style="margin-top:6px;margin-bottom:0;color:#a78bfa;font-size:8px;line-height:1.5;word-break:break-word;">' + progText + '</div></div>';
-
-        var btnText = isClaimed ? t.received : (canClaim ? t.claim + ' (+' + formatMoney(q.reward, q.reward < 1 ? 1 : 0) + ' ₽)' : t.not_done);
-        var btn = makeActionButton(btnText, !canClaim, (function(quest) {
+        card.innerHTML = '<div class="card-content"><div class="card-title">' + t.make_taps + ' ' + formatMoney(q.need, 0) + ' ' + t.taps_word + '</div><div class="card-desc">' + t.progress + ': ' + formatMoney(totalTaps, 0) + ' / ' + formatMoney(q.need, 0) + ' • +' + formatMoney(q.reward) + ' ₽</div></div>';
+        card.appendChild(makeActionButton(isClaimed ? t.received : (canClaim ? t.claim : t.not_done), !canClaim, (function(quest) {
           return function() {
-            balance += quest.reward; claimed.push(quest.id);
-            playQuestUniqueSound(quest.id);
-            playHaptic('success'); lastNotifiedQuestCount = Math.max(0, lastNotifiedQuestCount - 1); updateUI(); renderQuests();
+            if (totalTaps >= quest.need && claimed.indexOf(quest.id) === -1) {
+              balance += quest.reward; claimed.push(quest.id);
+              playQuestUniqueSound(quest.id);
+              playHaptic(quest.id % 10 === 0 ? 'heavy' : 'success'); updateUI(); renderQuests();
+            }
           };
-        })(q));
-        if (canClaim) btn.style.background = '#10b981';
-        card.appendChild(btn); questsList.appendChild(card);
+        })(q)));
+        questsList.appendChild(card);
       }
     }
 
     function renderAchievements() {
-      if (!achievementsList) return; achievementsList.innerHTML = ''; var achData = t.ach_list;
-      for (var i = 0; i < achData.length; i++) {
-        var isUnlocked = unlockedAch.indexOf(i) !== -1; var ach = achData[i];
-        var card = document.createElement('div'); card.className = 'card';
-        if (isUnlocked) card.classList.add('rgb-glow');
-        else { card.style.opacity = '0.5'; card.style.filter = 'grayscale(100%)'; }
-
+      if (!achievementsList) return; achievementsList.innerHTML = '';
+      for (var i = 0; i < t.ach_list.length; i++) {
+        var ach = t.ach_list[i]; var isUnlocked = unlockedAch.indexOf(i) !== -1;
+        var card = document.createElement('div'); card.className = 'card' + (i === 23 ? ' rgb-glow' : '');
         var iconHtml = ach.icon === 'wood'
-          ? '<div class="wood-medal-container"><svg class="wood-medal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 10 C 80 10, 95 30, 90 60 C 85 85, 60 95, 40 90 C 15 85, 5 60, 10 35 C 15 15, 30 10, 50 10 Z" fill="#8B5A2B" stroke="#5C3A21" stroke-width="3"/><ellipse cx="35" cy="40" rx="4" ry="2" fill="#5C3A21" transform="rotate(-20 35 40)"/><ellipse cx="65" cy="55" rx="5" ry="3" fill="#5C3A21" transform="rotate(30 65 55)"/><ellipse cx="45" cy="70" rx="3" ry="2" fill="#5C3A21" transform="rotate(10 45 70)"/><ellipse cx="70" cy="30" rx="3" ry="2" fill="#5C3A21" transform="rotate(-40 70 30)"/><path d="M 20 35 C 30 25, 50 20, 70 25" stroke="#A06B3E" stroke-width="3" fill="none" stroke-linecap="round"/></svg></div>'
+          ? '<div class="wood-medal-container"><img class="wood-medal" src="medal_wood.png" alt="" onerror="this.style.display=\'none\'"></div>'
           : '<div class="card-icon">' + ach.icon + '</div>';
-
-        var statusHtml = isUnlocked ? '<div class="card-status status-unlocked">' + t.ach_unlocked + '</div>' : '<div class="card-status status-locked">' + t.ach_locked + '</div>';
-        card.innerHTML = iconHtml + '<div class="card-content"><div class="card-title">' + ach.title + '</div><div class="card-desc">' + ach.desc + '</div>' + statusHtml + '</div>';
+        card.innerHTML = iconHtml + '<div class="card-content"><div class="card-title">' + ach.title + '</div><div class="card-desc">' + ach.desc + '</div><div class="card-status ' + (isUnlocked ? 'status-unlocked' : 'status-locked') + '">' + (isUnlocked ? t.ach_unlocked : t.ach_locked) + '</div></div>';
         achievementsList.appendChild(card);
       }
     }
 
     function formatShortDate(ts) {
       if (!ts) return '—';
-      return new Date(ts).toLocaleDateString(currentLang === 'ru' ? 'ru-RU' : 'en-US', { day: '2-digit', month: 'short' });
+      var d = new Date(ts);
+      var dd = String(d.getDate()).padStart(2, '0');
+      var mm = String(d.getMonth() + 1).padStart(2, '0');
+      return dd + '.' + mm + '.' + d.getFullYear();
     }
 
     function renderEventsHistory() {
-      if (!eventsHistoryList) return; eventsHistoryList.innerHTML = '';
-      var activeShowcase = getDisplayedProfileBadges();
+      if (!eventsHistoryList) return;
+      eventsHistoryList.innerHTML = '';
 
+      var activeShownCount = getDisplayedProfileBadges().length;
       var counterBanner = document.createElement('div');
       counterBanner.className = 'badge-counter-banner';
-      counterBanner.innerText = t.badge_counter.replace('{count}', activeShowcase.length);
+      counterBanner.innerText = t.badge_counter.replace('{count}', activeShownCount);
       eventsHistoryList.appendChild(counterBanner);
+
+      var badgesTitle = document.createElement('div');
+      badgesTitle.className = 'section-title';
+      badgesTitle.innerText = t.badges_label;
+      eventsHistoryList.appendChild(badgesTitle);
 
       for (var b = 0; b < ALL_BADGE_KEYS.length; b++) {
         var bKey = ALL_BADGE_KEYS[b];
         var isEarned = earnedBadges.indexOf(bKey) !== -1;
-        var isSelected = activeShowcase.indexOf(bKey) !== -1;
-
+        var isOnProfile = isEarned && (getDisplayedProfileBadges().indexOf(bKey) !== -1);
         var bCard = document.createElement('div');
-        bCard.className = 'card' + (isSelected ? ' rgb-glow' : '');
-        if (!isEarned) { bCard.style.opacity = '0.55'; bCard.style.filter = 'grayscale(80%)'; }
-
+        bCard.className = 'card';
         bCard.innerHTML =
           '<div class="card-content">' +
             '<div class="card-title">' + (t.badge_names[bKey] || bKey) + '</div>' +
-            '<div class="card-desc" style="margin-bottom:0;">' + (isEarned ? (isSelected ? t.badge_remove_profile : t.badge_to_profile) : t.badge_locked_hint) + '</div>' +
+            '<div class="card-status ' + (isEarned ? 'status-unlocked' : 'status-locked') + '">' +
+              (isEarned ? (isOnProfile ? t.badge_remove_profile : t.ach_unlocked) : t.badge_locked_hint) +
+            '</div>' +
           '</div>';
 
         var bBtn = document.createElement('button');
-        bBtn.className = 'btn ' + (isSelected ? 'btn-grey' : 'btn-green');
-        bBtn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
+        bBtn.className = 'btn ' + (isOnProfile ? 'btn-grey' : 'btn-blue');
+        bBtn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 8px;font-size:7px;';
         if (!isEarned) {
-          bBtn.disabled = true;
           bBtn.innerText = '🔒';
-        } else if (isSelected) {
+          bBtn.disabled = true;
+        } else if (isOnProfile) {
           bBtn.innerText = t.badge_remove_profile;
-          bBtn.onclick = (function(k) { return function() { window.toggleProfileBadge(k); }; })(bKey);
+          bBtn.onclick = (function(key) { return function() { window.toggleProfileBadge(key); }; })(bKey);
         } else {
-          bBtn.disabled = activeShowcase.length >= 3;
           bBtn.innerText = t.badge_to_profile;
-          bBtn.onclick = (function(k) { return function() { window.toggleProfileBadge(k); }; })(bKey);
+          bBtn.disabled = activeShownCount >= 3;
+          bBtn.onclick = (function(key) { return function() { window.toggleProfileBadge(key); }; })(bKey);
         }
         bCard.appendChild(bBtn);
         eventsHistoryList.appendChild(bCard);
@@ -3239,116 +3278,127 @@
       eventsHistoryList.appendChild(histTitle);
 
       if (!eventHistory.length) {
-        var emptyCard = document.createElement('div'); emptyCard.className = 'card';
+        var emptyCard = document.createElement('div');
+        emptyCard.className = 'card';
         emptyCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;">' + t.history_empty + '</div></div>';
-        eventsHistoryList.appendChild(emptyCard); return;
+        eventsHistoryList.appendChild(emptyCard);
+        return;
       }
+
       for (var i = 0; i < eventHistory.length; i++) {
-        var ev = eventHistory[i]; var card = document.createElement('div'); card.className = 'card';
-        var evName = currentLang === 'en' ? (ev.nameEn || ev.nameRu || ev.id) : (ev.nameRu || ev.nameEn || ev.id);
-        var descParts = [t.history_period.replace('{start}', formatShortDate(ev.start)).replace('{end}', formatShortDate(ev.end))];
-        if (typeof ev.itemsBought === 'number') descParts.push(t.history_bought_bm.replace('{count}', ev.itemsBought));
-        descParts.push(ev.active ? t.history_active : t.history_finished);
-        card.innerHTML = '<div class="card-content"><div class="card-title">' + evName + '</div><div class="card-desc" style="margin-bottom:0;">' + descParts.join(' • ') + '</div></div>';
-        eventsHistoryList.appendChild(card);
+        var ev = eventHistory[i];
+        var hCard = document.createElement('div');
+        hCard.className = 'card';
+        var evTitle = currentLang === 'en' ? (ev.nameEn || ev.nameRu || ev.id) : (ev.nameRu || ev.nameEn || ev.id);
+        var extraInfo = typeof ev.itemsBought === 'number'
+          ? '<div class="card-desc">' + t.history_bought_bm.replace('{count}', ev.itemsBought) + '</div>' : '';
+        hCard.innerHTML =
+          '<div class="card-content">' +
+            '<div class="card-title">' + evTitle + '</div>' +
+            '<div class="card-desc">' + t.history_period.replace('{start}', formatShortDate(ev.start)).replace('{end}', formatShortDate(ev.end)) + '</div>' +
+            extraInfo +
+            '<div class="card-status ' + (ev.active ? 'status-unlocked' : 'status-locked') + '">' + (ev.active ? t.history_active : t.history_finished) + '</div>' +
+          '</div>';
+        eventsHistoryList.appendChild(hCard);
       }
     }
 
     function renderRating() {
-      var list = getEl('leaderboardList'); if (!list) return;
-      var ratingData = [
-        { name: t.legend, score: "100.000.000", avatar: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop" },
-        { name: "Саша", score: "50.000.000", avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=100&h=100&fit=crop" },
-        { name: "Маша", score: "20.000.000", avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" },
-        { name: "Илья", score: "10.000.000", avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" }
+      var list = getEl('leaderboardList'); if (!list) return; list.innerHTML = '';
+      var data = [
+        { name: "Картофельный Король", score: 1500000000000, photo: "👑" }, { name: "Повелитель Клубней", score: 850000000000, photo: "🥔" },
+        { name: "Мастер Автокликера", score: 250000000000, photo: "⚙️" }, { name: "Ловец Джекпотов", score: 95000000000, photo: "🎰" },
+        { name: "Фермер-Миллионер", score: 35000000000, photo: "💰" }, { name: "Легенда Клуба", score: 12000000000, photo: "🔥" },
+        { name: "Агроном Со Стажем", score: 4500000000, photo: "🌱" }, { name: "Тапатель 3000", score: 1500000000, photo: "⚡" },
+        { name: "Любитель Картошки", score: 500000000, photo: "🍟" }, { name: "Начинающий Фермер", score: 100000000, photo: "🥇" }
       ];
-      list.innerHTML = '';
-      for (var i = 0; i < ratingData.length; i++) {
-        var r = ratingData[i]; var row = document.createElement('div'); row.className = 'rating-row';
-        row.innerHTML = '<div class="rating-rank">' + (i + 1) + '</div><img class="rating-avatar" src="' + r.avatar + '" alt=""><div class="rating-info"><div class="rating-name">' + r.name + '</div><div class="rating-score">' + r.score + ' ₽</div></div>';
+      for (var i = 0; i < data.length; i++) {
+        var row = document.createElement('div'); row.className = 'rating-row';
+        var photoHtml = data[i].photo.indexOf('http') === 0
+          ? '<img class="rating-avatar" src="' + data[i].photo + '" onerror="this.style.display=\'none\'">'
+          : '<div class="rating-avatar" style="display:flex;align-items:center;justify-content:center;font-size:20px;">' + data[i].photo + '</div>';
+        row.innerHTML = '<div class="rating-rank">#' + (i + 1) + '</div>' + photoHtml + '<div class="rating-info"><div class="rating-name">' + data[i].name + '</div><div class="rating-score">' + formatMoney(data[i].score, 0) + ' ' + t.taps_word + '</div></div>';
         list.appendChild(row);
       }
     }
 
-
-    // ==================== ШАХМАТЫ (СОБЫТИЕ НА 1 ДЕНЬ) ====================
-    var CHESS_GLYPHS = {
+    var CHESS_PIECE_EMOJI = {
       wK: '♔', wQ: '♕', wR: '♖', wB: '♗', wN: '♘', wP: '♙',
       bK: '♚', bQ: '♛', bR: '♜', bB: '♝', bN: '♞', bP: '♟'
     };
-    var CHESS_VALS = { P: 10, N: 30, B: 30, R: 50, Q: 90, K: 900 };
+    var CHESS_PIECE_VAL = { P: 100, N: 320, B: 330, R: 500, Q: 900, K: 20000 };
+
     var chessState = null;
-    var chessSelected = null;
-    var chessValidMoves = [];
-    var chessGameOver = false;
     var chessTurn = 'w';
+    var chessSelected = null;
     var chessLastMove = null;
+    var chessGameOver = false;
+    var chessRewardClaimed = false;
     var chessBotTimer = null;
 
     function createInitialChessBoard() {
-      return [
-        ['bR','bN','bB','bQ','bK','bB','bN','bR'],
-        ['bP','bP','bP','bP','bP','bP','bP','bP'],
-        [null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null],
-        [null,null,null,null,null,null,null,null],
-        ['wP','wP','wP','wP','wP','wP','wP','wP'],
-        ['wR','wN','wB','wQ','wK','wB','wN','wR']
+      var b = [
+        ['bR', 'bN', 'bB', 'bQ', 'bK', 'bB', 'bN', 'bR'],
+        ['bP', 'bP', 'bP', 'bP', 'bP', 'bP', 'bP', 'bP'],
+        [null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null],
+        [null, null, null, null, null, null, null, null],
+        ['wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP', 'wP'],
+        ['wR', 'wN', 'wB', 'wQ', 'wK', 'wB', 'wN', 'wR']
       ];
+      return b;
     }
 
-    function cloneBoard(b) {
-      var res = [];
-      for (var r = 0; r < 8; r++) res.push(b[r].slice());
-      return res;
+    function cloneChessBoard(board) {
+      return board.map(function(row) { return row.slice(); });
     }
 
-    function inBounds(r, c) { return r >= 0 && r < 8 && c >= 0 && c < 8; }
+    function inChessBounds(r, c) {
+      return r >= 0 && r < 8 && c >= 0 && c < 8;
+    }
 
-    function getPseudoMoves(b, r, c) {
-      var p = b[r][c];
-      if (!p) return [];
-      var color = p[0];
-      var type = p[1];
+    function getPseudoChessMoves(board, r, c) {
+      var piece = board[r][c];
+      if (!piece) return [];
+      var color = piece[0];
+      var type = piece[1];
       var moves = [];
-
-      function pushIfValid(nr, nc) {
-        if (!inBounds(nr, nc)) return false;
-        var target = b[nr][nc];
-        if (!target) {
-          moves.push({ r: nr, c: nc });
-          return true;
-        }
-        if (target[0] !== color) {
-          moves.push({ r: nr, c: nc });
-        }
-        return false;
-      }
+      var enemy = color === 'w' ? 'b' : 'w';
 
       if (type === 'P') {
         var dir = color === 'w' ? -1 : 1;
         var startRow = color === 'w' ? 6 : 1;
-        if (inBounds(r + dir, c) && !b[r + dir][c]) {
-          moves.push({ r: r + dir, c: c });
-          if (r === startRow && !b[r + dir * 2][c]) {
-            moves.push({ r: r + dir * 2, c: c });
+        if (inChessBounds(r + dir, c) && !board[r + dir][c]) {
+          moves.push([r + dir, c]);
+          if (r === startRow && !board[r + dir * 2][c]) {
+            moves.push([r + dir * 2, c]);
           }
         }
-        var caps = [-1, 1];
-        for (var i = 0; i < caps.length; i++) {
-          var nc = c + caps[i];
-          if (inBounds(r + dir, nc) && b[r + dir][nc] && b[r + dir][nc][0] !== color) {
-            moves.push({ r: r + dir, c: nc });
+        var dcList = [-1, 1];
+        for (var i = 0; i < dcList.length; i++) {
+          var nc = c + dcList[i];
+          var nr = r + dir;
+          if (inChessBounds(nr, nc) && board[nr][nc] && board[nr][nc][0] === enemy) {
+            moves.push([nr, nc]);
           }
         }
       } else if (type === 'N') {
         var jumps = [[-2,-1],[-2,1],[-1,-2],[-1,2],[1,-2],[1,2],[2,-1],[2,1]];
-        for (var j = 0; j < jumps.length; j++) pushIfValid(r + jumps[j][0], c + jumps[j][1]);
+        for (var j = 0; j < jumps.length; j++) {
+          var jr = r + jumps[j][0], jc = c + jumps[j][1];
+          if (inChessBounds(jr, jc) && (!board[jr][jc] || board[jr][jc][0] === enemy)) {
+            moves.push([jr, jc]);
+          }
+        }
       } else if (type === 'K') {
         for (var dr = -1; dr <= 1; dr++) {
           for (var dc = -1; dc <= 1; dc++) {
-            if (dr !== 0 || dc !== 0) pushIfValid(r + dr, c + dc);
+            if (dr === 0 && dc === 0) continue;
+            var kr = r + dr, kc = c + dc;
+            if (inChessBounds(kr, kc) && (!board[kr][kc] || board[kr][kc][0] === enemy)) {
+              moves.push([kr, kc]);
+            }
           }
         }
       } else {
@@ -3357,27 +3407,41 @@
         if (type === 'B' || type === 'Q') dirs.push([-1,-1],[-1,1],[1,-1],[1,1]);
         for (var d = 0; d < dirs.length; d++) {
           var step = 1;
-          while (pushIfValid(r + dirs[d][0] * step, c + dirs[d][1] * step)) step++;
+          while (true) {
+            var sr = r + dirs[d][0] * step;
+            var sc = c + dirs[d][1] * step;
+            if (!inChessBounds(sr, sc)) break;
+            if (!board[sr][sc]) {
+              moves.push([sr, sc]);
+            } else {
+              if (board[sr][sc][0] === enemy) moves.push([sr, sc]);
+              break;
+            }
+            step++;
+          }
         }
       }
       return moves;
     }
 
-    function isKingInCheck(b, color) {
-      var kr = -1, kc = -1;
+    function findKingPos(board, color) {
+      var target = color + 'K';
       for (var r = 0; r < 8; r++) {
         for (var c = 0; c < 8; c++) {
-          if (b[r][c] === color + 'K') { kr = r; kc = c; break; }
+          if (board[r][c] === target) return [r, c];
         }
       }
-      if (kr === -1) return true;
-      var enemy = color === 'w' ? 'b' : 'w';
-      for (var r2 = 0; r2 < 8; r2++) {
-        for (var c2 = 0; c2 < 8; c2++) {
-          if (b[r2][c2] && b[r2][c2][0] === enemy) {
-            var pm = getPseudoMoves(b, r2, c2);
+      return null;
+    }
+
+    function isSquareAttacked(board, tr, tc, byColor) {
+      for (var r = 0; r < 8; r++) {
+        for (var c = 0; c < 8; c++) {
+          var p = board[r][c];
+          if (p && p[0] === byColor) {
+            var pm = getPseudoChessMoves(board, r, c);
             for (var i = 0; i < pm.length; i++) {
-              if (pm[i].r === kr && pm[i].c === kc) return true;
+              if (pm[i][0] === tr && pm[i][1] === tc) return true;
             }
           }
         }
@@ -3385,291 +3449,308 @@
       return false;
     }
 
-    function applyMoveOnBoard(b, fr, fc, tr, tc) {
-      var nb = cloneBoard(b);
-      var piece = nb[fr][fc];
-      nb[fr][fc] = null;
-      if (piece === 'wP' && tr === 0) piece = 'wQ';
-      if (piece === 'bP' && tr === 7) piece = 'bQ';
-      nb[tr][tc] = piece;
-      return nb;
+    function isKingInCheck(board, color) {
+      var kp = findKingPos(board, color);
+      if (!kp) return false;
+      return isSquareAttacked(board, kp[0], kp[1], color === 'w' ? 'b' : 'w');
     }
 
-    function getLegalMoves(b, r, c) {
-      var p = b[r][c];
-      if (!p) return [];
-      var color = p[0];
-      var pseudo = getPseudoMoves(b, r, c);
+    function applyChessMoveToBoard(board, fr, fc, tr, tc) {
+      var next = cloneChessBoard(board);
+      var piece = next[fr][fc];
+      next[tr][tc] = piece;
+      next[fr][fc] = null;
+      if (piece === 'wP' && tr === 0) next[tr][tc] = 'wQ';
+      if (piece === 'bP' && tr === 7) next[tr][tc] = 'bQ';
+      return next;
+    }
+
+    function getLegalChessMoves(board, r, c) {
+      var piece = board[r][c];
+      if (!piece) return [];
+      var color = piece[0];
+      var pseudo = getPseudoChessMoves(board, r, c);
       var legal = [];
       for (var i = 0; i < pseudo.length; i++) {
-        var nb = applyMoveOnBoard(b, r, c, pseudo[i].r, pseudo[i].c);
-        if (!isKingInCheck(nb, color)) legal.push(pseudo[i]);
+        var nb = applyChessMoveToBoard(board, r, c, pseudo[i][0], pseudo[i][1]);
+        if (!isKingInCheck(nb, color)) {
+          legal.push(pseudo[i]);
+        }
       }
       return legal;
     }
 
-    function getAllLegalMoves(b, color) {
-      var all = [];
+    function hasAnyLegalMove(board, color) {
       for (var r = 0; r < 8; r++) {
         for (var c = 0; c < 8; c++) {
-          if (b[r][c] && b[r][c][0] === color) {
-            var ms = getLegalMoves(b, r, c);
-            for (var i = 0; i < ms.length; i++) {
-              all.push({ fr: r, fc: c, tr: ms[i].r, tc: ms[i].c });
+          if (board[r][c] && board[r][c][0] === color) {
+            if (getLegalChessMoves(board, r, c).length > 0) return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    function setChessStatus(msg) {
+      var el = getEl('chessStatusBar');
+      if (el) el.innerText = msg;
+    }
+
+    function evaluateChessPositionEnd() {
+      if (!hasAnyLegalMove(chessState, chessTurn)) {
+        chessGameOver = true;
+        if (isKingInCheck(chessState, chessTurn)) {
+          if (chessTurn === 'b') {
+            if (!chessRewardClaimed) {
+              chessRewardClaimed = true;
+              balance += 250;
+              addBadge('chess_2026');
+              updateUI();
+            }
+            setChessStatus(t.chess_win);
+            playSound('quest_claim_10');
+            playHaptic('heavy');
+          } else {
+            setChessStatus(t.chess_lose);
+            playHaptic('error');
+          }
+        } else {
+          if (!chessRewardClaimed) {
+            chessRewardClaimed = true;
+            balance += 50;
+            addBadge('chess_2026');
+            updateUI();
+          }
+          setChessStatus(t.chess_draw);
+          playSound('quest_claim');
+          playHaptic('medium');
+        }
+        return true;
+      }
+      return false;
+    }
+
+    function performBotChessMove() {
+      if (chessGameOver || chessTurn !== 'b') return;
+      var candidates = [];
+      for (var r = 0; r < 8; r++) {
+        for (var c = 0; c < 8; c++) {
+          if (chessState[r][c] && chessState[r][c][0] === 'b') {
+            var moves = getLegalChessMoves(chessState, r, c);
+            for (var i = 0; i < moves.length; i++) {
+              var tr = moves[i][0], tc = moves[i][1];
+              var target = chessState[tr][tc];
+              var score = 0;
+              if (target) score += (CHESS_PIECE_VAL[target[1]] || 100) * 10;
+              var nb = applyChessMoveToBoard(chessState, r, c, tr, tc);
+              if (isKingInCheck(nb, 'w')) score += 140;
+              if (tr >= 3 && tr <= 4 && tc >= 3 && tc <= 4) score += 25;
+              score += Math.random() * 30;
+              candidates.push({ fr: r, fc: c, tr: tr, tc: tc, score: score });
             }
           }
         }
       }
-      return all;
+      if (!candidates.length) {
+        evaluateChessPositionEnd();
+        renderChessBoard();
+        return;
+      }
+      candidates.sort(function(a, b) { return b.score - a.score; });
+      var best = candidates[0];
+      chessState = applyChessMoveToBoard(chessState, best.fr, best.fc, best.tr, best.tc);
+      chessLastMove = { fr: best.fr, fc: best.fc, tr: best.tr, tc: best.tc };
+      chessTurn = 'w';
+      renderChessBoard();
+      if (!evaluateChessPositionEnd()) {
+        setChessStatus(isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn);
+      }
     }
 
-    function setChessStatus(msg) {
-      var bar = getEl('chessStatusBar');
-      if (bar) bar.innerText = msg;
+    window.onChessCellClick = function(r, c) {
+      if (chessGameOver || chessTurn !== 'w') return;
+      var legalMoves = chessSelected ? getLegalChessMoves(chessState, chessSelected.r, chessSelected.c) : [];
+      var matched = legalMoves.find(function(m) { return m[0] === r && m[1] === c; });
+
+      if (matched) {
+        chessState = applyChessMoveToBoard(chessState, chessSelected.r, chessSelected.c, r, c);
+        chessLastMove = { fr: chessSelected.r, fc: chessSelected.c, tr: r, tc: c };
+        chessSelected = null;
+        chessTurn = 'b';
+        renderChessBoard();
+        if (evaluateChessPositionEnd()) return;
+        setChessStatus(t.chess_bot_turn);
+        if (chessBotTimer) clearTimeout(chessBotTimer);
+        chessBotTimer = setTimeout(performBotChessMove, 320);
+        return;
+      }
+
+      if (chessState[r][c] && chessState[r][c][0] === 'w') {
+        chessSelected = { r: r, c: c };
+        playHaptic('light');
+        renderChessBoard();
+      } else {
+        chessSelected = null;
+        renderChessBoard();
+      }
+    };
+
+    function renderChessBoard() {
+      var boardEl = getEl('chessBoard');
+      if (!boardEl) return;
+      if (!chessState) chessState = createInitialChessBoard();
+
+      var legalForSel = chessSelected ? getLegalChessMoves(chessState, chessSelected.r, chessSelected.c) : [];
+      var html = '';
+      for (var r = 0; r < 8; r++) {
+        for (var c = 0; c < 8; c++) {
+          var isLight = (r + c) % 2 === 0;
+          var cls = 'chess-cell ' + (isLight ? 'light' : 'dark');
+          if (chessSelected && chessSelected.r === r && chessSelected.c === c) cls += ' selected';
+          if (chessLastMove && ((chessLastMove.fr === r && chessLastMove.fc === c) || (chessLastMove.tr === r && chessLastMove.tc === c))) {
+            cls += ' last-move';
+          }
+          var moveTarget = legalForSel.find(function(m) { return m[0] === r && m[1] === c; });
+          if (moveTarget) {
+            cls += chessState[r][c] ? ' valid-capture' : ' valid-move';
+          }
+          var p = chessState[r][c];
+          var sym = p ? (CHESS_PIECE_EMOJI[p] || '') : '';
+          html += '<div class="' + cls + '" onclick="onChessCellClick(' + r + ',' + c + ')">' + sym + '</div>';
+        }
+      }
+      boardEl.innerHTML = html;
     }
 
     window.resetChessGame = function() {
       if (chessBotTimer) { clearTimeout(chessBotTimer); chessBotTimer = null; }
       chessState = createInitialChessBoard();
-      chessSelected = null;
-      chessValidMoves = [];
-      chessGameOver = false;
       chessTurn = 'w';
+      chessSelected = null;
       chessLastMove = null;
+      chessGameOver = false;
+      chessRewardClaimed = false;
       setChessStatus(t.chess_your_turn);
       renderChessBoard();
       playHaptic('light');
     };
 
-    function finishChessMatch(result) {
-      chessGameOver = true;
-      if (result === 'win') {
-        balance += 250;
-        addBadge('chess_2026');
-        updateUI();
-        playSound('quest_claim_10');
-        playHaptic('heavy');
-        setChessStatus(t.chess_win);
-        showGameAlert(t.chess_win, { type: 'success', icon: '♟️' });
-      } else if (result === 'draw') {
-        balance += 50;
-        updateUI();
-        playSound('quest_claim');
-        playHaptic('success');
-        setChessStatus(t.chess_draw);
-        showGameAlert(t.chess_draw, { type: 'success', icon: '🤝' });
-      } else {
+    function showScreen(screenName) {
+      if (screenName === 'calendar' && !isCalendarUnlocked()) {
         playHaptic('error');
-        setChessStatus(t.chess_lose);
-        showGameAlert(t.chess_lose, { type: 'error', icon: '💀' });
-      }
-    }
-
-    function performBotTurn() {
-      if (chessGameOver || !chessState) return;
-      var moves = getAllLegalMoves(chessState, 'b');
-      if (!moves.length) {
-        if (isKingInCheck(chessState, 'b')) finishChessMatch('win');
-        else finishChessMatch('draw');
-        return;
+        showGameAlert(t.calendar_locked_alert.replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
+        screenName = 'main';
       }
 
-      var bestScore = -99999;
-      var bestMoves = [];
-      for (var i = 0; i < moves.length; i++) {
-        var m = moves[i];
-        var captured = chessState[m.tr][m.tc];
-        var nb = applyMoveOnBoard(chessState, m.fr, m.fc, m.tr, m.tc);
-        var score = (Math.random() * 2);
-        if (captured) score += (CHESS_VALS[captured[1]] || 0) * 10;
-        if (isKingInCheck(nb, 'w')) score += 15;
-        if (m.tr >= 3 && m.tr <= 4 && m.tc >= 3 && m.tc <= 4) score += 3;
+      if (isSpinning) { isSpinning = false; stopCaseOpenSound(); if (spinBtn) spinBtn.disabled = false; }
+      if (isSlotsSpinning) { isSlotsSpinning = false; var sBtn = getEl('spinSlotsBtn'); if (sBtn) sBtn.disabled = false; }
+      if (isWheelSpinning) { isWheelSpinning = false; var wBtn = getEl('spinWheelBtn'); if (wBtn) wBtn.disabled = false; }
 
-        if (score > bestScore) { bestScore = score; bestMoves = [m]; }
-        else if (Math.abs(score - bestScore) < 0.01) { bestMoves.push(m); }
-      }
-
-      var chosen = bestMoves[Math.floor(Math.random() * bestMoves.length)];
-      chessState = applyMoveOnBoard(chessState, chosen.fr, chosen.fc, chosen.tr, chosen.tc);
-      chessLastMove = chosen;
-      chessTurn = 'w';
-      playHaptic('light');
-      renderChessBoard();
-
-      var playerMoves = getAllLegalMoves(chessState, 'w');
-      if (!playerMoves.length) {
-        if (isKingInCheck(chessState, 'w')) finishChessMatch('lose');
-        else finishChessMatch('draw');
-        return;
-      }
-      setChessStatus(isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn);
-    }
-
-    function handleChessCellClick(r, c) {
-      if (chessGameOver || chessTurn !== 'w' || !chessState) return;
-
-      for (var i = 0; i < chessValidMoves.length; i++) {
-        if (chessValidMoves[i].r === r && chessValidMoves[i].c === c && chessSelected) {
-          var moveObj = { fr: chessSelected.r, fc: chessSelected.c, tr: r, tc: c };
-          chessState = applyMoveOnBoard(chessState, moveObj.fr, moveObj.fc, moveObj.tr, moveObj.tc);
-          chessLastMove = moveObj;
-          chessSelected = null;
-          chessValidMoves = [];
-          chessTurn = 'b';
-          playHaptic('medium');
-          renderChessBoard();
-
-          var botMoves = getAllLegalMoves(chessState, 'b');
-          if (!botMoves.length) {
-            if (isKingInCheck(chessState, 'b')) finishChessMatch('win');
-            else finishChessMatch('draw');
-            return;
-          }
-          setChessStatus(t.chess_bot_turn);
-          chessBotTimer = setTimeout(performBotTurn, 420);
-          return;
-        }
-      }
-
-      var piece = chessState[r][c];
-      if (piece && piece[0] === 'w') {
-        chessSelected = { r: r, c: c };
-        chessValidMoves = getLegalMoves(chessState, r, c);
-        playHaptic('light');
-        renderChessBoard();
-      } else {
-        chessSelected = null;
-        chessValidMoves = [];
-        renderChessBoard();
-      }
-    }
-
-    function renderChessBoard() {
-      var boardEl = getEl('chessBoard');
-      if (!boardEl || !chessState) return;
-      boardEl.innerHTML = '';
-
-      for (var r = 0; r < 8; r++) {
-        for (var c = 0; c < 8; c++) {
-          var cell = document.createElement('div');
-          var isLight = (r + c) % 2 === 0;
-          cell.className = 'chess-cell ' + (isLight ? 'light' : 'dark');
-
-          if (chessLastMove && ((chessLastMove.fr === r && chessLastMove.fc === c) || (chessLastMove.tr === r && chessLastMove.tc === c))) {
-            cell.classList.add('last-move');
-          }
-          if (chessSelected && chessSelected.r === r && chessSelected.c === c) {
-            cell.classList.add('selected');
-          }
-
-          var isTarget = false;
-          for (var m = 0; m < chessValidMoves.length; m++) {
-            if (chessValidMoves[m].r === r && chessValidMoves[m].c === c) { isTarget = true; break; }
-          }
-          if (isTarget) {
-            if (chessState[r][c]) cell.classList.add('valid-capture');
-            else cell.classList.add('valid-move');
-          }
-
-          var piece = chessState[r][c];
-          if (piece) {
-            cell.innerText = CHESS_GLYPHS[piece] || '';
-            cell.style.color = piece[0] === 'w' ? '#ffffff' : '#111827';
-          }
-
-          cell.onclick = (function(row, col) {
-            return function() { handleChessCellClick(row, col); };
-          })(r, c);
-
-          boardEl.appendChild(cell);
-        }
-      }
-    }
-
-    function showScreen(name) {
       var screens = document.querySelectorAll('.screen');
       for (var i = 0; i < screens.length; i++) screens[i].classList.remove('active');
-      var targetScreen = getEl('screen-' + name);
+      var targetScreen = getEl('screen-' + screenName);
       if (targetScreen) targetScreen.classList.add('active');
 
       var menuItems = document.querySelectorAll('.menu-item');
-      for (var j = 0; j < menuItems.length; j++) menuItems[j].classList.remove('active');
-      var activeMenu = document.querySelector('.menu-item[data-screen="' + name + '"]');
-      if (activeMenu) activeMenu.classList.add('active');
-
-      if (topBalanceBar) {
-        var hideBalanceScreens = ['quests', 'rating', 'achievements', 'events-history', 'settings', 'friends', 'clans'];
-        if (hideBalanceScreens.indexOf(name) !== -1) {
-          topBalanceBar.style.display = 'none';
-        } else {
-          topBalanceBar.style.display = 'flex';
-          topBalanceBar.classList.toggle('no-back-offset', name === 'main' || name === 'upgrades');
-        }
+      for (var i = 0; i < menuItems.length; i++) {
+        menuItems[i].classList.toggle('active', menuItems[i].getAttribute('data-screen') === screenName);
       }
 
-      if (name === 'upgrades') renderUpgrades();
-      else if (name === 'quests') renderQuests();
-      else if (name === 'achievements') renderAchievements();
-      else if (name === 'events-history') renderEventsHistory();
-      else if (name === 'inventory') renderInventory();
-      else if (name === 'calendar') updateCalendarUI();
-      else if (name === 'shop') { updateShopEventUI(); switchShopTab(currentShopTab); }
-      else if (name === 'casino') renderCasinoMenu();
-      else if (name === 'chess') { if (!chessState) resetChessGame(); else renderChessBoard(); }
-      else if (name === 'casino-box') initCasino();
-      else if (name === 'rating') renderRating();
-      else if (name === 'settings') { updateSettingsUI(); initRockets(); }
-      else if (name === 'profile') updateProfileBadges();
+      if (topBalanceBar) {
+        var noBackScreens = ['main', 'upgrades', 'quests', 'rating'];
+        topBalanceBar.classList.toggle('no-back-offset', noBackScreens.indexOf(screenName) !== -1);
+      }
+
+      if (screenName === 'upgrades') renderUpgrades();
+      if (screenName === 'quests') renderQuests();
+      if (screenName === 'rating') renderRating();
+      if (screenName === 'achievements') renderAchievements();
+      if (screenName === 'events-history') renderEventsHistory();
+      if (screenName === 'inventory') renderInventory();
+      if (screenName === 'calendar') updateCalendarUI();
+      if (screenName === 'shop') {
+        if (currentShopTab === 'blackmarket' && !activeEvents.blackMarket) currentShopTab = 'skins';
+        switchShopTab(currentShopTab);
+      }
+      if (screenName === 'casino') renderCasinoMenu();
+      if (screenName === 'chess') { if (!chessState) resetChessGame(); else { renderChessBoard(); if (!chessGameOver) setChessStatus(chessTurn === 'w' ? (isKingInCheck(chessState, 'w') ? t.chess_check : t.chess_your_turn) : t.chess_bot_turn); } }
+      if (screenName === 'settings') initRockets();
+      else if (rocketAnimId) { cancelAnimationFrame(rocketAnimId); rocketAnimId = null; }
+      if (screenName === 'profile') updateProfileBadges();
     }
 
     var menuItems = document.querySelectorAll('.menu-item');
     for (var i = 0; i < menuItems.length; i++) {
-      menuItems[i].addEventListener('click', function() { playHaptic('medium'); showScreen(this.getAttribute('data-screen')); });
+      menuItems[i].addEventListener('click', (function(item) {
+        return function() { playHaptic('light'); showScreen(item.getAttribute('data-screen')); };
+      })(menuItems[i]));
     }
 
     var tabTap = getEl('tabTap'); var tabAuto = getEl('tabAuto');
-    if (tabTap) tabTap.addEventListener('click', function() { playHaptic('medium'); currentTab = 'tap'; tabTap.classList.add('active'); if (tabAuto) tabAuto.classList.remove('active'); renderUpgrades(); });
-    if (tabAuto) tabAuto.addEventListener('click', function() { playHaptic('medium'); currentTab = 'auto'; tabAuto.classList.add('active'); if (tabTap) tabTap.classList.remove('active'); renderUpgrades(); });
+    if (tabTap) tabTap.addEventListener('click', function() { playHaptic('light'); currentTab = 'tap'; tabTap.classList.add('active'); if (tabAuto) tabAuto.classList.remove('active'); renderUpgrades(); });
+    if (tabAuto) tabAuto.addEventListener('click', function() { playHaptic('light'); currentTab = 'auto'; tabAuto.classList.add('active'); if (tabTap) tabTap.classList.remove('active'); renderUpgrades(); });
 
-    var openProfileBtn = getEl('openProfile'); if (openProfileBtn) openProfileBtn.addEventListener('click', function() { playHaptic('medium'); showScreen('profile'); });
-
-    function withdrawMoney() {
-      playHaptic('medium');
-      if (balance < 10) { playHaptic('error'); showGameAlert(t.min_withdraw, { type: 'error', icon: '💳' }); return; }
-      playSound('casino_win'); playHaptic('success'); showGameAlert(t.withdraw_msg.replace('{amount}', formatMoney(balance)), { type: 'success', icon: '💳' });
-    }
+    var openProfileBtn = getEl('openProfile');
+    if (openProfileBtn) openProfileBtn.addEventListener('click', function() { playHaptic('light'); showScreen('profile'); });
 
     var devClicks = 0; var devBtn = getEl('devBtn');
     if (devBtn) devBtn.addEventListener('click', function() {
-      devClicks++; playHaptic('light');
+      devClicks++;
       if (devClicks >= 5) {
-        balance += 5000000; totalTaps += 10000000; updateUI(); playSound('upgrade'); playHaptic('heavy');
-        showGameAlert(t.dev_bonus_msg, { type: 'success', icon: '🛠️' }); devClicks = 0;
+        balance += 5000000; totalTaps += 10000000;
+        updateUI(); renderUpgrades(); renderQuests();
+        playSound('quest_claim_10'); playHaptic('heavy');
+        showGameAlert(t.dev_bonus_msg, { type: 'success', icon: '🧪' });
+        devClicks = 0;
       }
     });
 
-    try {
-      var user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-      userName = (user && user.first_name) ? user.first_name : t.player;
-      var profileNameEl = getEl('profileName'); if (profileNameEl) profileNameEl.innerText = userName;
-      var defaultAvatar = 'data:image/svg+xml;utf8,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="92" height="92"><rect width="92" height="92" fill="#4c1d95"/><text x="50%" y="56%" dominant-baseline="middle" text-anchor="middle" font-size="44">🥔</text></svg>');
-      userPhoto = (user && user.photo_url) ? user.photo_url : defaultAvatar;
-      var topAvatar = getEl('topAvatar'); var profileAvatar = getEl('profileAvatar');
-      if (topAvatar) topAvatar.src = userPhoto;
-      if (profileAvatar) profileAvatar.src = userPhoto;
-    } catch(e) {}
+    window.withdrawMoney = function() {
+      playHaptic('medium');
+      if (balance < 10) { showGameAlert(t.min_withdraw, { type: 'error', icon: '💸' }); return; }
+      var amountToWithdraw = Math.floor(balance);
+      balance -= amountToWithdraw; updateUI();
+      showGameAlert(t.withdraw_msg.replace('{amount}', formatMoney(amountToWithdraw, 0)), { type: 'success', icon: '💳' });
+    };
+
+    function createDefaultAvatarDataUri() {
+      var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" shape-rendering="crispEdges"><rect width="16" height="16" fill="#4c1d95"/><rect x="4" y="3" width="8" height="2" fill="#d97706"/><rect x="3" y="5" width="10" height="6" fill="#f59e0b"/><rect x="5" y="7" width="2" height="2" fill="#1e1b4b"/><rect x="9" y="7" width="2" height="2" fill="#1e1b4b"/><rect x="6" y="10" width="4" height="1" fill="#78350f"/></svg>';
+      return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
+    }
+
+    function initUser() {
+      var pName = getEl('profileName'); var topAvatar = getEl('topAvatar'); var pAvatar = getEl('profileAvatar');
+      var fallbackAvatar = createDefaultAvatarDataUri();
+      if (topAvatar) { topAvatar.onerror = function() { this.onerror = null; this.src = fallbackAvatar; }; topAvatar.src = fallbackAvatar; }
+      if (pAvatar) { pAvatar.onerror = function() { this.onerror = null; this.src = fallbackAvatar; }; pAvatar.src = fallbackAvatar; }
+
+      if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+        var u = tg.initDataUnsafe.user;
+        userName = ((u.first_name || '') + ' ' + (u.last_name || '')).trim() || u.username || t.player;
+        if (pName) pName.innerText = userName;
+        if (u.photo_url) {
+          userPhoto = u.photo_url;
+          if (topAvatar) topAvatar.src = userPhoto;
+          if (pAvatar) pAvatar.src = userPhoto;
+        }
+      } else if (pName) pName.innerText = t.player;
+    }
 
     initSnowflakes();
+    initUser();
     applyTranslations();
-    updateUI();
     updatePotatoSkin();
+    updateUI();
     updateAutoInfo();
-    updateGiftUI();
-    updateCalendarUI();
     startAutoclicker();
+    initCasino();
     checkEvents(true);
-    setInterval(function() { checkEvents(false); updateGiftUI(); updateCalendarUI(); updateBuffsInfo(); }, 1000);
-    showScreen('main');
+
+    setInterval(function() {
+      checkEvents(false);
+      updateGiftUI();
+      updateCalendarUI();
+    }, 1000);
   </script>
 </body>
 </html>
