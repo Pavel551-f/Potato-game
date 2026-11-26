@@ -921,7 +921,7 @@
     };
 
     var CALENDAR_UNLOCK_TAP_LEVEL = 0;
-    var CALENDAR_FULL_REWARD_TAP_LEVEL = 15;
+    var CALENDAR_FULL_REWARD_TAP_LEVEL = 20;
 
     var memoryStorage = {};
     var safeStorage = {
@@ -982,11 +982,14 @@
         amulet_saved: "🗿 Амулет Муаи спас вас! Проигрыш {amount} ₽ в казино отменён (1 раз в день).",
         amulet_used_today: "Сегодня Амулет Муаи уже использован", amulet_ready_today: "Готов (1 раз в день)",
         amulet_inv_desc: "Предмет для ношения. 1 раз в день отменяет проигрыш в казино (без бонусов к тапу и автокликеру).",
-        amulet_empty: "У вас пока нет амулетов. Их можно купить на Чёрном рынке.",
+        crown_inv_desc: "Предмет для ношения. Когда надет, увеличивает множитель ручного тапа на +0.1 (не влияет на автокликер).",
+        crown_active_buff: "Корона короля: +0.1 к множителю тапа",
+        amulet_empty: "У вас пока нет предметов для ношения. Их можно купить на Чёрном рынке.",
         amulet_future_note: "Новые предметы для ношения и слоты инвентаря появятся позже.",
         wear_btn: "Надеть", unequip_btn: "Снять", worn_status: "Надет", unworn_status: "Снят",
         bm_items: {
           moai_amulet: { name: "Амулет Муаи", desc: "1 раз в день можно отменить проигрыш в казино (предмет для ношения)", rarity: "Мифический" },
+          king_crown: { name: "Корона короля", desc: "Увеличивает множитель ручного тапа на +0.1, когда надета (предмет для ношения)", rarity: "Мифический" },
           skin_shadow: { name: "Скин «Тень»", desc: "Эксклюзивный чёрный скин (без бонусов)", rarity: "Эпический" },
           skin_chaos_eye: { name: "Скин «Глаз Хаоса»", desc: "Редкий скин (без бонусов)", rarity: "Эпический" }
         },
@@ -1131,11 +1134,14 @@
         amulet_saved: "🗿 Moai Amulet saved you! A {amount} ₽ casino loss was canceled (once per day).",
         amulet_used_today: "Moai Amulet already used today", amulet_ready_today: "Ready (once per day)",
         amulet_inv_desc: "Wearable item. Cancels 1 casino loss per day (no tap or autoclicker bonuses).",
-        amulet_empty: "You have no amulets yet. Buy them at the Black Market.",
+        crown_inv_desc: "Wearable item. While equipped, increases manual tap multiplier by +0.1 (does not affect autoclicker).",
+        crown_active_buff: "King's Crown: +0.1 tap multiplier",
+        amulet_empty: "You have no wearable items yet. Buy them at the Black Market.",
         amulet_future_note: "More wearable items and inventory slots will arrive later.",
         wear_btn: "Equip", unequip_btn: "Unequip", worn_status: "Equipped", unworn_status: "Unequipped",
         bm_items: {
           moai_amulet: { name: "Moai Amulet", desc: "Cancel 1 casino loss per day (wearable item)", rarity: "Mythic" },
+          king_crown: { name: "King's Crown", desc: "Increases manual tap multiplier by +0.1 while equipped (wearable item)", rarity: "Mythic" },
           skin_shadow: { name: "Shadow Skin", desc: "Exclusive black skin (no bonuses)", rarity: "Epic" },
           skin_chaos_eye: { name: "Chaos Eye Skin", desc: "Rare skin (no bonuses)", rarity: "Epic" }
         },
@@ -1702,6 +1708,7 @@
 
     var blackMarketItemsData = [
       { id: "moai_amulet", icon: "🗿", price: 600000, kind: "moai_amulet" },
+      { id: "king_crown", icon: "👑", price: 1200000, kind: "king_crown" },
       { id: "skin_shadow", icon: "🌑", price: 1800000, kind: "skin", skinId: 3 },
       { id: "skin_chaos_eye", icon: "👁️", price: 3500000, kind: "skin", skinId: 4 }
     ];
@@ -1730,6 +1737,9 @@
     var hasMoaiAmulet = safeStorage.getItem('hasMoaiAmulet') === 'true';
     var moaiEquipped = safeStorage.getItem('moaiEquipped') !== 'false';
     var lastMoaiSaveDate = safeStorage.getItem('lastMoaiSaveDate') || '';
+
+    var hasKingCrown = safeStorage.getItem('hasKingCrown') === 'true';
+    var crownEquipped = safeStorage.getItem('crownEquipped') !== 'false';
 
     var activeEvents = { blackMarket: false, halloween: false, newYear: false, valentine: false, april: false };
     var manualEventsDisabled = safeStorage.getItem('manualEventsDisabled') === 'true';
@@ -1956,7 +1966,11 @@
       updateCalendarUI();
     };
 
-    function getEffectiveTapValue() { return tapValue * currentMultiplier; }
+    function getTotalTapMultiplier() {
+      var mult = currentMultiplier + (hasKingCrown && crownEquipped ? 0.1 : 0);
+      return parseFloat(mult.toFixed(2));
+    }
+    function getEffectiveTapValue() { return tapValue * getTotalTapMultiplier(); }
     function getEffectiveAutoInterval() { return autoInterval; }
 
     function save() {
@@ -1982,6 +1996,9 @@
       safeStorage.setItem('hasMoaiAmulet', hasMoaiAmulet);
       safeStorage.setItem('moaiEquipped', moaiEquipped);
       safeStorage.setItem('lastMoaiSaveDate', lastMoaiSaveDate);
+
+      safeStorage.setItem('hasKingCrown', hasKingCrown);
+      safeStorage.setItem('crownEquipped', crownEquipped);
 
       safeStorage.setItem('manualEventsDisabled', manualEventsDisabled);
       safeStorage.setItem('forcedEventKey', forcedEventKey);
@@ -2405,7 +2422,7 @@
 
       currentMultiplier = rankMultipliers[rankIndex];
       if (profileRankEl) profileRankEl.innerText = t.title_rank + t.ranks[rankIndex] + " (x" + currentMultiplier + ")";
-      if (tapBoostDisplay) tapBoostDisplay.innerText = "(x" + currentMultiplier + ")";
+      if (tapBoostDisplay) tapBoostDisplay.innerText = "(x" + getTotalTapMultiplier() + ")";
     }
 
     function updateBuffsInfo() {
@@ -2413,6 +2430,9 @@
       var lines = [];
       if (hasMoaiAmulet && moaiEquipped) {
         lines.push("🗿 " + (lastMoaiSaveDate === getTodayKey() ? t.amulet_used_today : t.amulet_ready_today));
+      }
+      if (hasKingCrown && crownEquipped) {
+        lines.push("👑 " + t.crown_active_buff);
       }
       if (lines.length > 0) { activeBuffsInfo.style.display = 'block'; activeBuffsInfo.innerHTML = lines.join('<br>'); }
       else { activeBuffsInfo.style.display = 'none'; }
@@ -2543,10 +2563,11 @@
         var loc = t.bm_items[item.id] || { name: item.id, desc: '', rarity: '' };
         var alreadyBought = (item.kind === 'skin' && ownedSkins.indexOf(item.skinId) !== -1) ||
                             (item.kind === 'moai_amulet' && hasMoaiAmulet) ||
+                            (item.kind === 'king_crown' && hasKingCrown) ||
                             (bmBoughtInCycle.indexOf(item.id) !== -1);
 
         var card = document.createElement('div');
-        card.className = 'card' + (item.kind === 'moai_amulet' ? ' rgb-glow' : '');
+        card.className = 'card' + ((item.kind === 'moai_amulet' || item.kind === 'king_crown') ? ' rgb-glow' : '');
         card.innerHTML =
           '<div class="card-icon">' + item.icon + '</div>' +
           '<div class="card-content">' +
@@ -2568,6 +2589,7 @@
               if (balance < lot.price) { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); return; }
               balance -= lot.price;
               if (lot.kind === 'moai_amulet') { hasMoaiAmulet = true; moaiEquipped = true; }
+              else if (lot.kind === 'king_crown') { hasKingCrown = true; crownEquipped = true; }
               else if (lot.kind === 'skin' && ownedSkins.indexOf(lot.skinId) === -1) { ownedSkins.push(lot.skinId); }
 
               if (bmBoughtInCycle.indexOf(lot.id) === -1) bmBoughtInCycle.push(lot.id);
@@ -2965,6 +2987,12 @@
       updateBuffsInfo(); save(); renderInventory(); playHaptic('medium');
     };
 
+    window.toggleCrownWear = function() {
+      if (!hasKingCrown) return;
+      crownEquipped = !crownEquipped;
+      updateUI(); renderInventory(); playHaptic('medium');
+    };
+
     function renderInventory() {
       if (!inventoryList) return;
       inventoryList.innerHTML = '';
@@ -2987,7 +3015,29 @@
         btn.onclick = window.toggleMoaiWear;
         card.appendChild(btn);
         inventoryList.appendChild(card);
-      } else {
+      }
+
+      if (hasKingCrown) {
+        var cLoc = t.bm_items.king_crown;
+        var cStatus = crownEquipped ? t.worn_status : t.unworn_status;
+        var cCard = document.createElement('div');
+        cCard.className = 'card rgb-glow';
+        cCard.innerHTML =
+          '<div class="card-icon">👑</div>' +
+          '<div class="card-content">' +
+            '<div class="card-title">' + cLoc.name + ' (' + cStatus + ')</div>' +
+            '<div class="card-desc">' + t.crown_inv_desc + '</div>' +
+          '</div>';
+        var cBtn = document.createElement('button');
+        cBtn.className = 'btn ' + (crownEquipped ? 'btn-grey' : 'btn-green');
+        cBtn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
+        cBtn.innerText = crownEquipped ? t.unequip_btn : t.wear_btn;
+        cBtn.onclick = window.toggleCrownWear;
+        cCard.appendChild(cBtn);
+        inventoryList.appendChild(cCard);
+      }
+
+      if (!hasMoaiAmulet && !hasKingCrown) {
         var emptyCard = document.createElement('div');
         emptyCard.className = 'card';
         emptyCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;">' + t.amulet_empty + '</div></div>';
