@@ -79,6 +79,7 @@
     body.has-event-banner .main-content { padding-top: 126px; }
     body.has-event-banner .profile-content,
     body.has-event-banner .inventory-content { padding-top: 152px; }
+    body.has-event-banner .streak-screen-wrap { padding-top: 158px; }
     body.has-event-banner .casino-menu-container { padding-top: 158px; }
     body.has-event-banner .casino-container,
     body.has-event-banner .slots-container,
@@ -1728,6 +1729,7 @@
     var activeEvents = { blackMarket: false, halloween: false, newYear: false, valentine: false, april: false };
     var manualEventsDisabled = safeStorage.getItem('manualEventsDisabled') === 'true';
     var forcedEventKey = safeStorage.getItem('forcedEventKey') || '';
+    if (forcedEventKey === 'chess') { forcedEventKey = ''; safeStorage.setItem('forcedEventKey', ''); }
     var bmCycleId = parseInt(safeStorage.getItem('bmCycleId'), 10) || 1;
     var lastBlackMarket = parseInt(safeStorage.getItem('lastBlackMarket'), 10) || 0;
     var blackMarketEnd = parseInt(safeStorage.getItem('blackMarketEnd'), 10) || 0;
@@ -2058,8 +2060,6 @@
         });
         addBadge('april_2026');
       }
-);
-      }
       if (activeEvents.blackMarket) {
         recordEventParticipation({
           id: 'black_market_' + bmCycleId, badgeKey: 'bm_regular',
@@ -2197,7 +2197,6 @@
             showEventNotice(t.season_open_title, t.season_open_text.replace('{eventName}', t.evt_april));
           }
         }
-      }
       }
     }
 
@@ -3206,21 +3205,16 @@
       if (activeMenu) activeMenu.classList.add('active');
 
       var isMain = screenName === 'main';
+      var isUpgrades = screenName === 'upgrades';
       var isProfile = screenName === 'profile';
-      var isSettings = screenName === 'settings';
-      var isAchievements = screenName === 'achievements';
-      var isEventsHistory = screenName === 'events-history';
-      var isInventory = screenName === 'inventory';
-      var isFriends = screenName === 'friends';
-      var isClans = screenName === 'clans';
       var isCalendar = screenName === 'calendar';
       var isShop = screenName === 'shop';
       var isCasinoMenu = screenName === 'casino';
       var isCasinoGame = (screenName === 'casino-box' || screenName === 'casino-slots' || screenName === 'casino-wheel');
-      var hideBalance = isProfile || isSettings || isAchievements || isEventsHistory || isInventory || isFriends || isClans || isCalendar || isShop || isCasinoMenu || isCasinoGame;
+      var showBalance = isMain || isUpgrades || isProfile || isCalendar || isShop || isCasinoMenu || isCasinoGame;
       if (topBalanceBar) {
-        topBalanceBar.style.display = hideBalance ? 'none' : 'flex';
-        topBalanceBar.classList.toggle('no-back-offset', isMain);
+        topBalanceBar.style.display = showBalance ? 'flex' : 'none';
+        topBalanceBar.classList.toggle('no-back-offset', isMain || isUpgrades);
       }
 
       if (screenName === 'upgrades') renderUpgrades();
@@ -3245,7 +3239,12 @@
     }
 
     var openProfileBtn = getEl('openProfile');
-    if (openProfileBtn) openProfileBtn.addEventListener('click', function() { playHaptic('light'); showScreen('profile'); });
+    if (openProfileBtn) openProfileBtn.addEventListener('click', function() {
+      var activeScr = document.querySelector('.screen.active');
+      if (activeScr && activeScr.id === 'screen-profile') return;
+      playHaptic('light');
+      showScreen('profile');
+    });
 
     var tabTap = getEl('tabTap'); var tabAuto = getEl('tabAuto');
     if (tabTap) tabTap.addEventListener('click', function() { currentTab = 'tap'; tabTap.classList.add('active'); if (tabAuto) tabAuto.classList.remove('active'); playHaptic('light'); renderUpgrades(); });
