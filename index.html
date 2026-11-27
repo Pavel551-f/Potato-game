@@ -286,6 +286,10 @@
     .shop-tab-btn.blackmarket-tab { display: none; background: rgba(15, 10, 30, 0.9); color: #e9d5ff; }
     .shop-tab-btn.blackmarket-tab.visible { display: block; }
     .shop-tab-btn.blackmarket-tab.active { background: #4c1d95; color: #fde047; }
+    .shop-tab-btn.event-market-tab { display: none; background: rgba(15, 10, 30, 0.9); color: #e9d5ff; line-height: 1.25; }
+    .shop-tab-btn.event-market-tab.visible { display: block; }
+    .shop-tab-btn.event-market-tab.active { background: #4c1d95; color: #fde047; }
+    .shop-tab-btn.event-market-tab.long-title { font-size: 6.2px; letter-spacing: -0.3px; padding: 6px 3px; }
 
     .bm-header-box {
       margin: 0 14px 10px; padding: 8px 10px;
@@ -873,6 +877,7 @@
       <button class="shop-tab-btn active" id="shopTabSkins" onclick="switchShopTab('skins')" data-i18n="shop_tab_skins">Скины</button>
       <button class="shop-tab-btn" id="shopTabGifts" onclick="switchShopTab('gifts')" data-i18n="shop_tab_gifts">Подарки</button>
       <button class="shop-tab-btn blackmarket-tab rgb-glow" id="tabBlackMarket" onclick="switchShopTab('blackmarket')" data-i18n="shop_tab_bm">🌑 Чёрный рынок</button>
+      <button class="shop-tab-btn event-market-tab rgb-glow" id="tabEventMarket" onclick="switchShopTab('eventmarket')">🎃 Хеллоуин</button>
     </div>
 
     <div id="shopContentSkins" style="display: block;">
@@ -915,6 +920,13 @@
         <span class="bm-timer" id="bmTimerText"></span>
       </div>
       <div class="list-content" id="blackMarketList"></div>
+    </div>
+
+    <div id="shopContentEventMarket" style="display: none;">
+      <div class="bm-header-box">
+        <span id="eventMarketSubtitle">Праздничные предметы события</span>
+      </div>
+      <div class="list-content" id="eventMarketList"></div>
     </div>
   </div>
 
@@ -1169,7 +1181,19 @@
         amulet_inv_desc: "Предмет для ношения. 1 раз в день отменяет проигрыш в казино (без бонусов к тапу и автокликеру).",
         crown_inv_desc: "Предмет для ношения. Когда надет, увеличивает множитель ручного тапа на +0.1 (не влияет на автокликер).",
         crown_active_buff: "Корона короля: +0.1 к множителю тапа",
-        amulet_empty: "У вас пока нет предметов для ношения. Их можно купить на Чёрном рынке.",
+        candy_basket_inv_desc: "Предмет для ношения. Когда надета, увеличивает множитель ручного тапа на +0.5 (не влияет на автокликер).",
+        clown_mask_inv_desc: "Предмет для ношения. Когда надета, увеличивает множитель автокликера на +0.15 (x0.15).",
+        cupid_arrow_inv_desc: "Предмет для ношения. Когда надета, добавляет +500 к основному доходу за ручной тап.",
+        event_market_tab_halloween: "🎃 Хеллоуин",
+        event_market_tab_april: "🤡 1 Апреля",
+        event_market_tab_valentine: "💖 День Святого Валентина",
+        event_market_subtitle_text: "Редкие праздничные предметы события",
+        event_items: {
+          candy_basket: { name: "Корзинка сладостей", desc: "Даёт +0.5 к множителю ручного тапа, когда надета (предмет для ношения)", rarity: "Праздничный" },
+          clown_mask: { name: "Маска клоуна", desc: "Даёт +0.15 к множителю автокликера, когда надета (предмет для ношения)", rarity: "Праздничный" },
+          cupid_arrow: { name: "Стрела купидона", desc: "Добавляет +500 к основному ручному тапу, когда надета (предмет для ношения)", rarity: "Праздничный" }
+        },
+        amulet_empty: "У вас пока нет предметов для ношения. Их можно купить на Чёрном рынке или в праздничных разделах.",
         amulet_future_note: "Новые предметы для ношения и слоты инвентаря появятся позже.",
         wear_btn: "Надеть", unequip_btn: "Снять", worn_status: "Надет", unworn_status: "Снят",
         bm_items: {
@@ -1351,7 +1375,19 @@
         amulet_inv_desc: "Wearable item. Cancels 1 casino loss per day (no tap or autoclicker bonuses).",
         crown_inv_desc: "Wearable item. While equipped, increases manual tap multiplier by +0.1 (does not affect autoclicker).",
         crown_active_buff: "King's Crown: +0.1 tap multiplier",
-        amulet_empty: "You have no wearable items yet. Buy them at the Black Market.",
+        candy_basket_inv_desc: "Wearable item. While equipped, increases manual tap multiplier by +0.5 (does not affect autoclicker).",
+        clown_mask_inv_desc: "Wearable item. While equipped, increases autoclicker multiplier by +0.15 (x0.15).",
+        cupid_arrow_inv_desc: "Wearable item. While equipped, adds +500 to main manual tap income.",
+        event_market_tab_halloween: "🎃 Halloween",
+        event_market_tab_april: "🤡 April 1st",
+        event_market_tab_valentine: "💖 Valentine's Day",
+        event_market_subtitle_text: "Rare seasonal event items",
+        event_items: {
+          candy_basket: { name: "Candy Basket", desc: "Gives +0.5 to manual tap multiplier while equipped (wearable item)", rarity: "Event" },
+          clown_mask: { name: "Clown Mask", desc: "Gives +0.15 to autoclicker multiplier while equipped (wearable item)", rarity: "Event" },
+          cupid_arrow: { name: "Cupid's Arrow", desc: "Adds +500 to main manual tap while equipped (wearable item)", rarity: "Event" }
+        },
+        amulet_empty: "You have no wearable items yet. Buy them at the Black Market or Event tabs.",
         amulet_future_note: "More wearable items and inventory slots will arrive later.",
         wear_btn: "Equip", unequip_btn: "Unequip", worn_status: "Equipped", unworn_status: "Unequipped",
         bm_items: {
@@ -1945,6 +1981,12 @@
       { id: "skin_chaos_eye", icon: "👁️", price: 3500000, kind: "skin", skinId: 4 }
     ];
 
+    var eventMarketItemsData = [
+      { id: "candy_basket", icon: "🧺🍭", price: 700000, eventKey: "halloween" },
+      { id: "clown_mask", icon: "🤡", price: 250000, eventKey: "april" },
+      { id: "cupid_arrow", icon: "🏹💖", price: 1000000, eventKey: "valentine" }
+    ];
+
     var ALL_BADGE_KEYS = ["bm_regular", "halloween_2026", "newyear_2026", "valentine_2026", "april_2026"];
     var CALENDAR_ICONS = ["🪙", "💵", "💰", "💎", "🥔", "📦", "🔥", "⚡", "👑", "🌟", "🚀", "🍟"];
 
@@ -1972,6 +2014,15 @@
 
     var hasKingCrown = safeStorage.getItem('hasKingCrown') === 'true';
     var crownEquipped = safeStorage.getItem('crownEquipped') !== 'false';
+
+    var hasCandyBasket = safeStorage.getItem('hasCandyBasket') === 'true';
+    var candyBasketEquipped = safeStorage.getItem('candyBasketEquipped') !== 'false';
+
+    var hasClownMask = safeStorage.getItem('hasClownMask') === 'true';
+    var clownMaskEquipped = safeStorage.getItem('clownMaskEquipped') !== 'false';
+
+    var hasCupidArrow = safeStorage.getItem('hasCupidArrow') === 'true';
+    var cupidArrowEquipped = safeStorage.getItem('cupidArrowEquipped') !== 'false';
 
     var activeEvents = { blackMarket: false, halloween: false, newYear: false, valentine: false, april: false };
     var manualEventsDisabled = safeStorage.getItem('manualEventsDisabled') === 'true';
@@ -2013,7 +2064,7 @@
     var balanceEl = getEl('balance'); var tapPowerEl = getEl('tapPower'); var tapBoostDisplay = getEl('tapBoostDisplay');
     var potatoBtn = getEl('potatoBtn'); var potatoDisplay = getEl('potatoDisplay'); var upgradesList = getEl('upgradesList');
     var questsList = getEl('questsList'); var achievementsList = getEl('achievementsList'); var shopList = getEl('shopList');
-    var blackMarketList = getEl('blackMarketList'); var eventsHistoryList = getEl('eventsHistoryList'); var inventoryList = getEl('inventoryList');
+    var blackMarketList = getEl('blackMarketList'); var eventMarketList = getEl('eventMarketList'); var eventsHistoryList = getEl('eventsHistoryList'); var inventoryList = getEl('inventoryList');
     var autoInfo = getEl('autoInfo'); var activeBuffsInfo = getEl('activeBuffsInfo');
     var totalTapsText = getEl('totalTapsText'); var progressFill = getEl('progressFill');
     var topBalanceBar = document.querySelector('.top-balance'); var casinoReel = getEl('casinoReel'); var spinBtn = getEl('spinBtn'); var profileRankEl = getEl('profileRank');
@@ -2201,10 +2252,22 @@
     };
 
     function getTotalTapMultiplier() {
-      var mult = currentMultiplier + (hasKingCrown && crownEquipped ? 0.1 : 0);
+      var mult = currentMultiplier
+        + (hasKingCrown && crownEquipped ? 0.1 : 0)
+        + (hasCandyBasket && candyBasketEquipped ? 0.5 : 0);
       return parseFloat(mult.toFixed(2));
     }
-    function getEffectiveTapValue() { return tapValue * getTotalTapMultiplier(); }
+    function getEffectiveTapValue() {
+      var flatBonus = (hasCupidArrow && cupidArrowEquipped ? 500 : 0);
+      return (tapValue * getTotalTapMultiplier()) + flatBonus;
+    }
+    function getTotalAutoMultiplier() {
+      var mult = 1 + (hasClownMask && clownMaskEquipped ? 0.15 : 0);
+      return parseFloat(mult.toFixed(2));
+    }
+    function getEffectiveAutoValue() {
+      return autoValue * getTotalAutoMultiplier();
+    }
     function getEffectiveAutoInterval() { return autoInterval; }
 
     function save() {
@@ -2233,6 +2296,15 @@
 
       safeStorage.setItem('hasKingCrown', hasKingCrown);
       safeStorage.setItem('crownEquipped', crownEquipped);
+
+      safeStorage.setItem('hasCandyBasket', hasCandyBasket);
+      safeStorage.setItem('candyBasketEquipped', candyBasketEquipped);
+
+      safeStorage.setItem('hasClownMask', hasClownMask);
+      safeStorage.setItem('clownMaskEquipped', clownMaskEquipped);
+
+      safeStorage.setItem('hasCupidArrow', hasCupidArrow);
+      safeStorage.setItem('cupidArrowEquipped', cupidArrowEquipped);
 
       safeStorage.setItem('manualEventsDisabled', manualEventsDisabled);
       safeStorage.setItem('forcedEventKey', forcedEventKey);
@@ -2498,22 +2570,46 @@
       else if (activeEvents.blackMarket) document.body.classList.add('season-blackmarket');
     }
 
+    function getActiveEventMarketKey() {
+      if (activeEvents.halloween) return 'halloween';
+      if (activeEvents.april) return 'april';
+      if (activeEvents.valentine) return 'valentine';
+      return null;
+    }
+
     window.handleEventBannerClick = function() {
       var evType = currentBannerEventType;
       hideEventBanner();
       playHaptic('medium');
-      var targetTab = evType === 'blackMarket' ? 'blackmarket' : 'skins';
       showScreen('shop');
-      if (targetTab === 'blackmarket' && activeEvents.blackMarket) switchShopTab('blackmarket');
+      if (evType === 'blackMarket' && activeEvents.blackMarket) switchShopTab('blackmarket');
+      else if ((evType === 'halloween' || evType === 'april' || evType === 'valentine') && getActiveEventMarketKey()) switchShopTab('eventmarket');
       else switchShopTab('skins');
     };
 
     function updateShopEventUI() {
       var bmTab = getEl('tabBlackMarket');
+      var evTab = getEl('tabEventMarket');
+      var evSubEl = getEl('eventMarketSubtitle');
       var shopBadge = getEl('shopEventBadge');
       var bmTimerEl = getEl('bmTimerText');
 
       if (bmTab) bmTab.classList.toggle('visible', !!activeEvents.blackMarket);
+
+      var evMarketKey = getActiveEventMarketKey();
+      if (evTab) {
+        evTab.classList.toggle('visible', !!evMarketKey);
+        evTab.classList.remove('long-title');
+        if (evMarketKey === 'halloween') {
+          evTab.innerText = t.event_market_tab_halloween;
+        } else if (evMarketKey === 'april') {
+          evTab.innerText = t.event_market_tab_april;
+        } else if (evMarketKey === 'valentine') {
+          evTab.innerText = t.event_market_tab_valentine;
+          evTab.classList.add('long-title');
+        }
+      }
+      if (evSubEl) evSubEl.innerText = t.event_market_subtitle_text;
 
       if (shopBadge) {
         if (activeEvents.blackMarket || activeEvents.halloween || activeEvents.newYear || activeEvents.valentine || activeEvents.april) {
@@ -2536,6 +2632,7 @@
       }
 
       if (!activeEvents.blackMarket && currentShopTab === 'blackmarket') switchShopTab('skins');
+      if (!evMarketKey && currentShopTab === 'eventmarket') switchShopTab('skins');
     }
 
     window.openTestEventMenu = function() {
@@ -2573,6 +2670,7 @@
       updateSeasonVisuals(); updateShopEventUI(); updateProfileBadges();
       renderShop();
       if (currentShopTab === 'blackmarket' && activeEvents.blackMarket) renderBlackMarket();
+      if (currentShopTab === 'eventmarket' && getActiveEventMarketKey()) renderEventMarket();
       save(); closeTestEventMenu(); playHaptic('success');
     };
 
@@ -2613,7 +2711,7 @@
         var key = elements[i].getAttribute('data-i18n');
         if (t[key]) elements[i].innerText = t[key];
       }
-      updateShopEventUI(); updateSettingsUI(); renderShop(); renderBlackMarket();
+      updateShopEventUI(); updateSettingsUI(); renderShop(); renderBlackMarket(); renderEventMarket();
       renderInventory(); updateGiftUI(); updateCalendarUI(); updateAutoInfo();
       updateBuffsInfo(); updateRank(); updateProfileBadges();
       updateMyIdDisplays(); renderFriendsScreen();
@@ -2683,15 +2781,12 @@
 
     function updateBuffsInfo() {
       if (!activeBuffsInfo) return;
-      var lines = [];
       if (hasMoaiAmulet && moaiEquipped) {
-        lines.push("🗿 " + (lastMoaiSaveDate === getTodayKey() ? t.amulet_used_today : t.amulet_ready_today));
+        activeBuffsInfo.style.display = 'block';
+        activeBuffsInfo.innerText = "🗿 " + (lastMoaiSaveDate === getTodayKey() ? t.amulet_used_today : t.amulet_ready_today);
+      } else {
+        activeBuffsInfo.style.display = 'none';
       }
-      if (hasKingCrown && crownEquipped) {
-        lines.push("👑 " + t.crown_active_buff);
-      }
-      if (lines.length > 0) { activeBuffsInfo.style.display = 'block'; activeBuffsInfo.innerHTML = lines.join('<br>'); }
-      else { activeBuffsInfo.style.display = 'none'; }
     }
 
     function updateProfileBadges() {
@@ -2790,13 +2885,20 @@
 
     window.switchShopTab = function(tab) {
       if (tab === 'blackmarket' && !activeEvents.blackMarket) return;
+      if (tab === 'eventmarket' && !getActiveEventMarketKey()) return;
       currentShopTab = tab; playHaptic('medium');
       var tabs = document.querySelectorAll('.shop-tab-btn');
       for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
 
-      var skinsContent = getEl('shopContentSkins'); var giftsContent = getEl('shopContentGifts'); var bmContent = getEl('shopContentBlackMarket');
+      var skinsContent = getEl('shopContentSkins');
+      var giftsContent = getEl('shopContentGifts');
+      var bmContent = getEl('shopContentBlackMarket');
+      var evContent = getEl('shopContentEventMarket');
       if (!skinsContent || !giftsContent || !bmContent) return;
-      skinsContent.style.display = 'none'; giftsContent.style.display = 'none'; bmContent.style.display = 'none';
+      skinsContent.style.display = 'none';
+      giftsContent.style.display = 'none';
+      bmContent.style.display = 'none';
+      if (evContent) evContent.style.display = 'none';
 
       if (tab === 'skins') {
         var tSkins = getEl('shopTabSkins'); if (tSkins) tSkins.classList.add('active');
@@ -2807,8 +2909,63 @@
       } else if (tab === 'blackmarket') {
         var bmTabEl = getEl('tabBlackMarket'); if (bmTabEl) bmTabEl.classList.add('active');
         bmContent.style.display = 'block'; updateShopEventUI(); renderBlackMarket();
+      } else if (tab === 'eventmarket') {
+        var evTabEl = getEl('tabEventMarket'); if (evTabEl) evTabEl.classList.add('active');
+        if (evContent) evContent.style.display = 'block';
+        updateShopEventUI(); renderEventMarket();
       }
     };
+
+    function renderEventMarket() {
+      if (!eventMarketList) return;
+      eventMarketList.innerHTML = '';
+      var activeKey = getActiveEventMarketKey();
+      if (!activeKey) return;
+
+      for (var i = 0; i < eventMarketItemsData.length; i++) {
+        var item = eventMarketItemsData[i];
+        if (item.eventKey !== activeKey) continue;
+
+        var loc = (t.event_items && t.event_items[item.id]) ? t.event_items[item.id] : { name: item.id, desc: '', rarity: '' };
+        var alreadyBought = (item.id === 'candy_basket' && hasCandyBasket) ||
+                            (item.id === 'clown_mask' && hasClownMask) ||
+                            (item.id === 'cupid_arrow' && hasCupidArrow);
+
+        var card = document.createElement('div');
+        card.className = 'card rgb-glow';
+        card.innerHTML =
+          '<div class="card-icon">' + item.icon + '</div>' +
+          '<div class="card-content">' +
+            '<div class="card-title">' + loc.name + '</div>' +
+            '<div class="card-rarity">★ ' + loc.rarity + '</div>' +
+            '<div class="card-desc">' + loc.desc + '</div>' +
+          '</div>';
+
+        var btn = document.createElement('button');
+        btn.className = 'btn btn-gold';
+        btn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
+
+        if (alreadyBought) {
+          btn.innerText = t.bought; btn.disabled = true;
+        } else {
+          btn.innerText = t.buy + ' (' + formatMoney(item.price, 0) + ' ₽)';
+          btn.onclick = (function(lot) {
+            return function() {
+              if (balance < lot.price) { playHaptic('error'); showGameAlert(t.not_enough_money, { type: 'error', icon: '💸' }); return; }
+              balance -= lot.price;
+              if (lot.id === 'candy_basket') { hasCandyBasket = true; candyBasketEquipped = true; }
+              else if (lot.id === 'clown_mask') { hasClownMask = true; clownMaskEquipped = true; }
+              else if (lot.id === 'cupid_arrow') { hasCupidArrow = true; cupidArrowEquipped = true; }
+
+              playSound('buy_gold'); playHaptic('success');
+              updateUI(); updateAutoInfo(); renderEventMarket(); renderInventory();
+            };
+          })(item);
+        }
+        card.appendChild(btn);
+        eventMarketList.appendChild(card);
+      }
+    }
 
     function renderBlackMarket() {
       if (!blackMarketList) return;
@@ -3163,16 +3320,17 @@
       if (hasAutoclicker && autoInfo) {
         autoInfo.style.display = 'block';
         var effSec = (getEffectiveAutoInterval() / 1000).toFixed(1).replace(/\.0$/, '');
+        var effAutoVal = getEffectiveAutoValue();
         autoInfo.innerText = currentLang === 'ru'
-          ? 'Авто: +' + autoValue.toFixed(4) + ' ₽ / ' + effSec + ' сек'
-          : 'Auto: +' + autoValue.toFixed(4) + ' ₽ / ' + effSec + ' sec';
+          ? 'Авто: +' + effAutoVal.toFixed(4) + ' ₽ / ' + effSec + ' сек'
+          : 'Auto: +' + effAutoVal.toFixed(4) + ' ₽ / ' + effSec + ' sec';
       } else if (autoInfo) { autoInfo.style.display = 'none'; }
     }
 
     function startAutoclicker() {
   if (autoTimer) clearInterval(autoTimer);
   if (!hasAutoclicker) return;
-  autoTimer = setInterval(function() { balance += autoValue; updateUI(); }, getEffectiveAutoInterval());
+  autoTimer = setInterval(function() { balance += getEffectiveAutoValue(); updateUI(); }, getEffectiveAutoInterval());
 }
 
 
@@ -3305,51 +3463,64 @@
       updateUI(); renderInventory(); playHaptic('medium');
     };
 
+    window.toggleCandyBasketWear = function() {
+      if (!hasCandyBasket) return;
+      candyBasketEquipped = !candyBasketEquipped;
+      updateUI(); renderInventory(); playHaptic('medium');
+    };
+
+    window.toggleClownMaskWear = function() {
+      if (!hasClownMask) return;
+      clownMaskEquipped = !clownMaskEquipped;
+      updateUI(); updateAutoInfo(); renderInventory(); playHaptic('medium');
+    };
+
+    window.toggleCupidArrowWear = function() {
+      if (!hasCupidArrow) return;
+      cupidArrowEquipped = !cupidArrowEquipped;
+      updateUI(); renderInventory(); playHaptic('medium');
+    };
+
+    function appendWearableInventoryCard(icon, name, isEquipped, desc, toggleFn) {
+      var statusText = isEquipped ? t.worn_status : t.unworn_status;
+      var card = document.createElement('div');
+      card.className = 'card rgb-glow';
+      card.innerHTML =
+        '<div class="card-icon">' + icon + '</div>' +
+        '<div class="card-content">' +
+          '<div class="card-title">' + name + ' (' + statusText + ')</div>' +
+          '<div class="card-desc">' + desc + '</div>' +
+        '</div>';
+      var btn = document.createElement('button');
+      btn.className = 'btn ' + (isEquipped ? 'btn-grey' : 'btn-green');
+      btn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
+      btn.innerText = isEquipped ? t.unequip_btn : t.wear_btn;
+      btn.onclick = toggleFn;
+      card.appendChild(btn);
+      inventoryList.appendChild(card);
+    }
+
     function renderInventory() {
       if (!inventoryList) return;
       inventoryList.innerHTML = '';
 
       if (hasMoaiAmulet) {
-        var loc = t.bm_items.moai_amulet;
-        var statusText = moaiEquipped ? t.worn_status : t.unworn_status;
-        var card = document.createElement('div');
-        card.className = 'card rgb-glow';
-        card.innerHTML =
-          '<div class="card-icon">🗿</div>' +
-          '<div class="card-content">' +
-            '<div class="card-title">' + loc.name + ' (' + statusText + ')</div>' +
-            '<div class="card-desc">' + t.amulet_inv_desc + '</div>' +
-          '</div>';
-        var btn = document.createElement('button');
-        btn.className = 'btn ' + (moaiEquipped ? 'btn-grey' : 'btn-green');
-        btn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
-        btn.innerText = moaiEquipped ? t.unequip_btn : t.wear_btn;
-        btn.onclick = window.toggleMoaiWear;
-        card.appendChild(btn);
-        inventoryList.appendChild(card);
+        appendWearableInventoryCard('🗿', t.bm_items.moai_amulet.name, moaiEquipped, t.amulet_inv_desc, window.toggleMoaiWear);
       }
-
       if (hasKingCrown) {
-        var cLoc = t.bm_items.king_crown;
-        var cStatus = crownEquipped ? t.worn_status : t.unworn_status;
-        var cCard = document.createElement('div');
-        cCard.className = 'card rgb-glow';
-        cCard.innerHTML =
-          '<div class="card-icon">👑</div>' +
-          '<div class="card-content">' +
-            '<div class="card-title">' + cLoc.name + ' (' + cStatus + ')</div>' +
-            '<div class="card-desc">' + t.crown_inv_desc + '</div>' +
-          '</div>';
-        var cBtn = document.createElement('button');
-        cBtn.className = 'btn ' + (crownEquipped ? 'btn-grey' : 'btn-green');
-        cBtn.style.cssText = 'width:auto;margin-bottom:0;padding:7px 9px;font-size:7.5px;';
-        cBtn.innerText = crownEquipped ? t.unequip_btn : t.wear_btn;
-        cBtn.onclick = window.toggleCrownWear;
-        cCard.appendChild(cBtn);
-        inventoryList.appendChild(cCard);
+        appendWearableInventoryCard('👑', t.bm_items.king_crown.name, crownEquipped, t.crown_inv_desc, window.toggleCrownWear);
+      }
+      if (hasCandyBasket) {
+        appendWearableInventoryCard('🧺🍭', t.event_items.candy_basket.name, candyBasketEquipped, t.candy_basket_inv_desc, window.toggleCandyBasketWear);
+      }
+      if (hasClownMask) {
+        appendWearableInventoryCard('🤡', t.event_items.clown_mask.name, clownMaskEquipped, t.clown_mask_inv_desc, window.toggleClownMaskWear);
+      }
+      if (hasCupidArrow) {
+        appendWearableInventoryCard('🏹💖', t.event_items.cupid_arrow.name, cupidArrowEquipped, t.cupid_arrow_inv_desc, window.toggleCupidArrowWear);
       }
 
-      if (!hasMoaiAmulet && !hasKingCrown) {
+      if (!hasMoaiAmulet && !hasKingCrown && !hasCandyBasket && !hasClownMask && !hasCupidArrow) {
         var emptyCard = document.createElement('div');
         emptyCard.className = 'card';
         emptyCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;">' + t.amulet_empty + '</div></div>';
@@ -3605,7 +3776,12 @@
       if (screenName === 'inventory') renderInventory();
       if (screenName === 'friends') openFriendsScreen();
       if (screenName === 'calendar') updateCalendarUI();
-      if (screenName === 'shop') switchShopTab(currentShopTab === 'blackmarket' && !activeEvents.blackMarket ? 'skins' : currentShopTab);
+      if (screenName === 'shop') {
+        var nextShopTab = currentShopTab;
+        if (nextShopTab === 'blackmarket' && !activeEvents.blackMarket) nextShopTab = 'skins';
+        if (nextShopTab === 'eventmarket' && !getActiveEventMarketKey()) nextShopTab = 'skins';
+        switchShopTab(nextShopTab);
+      }
       if (screenName === 'casino') renderCasinoMenu();
       if (screenName === 'casino-box') initCasino();
       if (screenName === 'settings') initRockets();
