@@ -8,6 +8,7 @@
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; user-select: none; }
+    input, textarea { user-select: text; -webkit-user-select: text; }
     body {
       background: linear-gradient(180deg, #2e1065, #1e1b4b);
       color: white;
@@ -543,6 +544,115 @@
     #gameAlertModal .modal-content { border-color: #fde047 #a16207 #a16207 #fde047; }
     #gameAlertModal.alert-error .modal-content { border-color: #fca5a5 #991b1b #991b1b #fca5a5; }
     #gameAlertModal.alert-success .modal-content { border-color: #6ee7b7 #065f46 #065f46 #6ee7b7; }
+
+    .side-tile-btn { position: relative; }
+    .friends-notif-badge {
+      position: absolute; top: -4px; right: -4px;
+      background: #ef4444; color: #fff;
+      font-size: 6px; padding: 2px 4px;
+      border: 2px solid #000;
+      animation: badgePulse 1.4s infinite;
+    }
+
+    .profile-id-row {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(0,0,0,0.45); border: 2px solid #a855f7;
+      padding: 4px 8px; margin-bottom: 8px; font-size: 8px; color: #e9d5ff;
+      cursor: pointer;
+    }
+    .profile-id-row:active { transform: translateY(1px); border-color: #fde047; }
+
+    .friends-content {
+      flex: 1; display: flex; flex-direction: column; align-items: center;
+      padding: 66px 14px 28px; width: 100%; transition: padding-top 0.2s ease;
+    }
+    body.has-event-banner .friends-content { padding-top: 106px; }
+    .friends-wrap { width: 100%; max-width: 340px; display: flex; flex-direction: column; }
+
+    .my-id-box {
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
+      background: rgba(0,0,0,0.45); border: 2px solid; border-color: #fde047 #854d0e #854d0e #fde047;
+      padding: 8px 10px; margin-bottom: 12px;
+    }
+    .my-id-label { font-size: 8.5px; color: #fde047; }
+    .copy-id-btn {
+      background: #8b5cf6; color: #fff; border: 2px solid; border-color: #c084fc #4c1d95 #4c1d95 #c084fc;
+      padding: 5px 8px; font-family: inherit; font-size: 7px; cursor: pointer; flex-shrink: 0;
+    }
+    .copy-id-btn:active { transform: translateY(1px); }
+
+    .friends-search-box {
+      display: flex; gap: 6px; margin-bottom: 12px; width: 100%;
+    }
+    .friends-search-input {
+      flex: 1; min-width: 0;
+      background: rgba(15, 10, 30, 0.85); color: #fff;
+      border: 2px solid; border-color: #a855f7 #4c1d95 #4c1d95 #a855f7;
+      padding: 9px 10px; font-family: inherit; font-size: 8.5px; outline: none;
+    }
+    .friends-search-input::placeholder { color: #9ca3af; font-size: 7.5px; }
+    .friends-search-input:focus { border-color: #fde047; }
+    .friends-search-btn {
+      background: #10b981; color: #fff;
+      border: 2px solid; border-color: #6ee7b7 #065f46 #065f46 #6ee7b7;
+      padding: 9px 11px; font-family: inherit; font-size: 8px; cursor: pointer; flex-shrink: 0;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    }
+    .friends-search-btn:active { transform: translateY(1px); }
+
+    .friend-avatar-box {
+      width: 38px; height: 38px; flex-shrink: 0;
+      background: #4c1d95; border: 2px solid #a855f7;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; overflow: hidden;
+    }
+    .friend-avatar-box img { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+
+    .friend-actions-col {
+      display: flex; flex-direction: column; gap: 5px; flex-shrink: 0; align-items: flex-end;
+    }
+    .friend-mini-btn {
+      padding: 6px 8px; font-size: 7px; margin-bottom: 0; width: auto; white-space: nowrap;
+    }
+    .friend-actions-row {
+      display: flex; gap: 5px; flex-shrink: 0;
+    }
+    .btn-red {
+      background: #dc2626; border-color: #fca5a5 #7f1d1d #7f1d1d #fca5a5; color: #fff;
+    }
+
+    .fp-modal-header {
+      display: flex; flex-direction: column; align-items: center; text-align: center; margin-bottom: 10px;
+    }
+    .fp-modal-avatar {
+      width: 72px; height: 72px; background: #4c1d95; border: 3px solid #fde047;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 38px; margin-bottom: 8px; overflow: hidden;
+    }
+    .fp-modal-avatar img { width: 100%; height: 100%; object-fit: cover; image-rendering: pixelated; }
+    .fp-modal-name { font-size: 10.5px; color: #fff; margin-bottom: 4px; word-break: break-word; }
+    .fp-modal-id { font-size: 8px; color: #fde047; margin-bottom: 4px; }
+    .fp-modal-rank { font-size: 7.5px; color: #c4b5fd; }
+    .fp-stats-box {
+      background: rgba(0,0,0,0.4); border: 2px solid #4c1d95;
+      padding: 8px 10px; margin-bottom: 10px;
+    }
+    .fp-stat-row {
+      display: flex; justify-content: space-between; align-items: center; gap: 8px;
+      font-size: 7.5px; color: #e9d5ff; padding: 4px 0;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.25);
+    }
+    .fp-stat-row:last-child { border-bottom: none; }
+    .fp-stat-val { color: #fde047; text-align: right; }
+    .fp-badges-box {
+      background: rgba(0,0,0,0.3); border: 1px solid #a855f7;
+      padding: 6px 8px; margin-bottom: 10px; font-size: 7px; line-height: 1.5;
+      color: #fde047; text-align: center;
+    }
+    .friends-mode-note {
+      margin-top: 14px; font-size: 6.5px; color: #9ca3af; text-align: center; line-height: 1.5;
+    }
+
   </style>
 </head>
 <body>
@@ -609,8 +719,36 @@
     </div>
   </div>
 
+  <div class="modal-overlay" id="friendProfileModal" style="z-index: 10040;">
+    <div class="modal-content">
+      <div class="fp-modal-header">
+        <div class="fp-modal-avatar" id="fpModalAvatar">🥔</div>
+        <div class="fp-modal-name" id="fpModalName">Игрок</div>
+        <div class="fp-modal-id" id="fpModalId">ID: #1</div>
+        <div class="fp-modal-rank" id="fpModalRank">Ранг: Новичок</div>
+      </div>
+      <div class="fp-stats-box">
+        <div class="fp-stat-row">
+          <span data-i18n="total_taps">Всего тапов</span>
+          <span class="fp-stat-val" id="fpModalTaps">0</span>
+        </div>
+        <div class="fp-stat-row">
+          <span data-i18n="balance_label">Баланс</span>
+          <span class="fp-stat-val" id="fpModalBalance">0.000 ₽</span>
+        </div>
+        <div class="fp-stat-row">
+          <span data-i18n="fp_tap_level">Уровень тапа</span>
+          <span class="fp-stat-val" id="fpModalTapLvl">0</span>
+        </div>
+      </div>
+      <div class="fp-badges-box" id="fpModalBadges"></div>
+      <div id="fpModalActions"></div>
+      <button class="modal-btn" style="background: #4b5563; border-color: #9ca3af #374151 #374151 #9ca3af;" onclick="closeFriendProfileModal()" data-i18n="close_btn">Закрыть</button>
+    </div>
+  </div>
+
   <div class="top-balance no-back-offset" id="openProfile">
-    <img class="top-avatar" id="topAvatar" src="" alt="">
+    <img class="top-avatar" id="topAvatar" src="" alt="" style="display:none;">
     <div class="top-balance-text">
       <div class="top-balance-label" data-i18n="balance_label">Баланс</div>
       <div class="top-balance-value" id="balance">0.000</div>
@@ -636,6 +774,7 @@
 
     <div class="right-btns-container">
       <div class="side-tile-btn" onclick="showScreen('friends')">
+        <span class="friends-notif-badge" id="friendsNotifBadge" style="display:none;">!</span>
         <div class="side-tile-icon">👥</div>
         <div class="side-tile-label" data-i18n="friends_btn">Друзья</div>
       </div>
@@ -664,13 +803,24 @@
 
   <div class="screen" id="screen-friends">
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
-    <div class="inventory-content">
+    <div class="friends-content">
       <div class="settings-title">👥 <span data-i18n="friends_btn">Друзья</span></div>
-      <div class="card" style="width: 100%; max-width: 300px;">
-        <div class="card-content">
-          <div class="card-title" data-i18n="soon_title">Скоро появится</div>
-          <div class="card-desc" style="margin-bottom: 0;" data-i18n="friends_soon_desc">Раздел «Друзья» ещё в разработке. Скоро добавим!</div>
+      <div class="friends-wrap">
+        <div class="my-id-box">
+          <div class="my-id-label" id="friendsMyIdLabel">Ваш ID: #1</div>
+          <button class="copy-id-btn" onclick="copyMyPlayerId()" data-i18n="copy_id_btn">📋 Копировать</button>
         </div>
+
+        <div class="friends-search-box">
+          <input type="number" inputmode="numeric" min="1" class="friends-search-input" id="friendSearchInput" placeholder="Введите ID игрока..." onkeydown="if(event.key==='Enter') searchFriendById()">
+          <button class="friends-search-btn" id="friendSearchBtn" onclick="searchFriendById()" data-i18n="search_btn">🔍 Найти</button>
+        </div>
+
+        <div id="friendSearchResultArea"></div>
+        <div id="incomingRequestsSection"></div>
+        <div id="friendsListSection"></div>
+        <div id="outgoingRequestsSection"></div>
+        <div class="friends-mode-note" id="friendsSyncStatus"></div>
       </div>
     </div>
   </div>
@@ -888,8 +1038,9 @@
   <div class="screen" id="screen-profile">
     <button class="btn-top-back" onclick="showScreen('main')">✖</button>
     <div class="profile-content">
-      <img class="profile-avatar" id="profileAvatar" src="" alt="">
+      <img class="profile-avatar" id="profileAvatar" src="" alt="" style="display:none;">
       <div class="profile-name" id="profileName" data-i18n="player">Игрок</div>
+      <div class="profile-id-row" id="profileIdBadge" onclick="copyMyPlayerId()" title="Нажмите, чтобы скопировать ID">ID: #1 📋</div>
       <div class="profile-rank" id="profileRank"></div>
       <div class="profile-badges-bar" id="profileBadgesBar" onclick="showScreen('events-history')"></div>
 
@@ -915,6 +1066,10 @@
   </div>
 
   <script>
+    // Вставьте сюда ссылку на ваш Cloudflare Worker (например: "https://potato-api.your-name.workers.dev").
+    // Пока строка пустая "", работает локальный тестовый режим (можно найти тестового игрока с ID: 2).
+    var API_BASE_URL = "";
+
     var CASE_AUDIO_CONFIG = {
       customSoundUrl: './potato-box-spin.mp3',
       stopWhenReelFinishes: true
@@ -956,10 +1111,40 @@
         calendar_ready_now: "Доступна награда дня {day}!",
         calendar_next_in: "{h}ч. {m}м. {s}с.",
         calendar_last_reward: "Последняя награда: +{val} ₽",
-        calendar_locked_alert: "Календарь откроется после покупки 25 уровня улучшения тапа (сейчас {cur} ур.).",
+        calendar_locked_alert: "Календарь откроется после покупки {req} уровня улучшения тапа (сейчас {cur} ур.).",
         soon_title: "Скоро появится",
         friends_soon_desc: "Раздел «Друзья» ещё в разработке. Скоро добавим!",
         clans_soon_desc: "Раздел «Кланы» ещё в разработке. Скоро добавим!",
+        my_id_prefix: "Ваш ID: #{id}",
+        copy_id_btn: "📋 Копировать",
+        id_copied_msg: "Ваш ID #{id} скопирован!",
+        search_id_placeholder: "Введите ID игрока...",
+        search_btn: "🔍 Найти",
+        searching_text: "Поиск игрока...",
+        enter_valid_id: "Введите корректный числовой ID игрока (например: 2).",
+        search_self_msg: "Это ваш собственный ID!",
+        player_not_found: "Игрок с ID #{id} не найден.",
+        view_profile_btn: "👤 Профиль",
+        send_request_btn: "➕ В друзья",
+        send_request_full_btn: "➕ Кинуть заявку в друзья",
+        request_sent_btn: "⏳ Заявка отправлена",
+        request_sent_alert: "Заявка в друзья отправлена игроку {name} (#{id})!",
+        already_friends_badge: "✅ В друзьях",
+        accept_btn: "✅ Принять",
+        decline_btn: "✖ Отклонить",
+        remove_friend_btn: "🗑 Удалить из друзей",
+        friend_accepted_alert: "{name} (#{id}) теперь в списке ваших друзей!",
+        friend_declined_alert: "Заявка от игрока {name} (#{id}) отклонена.",
+        friend_removed_alert: "Игрок {name} (#{id}) удалён из друзей.",
+        incoming_requests_title: "📩 Входящие заявки ({count})",
+        my_friends_title: "👥 Мои друзья ({count})",
+        outgoing_requests_title: "📤 Исходящие заявки ({count})",
+        no_friends_yet: "У вас пока нет друзей. Найдите друга по ID выше!",
+        fp_tap_level: "Уровень тапа",
+        taps_short: "Тапов",
+        friends_mode_local: "Режим: Локальный тест (для проверки введите ID: 2, 3 или 4)",
+        friends_mode_online: "Онлайн-сервер подключён",
+        friends_api_error: "Не удалось связаться с сервером. Проверьте интернет или URL сервера.",
         lang_title: "Выберите язык", cancel: "Отмена", bought: "Куплено", buy_for: "Купить за", buy_prev: "Сначала купи предыдущее", not_enough_money: "Недостаточно средств!",
         auto_buy: "Купить автокликер", auto_desc: "Даёт +0.0001 ₽ каждые 50 сек",
         auto_power: "Сила авто", auto_speed: "Скорость авто",
@@ -1108,10 +1293,40 @@
         calendar_ready_now: "Day {day} reward ready!",
         calendar_next_in: "{h}h. {m}m. {s}s.",
         calendar_last_reward: "Last reward: +{val} ₽",
-        calendar_locked_alert: "Calendar unlocks at Tap Upgrade Level 25 (current: Lv.{cur}).",
+        calendar_locked_alert: "Calendar unlocks at Tap Upgrade Level {req} (current: Lv.{cur}).",
         soon_title: "Coming Soon",
         friends_soon_desc: "Friends section is under development. Coming soon!",
         clans_soon_desc: "Clans section is under development. Coming soon!",
+        my_id_prefix: "Your ID: #{id}",
+        copy_id_btn: "📋 Copy",
+        id_copied_msg: "Your ID #{id} has been copied!",
+        search_id_placeholder: "Enter player ID...",
+        search_btn: "🔍 Find",
+        searching_text: "Searching player...",
+        enter_valid_id: "Please enter a valid numeric player ID (e.g., 2).",
+        search_self_msg: "That is your own ID!",
+        player_not_found: "Player with ID #{id} not found.",
+        view_profile_btn: "👤 Profile",
+        send_request_btn: "➕ Add",
+        send_request_full_btn: "➕ Send Friend Request",
+        request_sent_btn: "⏳ Request Sent",
+        request_sent_alert: "Friend request sent to {name} (#{id})!",
+        already_friends_badge: "✅ Friends",
+        accept_btn: "✅ Accept",
+        decline_btn: "✖ Decline",
+        remove_friend_btn: "🗑 Remove Friend",
+        friend_accepted_alert: "{name} (#{id}) is now your friend!",
+        friend_declined_alert: "Friend request from {name} (#{id}) declined.",
+        friend_removed_alert: "{name} (#{id}) removed from friends.",
+        incoming_requests_title: "📩 Incoming Requests ({count})",
+        my_friends_title: "👥 My Friends ({count})",
+        outgoing_requests_title: "📤 Sent Requests ({count})",
+        no_friends_yet: "No friends yet. Search for a friend by ID above!",
+        fp_tap_level: "Tap Level",
+        taps_short: "Taps",
+        friends_mode_local: "Mode: Local test (try searching ID: 2, 3, or 4)",
+        friends_mode_online: "Online server connected",
+        friends_api_error: "Could not reach server. Check your connection or Worker URL.",
         lang_title: "Choose language", cancel: "Cancel", bought: "Bought", buy_for: "Buy for", buy_prev: "Buy prev first", not_enough_money: "Not enough funds!",
         auto_buy: "Buy Autoclicker", auto_desc: "Gives +0.0001 ₽ every 50s",
         auto_power: "Auto Power", auto_speed: "Auto Speed",
@@ -1291,6 +1506,8 @@
 
     var caseOpenTimers = [];
     var customCaseAudio = null;
+    var customCaseAudioUrl = '';
+    var customCaseAudioFailed = false;
 
     function stopCaseOpenSound() {
       for (var i = 0; i < caseOpenTimers.length; i++) clearTimeout(caseOpenTimers[i]);
@@ -1300,23 +1517,7 @@
       }
     }
 
-    function playCaseOpenSound(durationSec) {
-      stopCaseOpenSound();
-      if (!isSoundEnabled) return;
-
-      if (CASE_AUDIO_CONFIG.customSoundUrl) {
-        try {
-          if (!customCaseAudio || customCaseAudio.src !== CASE_AUDIO_CONFIG.customSoundUrl) {
-            customCaseAudio = new Audio(CASE_AUDIO_CONFIG.customSoundUrl);
-          }
-          customCaseAudio.currentTime = 0;
-          customCaseAudio.loop = durationSec > 0;
-          var p = customCaseAudio.play();
-          if (p && typeof p.catch === 'function') p.catch(function() {});
-          return;
-        } catch (e) {}
-      }
-
+    function startSynthCaseTicks(durationSec) {
       initAudio();
       if (!audioCtx) return;
 
@@ -1355,6 +1556,37 @@
         else step = 155 + Math.round((progress - 0.8) * 900);
         elapsed += step;
       }
+    }
+
+    function playCaseOpenSound(durationSec) {
+      stopCaseOpenSound();
+      if (!isSoundEnabled) return;
+
+      if (CASE_AUDIO_CONFIG.customSoundUrl && !customCaseAudioFailed) {
+        try {
+          if (!customCaseAudio || customCaseAudioUrl !== CASE_AUDIO_CONFIG.customSoundUrl) {
+            customCaseAudioUrl = CASE_AUDIO_CONFIG.customSoundUrl;
+            customCaseAudio = new Audio(customCaseAudioUrl);
+            customCaseAudio.onerror = function() {
+              customCaseAudioFailed = true;
+            };
+          }
+          customCaseAudio.currentTime = 0;
+          customCaseAudio.loop = durationSec > 0;
+          var p = customCaseAudio.play();
+          if (p && typeof p.catch === 'function') {
+            p.catch(function() {
+              customCaseAudioFailed = true;
+              if (isSpinning) startSynthCaseTicks(durationSec);
+            });
+          }
+          return;
+        } catch (e) {
+          customCaseAudioFailed = true;
+        }
+      }
+
+      startSynthCaseTicks(durationSec);
     }
 
     var QUEST_SOUND_PATTERNS = [
@@ -1872,7 +2104,7 @@
     window.openCalendarScreen = function() {
       if (!isCalendarUnlocked()) {
         playHaptic('error');
-        showGameAlert(t.calendar_locked_alert.replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
+        showGameAlert(t.calendar_locked_alert.replace('{req}', CALENDAR_UNLOCK_TAP_LEVEL).replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
         return;
       }
       playHaptic('medium');
@@ -1943,7 +2175,7 @@
     window.claimCalendarReward = function() {
       if (!isCalendarUnlocked()) {
         playHaptic('error');
-        showGameAlert(t.calendar_locked_alert.replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
+        showGameAlert(t.calendar_locked_alert.replace('{req}', CALENDAR_UNLOCK_TAP_LEVEL).replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
         return;
       }
       var todayKey = getTodayKey();
@@ -2012,6 +2244,7 @@
       safeStorage.setItem('eventHistory', JSON.stringify(eventHistory));
       safeStorage.setItem('earnedBadges', JSON.stringify(earnedBadges));
       safeStorage.setItem('selectedProfileBadges', JSON.stringify(selectedProfileBadges));
+      if (typeof scheduleBackendProfileSync === 'function') scheduleBackendProfileSync();
     }
 
     function addBadge(badgeKey) {
@@ -2103,6 +2336,17 @@
           itemsBought: bmBoughtInCycle.length, active: true
         });
       }
+      var historyChanged = false;
+      for (var hi = 0; hi < eventHistory.length; hi++) {
+        var item = eventHistory[hi];
+        if (!item.active) continue;
+        if (item.id.indexOf('halloween_') === 0 && !activeEvents.halloween) { item.active = false; historyChanged = true; }
+        else if (item.id.indexOf('newyear_') === 0 && !activeEvents.newYear) { item.active = false; historyChanged = true; }
+        else if (item.id.indexOf('valentine_') === 0 && !activeEvents.valentine) { item.active = false; historyChanged = true; }
+        else if (item.id.indexOf('april_') === 0 && !activeEvents.april) { item.active = false; historyChanged = true; }
+        else if (item.id.indexOf('black_market_') === 0 && !activeEvents.blackMarket) { item.active = false; historyChanged = true; }
+      }
+      if (historyChanged) save();
     }
 
     function hideEventBanner() {
@@ -2363,6 +2607,8 @@
       updateShopEventUI(); updateSettingsUI(); renderShop(); renderBlackMarket();
       renderInventory(); updateGiftUI(); updateCalendarUI(); updateAutoInfo();
       updateBuffsInfo(); updateRank(); updateProfileBadges();
+      updateMyIdDisplays(); renderFriendsScreen();
+      if (activeViewedFriendProfile) renderFriendProfileModalContent(activeViewedFriendProfile);
       if (activeInfoGame) renderInfoModalContent(activeInfoGame);
     }
 
@@ -2382,6 +2628,7 @@
         if (scrName === 'achievements') renderAchievements();
         if (scrName === 'events-history') renderEventsHistory();
         if (scrName === 'inventory') renderInventory();
+        if (scrName === 'friends') renderFriendsScreen();
         if (scrName === 'casino') renderCasinoMenu();
       }
     }
@@ -3258,7 +3505,7 @@
     function showScreen(screenName) {
       if (screenName === 'calendar' && !isCalendarUnlocked()) {
         playHaptic('error');
-        showGameAlert(t.calendar_locked_alert.replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
+        showGameAlert(t.calendar_locked_alert.replace('{req}', CALENDAR_UNLOCK_TAP_LEVEL).replace('{cur}', maxUpgrade), { type: 'error', icon: '🔒' });
         return;
       }
       stopCaseOpenSound();
@@ -3291,6 +3538,7 @@
       if (screenName === 'achievements') renderAchievements();
       if (screenName === 'events-history') renderEventsHistory();
       if (screenName === 'inventory') renderInventory();
+      if (screenName === 'friends') openFriendsScreen();
       if (screenName === 'calendar') updateCalendarUI();
       if (screenName === 'shop') switchShopTab(currentShopTab === 'blackmarket' && !activeEvents.blackMarket ? 'skins' : currentShopTab);
       if (screenName === 'casino') renderCasinoMenu();
@@ -3333,14 +3581,789 @@
       }
     });
 
+
+    // ==================== СИСТЕМА ДРУЗЕЙ И ПОИСКА ПО ID ====================
+    var tgUserId = null;
+    var myPlayerId = parseInt(safeStorage.getItem('potatoMyPlayerId'), 10) || 1;
+    var activeViewedFriendProfile = null;
+    var lastFriendSearchResult = null;
+    var friendSearchErrorText = '';
+    var isSearchingFriend = false;
+    var backendSyncTimer = null;
+    var lastBackendSyncAt = 0;
+
+    function getCleanApiBaseUrl() {
+      return String(API_BASE_URL || '').trim().replace(/\/+$/, '');
+    }
+
+    function isOnlineFriendsMode() {
+      return getCleanApiBaseUrl().length > 0;
+    }
+
+    function getRankInfoByTaps(tapsVal) {
+      var tapsNum = Number(tapsVal) || 0;
+      var rankIndex = 0;
+      if (tapsNum >= 50000000) rankIndex = 9;
+      else if (tapsNum >= 25000000) rankIndex = 8;
+      else if (tapsNum >= 10000000) rankIndex = 7;
+      else if (tapsNum >= 5000000) rankIndex = 6;
+      else if (tapsNum >= 1000000) rankIndex = 5;
+      else if (tapsNum >= 250000) rankIndex = 4;
+      else if (tapsNum >= 100000) rankIndex = 3;
+      else if (tapsNum >= 25000) rankIndex = 2;
+      else if (tapsNum >= 5000) rankIndex = 1;
+      return {
+        rankIndex: rankIndex,
+        rankName: t.ranks[rankIndex] || t.ranks[0],
+        multiplier: rankMultipliers[rankIndex] || 1.05
+      };
+    }
+
+    function getSkinById(skinId) {
+      var sid = parseInt(skinId, 10) || 0;
+      for (var i = 0; i < skinsData.length; i++) {
+        if (skinsData[i].id === sid) return skinsData[i];
+      }
+      return skinsData[0];
+    }
+
+    function escapeHtml(str) {
+      return String(str || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function renderPlayerAvatarHtml(player, isLarge) {
+      var skin = getSkinById(player && player.equippedSkin);
+      var fallbackEmoji = skin ? skin.emoji : '🥔';
+      if (player && player.photoUrl) {
+        return '<img src="' + escapeHtml(player.photoUrl) + '" alt="" onerror="this.style.display=\'none\';this.parentNode.innerText=\'' + fallbackEmoji + '\';">';
+      }
+      if (skin && skin.image) {
+        return '<img src="' + escapeHtml(skin.image) + '" alt="" style="padding:' + (isLarge ? '6px' : '3px') + ';object-fit:contain;" onerror="this.style.display=\'none\';this.parentNode.innerText=\'' + fallbackEmoji + '\';">';
+      }
+      return fallbackEmoji;
+    }
+
+    // Локальное хранилище для тестового режима (когда API_BASE_URL пустой)
+    var DEFAULT_LOCAL_PLAYERS = [
+      { id: 2, name: "Тестер #2", photoUrl: "", totalTaps: 14500, balance: 320.5, maxUpgrade: 7, equippedSkin: 1, badges: ["bm_regular"] },
+      { id: 3, name: "Картофельный Бро", photoUrl: "", totalTaps: 125000, balance: 4850, maxUpgrade: 14, equippedSkin: 2, badges: ["halloween_2026"] },
+      { id: 4, name: "Агроном Макс", photoUrl: "", totalTaps: 2400000, balance: 95000, maxUpgrade: 24, equippedSkin: 5, badges: ["newyear_2026", "bm_regular"] }
+    ];
+
+    var localFriendsState = safeJsonParse(safeStorage.getItem('potatoLocalFriendsState'), null);
+    if (!localFriendsState || typeof localFriendsState !== 'object') {
+      localFriendsState = {
+        friends: [],
+        incoming: [3],
+        outgoing: []
+      };
+      safeStorage.setItem('potatoLocalFriendsState', JSON.stringify(localFriendsState));
+    }
+    if (!Array.isArray(localFriendsState.friends)) localFriendsState.friends = [];
+    if (!Array.isArray(localFriendsState.incoming)) localFriendsState.incoming = [];
+    if (!Array.isArray(localFriendsState.outgoing)) localFriendsState.outgoing = [];
+
+    function saveLocalFriendsState() {
+      safeStorage.setItem('potatoLocalFriendsState', JSON.stringify(localFriendsState));
+    }
+
+    var onlineFriendsState = {
+      friends: [],
+      incoming: [],
+      outgoing: []
+    };
+
+    function getMyCurrentProfileSnapshot() {
+      return {
+        id: myPlayerId,
+        tgId: tgUserId,
+        name: userName || t.player,
+        photoUrl: userPhoto || '',
+        totalTaps: totalTaps,
+        balance: balance,
+        maxUpgrade: maxUpgrade,
+        equippedSkin: equippedSkin,
+        badges: getDisplayedProfileBadges()
+      };
+    }
+
+    function getLocalPlayerById(idNum) {
+      if (idNum === myPlayerId) return getMyCurrentProfileSnapshot();
+      for (var i = 0; i < DEFAULT_LOCAL_PLAYERS.length; i++) {
+        if (DEFAULT_LOCAL_PLAYERS[i].id === idNum) return DEFAULT_LOCAL_PLAYERS[i];
+      }
+      return null;
+    }
+
+    function getLocalRelation(targetId) {
+      if (targetId === myPlayerId) return 'self';
+      if (localFriendsState.friends.indexOf(targetId) !== -1) return 'friends';
+      if (localFriendsState.incoming.indexOf(targetId) !== -1) return 'pending_in';
+      if (localFriendsState.outgoing.indexOf(targetId) !== -1) return 'pending_out';
+      return 'none';
+    }
+
+    function updateMyIdDisplays() {
+      var profileBadge = getEl('profileIdBadge');
+      if (profileBadge) profileBadge.innerText = 'ID: #' + myPlayerId + ' 📋';
+      var friendsIdLabel = getEl('friendsMyIdLabel');
+      if (friendsIdLabel) friendsIdLabel.innerText = t.my_id_prefix.replace('{id}', myPlayerId);
+      var searchInput = getEl('friendSearchInput');
+      if (searchInput) searchInput.placeholder = t.search_id_placeholder;
+      updateFriendsNotifBadge();
+    }
+
+    function updateFriendsNotifBadge() {
+      var badge = getEl('friendsNotifBadge');
+      if (!badge) return;
+      var incomingCount = isOnlineFriendsMode() ? onlineFriendsState.incoming.length : localFriendsState.incoming.length;
+      if (incomingCount > 0) {
+        badge.style.display = 'block';
+        badge.innerText = incomingCount > 9 ? '9+' : String(incomingCount);
+      } else {
+        badge.style.display = 'none';
+      }
+    }
+
+    window.copyMyPlayerId = function() {
+      var idStr = String(myPlayerId);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(idStr).catch(function() {});
+      } else {
+        try {
+          var ta = document.createElement('textarea');
+          ta.value = idStr;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        } catch (e) {}
+      }
+      playHaptic('success');
+      showGameAlert(t.id_copied_msg.replace('{id}', myPlayerId), { type: 'success', icon: '📋' });
+    };
+
+    function syncPlayerProfileWithServer(callback) {
+      if (!isOnlineFriendsMode()) {
+        if (callback) callback();
+        return;
+      }
+      var baseUrl = getCleanApiBaseUrl();
+      var u = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user : {};
+      var payload = {
+        tgId: u.id ? String(u.id) : null,
+        localPlayerId: myPlayerId,
+        username: u.username || '',
+        firstName: u.first_name || '',
+        lastName: u.last_name || '',
+        name: userName || t.player,
+        photoUrl: userPhoto || '',
+        totalTaps: totalTaps,
+        balance: Number(balance.toFixed(3)),
+        maxUpgrade: maxUpgrade,
+        equippedSkin: equippedSkin,
+        badges: getDisplayedProfileBadges()
+      };
+
+      fetch(baseUrl + '/api/sync', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data && data.ok && data.player && data.player.id) {
+          myPlayerId = parseInt(data.player.id, 10) || myPlayerId;
+          safeStorage.setItem('potatoMyPlayerId', myPlayerId);
+          updateMyIdDisplays();
+        }
+        if (callback) callback(data);
+      })
+      .catch(function() {
+        if (callback) callback(null);
+      });
+    }
+
+    function scheduleBackendProfileSync() {
+      if (!isOnlineFriendsMode()) return;
+      var now = Date.now();
+      if (now - lastBackendSyncAt < 15000) {
+        if (!backendSyncTimer) {
+          backendSyncTimer = setTimeout(function() {
+            backendSyncTimer = null;
+            lastBackendSyncAt = Date.now();
+            syncPlayerProfileWithServer();
+          }, 15000 - (now - lastBackendSyncAt));
+        }
+        return;
+      }
+      lastBackendSyncAt = now;
+      syncPlayerProfileWithServer();
+    }
+
+    function loadOnlineFriendsData(callback) {
+      if (!isOnlineFriendsMode()) {
+        if (callback) callback();
+        return;
+      }
+      var baseUrl = getCleanApiBaseUrl();
+      fetch(baseUrl + '/api/friends?playerId=' + encodeURIComponent(myPlayerId))
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          if (data && data.ok) {
+            onlineFriendsState.friends = Array.isArray(data.friends) ? data.friends : [];
+            onlineFriendsState.incoming = Array.isArray(data.incoming) ? data.incoming : [];
+            onlineFriendsState.outgoing = Array.isArray(data.outgoing) ? data.outgoing : [];
+            updateFriendsNotifBadge();
+          }
+          if (callback) callback();
+        })
+        .catch(function() {
+          if (callback) callback();
+        });
+    }
+
+    function openFriendsScreen() {
+      updateMyIdDisplays();
+      renderFriendsScreen();
+      if (isOnlineFriendsMode()) {
+        syncPlayerProfileWithServer(function() {
+          loadOnlineFriendsData(function() {
+            renderFriendsScreen();
+          });
+        });
+      }
+    }
+
+    window.searchFriendById = function() {
+      var input = getEl('friendSearchInput');
+      if (!input) return;
+      var raw = String(input.value || '').trim().replace(/^#/, '');
+      var targetId = parseInt(raw, 10);
+
+      if (!raw || isNaN(targetId) || targetId <= 0) {
+        lastFriendSearchResult = null;
+        friendSearchErrorText = t.enter_valid_id;
+        playHaptic('error');
+        renderFriendsScreen();
+        return;
+      }
+
+      if (targetId === myPlayerId) {
+        lastFriendSearchResult = null;
+        friendSearchErrorText = t.search_self_msg;
+        playHaptic('light');
+        renderFriendsScreen();
+        return;
+      }
+
+      friendSearchErrorText = '';
+
+      if (!isOnlineFriendsMode()) {
+        var found = getLocalPlayerById(targetId);
+        if (!found) {
+          lastFriendSearchResult = null;
+          friendSearchErrorText = t.player_not_found.replace('{id}', targetId);
+          playHaptic('error');
+        } else {
+          lastFriendSearchResult = {
+            player: found,
+            relation: getLocalRelation(targetId)
+          };
+          playHaptic('success');
+        }
+        renderFriendsScreen();
+        return;
+      }
+
+      isSearchingFriend = true;
+      lastFriendSearchResult = null;
+      renderFriendsScreen();
+
+      var baseUrl = getCleanApiBaseUrl();
+      fetch(baseUrl + '/api/player?id=' + encodeURIComponent(targetId) + '&viewerId=' + encodeURIComponent(myPlayerId))
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+          isSearchingFriend = false;
+          if (data && data.ok && data.player) {
+            lastFriendSearchResult = {
+              player: data.player,
+              relation: data.relation || 'none'
+            };
+            friendSearchErrorText = '';
+            playHaptic('success');
+          } else {
+            lastFriendSearchResult = null;
+            friendSearchErrorText = t.player_not_found.replace('{id}', targetId);
+            playHaptic('error');
+          }
+          renderFriendsScreen();
+        })
+        .catch(function() {
+          isSearchingFriend = false;
+          lastFriendSearchResult = null;
+          friendSearchErrorText = t.friends_api_error;
+          playHaptic('error');
+          renderFriendsScreen();
+        });
+    };
+
+    window.openFriendProfileModal = function(playerObj, relation) {
+      if (!playerObj) return;
+      activeViewedFriendProfile = {
+        player: playerObj,
+        relation: relation || 'none'
+      };
+      renderFriendProfileModalContent(activeViewedFriendProfile);
+      var modal = getEl('friendProfileModal');
+      if (modal) modal.style.display = 'flex';
+      playHaptic('medium');
+    };
+
+    window.closeFriendProfileModal = function() {
+      activeViewedFriendProfile = null;
+      var modal = getEl('friendProfileModal');
+      if (modal) modal.style.display = 'none';
+      playHaptic('light');
+    };
+
+    function renderFriendProfileModalContent(entry) {
+      if (!entry || !entry.player) return;
+      var p = entry.player;
+      var rel = entry.relation || 'none';
+      var rankInfo = getRankInfoByTaps(p.totalTaps);
+
+      var avEl = getEl('fpModalAvatar');
+      if (avEl) avEl.innerHTML = renderPlayerAvatarHtml(p, true);
+
+      var nameEl = getEl('fpModalName');
+      if (nameEl) nameEl.innerText = p.name || t.player;
+
+      var idEl = getEl('fpModalId');
+      if (idEl) idEl.innerText = 'ID: #' + p.id;
+
+      var rankEl = getEl('fpModalRank');
+      if (rankEl) rankEl.innerText = t.title_rank + rankInfo.rankName + ' (x' + rankInfo.multiplier + ')';
+
+      var tapsEl = getEl('fpModalTaps');
+      if (tapsEl) tapsEl.innerText = formatMoney(Number(p.totalTaps) || 0, 0);
+
+      var balEl = getEl('fpModalBalance');
+      if (balEl) {
+        var bVal = Number(p.balance) || 0;
+        balEl.innerText = (bVal < 1 ? formatMoney(bVal, 3) : formatMoney(Math.trunc(bVal), 0)) + ' ₽';
+      }
+
+      var tapLvlEl = getEl('fpModalTapLvl');
+      if (tapLvlEl) tapLvlEl.innerText = 'Lv.' + (parseInt(p.maxUpgrade, 10) || 0);
+
+      var badgesEl = getEl('fpModalBadges');
+      if (badgesEl) {
+        var bList = Array.isArray(p.badges) ? p.badges : [];
+        if (!bList.length) {
+          badgesEl.innerText = t.no_badges_yet;
+        } else {
+          badgesEl.innerText = t.badges_label + bList.map(function(k) { return t.badge_names[k] || k; }).join(' • ');
+        }
+      }
+
+      var actionsEl = getEl('fpModalActions');
+      if (actionsEl) {
+        actionsEl.innerHTML = '';
+        if (rel === 'none') {
+          var addBtn = document.createElement('button');
+          addBtn.className = 'modal-btn btn-green';
+          addBtn.innerText = t.send_request_full_btn;
+          addBtn.onclick = function() { window.sendFriendRequest(p); };
+          actionsEl.appendChild(addBtn);
+        } else if (rel === 'pending_out') {
+          var pendBtn = document.createElement('button');
+          pendBtn.className = 'modal-btn';
+          pendBtn.disabled = true;
+          pendBtn.innerText = t.request_sent_btn;
+          actionsEl.appendChild(pendBtn);
+        } else if (rel === 'pending_in') {
+          var accBtn = document.createElement('button');
+          accBtn.className = 'modal-btn btn-green';
+          accBtn.innerText = t.accept_btn;
+          accBtn.onclick = function() { window.respondFriendRequest(p, 'accept'); };
+          actionsEl.appendChild(accBtn);
+
+          var decBtn = document.createElement('button');
+          decBtn.className = 'modal-btn btn-red';
+          decBtn.innerText = t.decline_btn;
+          decBtn.onclick = function() { window.respondFriendRequest(p, 'decline'); };
+          actionsEl.appendChild(decBtn);
+        } else if (rel === 'friends') {
+          var remBtn = document.createElement('button');
+          remBtn.className = 'modal-btn btn-red';
+          remBtn.innerText = t.remove_friend_btn;
+          remBtn.onclick = function() { window.removeFriend(p); };
+          actionsEl.appendChild(remBtn);
+        }
+      }
+    }
+
+    window.sendFriendRequest = function(targetPlayer) {
+      if (!targetPlayer || !targetPlayer.id || targetPlayer.id === myPlayerId) return;
+      var targetId = parseInt(targetPlayer.id, 10);
+
+      if (!isOnlineFriendsMode()) {
+        var rel = getLocalRelation(targetId);
+        if (rel === 'friends' || rel === 'pending_out') return;
+        if (rel === 'pending_in') {
+          window.respondFriendRequest(targetPlayer, 'accept');
+          return;
+        }
+        localFriendsState.outgoing.push(targetId);
+        saveLocalFriendsState();
+        if (lastFriendSearchResult && lastFriendSearchResult.player.id === targetId) {
+          lastFriendSearchResult.relation = 'pending_out';
+        }
+        if (activeViewedFriendProfile && activeViewedFriendProfile.player.id === targetId) {
+          activeViewedFriendProfile.relation = 'pending_out';
+          renderFriendProfileModalContent(activeViewedFriendProfile);
+        }
+        renderFriendsScreen();
+        playSound('quest_claim');
+        playHaptic('success');
+        showGameAlert(t.request_sent_alert.replace('{name}', targetPlayer.name || t.player).replace('{id}', targetId), { type: 'success', icon: '📩' });
+        return;
+      }
+
+      var baseUrl = getCleanApiBaseUrl();
+      fetch(baseUrl + '/api/friends/request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fromId: myPlayerId, toId: targetId })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data && data.ok) {
+          var newRel = data.status === 'friends' ? 'friends' : 'pending_out';
+          if (lastFriendSearchResult && lastFriendSearchResult.player.id === targetId) {
+            lastFriendSearchResult.relation = newRel;
+          }
+          if (activeViewedFriendProfile && activeViewedFriendProfile.player.id === targetId) {
+            activeViewedFriendProfile.relation = newRel;
+            renderFriendProfileModalContent(activeViewedFriendProfile);
+          }
+          loadOnlineFriendsData(function() { renderFriendsScreen(); });
+          playSound('quest_claim');
+          playHaptic('success');
+          if (newRel === 'friends') {
+            showGameAlert(t.friend_accepted_alert.replace('{name}', targetPlayer.name || t.player).replace('{id}', targetId), { type: 'success', icon: '🤝' });
+          } else {
+            showGameAlert(t.request_sent_alert.replace('{name}', targetPlayer.name || t.player).replace('{id}', targetId), { type: 'success', icon: '📩' });
+          }
+        } else {
+          playHaptic('error');
+          showGameAlert((data && data.error) || t.friends_api_error, { type: 'error', icon: '⚠️' });
+        }
+      })
+      .catch(function() {
+        playHaptic('error');
+        showGameAlert(t.friends_api_error, { type: 'error', icon: '⚠️' });
+      });
+    };
+
+    window.respondFriendRequest = function(requesterPlayer, action) {
+      if (!requesterPlayer || !requesterPlayer.id) return;
+      var reqId = parseInt(requesterPlayer.id, 10);
+
+      if (!isOnlineFriendsMode()) {
+        localFriendsState.incoming = localFriendsState.incoming.filter(function(id) { return id !== reqId; });
+        localFriendsState.outgoing = localFriendsState.outgoing.filter(function(id) { return id !== reqId; });
+        if (action === 'accept' && localFriendsState.friends.indexOf(reqId) === -1) {
+          localFriendsState.friends.push(reqId);
+        }
+        saveLocalFriendsState();
+        updateFriendsNotifBadge();
+        var newRel = action === 'accept' ? 'friends' : 'none';
+        if (lastFriendSearchResult && lastFriendSearchResult.player.id === reqId) {
+          lastFriendSearchResult.relation = newRel;
+        }
+        if (activeViewedFriendProfile && activeViewedFriendProfile.player.id === reqId) {
+          activeViewedFriendProfile.relation = newRel;
+          renderFriendProfileModalContent(activeViewedFriendProfile);
+        }
+        renderFriendsScreen();
+        if (action === 'accept') {
+          playSound('quest_claim'); playHaptic('success');
+          showGameAlert(t.friend_accepted_alert.replace('{name}', requesterPlayer.name || t.player).replace('{id}', reqId), { type: 'success', icon: '🤝' });
+        } else {
+          playHaptic('light');
+          showGameAlert(t.friend_declined_alert.replace('{name}', requesterPlayer.name || t.player).replace('{id}', reqId), { icon: '✖' });
+        }
+        return;
+      }
+
+      var baseUrl = getCleanApiBaseUrl();
+      fetch(baseUrl + '/api/friends/respond', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerId: myPlayerId, requesterId: reqId, action: action })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data && data.ok) {
+          var newRel = action === 'accept' ? 'friends' : 'none';
+          if (lastFriendSearchResult && lastFriendSearchResult.player.id === reqId) {
+            lastFriendSearchResult.relation = newRel;
+          }
+          if (activeViewedFriendProfile && activeViewedFriendProfile.player.id === reqId) {
+            activeViewedFriendProfile.relation = newRel;
+            renderFriendProfileModalContent(activeViewedFriendProfile);
+          }
+          loadOnlineFriendsData(function() { renderFriendsScreen(); });
+          if (action === 'accept') {
+            playSound('quest_claim'); playHaptic('success');
+            showGameAlert(t.friend_accepted_alert.replace('{name}', requesterPlayer.name || t.player).replace('{id}', reqId), { type: 'success', icon: '🤝' });
+          } else {
+            playHaptic('light');
+            showGameAlert(t.friend_declined_alert.replace('{name}', requesterPlayer.name || t.player).replace('{id}', reqId), { icon: '✖' });
+          }
+        }
+      })
+      .catch(function() {
+        playHaptic('error');
+        showGameAlert(t.friends_api_error, { type: 'error', icon: '⚠️' });
+      });
+    };
+
+    window.removeFriend = function(friendPlayer) {
+      if (!friendPlayer || !friendPlayer.id) return;
+      var fid = parseInt(friendPlayer.id, 10);
+
+      if (!isOnlineFriendsMode()) {
+        localFriendsState.friends = localFriendsState.friends.filter(function(id) { return id !== fid; });
+        saveLocalFriendsState();
+        if (lastFriendSearchResult && lastFriendSearchResult.player.id === fid) {
+          lastFriendSearchResult.relation = 'none';
+        }
+        if (activeViewedFriendProfile && activeViewedFriendProfile.player.id === fid) {
+          activeViewedFriendProfile.relation = 'none';
+          renderFriendProfileModalContent(activeViewedFriendProfile);
+        }
+        renderFriendsScreen();
+        playHaptic('medium');
+        showGameAlert(t.friend_removed_alert.replace('{name}', friendPlayer.name || t.player).replace('{id}', fid), { icon: '🗑' });
+        return;
+      }
+
+      var baseUrl = getCleanApiBaseUrl();
+      fetch(baseUrl + '/api/friends/remove', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerId: myPlayerId, friendId: fid })
+      })
+      .then(function(res) { return res.json(); })
+      .then(function(data) {
+        if (data && data.ok) {
+          if (lastFriendSearchResult && lastFriendSearchResult.player.id === fid) {
+            lastFriendSearchResult.relation = 'none';
+          }
+          if (activeViewedFriendProfile && activeViewedFriendProfile.player.id === fid) {
+            activeViewedFriendProfile.relation = 'none';
+            renderFriendProfileModalContent(activeViewedFriendProfile);
+          }
+          loadOnlineFriendsData(function() { renderFriendsScreen(); });
+          playHaptic('medium');
+          showGameAlert(t.friend_removed_alert.replace('{name}', friendPlayer.name || t.player).replace('{id}', fid), { icon: '🗑' });
+        }
+      })
+      .catch(function() {
+        playHaptic('error');
+        showGameAlert(t.friends_api_error, { type: 'error', icon: '⚠️' });
+      });
+    };
+
+    function createFriendCardElement(player, mode) {
+      var rankInfo = getRankInfoByTaps(player.totalTaps);
+      var card = document.createElement('div');
+      card.className = 'card';
+
+      var avatarBox = document.createElement('div');
+      avatarBox.className = 'friend-avatar-box';
+      avatarBox.innerHTML = renderPlayerAvatarHtml(player, false);
+      card.appendChild(avatarBox);
+
+      var content = document.createElement('div');
+      content.className = 'card-content';
+      content.innerHTML =
+        '<div class="card-title">' + escapeHtml(player.name || t.player) + ' <span style="color:#fde047;">#' + player.id + '</span></div>' +
+        '<div class="card-desc" style="margin-bottom:2px;">' + escapeHtml(rankInfo.rankName) + '</div>' +
+        '<div class="card-desc" style="margin-bottom:0;color:#e9d5ff;">' + t.taps_short + ': ' + formatMoney(Number(player.totalTaps) || 0, 0) + '</div>';
+      card.appendChild(content);
+
+      var actionsCol = document.createElement('div');
+      actionsCol.className = 'friend-actions-col';
+
+      var profileBtn = document.createElement('button');
+      profileBtn.className = 'btn btn-blue friend-mini-btn';
+      profileBtn.innerText = t.view_profile_btn;
+      var effectiveRelation = mode;
+      profileBtn.onclick = function() {
+        window.openFriendProfileModal(player, effectiveRelation);
+      };
+      actionsCol.appendChild(profileBtn);
+
+      if (mode === 'none') {
+        var reqBtn = document.createElement('button');
+        reqBtn.className = 'btn btn-green friend-mini-btn';
+        reqBtn.innerText = t.send_request_btn;
+        reqBtn.onclick = function() { window.sendFriendRequest(player); };
+        actionsCol.appendChild(reqBtn);
+      } else if (mode === 'pending_out') {
+        var sentBtn = document.createElement('button');
+        sentBtn.className = 'btn friend-mini-btn';
+        sentBtn.disabled = true;
+        sentBtn.innerText = t.request_sent_btn;
+        actionsCol.appendChild(sentBtn);
+      } else if (mode === 'pending_in') {
+        var rowBtns = document.createElement('div');
+        rowBtns.className = 'friend-actions-row';
+
+        var accBtn = document.createElement('button');
+        accBtn.className = 'btn btn-green friend-mini-btn';
+        accBtn.innerText = '✅';
+        accBtn.onclick = function() { window.respondFriendRequest(player, 'accept'); };
+
+        var decBtn = document.createElement('button');
+        decBtn.className = 'btn btn-red friend-mini-btn';
+        decBtn.innerText = '✖';
+        decBtn.onclick = function() { window.respondFriendRequest(player, 'decline'); };
+
+        rowBtns.appendChild(accBtn);
+        rowBtns.appendChild(decBtn);
+        actionsCol.appendChild(rowBtns);
+      } else if (mode === 'friends') {
+        var statusSpan = document.createElement('div');
+        statusSpan.style.cssText = 'font-size:6.5px;color:#10b981;';
+        statusSpan.innerText = t.already_friends_badge;
+        actionsCol.appendChild(statusSpan);
+      }
+
+      card.appendChild(actionsCol);
+      return card;
+    }
+
+    function renderFriendsScreen() {
+      updateMyIdDisplays();
+
+      var searchResArea = getEl('friendSearchResultArea');
+      if (searchResArea) {
+        searchResArea.innerHTML = '';
+        if (isSearchingFriend) {
+          var loadingCard = document.createElement('div');
+          loadingCard.className = 'card';
+          loadingCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;text-align:center;">' + t.searching_text + '</div></div>';
+          searchResArea.appendChild(loadingCard);
+        } else if (friendSearchErrorText) {
+          var errCard = document.createElement('div');
+          errCard.className = 'card';
+          errCard.style.borderColor = '#fca5a5 #991b1b #991b1b #fca5a5';
+          errCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;color:#fca5a5;text-align:center;">' + escapeHtml(friendSearchErrorText) + '</div></div>';
+          searchResArea.appendChild(errCard);
+        } else if (lastFriendSearchResult && lastFriendSearchResult.player) {
+          searchResArea.appendChild(createFriendCardElement(lastFriendSearchResult.player, lastFriendSearchResult.relation));
+        }
+      }
+
+      var friendsArr = [];
+      var incomingArr = [];
+      var outgoingArr = [];
+
+      if (isOnlineFriendsMode()) {
+        friendsArr = onlineFriendsState.friends;
+        incomingArr = onlineFriendsState.incoming;
+        outgoingArr = onlineFriendsState.outgoing;
+      } else {
+        for (var i = 0; i < localFriendsState.friends.length; i++) {
+          var fp = getLocalPlayerById(localFriendsState.friends[i]);
+          if (fp) friendsArr.push(fp);
+        }
+        for (var j = 0; j < localFriendsState.incoming.length; j++) {
+          var ip = getLocalPlayerById(localFriendsState.incoming[j]);
+          if (ip) incomingArr.push(ip);
+        }
+        for (var k = 0; k < localFriendsState.outgoing.length; k++) {
+          var op = getLocalPlayerById(localFriendsState.outgoing[k]);
+          if (op) outgoingArr.push(op);
+        }
+      }
+
+      var incSec = getEl('incomingRequestsSection');
+      if (incSec) {
+        incSec.innerHTML = '';
+        if (incomingArr.length > 0) {
+          var incTitle = document.createElement('div');
+          incTitle.className = 'section-title';
+          incTitle.innerText = t.incoming_requests_title.replace('{count}', incomingArr.length);
+          incSec.appendChild(incTitle);
+          for (var ii = 0; ii < incomingArr.length; ii++) {
+            incSec.appendChild(createFriendCardElement(incomingArr[ii], 'pending_in'));
+          }
+        }
+      }
+
+      var frSec = getEl('friendsListSection');
+      if (frSec) {
+        frSec.innerHTML = '';
+        var frTitle = document.createElement('div');
+        frTitle.className = 'section-title';
+        frTitle.innerText = t.my_friends_title.replace('{count}', friendsArr.length);
+        frSec.appendChild(frTitle);
+
+        if (!friendsArr.length) {
+          var emptyCard = document.createElement('div');
+          emptyCard.className = 'card';
+          emptyCard.innerHTML = '<div class="card-content"><div class="card-desc" style="margin-bottom:0;text-align:center;">' + t.no_friends_yet + '</div></div>';
+          frSec.appendChild(emptyCard);
+        } else {
+          for (var fi = 0; fi < friendsArr.length; fi++) {
+            frSec.appendChild(createFriendCardElement(friendsArr[fi], 'friends'));
+          }
+        }
+      }
+
+      var outSec = getEl('outgoingRequestsSection');
+      if (outSec) {
+        outSec.innerHTML = '';
+        if (outgoingArr.length > 0) {
+          var outTitle = document.createElement('div');
+          outTitle.className = 'section-title';
+          outTitle.innerText = t.outgoing_requests_title.replace('{count}', outgoingArr.length);
+          outSec.appendChild(outTitle);
+          for (var oi = 0; oi < outgoingArr.length; oi++) {
+            outSec.appendChild(createFriendCardElement(outgoingArr[oi], 'pending_out'));
+          }
+        }
+      }
+
+      var statusEl = getEl('friendsSyncStatus');
+      if (statusEl) {
+        statusEl.innerText = isOnlineFriendsMode() ? t.friends_mode_online : t.friends_mode_local;
+      }
+    }
+
     function loadUserProfile() {
       try {
         if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
           var u = tg.initDataUnsafe.user;
-          userName = (u.first_name || '') + (u.last_name ? ' ' + u.last_name : '') || t.player;
+          if (u.id) tgUserId = String(u.id);
+          userName = ((u.first_name || '') + (u.last_name ? ' ' + u.last_name : '')).trim() || t.player;
           if (u.photo_url) userPhoto = u.photo_url;
         }
       } catch(e) {}
+      updateMyIdDisplays();
       var pName = getEl('profileName'); if (pName) pName.innerText = userName;
       var tAv = getEl('topAvatar'); var pAv = getEl('profileAvatar');
       if (userPhoto) {
@@ -3353,6 +4376,9 @@
     }
 
     initSnowflakes(); loadUserProfile(); updatePotatoSkin(); applyTranslations(); updateUI(); updateAutoInfo();
+    if (isOnlineFriendsMode()) {
+      syncPlayerProfileWithServer(function() { loadOnlineFriendsData(); });
+    }
     if (hasAutoclicker) startAutoclicker();
     checkEvents(true);
     setInterval(function() { checkEvents(false); }, 60000);
