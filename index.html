@@ -483,7 +483,7 @@
     .profile-badges-bar {
       width: 100%; background: rgba(0,0,0,0.35); border: 2px solid #a855f7;
       padding: 7px 9px; margin-bottom: 12px; font-size: 7.5px; line-height: 1.5;
-      color: #fde047; text-align: center; cursor: pointer;
+      color: #fde047; text-align: center;
     }
     .profile-bottom { width: 100%; margin-top: auto; }
     .progress-label { font-size: 8.5px; color: #c4b5fd; margin-bottom: 7px; display: flex; justify-content: space-between; }
@@ -1042,7 +1042,7 @@
       <div class="profile-name" id="profileName" data-i18n="player">Игрок</div>
       <div class="profile-id-row" id="profileIdBadge" onclick="copyMyPlayerId()" title="Нажмите, чтобы скопировать ID">ID: #1 📋</div>
       <div class="profile-rank" id="profileRank"></div>
-      <div class="profile-badges-bar" id="profileBadgesBar" onclick="showScreen('events-history')"></div>
+      <div class="profile-badges-bar" id="profileBadgesBar"></div>
 
       <div class="profile-bottom">
         <button class="btn btn-grey" onclick="showScreen('events-history')" data-i18n="events_history_btn">🗓️ События и бейджи</button>
@@ -1984,7 +1984,9 @@
     var bmNotifiedOpenCycle = parseInt(safeStorage.getItem('bmNotifiedOpenCycle'), 10) || 0;
     var bmNotifiedCloseCycle = parseInt(safeStorage.getItem('bmNotifiedCloseCycle'), 10) || 0;
     var notifiedSeasons = safeJsonParse(safeStorage.getItem('notifiedSeasons'), []);
-    var eventHistory = safeJsonParse(safeStorage.getItem('eventHistory'), []);
+    var eventHistory = safeJsonParse(safeStorage.getItem('eventHistory'), []).filter(function(item) {
+      return item && String(item.id || '').indexOf('chess') === -1 && String(item.nameRu || '').indexOf('Шахмат') === -1;
+    });
     var earnedBadges = safeJsonParse(safeStorage.getItem('earnedBadges'), []);
     var selectedProfileBadges = safeJsonParse(safeStorage.getItem('selectedProfileBadges'), []);
 
