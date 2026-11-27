@@ -3217,7 +3217,6 @@
             return;
           }
         }
-      }
 
       if (e && e.cancelable) e.preventDefault();
       playHaptic('light');
@@ -3868,7 +3867,6 @@
       var now = Date.now();
       if (now - lastBackendSyncAt < 15000) {
         if (!backendSyncTimer) {
-          backendSyncTimer = setTimeout(function() {
           backendSyncTimer = setTimeout(function() {
             backendSyncTimer = null;
             lastBackendSyncAt = Date.now();
