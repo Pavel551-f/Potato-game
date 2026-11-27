@@ -3757,8 +3757,14 @@
       }
       var baseUrl = getCleanApiBaseUrl();
       var u = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) ? tg.initDataUnsafe.user : {};
+      var deviceKey = safeStorage.getItem('potatoDeviceKey');
+      if (!deviceKey) {
+        deviceKey = 'dev_' + Date.now().toString(36) + '_' + Math.random().toString(36).slice(2, 9);
+        safeStorage.setItem('potatoDeviceKey', deviceKey);
+      }
       var payload = {
         tgId: u.id ? String(u.id) : null,
+        deviceKey: deviceKey,
         localPlayerId: myPlayerId,
         username: u.username || '',
         firstName: u.first_name || '',
