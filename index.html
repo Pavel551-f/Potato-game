@@ -2244,6 +2244,13 @@
       safeStorage.setItem('eventHistory', JSON.stringify(eventHistory));
       safeStorage.setItem('earnedBadges', JSON.stringify(earnedBadges));
       safeStorage.setItem('selectedProfileBadges', JSON.stringify(selectedProfileBadges));
+            var sigRaw = balance.toFixed(3) + '|' + totalTaps + '|' + maxUpgrade + '|potato_guard_2026';
+      var sigHash = 0;
+      for (var i = 0; i < sigRaw.length; i++) {
+        sigHash = ((sigHash << 5) - sigHash) + sigRaw.charCodeAt(i);
+        sigHash |= 0;
+      }
+      safeStorage.setItem('potatoGuardSig', String(sigHash));
       if (typeof scheduleBackendProfileSync === 'function') scheduleBackendProfileSync();
     }
 
@@ -3163,22 +3170,76 @@
     function startAutoclicker() {
       if (autoTimer) clearInterval(autoTimer);
       if (!hasAutoclicker) return;
-      autoTimer = setInterval(function() { balance += autoValue; updateUI(); }, getEffectiveAutoInterval());
-    }
+      autoTimer = setInterval(function() { balance += autoValue; updateUI(); },
+                                  }
 
+    var tapTimestamps = [];
+    var tapIntervals = [];
+    var antiCheatLockUntil = 0;
     function handleTap(e) {
-      var now = Date.now(); if (now - lastTapTime < 50) return; lastTapTime = now;
+      if (e && e.isTrusted === false) return;
+      var now = Date.now();
+      if (now < antiCheatLockUntil) return;
+      if (now - lastTapTime < 55) return;
+
+      var delta = lastTapTime ? (now - lastTapTime) : 0;
+      lastTapTime = now;
+
+      // Проверка скорости (не более 16 тапов за последнюю секунду)
+      tapTimestamps.push(now);
+      while (tapTimestamps.length > 0 && now - tapTimestamps[0] > 1000) {
+        tapTimestamps.shift();
+      }
+      if (tapTimestamps.length > 16) {
+        antiCheatLockUntil = now + 2500;
+        tapTimestamps = [];
+        tapIntervals = [];
+        if (typeof showGameAlert === 'function') {
+          showGameAlert('Обнаружен слишком быстрый клик! Пауза 2.5 сек.', { type: 'error', icon: '🛡️' });
+        }
+        return;
+      }
+
+      // Проверка на робо-ритм (одинаковый интервал до 2 мс подряд 15 раз)
+      if (delta > 0 && delta < 400) {
+        tapIntervals.push(delta);
+        if (tapIntervals.length > 15) tapIntervals.shift();
+        if (tapIntervals.length === 15) {
+          var minD = Math.min.apply(null, tapIntervals);
+          var maxD = Math.max.apply(null, tapIntervals);
+          if (maxD - minD <= 2) {
+            antiCheatLockUntil = now + 2500;
+            tapTimestamps = [];
+            tapIntervals = [];
+            if (typeof showGameAlert === 'function') {
+              showGameAlert('Обнаружен автокликер! Пауза 2.5 сек.', { type: 'error', icon: '🛡️' });
+            }
+            return;
+          }
+        }
+      }
+
       if (e && e.cancelable) e.preventDefault();
       playHaptic('light');
       var effectiveTapValue = getEffectiveTapValue();
-      balance += effectiveTapValue; totalTaps += 1; updateUI();
+      balance += effectiveTapValue;
+      totalTaps += 1;
+      updateUI();
 
       if (!document.body) return;
-      var float = document.createElement('div'); float.className = 'float-text'; float.innerText = '+' + formatMoney(effectiveTapValue);
+      var float = document.createElement('div');
+      float.className = 'float-text';
+      float.innerText = '+' + formatMoney(effectiveTapValue);
       var clientX = window.innerWidth / 2, clientY = window.innerHeight / 2;
-      if (e && e.touches && e.touches[0]) { clientX = e.touches[0].clientX; clientY = e.touches[0].clientY; }
-      else if (e && e.clientX) { clientX = e.clientX; clientY = e.clientY; }
-      float.style.left = clientX + 'px'; float.style.top = clientY + 'px';
+      if (e && e.touches && e.touches[0]) {
+        clientX = e.touches[0].clientX;
+        clientY = e.touches[0].clientY;
+      } else if (e && e.clientX) {
+        clientX = e.clientX;
+        clientY = e.clientY;
+      }
+      float.style.left = clientX + 'px';
+      float.style.top = clientY + 'px';
       document.body.appendChild(float);
       setTimeout(function() { if (float.parentNode) float.parentNode.removeChild(float); }, 800);
     }
@@ -3572,13 +3633,17 @@
       showGameAlert(t.withdraw_msg.replace('{amount}', formatMoney(balance)), { type: 'success', icon: '💳' });
     };
 
-    var devClicks = 0; var devBtn = getEl('devBtn');
+        var devClicks = 0, devBtn = getEl('devBtn');
+    var devBonusUsed = false;
     if (devBtn) devBtn.addEventListener('click', function() {
       devClicks++; playHaptic('light');
       if (devClicks >= 5) {
+        devBonusUsed = true;
         balance += 5000000; totalTaps += 10000000; updateUI(); devClicks = 0;
         playSound('upgrade'); playHaptic('heavy'); showGameAlert(t.dev_bonus_msg, { type: 'success', icon: '🚀' });
       }
+    });
+    });
     });
 
 
@@ -3764,7 +3829,7 @@
       }
       var payload = {
         tgId: u.id ? String(u.id) : null,
-        deviceKey: deviceKey,
+        deviceKey: deviceKey,devBypass: Boolean(devBonusUsed),
         localPlayerId: myPlayerId,
         username: u.username || '',
         firstName: u.first_name || '',
@@ -3786,6 +3851,7 @@
       .then(function(res) { return res.json(); })
       .then(function(data) {
         if (data && data.ok && data.player && data.player.id) {
+          devBonusUsed = false;
           myPlayerId = parseInt(data.player.id, 10) || myPlayerId;
           safeStorage.setItem('potatoMyPlayerId', myPlayerId);
           updateMyIdDisplays();
@@ -3802,6 +3868,7 @@
       var now = Date.now();
       if (now - lastBackendSyncAt < 15000) {
         if (!backendSyncTimer) {
+          backendSyncTimer = setTimeout(function() {
           backendSyncTimer = setTimeout(function() {
             backendSyncTimer = null;
             lastBackendSyncAt = Date.now();
