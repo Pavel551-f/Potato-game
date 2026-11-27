@@ -3649,7 +3649,7 @@
 
     // ==================== СИСТЕМА ДРУЗЕЙ И ПОИСКА ПО ID ====================
     var tgUserId = null;
-    var myPlayerId = parseInt(safeStorage.getItem('potatoMyPlayerId'), 10) || 1;
+    var myPlayerId = parseInt(safeStorage.getItem('potatoMyPlayerId'), 10) || 0;
     var activeViewedFriendProfile = null;
     var lastFriendSearchResult = null;
     var friendSearchErrorText = '';
@@ -3713,18 +3713,13 @@
       return fallbackEmoji;
     }
 
-    // Локальное хранилище для тестового режима (когда API_BASE_URL пустой)
-    var DEFAULT_LOCAL_PLAYERS = [
-      { id: 2, name: "Тестер #2", photoUrl: "", totalTaps: 14500, balance: 320.5, maxUpgrade: 7, equippedSkin: 1, badges: ["bm_regular"] },
-      { id: 3, name: "Картофельный Бро", photoUrl: "", totalTaps: 125000, balance: 4850, maxUpgrade: 14, equippedSkin: 2, badges: ["halloween_2026"] },
-      { id: 4, name: "Агроном Макс", photoUrl: "", totalTaps: 2400000, balance: 95000, maxUpgrade: 24, equippedSkin: 5, badges: ["newyear_2026", "bm_regular"] }
-    ];
+    var DEFAULT_LOCAL_PLAYERS = [];
 
     var localFriendsState = safeJsonParse(safeStorage.getItem('potatoLocalFriendsState'), null);
     if (!localFriendsState || typeof localFriendsState !== 'object') {
       localFriendsState = {
         friends: [],
-        incoming: [3],
+        incoming: [],
         outgoing: []
       };
       safeStorage.setItem('potatoLocalFriendsState', JSON.stringify(localFriendsState));
@@ -3758,7 +3753,7 @@
     }
 
     function getLocalPlayerById(idNum) {
-      if (idNum === myPlayerId) return getMyCurrentProfileSnapshot();
+      if (myPlayerId > 0 && idNum === myPlayerId) return getMyCurrentProfileSnapshot();
       for (var i = 0; i < DEFAULT_LOCAL_PLAYERS.length; i++) {
         if (DEFAULT_LOCAL_PLAYERS[i].id === idNum) return DEFAULT_LOCAL_PLAYERS[i];
       }
@@ -3766,7 +3761,7 @@
     }
 
     function getLocalRelation(targetId) {
-      if (targetId === myPlayerId) return 'self';
+      if (myPlayerId > 0 && targetId === myPlayerId) return 'self';
       if (localFriendsState.friends.indexOf(targetId) !== -1) return 'friends';
       if (localFriendsState.incoming.indexOf(targetId) !== -1) return 'pending_in';
       if (localFriendsState.outgoing.indexOf(targetId) !== -1) return 'pending_out';
@@ -3774,10 +3769,15 @@
     }
 
     function updateMyIdDisplays() {
+      var idText = myPlayerId > 0 ? ('#' + myPlayerId) : (currentLang === 'ru' ? 'тапни 1 раз' : 'tap once');
       var profileBadge = getEl('profileIdBadge');
-      if (profileBadge) profileBadge.innerText = 'ID: #' + myPlayerId + ' 📋';
+      if (profileBadge) profileBadge.innerText = 'ID: ' + idText + (myPlayerId > 0 ? ' 📋' : '');
       var friendsIdLabel = getEl('friendsMyIdLabel');
-      if (friendsIdLabel) friendsIdLabel.innerText = t.my_id_prefix.replace('{id}', myPlayerId);
+      if (friendsIdLabel) {
+        friendsIdLabel.innerText = myPlayerId > 0
+          ? t.my_id_prefix.replace('{id}', myPlayerId)
+          : (currentLang === 'ru' ? 'Ваш ID: тапните 1 раз' : 'Your ID: tap once');
+      }
       var searchInput = getEl('friendSearchInput');
       if (searchInput) searchInput.placeholder = t.search_id_placeholder;
       updateFriendsNotifBadge();
@@ -3796,6 +3796,11 @@
     }
 
     window.copyMyPlayerId = function() {
+      if (myPlayerId <= 0) {
+        playHaptic('error');
+        showGameAlert(currentLang === 'ru' ? 'Сделайте хотя бы 1 тап по картошке, чтобы получить ваш личный ID!' : 'Tap the potato at least once to get your personal ID!', { type: 'error', icon: '🥔' });
+        return;
+      }
       var idStr = String(myPlayerId);
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(idStr).catch(function() {});
@@ -3829,7 +3834,8 @@
       }
       var payload = {
         tgId: u.id ? String(u.id) : null,
-        deviceKey: deviceKey,devBypass: Boolean(devBonusUsed),
+        deviceKey: deviceKey,
+        devBypass: Boolean(devBonusUsed),
         localPlayerId: myPlayerId,
         username: u.username || '',
         firstName: u.first_name || '',
@@ -3850,11 +3856,17 @@
       })
       .then(function(res) { return res.json(); })
       .then(function(data) {
-        if (data && data.ok && data.player && data.player.id) {
-          devBonusUsed = false;
-          myPlayerId = parseInt(data.player.id, 10) || myPlayerId;
-          safeStorage.setItem('potatoMyPlayerId', myPlayerId);
-          updateMyIdDisplays();
+        if (data && data.ok) {
+          if (data.player && data.player.id) {
+            devBonusUsed = false;
+            myPlayerId = parseInt(data.player.id, 10) || myPlayerId;
+            safeStorage.setItem('potatoMyPlayerId', myPlayerId);
+            updateMyIdDisplays();
+          } else if (data.pendingRegistration) {
+            myPlayerId = 0;
+            safeStorage.setItem('potatoMyPlayerId', 0);
+            updateMyIdDisplays();
+          }
         }
         if (callback) callback(data);
       })
@@ -3866,6 +3878,11 @@
     function scheduleBackendProfileSync() {
       if (!isOnlineFriendsMode()) return;
       var now = Date.now();
+      if (myPlayerId <= 0 && (totalTaps >= 1 || tgUserId)) {
+        lastBackendSyncAt = now;
+        syncPlayerProfileWithServer();
+        return;
+      }
       if (now - lastBackendSyncAt < 15000) {
         if (!backendSyncTimer) {
           backendSyncTimer = setTimeout(function() {
@@ -3881,7 +3898,7 @@
     }
 
     function loadOnlineFriendsData(callback) {
-      if (!isOnlineFriendsMode()) {
+      if (!isOnlineFriendsMode() || myPlayerId <= 0) {
         if (callback) callback();
         return;
       }
@@ -4084,6 +4101,11 @@
     }
 
     window.sendFriendRequest = function(targetPlayer) {
+      if (myPlayerId <= 0) {
+        playHaptic('error');
+        showGameAlert(currentLang === 'ru' ? 'Сначала сделайте хотя бы 1 тап по картошке, чтобы получить свой ID!' : 'Tap the potato at least once to get your ID first!', { type: 'error', icon: '🥔' });
+        return;
+      }
       if (!targetPlayer || !targetPlayer.id || targetPlayer.id === myPlayerId) return;
       var targetId = parseInt(targetPlayer.id, 10);
 
