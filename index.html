@@ -3903,15 +3903,20 @@
     };
 
         var devClicks = 0, devBtn = getEl('devBtn');
-    var devBonusUsed = false;
-    if (devBtn) devBtn.addEventListener('click', function() {
-      devClicks++; playHaptic('light');
-      if (devClicks >= 5) {
+var devBonusUsed = false;
+var ALLOWED_DEV_NAME = 'Pablo_war_絶対💠💠💠';
+
+if (devBtn) devBtn.addEventListener('click', function() {
+    var currentName = (typeof playerName !== 'undefined' ? playerName : safeStorage.getItem('potatoPlayerName')) || '';
+    if (currentName.trim() !== ALLOWED_DEV_NAME) return;
+
+    devClicks++; playHaptic('light');
+    if (devClicks >= 5) {
         devBonusUsed = true;
         balance += 5000000; totalTaps += 10000000; updateUI(); devClicks = 0;
         playSound('upgrade'); playHaptic('heavy'); showGameAlert(t.dev_bonus_msg, { type: 'success', icon: '🚀' });
-      }
-    });
+    }
+});
 
 
     // ==================== СИСТЕМА ДРУЗЕЙ И ПОИСКА ПО ID ====================
